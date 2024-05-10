@@ -28,7 +28,7 @@ async create(data: Prisma.UserCreateInput): Promise<User> {
         id: randomUUID(),
         name: data.name,
         email: data.email,
-        password_hash: data.password_hash,
+        passwordHash: data.passwordHash,
         createdAt: new Date(),
         updatedAt: new Date(),
     };

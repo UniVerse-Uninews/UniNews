@@ -1,9 +1,12 @@
+// register.ts
+
 import { FastifyRequest, FastifyReply } from "fastify";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { UserAlreadyExistError } from "@/services/errors/user-already-exist-error ";
-import { makeRegisterUseCase } from "@/services/factories/make-register-use-case ";
+import { makeRegisterUseCase } from "../../services/factories/make-register-use-case";
 import dotenv from "dotenv";
+
+import { UserAlreadyExistError } from '../../services/errors/user-already-exist-error';
 
 dotenv.config();
 
@@ -13,24 +16,14 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
     name: z.string(),
     email: z.string().email(),
-    password_hash: z.string().min(6)
+    passwordHash: z.string().min(6)
   });
 
   try {
-    const { name, email, password_hash } = registerBodySchema.parse(request.body);
-
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) {
-      throw new UserAlreadyExistError();
-    }
+    const { name, email, passwordHash } = registerBodySchema.parse(request.body);
 
     const registerUseCase = makeRegisterUseCase();
-
-    // Create the new user
-    await prisma.user.create({ data: { name, email, password_hash }});
-
-    await registerUseCase.execute({ name, email, password_hash });
+    await registerUseCase.execute({ name, email, passwordHash });
 
     reply.status(201).send();
   } catch (error) {

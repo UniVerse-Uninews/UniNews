@@ -12,7 +12,7 @@ describe("Authenticate Use Case", () => {
     await usersRepository.create({
       name: "John Doe",
       email: "johndoe@example.com",
-      password_hash: await hash("123456", 6),
+      passwordHash: await hash("123456", 6),
     });
 
     const { user } = await sut.execute({
@@ -41,7 +41,7 @@ describe("Authenticate Use Case", () => {
     await usersRepository.create({
       name: "John Doe",
       email: "johndoe@example.com",
-      password_hash: await hash("123456", 6),
+      passwordHash: await hash("123456", 6),
     });
 
     expect(() =>
