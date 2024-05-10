@@ -19,7 +19,7 @@ model User {
   updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
   name          String
   email         String    @unique
-  password_hash String
+  passwordHash String
 
   @@map("users")
 }

@@ -9,7 +9,7 @@ export class PrismaUsersRepository implements UsersRepository {
     updatedAt: Date;
     name: string;
     email: string;
-    password_hash: string;
+    passwordHash: string;
   } | null> {
     throw new Error("Method not implemented.");
   }

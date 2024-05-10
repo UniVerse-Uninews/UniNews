@@ -12,12 +12,12 @@ describe("Register Use Case", () => {
     const { user } = await registerUseCase.execute({
       name: "John Doe",
       email: "johndoe@example.com",
-      password: "123456",
+      passwordHash: "123456",
     });
 
     const isPasswordCorrectlyHashed = await compare(
       "123456",
-      user.password_hash,
+      user.passwordHash,
     );
 
     expect(isPasswordCorrectlyHashed).toBe(true);
@@ -32,14 +32,14 @@ describe("Register Use Case", () => {
     await registerUseCase.execute({
       name: "John Doe",
       email,
-      password: "123456",
+      passwordHash: "123456",
     });
 
     await expect(
       registerUseCase.execute({
         name: "John Doe",
         email,
-        password: "123456",
+        passwordHash: "123456",
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistError);
   });
@@ -51,7 +51,7 @@ describe("Register Use Case", () => {
     const { user } = await registerUseCase.execute({
       name: "John Doe",
       email: "johndoe@example.com",
-      password: "123456",
+      passwordHash: "123456",
     });
 
     expect(user.id).toEqual(expect.any(String));
