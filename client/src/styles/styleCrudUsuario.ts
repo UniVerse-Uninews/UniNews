@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
       width: '100%',
     },
     nomeLogoAzul:{
-      color: '#0571D3',
+      color: 'black',
       marginLeft: '3%',
       fontSize: 50,
       fontFamily: 'Teachers Students',
