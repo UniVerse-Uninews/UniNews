@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, SafeAreaView,View } from 'react-native';
+import { StyleSheet, Text, TextInput, SafeAreaView, View} from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import axios from 'axios';
 
 import {styles} from '../styles/styleCrudUsuario';
-import Button from '../components/addButton/Button';
-import ImageViewer from '../components/addImageViewer/ImageViewer';
-import Table from '../components/addTable/Table';
+import Button from '../components/addButton/button';
+import ImageViewer from '../components/addImageViewer/imageViewer';
+import Table from '../components/addTable/table';
 import React from 'react';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado.jpeg');
 const http = "http://localhost:8080/api"
@@ -68,10 +69,10 @@ export function CrudUsuario() {
           <Text style={styles.nomeLogoAzul}>UNI</Text>  <Text style={styles.nomeLogoPreto}>NEWS</Text>
       </View>
         <SafeAreaView style = {styles.line} />
-      <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-        <View style={{ width: '50%', marginHorizontal: 8, marginTop: 10 }}>
-          <Text>Dados</Text>
-          <View style={{ borderWidth: 2, borderRadius: 10, borderColor: '#F3C63B', padding: 5 }}>
+      <View style={styles.containerDados}>
+        <View style={styles.viewDados}>
+          <Text style={styles.titulo}>Dados</Text>
+          <View style={styles.containerInput}>
             <Text style={styles.campos}>Nome de Usuário</Text>
             <TextInput style={styles.input} value={user.nome} onChange={(n:any) => setUser({ ...user, nome: n.target.value })} />
             <Text style={styles.campos}>Senha</Text>
@@ -96,9 +97,9 @@ export function CrudUsuario() {
           <Button etiqueta="Apagar" handlePress={deleteUser} />
         </View>
       </View>
-      <View style={{ width: '100%', height: '35%', marginTop: 10, marginLeft: 18 }}>
-        <Text style={{ marginTop: 15 }}>Dados Cadastrados</Text>
-        <View style={{ width: '90%', height: '100%', borderWidth: 2, borderColor: '#F3C63B', borderRadius: 10 }}>
+      <View style={styles.containerTable}>
+        <Text style={styles.titulo}>Dados Cadastrados</Text>
+        <View style={styles.table}>
           <Table usuarios={users} />
         </View>
       </View>
