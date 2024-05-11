@@ -11,7 +11,7 @@ import Table from '../components/addTable/Table';
 import React from 'react';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado.jpeg');
-const http = "http://localhost:5000/api"
+const http = "http://localhost:8080/api"
 
 export function CrudUsuario() {
   const [users, setUsers] = useState([]);
@@ -90,10 +90,10 @@ export function CrudUsuario() {
           </View>
         </View>
         <View style={styles.botoes}>
-          <Button etiqueta="Cadastrar" aoClicar={add} />
-          <Button etiqueta="Ver Todos" aoClicar={mostrar} />
-          <Button etiqueta="Alterar" aoClicar={alterar} />
-          <Button etiqueta="Apagar" aoClicar={deleteUser} />
+          <Button etiqueta="Cadastrar" handlePress={add} />
+          <Button etiqueta="Ver Todos" handlePress={mostrar} />
+          <Button etiqueta="Alterar" handlePress={alterar} />
+          <Button etiqueta="Apagar" handlePress={deleteUser} />
         </View>
       </View>
       <View style={{ width: '100%', height: '35%', marginTop: 10, marginLeft: 18 }}>

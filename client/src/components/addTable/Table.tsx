@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
 import { StyleSheet} from 'react-native';
+import React from 'react';
 
 
 export default function Table({usuarios}:{usuarios:any}) {
