@@ -3,12 +3,12 @@ import {StyleSheet, Text, Pressable, View } from "react-native";
 import {styles} from './buttonStyle';
 
 
-export function Button({etiqueta, aoClicar}:{etiqueta: any,aoClicar:any}){
+export default function Button({etiqueta, handlePress}:{etiqueta: any,handlePress:any}){
     return (
-        <View style={styles.botaoContainer}>
-            <Pressable style={styles.botao} 
-                onPress={aoClicar}>
-                <Text style={styles.etiqueta}>{etiqueta}</Text>
+        <View style={estilos.botaoContainer}>
+            <Pressable style={estilos.botao} 
+                onPress={handlePress}>
+                <Text style={estilos.etiqueta}>{etiqueta}</Text>
             </Pressable>
         </View>
     );

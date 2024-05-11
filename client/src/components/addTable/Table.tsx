@@ -5,6 +5,7 @@ import React from 'react';
 import {styles} from './tableStyle';
 
 
+
 export function Table({usuarios}:{usuarios:any}) {
     const [page, setPage] = useState<number>(0);
     const [numPerPage] = useState([3, 4]);

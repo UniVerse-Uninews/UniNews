@@ -12,8 +12,7 @@ import React from 'react';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado.jpeg');
-const http = "http://localhost:5000/api";
-
+const http = "http://localhost:8080/api"
 
 export function CrudUsuario() {
   const [users, setUsers] = useState([]);
@@ -91,11 +90,11 @@ export function CrudUsuario() {
             </View>
           </View>
         </View>
-        <View style={styles.containerButton}>
-          <Button etiqueta="Cadastrar" aoClicar={add}/>
-          <Button etiqueta="Ver Todos" aoClicar={mostrar} />
-          <Button etiqueta="Alterar" aoClicar={alterar} />
-          <Button etiqueta="Apagar" aoClicar={deleteUser} />
+        <View style={styles.botoes}>
+          <Button etiqueta="Cadastrar" handlePress={add} />
+          <Button etiqueta="Ver Todos" handlePress={mostrar} />
+          <Button etiqueta="Alterar" handlePress={alterar} />
+          <Button etiqueta="Apagar" handlePress={deleteUser} />
         </View>
       </View>
       <View style={styles.containerTable}>
