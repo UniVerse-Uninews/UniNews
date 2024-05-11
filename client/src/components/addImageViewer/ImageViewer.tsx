@@ -1,15 +1,9 @@
 import { StyleSheet, Image } from "react-native";
+import React from "react";
+import { styles } from "./imageViewerStyle";
 
 export default function ImageViewer({diretorio}:{diretorio:any}){
     return(
-        <Image source={diretorio} style={estilo.image}/>
+        <Image source={diretorio} style={styles.image}/>
     );
 }
-
-const estilo = StyleSheet.create({
-    image:{
-        width: 50,
-        height: 50,
-        borderRadius: 18
-    }
-});
