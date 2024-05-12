@@ -1,19 +1,20 @@
 import axios from 'axios';
 
-const http = "http://localhost:8080/api";
+const http = "http://localhost:8080/";
 
 export const getUsers = () => {
-  return axios.get<any[]>(`${http}/get`);
+  return axios.get<any[]>(`${http}users`);
 };
 
-export const updateUser = (email: string, userData: any) => {
-  return axios.put(`${http}/update/${email}`, userData);
+export const updateUser = (userId: string, userData: any) => {
+  return axios.put(`${http}users/${userId}`, userData);
 };
 
 export const addUser = (userData: any) => {
-  return axios.post(`${http}/save`, userData);
+  console.log(userData);
+  return axios.post(`${http}users`, userData);
 };
 
-export const deleteUser = (email: string) => {
-  return axios.delete(`${http}/delete/${email}`);
+export const deleteUser = (userId: string) => {
+  return axios.delete(`${http}users/${userId}`);
 };
