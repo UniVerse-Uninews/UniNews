@@ -6,10 +6,10 @@ import { getUsers, updateUser, addUser, deleteUser } from '../services/api';
 export const useCrud = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [user, setUser] = useState({
-    nome: "",
-    senha: "",
+    name: "",
+    passwordHash: "",
     email: "",
-    tipo: "adm"
+    // tipo: "adm"
   });
 
   const fetchUsers = () => {
@@ -26,7 +26,7 @@ export const useCrud = () => {
   const addUserHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addUser(user)
-      .then(() => setUser({ nome: "", senha: "", email: "", tipo: "" }))
+      .then(() => setUser({ name: "",  email: "" , passwordHash: "" }))
       .catch((err) => console.log("Erro ao adicionar"));
   };
 

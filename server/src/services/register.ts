@@ -36,6 +36,8 @@ export class RegisterUseCase {
       passwordHash: passwordHashed,
     });
 
+    console.log(user);
+
     return {
       user,
     };

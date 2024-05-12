@@ -19,6 +19,8 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     passwordHash: z.string().min(6)
   });
 
+  console.log(request.body);
+
   try {
     const { name, email, passwordHash } = registerBodySchema.parse(request.body);
 
