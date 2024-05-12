@@ -9,24 +9,16 @@ const prisma = new PrismaClient();
 export async function authenticate(request: FastifyRequest, reply: FastifyReply) {
   const authenticateBodySchema = z.object({
     email: z.string().email(),
-    passwordHash: z.string().min(6),
+    password: z.string().min(6),
   });
 
   try {
-    const { email, passwordHash } = authenticateBodySchema.parse(request.body);
-
-    // Find user using Prisma
-    const user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user || user.passwordHash !== passwordHash) {
-      throw new InvalidCredentialsError();
-    }
-
-    // If user exists and password matches, authenticate the user
-    const authenticateUseCase = makeAuthenticateUseCase();
-    await authenticateUseCase.execute({ email, passwordHash });
+    const { email, password } = authenticateBodySchema.parse(request.body);
 
     // If authentication succeeds, return success
+    const authenticateUseCase = makeAuthenticateUseCase();
+    await authenticateUseCase.execute({ email, password });
+
     return reply.status(200).send();
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
