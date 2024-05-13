@@ -84,7 +84,7 @@ export function CrudUsuario() {
         <View style={styles.containerButton}>
           <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
           <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
-          <Button etiqueta="Alterar" handlePress={() => updateUserHandler(user.email || '')} />
+          <Button etiqueta="Teste" handlePress={() => updateUserHandler(user.email || '')} />
           <Button etiqueta="Apagar" handlePress={() => deleteUserHandler(user.email || '')} />
         </View>
       </View>
