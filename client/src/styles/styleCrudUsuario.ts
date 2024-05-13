@@ -3,7 +3,6 @@ import Button from "../components/addButton/Button";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fffff',
     flex: 1,
   },
   cabecalho: {

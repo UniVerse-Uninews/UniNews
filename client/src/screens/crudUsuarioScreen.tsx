@@ -8,6 +8,7 @@ import Button from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
+import {Container, Name, Email} from '../theme/theme';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado.jpeg');
 
@@ -23,8 +24,8 @@ export function CrudUsuario() {
   } = useCrud();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.cabecalho}> 
+      <Container style={styles.container}>
+        <View style={styles.cabecalho}> 
         <View style={styles.imageContainer}>
           <ImageViewer diretorio={dirImagem} />
         </View>
@@ -95,6 +96,6 @@ export function CrudUsuario() {
         </View>
       </View>
       <StatusBar style="auto" />
-    </SafeAreaView>
-  );
+      </Container>
+        );
 }
