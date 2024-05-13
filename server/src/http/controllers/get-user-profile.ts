@@ -7,7 +7,7 @@ export async function getUserProfileController(request: FastifyRequest, reply: F
   const { userId } = request.params as { userId: string };
 
   try {
-    const usersRepository = new PrismaUsersRepository(); // Instantiate your repository here
+    const usersRepository = new PrismaUsersRepository(); 
     const getUserProfileUseCase = new GetUserProfileUseCase(usersRepository);
     const userProfile = await getUserProfileUseCase.execute({ userId });
     reply.status(200).send(userProfile);

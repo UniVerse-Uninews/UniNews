@@ -3,7 +3,7 @@ import axios from 'axios';
 const http = "http://localhost:8080/";
 
 export const getUsers = () => {
-  return axios.get<any[]>(`${http}users`);
+  return axios.get<any[]>(`${http}getallusers`);
 };
 
 export const updateUser = (userId: string, userData: any) => {

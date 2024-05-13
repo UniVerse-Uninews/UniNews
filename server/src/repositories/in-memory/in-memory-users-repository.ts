@@ -3,6 +3,9 @@ import { UsersRepository } from "../users-repository";
 import { User, Prisma } from "@prisma/client";
 
 export class InMemoryUsersRepository implements UsersRepository {
+  findAll(): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; email: string; passwordHash: string; }[]> {
+    throw new Error("Method not implemented.");
+  }
   public items: User[] = [];
 
   async findById(id: string) {
