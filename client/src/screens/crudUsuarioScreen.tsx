@@ -92,7 +92,7 @@ export function CrudUsuario() {
       <View style={styles.containerTable}>
         <Text style={styles.titulo}>Dados Cadastrados</Text>
         <View style={styles.table}>
-          <Table usuarios={users} />
+          <Table users={users} />
         </View>
       </View>
       <StatusBar style="auto" />

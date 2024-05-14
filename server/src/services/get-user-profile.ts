@@ -1,3 +1,4 @@
+// get-user-profile.ts
 import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository ";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 import { compare } from "bcryptjs";

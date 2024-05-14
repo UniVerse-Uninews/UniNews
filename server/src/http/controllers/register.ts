@@ -1,5 +1,3 @@
-// register.ts
-
 import { FastifyRequest, FastifyReply } from "fastify";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
