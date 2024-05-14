@@ -10,5 +10,5 @@ export async function appRoutes(app: FastifyInstance) {
     app.post("/sessions",authenticate); 
     app.get("/users/:userId", getUserProfileController);
     app.get("/getallusers", getAllUsersController);
-    app.post("/deleteuser", deleteUser);
+    app.delete("/deleteuser/:id", deleteUser);
   }

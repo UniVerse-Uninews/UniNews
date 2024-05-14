@@ -6,9 +6,19 @@ export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
   try {
     const usersRepository = new PrismaUsersRepository();
     const deleteUserUseCase = new DeleteUserUseCase(usersRepository);
-    const { id } = request.body as { id: string };
+    const { id } = request.params as { id: string };
+
+    if (!id) {
+      reply.status(400).send({ error: "ID parameter is missing" });
+      return;
+    }
 
     const user = await deleteUserUseCase.execute({ id });
+
+    if (!user) {
+      reply.status(404).send({ error: "User not found" });
+      return;
+    }
 
     reply.status(200).send(user);
   } catch (error) {
