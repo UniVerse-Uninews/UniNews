@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: '2.5%',
     paddingTop: '2.5%',
-    backgroundColor: '#FFF',
     height: '6%',
     alignItems: 'center',
   },
@@ -22,7 +21,6 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   nomeLogoAzul:{
-    color: '#0571D3',
     marginLeft: '3%',
     fontSize: 50,
     fontFamily: 'Teachers Students',
