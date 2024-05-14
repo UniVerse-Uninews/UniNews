@@ -19,7 +19,6 @@ export const useCrud = () => {
   };
 
   const updateUserHandler = (email: string) => {
-    // Validar email e senha antes de atualizar o usuário
     if (!validateEmail(user.email)) {
       alert("Por favor, insira um endereço de e-mail válido.");
       return;
