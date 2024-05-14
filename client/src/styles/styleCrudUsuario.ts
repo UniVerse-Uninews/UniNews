@@ -16,9 +16,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   line: {
-    borderBottomColor: '#0571D3',
+    borderColor: '#0571D3',
     borderWidth: 3,
-    borderColor:'#FFF',
     marginTop: '2.5%',
     width: '100%',
   },
