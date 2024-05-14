@@ -1,5 +1,4 @@
 export default {
     background: 'white',
-    textColor: 'black',
-    
+    text: 'black',
 }

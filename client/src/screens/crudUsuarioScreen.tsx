@@ -8,7 +8,7 @@ import Button from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, Name, Email} from '../theme/theme';
+import {Container, Name, Email} from '../theme/style';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado.jpeg');
 
@@ -30,7 +30,7 @@ export function CrudUsuario() {
           <ImageViewer diretorio={dirImagem} />
         </View>
         <Text style={[ styles.nomeLogoAzul]}>UNI</Text>  
-        <Text style={[ styles.nomeLogoPreto]}>NEWS</Text>
+        <Name style={[ styles.nomeLogoPreto]}>NEWS</Name>
       </View>
       <SafeAreaView style={styles.line} />
       <View style={styles.containerDados}>
