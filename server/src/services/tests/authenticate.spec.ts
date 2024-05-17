@@ -1,8 +1,8 @@
 import { expect, describe, it } from "vitest";
 import { hash } from "bcryptjs";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository ";
-import { AuthenticateUseCase } from "./authenticate";
-import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
+import { AuthenticateUseCase } from "../authenticate";
+import { InvalidCredentialsError } from "../errors/invalid-credentials-error";
 
 describe("Authenticate Use Case", () => {
   it("should be able to authenticate", async () => {
@@ -17,7 +17,7 @@ describe("Authenticate Use Case", () => {
 
     const { user } = await sut.execute({
       email: "johndoe@example.com",
-      passwordHash: "123456",
+      password: "123456",
     });
     expect(user.id).toEqual(expect.any(String));
   });
@@ -29,7 +29,7 @@ describe("Authenticate Use Case", () => {
     expect(() =>
       sut.execute({
         email: "johndoe@example.com",
-        passwordHash: "123456",
+        password: "123456",
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError);
   });
@@ -47,7 +47,7 @@ describe("Authenticate Use Case", () => {
     expect(() =>
       sut.execute({
         email: "johndoe@example.com",
-        passwordHash: "123123",
+        password: "123123",
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError);
   });

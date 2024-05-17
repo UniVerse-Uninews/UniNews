@@ -3,7 +3,13 @@ import { UsersRepository } from "../users-repository";
 import { User, Prisma } from "@prisma/client";
 
 export class InMemoryUsersRepository implements UsersRepository {
-  findAll(): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; email: string; passwordHash: string; }[]> {
+  findAll(): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; email: string; passwordHash: string; role: boolean; desactivated: boolean; }[]> {
+    throw new Error("Method not implemented.");
+  }
+  deleteUser(id: string): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; email: string; passwordHash: string; role: boolean; desactivated: boolean; }> {
+    throw new Error("Method not implemented.");
+  }
+  updateUser(id: string, data: Prisma.UserUpdateInput): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; email: string; passwordHash: string; role: boolean; desactivated: boolean; }> {
     throw new Error("Method not implemented.");
   }
   public items: User[] = [];
@@ -28,12 +34,14 @@ export class InMemoryUsersRepository implements UsersRepository {
 
 async create(data: Prisma.UserCreateInput): Promise<User> {
     const user: User = {
-        id: randomUUID(),
-        name: data.name,
-        email: data.email,
-        passwordHash: data.passwordHash,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+      id: randomUUID(),
+      name: data.name,
+      email: data.email,
+      passwordHash: data.passwordHash,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      role: data.role || false,
+      desactivated: false
     };
 
     this.items.push(user);
