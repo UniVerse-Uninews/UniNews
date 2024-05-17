@@ -9,6 +9,7 @@ interface RegisterUseCaseRequest {
   name: string;
   email: string;
   passwordHash: string;
+  role : boolean;
 }
 
 interface RegisterUseCaseResponse {
@@ -22,6 +23,7 @@ export class RegisterUseCase {
     name,
     email,
     passwordHash,
+    role
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
     if (userWithSameEmail) {
@@ -34,6 +36,7 @@ export class RegisterUseCase {
       name,
       email,
       passwordHash: passwordHashed,
+      role
     });
 
     console.log(user);

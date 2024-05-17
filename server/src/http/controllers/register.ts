@@ -14,7 +14,8 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
     name: z.string(),
     email: z.string().email(),
-    passwordHash: z.string().min(6)
+    passwordHash: z.string().min(6),
+    role : z.boolean()
   });
 
   console.log(request.body);
@@ -23,7 +24,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     const { name, email, passwordHash } = registerBodySchema.parse(request.body);
 
     const registerUseCase = makeRegisterUseCase();
-    await registerUseCase.execute({ name, email, passwordHash });
+    await registerUseCase.execute({ name, email, passwordHash, role: false || true});
 
     reply.status(201).send();
   } catch (error) {
