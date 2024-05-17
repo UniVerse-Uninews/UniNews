@@ -8,7 +8,7 @@ import Button from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, NameBlue, NameLogo} from '../theme/style';
+import {Container, NameBlue, NameLogo, Line, BorderColorButton, BorderColorContainer, BorderColorTable} from '../theme/style';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
 
@@ -30,26 +30,26 @@ export function CrudUsuario() {
           <ImageViewer diretorio={dirImagem} />
         </View>
         <NameBlue style={[ styles.nameLogo]}>UNI</NameBlue>  
-        <Text style={[ styles.nameLogo]}>NEWS</Text>
+        <NameLogo style={[ styles.nameLogo]}>NEWS</NameLogo>
       </View>
-      <SafeAreaView style={styles.line} />
+      <Line style={styles.line} />
       <View style={styles.containerDados}>
         <View style={styles.viewDados}>
-          <Text style={styles.titulo}>Dados</Text>
-          <View style={styles.containerInput}>
-            <TextInput 
+          <NameBlue style={styles.titulo}>Dados</NameBlue>
+          <BorderColorContainer style={styles.containerInput}>
+            <BorderColorButton 
               style={styles.input} 
               placeholder="Nome de Usuário" 
               value={user.name} 
               onChangeText={(n) => setUser({ ...user, name: n })} 
             />
-             <TextInput 
+             <BorderColorButton 
               style={styles.input} 
               placeholder="E-mail" 
               value={user.email} 
               onChangeText={(e) => setUser({ ...user, email: e })} 
             />
-            <TextInput 
+            <BorderColorButton 
               style={styles.input} 
               placeholder="Senha" 
               value={user.passwordHash} 
@@ -80,7 +80,7 @@ export function CrudUsuario() {
                 <Text >Usuário</Text>
               </View>
             </TouchableOpacity> */}
-          </View>
+          </BorderColorContainer>
         </View>
         <View style={styles.containerButton}>
           <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
@@ -91,9 +91,9 @@ export function CrudUsuario() {
       </View>
       <View style={styles.containerTable}>
         <Text style={styles.titulo}>Dados Cadastrados</Text>
-        <View style={styles.table}>
+        <BorderColorTable style={styles.table}>
           <Table users={users} />
-        </View>
+        </BorderColorTable>
       </View>
       <StatusBar style="auto" />
       </Container>
