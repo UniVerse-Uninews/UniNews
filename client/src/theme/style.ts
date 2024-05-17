@@ -13,12 +13,12 @@ export const NameBlue = styled.Text`
 export const Line= styled.View`
     border-color: ${props=> props.theme.blue};
 `;
-export const borderColorContainer= styled.View`
+export const BorderColorContainer= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
 `;
-export const borderColorButton= styled.TextInput`
+export const BorderColorButton= styled.TextInput`
     border-color: ${props=> props.theme.borderColorButton};
 `;
-export const borderColorTable= styled.View`
+export const BorderColorTable= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
 `;
