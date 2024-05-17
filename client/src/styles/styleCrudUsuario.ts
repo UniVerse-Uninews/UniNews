@@ -15,23 +15,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   line: {
-    borderColor: '#0571D3',
     borderWidth: 3,
     marginTop: '2.5%',
     width: '100%',
   },
-  nomeLogoAzul:{
+  nameLogo:{
     marginLeft: '3%',
     fontSize: 50,
     fontFamily: 'Teachers Students',
-
   },
-   nomeLogoPreto:{
-    color: '#000',
-    marginLeft: 0,
-    fontSize: 50,
-    fontFamily: 'Teachers Students',
-   },
      containerDados: {
       width: '100%',
       flexDirection: 'row',
@@ -47,7 +39,6 @@ export const styles = StyleSheet.create({
     titulo: {
       fontSize: 30,
       margin: '4%',
-      color: '#0571D3',
       fontFamily: 'Teachers Students',
     },
     imageContainer: {
@@ -57,11 +48,9 @@ export const styles = StyleSheet.create({
     containerInput: { 
       borderWidth: 2,
       borderRadius: 10,
-      borderColor: '#F3C63B',
       padding: 5,
     },
     input: {
-      borderColor: '#4A92C7',
       borderWidth: 1,
       borderRadius: 5,
       height: 30,
@@ -87,6 +76,5 @@ export const styles = StyleSheet.create({
       width: '90%',
       height: '100%',
       borderWidth: 2,
-      borderColor: '#F3C63B',
       borderRadius: 10 },
   });
