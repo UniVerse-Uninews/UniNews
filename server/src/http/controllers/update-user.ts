@@ -1,12 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import { makeUpdateUserUseCase } from "../../services/factories/make-update-use-case";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const prisma = new PrismaClient();
+import { ResourceNotFoundError } from "../../services/errors/resource-not-found-error";
 
 export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
   const updateUserBodySchema = z.object({
@@ -16,19 +11,26 @@ export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
     role: z.boolean().optional()
   });
 
+  const updateUserParamsSchema = z.object({
+    userId: z.string(),
+  });
+
   try {
     const { name, email, passwordHash, role } = updateUserBodySchema.parse(request.body);
-    const { userId } = request.params as { userId: string };
-
+    const { userId } = updateUserParamsSchema.parse(request.params);
 
     const updateUseCase = makeUpdateUserUseCase();
-    await updateUseCase.execute({ userId, name, email, passwordHash, role });
+    const result = await updateUseCase.execute({ userId, name, email, passwordHash, role });
 
-    reply.status(200).send();
+    reply.status(200).send({ user: result.user });
   } catch (error) {
-    console.error("Internal server error:", error);
-    reply.status(500).send({ message: "Internal server error" });
-  } finally {
-    await prisma.$disconnect();
+    if (error instanceof z.ZodError) {
+      reply.status(400).send({ message: "Validation error", errors: error.errors });
+    } else if (error instanceof ResourceNotFoundError) {
+      reply.status(404).send({ message: "User not found" });
+    } else {
+      console.error("Internal server error:", error);
+      reply.status(500).send({ message: "Internal server error" });
+    }
   }
 }

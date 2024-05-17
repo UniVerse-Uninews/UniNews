@@ -6,6 +6,7 @@ import { User } from "@prisma/client";
 interface AuthenticateUseCaseRequest {
   email: string;
   password: string;
+  desactivated?: boolean;
 }
 
 interface AuthenticateUseCaseResponse {
@@ -18,6 +19,7 @@ export class AuthenticateUseCase {
   async execute({
     email,
     password,
+    desactivated,
   }: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
@@ -28,6 +30,12 @@ export class AuthenticateUseCase {
     console.log("Retrieved hashed password from database:", user.passwordHash);
 
     const doesPasswordMatch = await compare(password, user.passwordHash);
+
+    const isDesactivated = user.desactivated;
+
+    if (isDesactivated) {
+      throw new InvalidCredentialsError();
+    }
 
     console.log("Does password match?", doesPasswordMatch);
 

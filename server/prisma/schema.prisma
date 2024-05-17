@@ -21,52 +21,11 @@ model User {
   email         String      @unique
   passwordHash  String
   role          Boolean     @default(false)
+  desactivated  Boolean     @default(false)
   
-  posts         Post[]      @relation("LikeRelation", references: [id])
-  universities  Univeristy[] @relation("FollowRelation", references: [id])
-  following   User[]   @relation("FollowRelation", references: [id])
-
   @@map("users")
 }
 
-model Post {
-  id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @default(now()) @updatedAt @map("updated_at")
-  title         String
-  content       String
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-  likes         Like[]
-  saves         PostSave[]
-
-  @@map("posts")
-}
-
-model PostSave {
-  id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @default(now()) @updatedAt @map("updated_at")
-  post          Post        @relation(fields: [postId], references: [id])
-  postId        String
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-
-  @@map("post_saves")
-}
-
-
-model Follow {
-  id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @default(now()) @updatedAt @map("updated_at")
-  follower      User        @relation("FollowRelation", fields: [followerId], references: [id])
-  followerId    String
-  following     User        @relation("FollowRelation", fields: [followingId], references: [id])
-  followingId   String
-
-  @@map("follows")
-}
 
 model Univeristy {
   id            String      @id @default(auto()) @map("_id") @db.ObjectId

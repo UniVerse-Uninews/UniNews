@@ -1,6 +1,7 @@
 import { hash } from "bcryptjs";
 import { UsersRepository } from "../repositories/users-repository";
 import { User } from "@prisma/client";
+import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 interface UpdateUserUseCaseRequest {
   userId: string;
@@ -26,16 +27,16 @@ export class UpdateUserUseCase {
   }: UpdateUserUseCaseRequest): Promise<UpdateUserUseCaseResponse> {
     const user = await this.usersRepository.findById(userId);
     if (!user) {
-      throw new Error("User not found");
+      throw new ResourceNotFoundError();
     }
+    
+    const dataToUpdate: Partial<User> = {};
+    if (name) dataToUpdate.name = name;
+    if (email) dataToUpdate.email = email;
+    if (passwordHash) dataToUpdate.passwordHash = await hash(passwordHash, 6);
+    if (role !== undefined) dataToUpdate.role = role;
 
-    // Update only provided fields
-    if (name) user.name = name;
-    if (email) user.email = email;
-    if (passwordHash) user.passwordHash = await hash(passwordHash, 6);
-    if (role !== undefined) user.role = role;
-
-    const updatedUser = await this.usersRepository.updateUser(userId, user);
+    const updatedUser = await this.usersRepository.updateUser(userId, dataToUpdate);
 
     return {
       user: updatedUser,
