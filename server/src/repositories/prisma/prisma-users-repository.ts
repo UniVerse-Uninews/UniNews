@@ -32,4 +32,24 @@ export class PrismaUsersRepository implements UsersRepository {
     const allUsers = await prisma.user.findMany();
     return allUsers;
   }
+
+  async deleteUser(id: string) : Promise<User>{
+    const user = await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+    return user;
+  }
+
+  async updateUser(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        ...data,
+        updatedAt: new Date(),
+      },
+    });
+    return user;
+  }
 }

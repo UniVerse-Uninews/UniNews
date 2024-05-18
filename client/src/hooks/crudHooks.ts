@@ -9,7 +9,7 @@ export const useCrud = () => {
     name: "",
     passwordHash: "",
     email: "",
-    tipo: "adm"
+    role: false || true
   });
 
   const fetchUsers = () => {
@@ -42,9 +42,8 @@ export const useCrud = () => {
       alert("A senha deve ter pelo menos 6 caracteres.");
       return;
     }
-
-    addUser(user)
-      .then(() => setUser({ name: "",  email: "" , passwordHash: "", tipo: ""}))
+    addUser({ ...user, role: false })
+      .then(() => setUser({ name: "",  email: "" , passwordHash: "", role: false || true}))
       .catch((err) => console.log("Erro ao adicionar"));
   };
   const validateEmail = (email: string) => {

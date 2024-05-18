@@ -10,13 +10,14 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
   const authenticateBodySchema = z.object({
     email: z.string().email(),
     password: z.string().min(6),
+    desactivated: z.boolean().optional()
   });
 
   try {
-    const { email, password } = authenticateBodySchema.parse(request.body);
+    const { email, password, desactivated } = authenticateBodySchema.parse(request.body);
 
     const authenticateUseCase = makeAuthenticateUseCase();
-    await authenticateUseCase.execute({ email, password });
+    await authenticateUseCase.execute({ email, password, desactivated});
 
     return reply.status(200).send();
   } catch (error) {

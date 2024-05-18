@@ -13,6 +13,9 @@ describe("Register Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: "123456",
+      role: false,
+      desactivated: false,
+
     });
 
     const isPasswordCorrectlyHashed = await compare(
@@ -33,6 +36,8 @@ describe("Register Use Case", () => {
       name: "John Doe",
       email,
       passwordHash: "123456",
+      role: false,
+      desactivated: false,
     });
 
     await expect(
@@ -40,6 +45,8 @@ describe("Register Use Case", () => {
         name: "John Doe",
         email,
         passwordHash: "123456",
+        role: false,
+        desactivated: false,
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistError);
   });
@@ -52,6 +59,8 @@ describe("Register Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: "123456",
+      role: false,
+      desactivated: false,
     });
 
     expect(user.id).toEqual(expect.any(String));
