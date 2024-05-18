@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import Button from "../components/addButton/Button";
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -60,15 +59,17 @@ export const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 5,
       height: 30,
-      fontFamily: 'Rubik',
+      fontFamily: 'Rubik_400Regular',
       paddingLeft: 5,
+      marginTop: '3%',
+      
     },
     containerButton: {
       margin: 30,
     },
     campos: {
       marginTop: 7,
-      fontFamily: 'Rubik',
+      fontFamily: 'Rubik_400Regular',
     },
     radio: {
       flexDirection: 'row',
@@ -76,7 +77,7 @@ export const styles = StyleSheet.create({
     },
     textRadio: {
       fontSize: 15,
-      fontFamily: 'Rubik',
+      fontFamily: 'Rubik_400Regular',
       paddingTop: '5%',
     },
     containerTable: { 

@@ -13,5 +13,4 @@ export default function Button({etiqueta, handlePress}:{etiqueta: any,handlePres
             </ColorButton>
         </View>
     );
-   
 }
