@@ -1,8 +1,9 @@
 export default {
-    background: 'white',
+    background: 'rgba(255,248,220, 0.3)',
     text: 'black',
     primary: '#000',
     blue: '#0571D3',      
     borderColorYellow: '#F3C63B',
-    borderColorButton: '#4A92C7',
+    borderColorInput: '#4A92C7',
+    btncrud: '#0571D3',
 }

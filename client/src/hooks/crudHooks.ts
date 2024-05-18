@@ -42,7 +42,6 @@ export const useCrud = () => {
       alert("A senha deve ter pelo menos 6 caracteres.");
       return;
     }
-
     addUser({ ...user, role: false })
       .then(() => setUser({ name: "",  email: "" , passwordHash: "", role: false || true}))
       .catch((err) => console.log("Erro ao adicionar"));

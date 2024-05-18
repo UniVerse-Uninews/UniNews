@@ -15,7 +15,6 @@ export const styles = StyleSheet.create({
       height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#0571D3'
     },
     etiqueta: {
       fontSize: 13,

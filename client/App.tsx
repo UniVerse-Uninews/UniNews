@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
-import {Container, NameBlue, NameLogo, Line, BorderColorButton, BorderColorContainer, BorderColorTable} from './src/theme/style';
+import {Container, NameBlue, Name, Line, BorderColorInput, BorderColorContainer, BorderColorTable, ColorButton} from './src/theme/style';
 
 
 

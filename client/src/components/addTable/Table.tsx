@@ -4,6 +4,7 @@ import { StyleSheet} from 'react-native';
 import React from 'react';
 import {styles} from './tableStyle';
 import { View, Text } from 'react-native';
+import { Name } from '../../theme/style';
 
 
 export function Table({ users }: { users: any }) {
@@ -28,11 +29,11 @@ export function Table({ users }: { users: any }) {
         <View>
             <DataTable>
                 <DataTable.Header style={styles.header}>
-                    <DataTable.Title style={styles.title} sortDirection='ascending'>ID</DataTable.Title>
-                    <DataTable.Title style={styles.title}>Usuário</DataTable.Title>
-                    <DataTable.Title style={styles.title}>Senha</DataTable.Title>
-                    <DataTable.Title style={styles.title}>E-mail</DataTable.Title>
-                    <DataTable.Title style={styles.title}>Tipo</DataTable.Title>
+                    <DataTable.Title style={styles.title} sortDirection='ascending'><Name>ID</Name></DataTable.Title>
+                    <DataTable.Title style={styles.title}><Name>Usuário</Name></DataTable.Title>
+                    <DataTable.Title style={styles.title}><Name>Senha</Name></DataTable.Title>
+                    <DataTable.Title style={styles.title}><Name>E-mail</Name></DataTable.Title>
+                    <DataTable.Title style={styles.title}><Name>Tipo</Name></DataTable.Title>
                 </DataTable.Header>
 
                 {users.slice(inicio, fim).map((t: any) => (

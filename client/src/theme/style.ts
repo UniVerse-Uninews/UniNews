@@ -4,7 +4,7 @@ export const Container = styled.View`
     color: ${props=> props.theme.text};
     flex: 1;
 `;
-export const NameLogo = styled.Text`
+export const Name = styled.Text`
     color: ${props=> props.theme.primary};
 `;
 export const NameBlue = styled.Text`
@@ -16,9 +16,13 @@ export const Line= styled.View`
 export const BorderColorContainer= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
 `;
-export const BorderColorButton= styled.TextInput`
-    border-color: ${props=> props.theme.borderColorButton};
+export const BorderColorInput= styled.TextInput`
+    border-color: ${props=> props.theme.borderColorInput};
+    color: ${props=> props.theme.primary};
 `;
 export const BorderColorTable= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
+`;
+export const ColorButton= styled.TouchableOpacity`
+    background: ${props=> props.theme.btncrud};
 `;
