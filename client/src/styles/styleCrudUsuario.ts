@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    paddingTop: '2.5%',
-    height: '6%',
+    paddingTop: '4.5%',
+    height: '10%',
     alignItems: 'center',
   },
   line: {
@@ -21,6 +21,10 @@ export const styles = StyleSheet.create({
   },
   nameLogo:{
     marginLeft: '3%',
+    fontSize: 50,
+    fontFamily: 'Teachers Students',
+  },
+  nameLogoSecondary:{
     fontSize: 50,
     fontFamily: 'Teachers Students',
   },
@@ -49,6 +53,8 @@ export const styles = StyleSheet.create({
       borderWidth: 2,
       borderRadius: 10,
       padding: 5,
+      paddingTop: 10,
+      paddingBottom: '10%',
     },
     input: {
       borderWidth: 1,
@@ -65,7 +71,13 @@ export const styles = StyleSheet.create({
       fontFamily: 'Rubik',
     },
     radio: {
-      height: 35
+      flexDirection: 'row',
+      paddingTop: '5%',
+    },
+    textRadio: {
+      fontSize: 15,
+      fontFamily: 'Rubik',
+      paddingTop: '5%',
     },
     containerTable: { 
       width: '100%',

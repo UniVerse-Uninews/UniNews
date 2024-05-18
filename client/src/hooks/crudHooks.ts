@@ -9,7 +9,7 @@ export const useCrud = () => {
     name: "",
     passwordHash: "",
     email: "",
-    // tipo: "adm"
+    tipo: "adm"
   });
 
   const fetchUsers = () => {
@@ -44,7 +44,7 @@ export const useCrud = () => {
     }
 
     addUser(user)
-      .then(() => setUser({ name: "",  email: "" , passwordHash: "" }))
+      .then(() => setUser({ name: "",  email: "" , passwordHash: "", tipo: ""}))
       .catch((err) => console.log("Erro ao adicionar"));
   };
   const validateEmail = (email: string) => {

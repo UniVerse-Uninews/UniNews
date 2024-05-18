@@ -8,7 +8,7 @@ import Button from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, NameBlue, NameLogo, Line, BorderColorButton, BorderColorContainer, BorderColorTable} from '../theme/style';
+import {Container, NameBlue, Name, Line, BorderColorInput, BorderColorContainer, BorderColorTable} from '../theme/style';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
 
@@ -30,33 +30,33 @@ export function CrudUsuario() {
           <ImageViewer diretorio={dirImagem} />
         </View>
         <NameBlue style={[ styles.nameLogo]}>UNI</NameBlue>  
-        <NameLogo style={[ styles.nameLogo]}>NEWS</NameLogo>
+        <Name style={[ styles.nameLogoSecondary]}>NEWS</Name>
       </View>
       <Line style={styles.line} />
       <View style={styles.containerDados}>
         <View style={styles.viewDados}>
           <NameBlue style={styles.titulo}>Dados</NameBlue>
           <BorderColorContainer style={styles.containerInput}>
-            <BorderColorButton 
-              style={styles.input} 
+            <BorderColorInput 
+              style={styles.input}  
               placeholder="Nome de Usuário" 
               value={user.name} 
               onChangeText={(n) => setUser({ ...user, name: n })} 
             />
-             <BorderColorButton 
+             <BorderColorInput 
               style={styles.input} 
               placeholder="E-mail" 
               value={user.email} 
               onChangeText={(e) => setUser({ ...user, email: e })} 
             />
-            <BorderColorButton 
+            <BorderColorInput 
               style={styles.input} 
               placeholder="Senha" 
               value={user.passwordHash} 
               onChangeText={(s) => setUser({ ...user, passwordHash: s })} 
             />
            
-            {/* <TouchableOpacity onPress={() => setUser({...user, tipo: 'adm'})}>
+            <TouchableOpacity onPress={() => setUser({...user, tipo: 'adm'})}>
               <View style={styles.radio}>
                 <RadioButton.Android
                   value="adm"
@@ -65,11 +65,12 @@ export function CrudUsuario() {
                   uncheckedColor='#91C0E2'
                   color='#3C6294'
                 />
-                <Text >Administrador</Text>
+                <Name style={styles.textRadio}>Administrador</Name>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setUser({...user, tipo: 'usu'})}>
-              <View style={styles.radio}>
+              
+                <TouchableOpacity onPress={() => setUser({...user, tipo: 'usu'})}>
+                  <View style={styles.radio}>
                 <RadioButton.Android
                   value="usu"
                   status={user.tipo === 'usu' ? 'checked' : 'unchecked'}
@@ -77,9 +78,10 @@ export function CrudUsuario() {
                   uncheckedColor='#91C0E2'
                   color='#3C6294'
                 />
-                <Text >Usuário</Text>
-              </View>
-            </TouchableOpacity> */}
+                <Name style={styles.textRadio}>Usuário</Name>
+                  </View>
+                </TouchableOpacity> 
+              
           </BorderColorContainer>
         </View>
         <View style={styles.containerButton}>
@@ -90,7 +92,7 @@ export function CrudUsuario() {
         </View>
       </View>
       <View style={styles.containerTable}>
-        <Text style={styles.titulo}>Dados Cadastrados</Text>
+        <Name style={styles.titulo}>Dados Cadastrados</Name>
         <BorderColorTable style={styles.table}>
           <Table users={users} />
         </BorderColorTable>

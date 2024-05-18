@@ -4,5 +4,7 @@ export default  {
         primary: '#FFFa',
         blue: '#4A92C7',      
         borderColorYellow: '#F2A20C',
-        borderColorButton: '##91C0E2',
+        borderColorInput: '##91C0E2',
+        btncrud: '#4A92C7',
+        opacity: '1',
 }
