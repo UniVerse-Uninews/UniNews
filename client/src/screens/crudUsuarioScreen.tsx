@@ -56,12 +56,12 @@ export function CrudUsuario() {
               onChangeText={(s) => setUser({ ...user, passwordHash: s })} 
             />
            
-            <TouchableOpacity onPress={() => setUser({...user, tipo: 'adm'})}>
+            <TouchableOpacity onPress={() => setUser({...user, role: true})}>
               <View style={styles.radio}>
                 <RadioButton.Android
                   value="adm"
-                  status={user.tipo === 'adm' ? 'checked' : 'unchecked'}
-                  onPress={() => setUser({...user, tipo: 'adm'})}
+                  status={user.role === true ? 'checked' : 'unchecked'}
+                  onPress={() => setUser({...user, role: true})}
                   uncheckedColor='#91C0E2'
                   color='#3C6294'
                 />
@@ -69,12 +69,12 @@ export function CrudUsuario() {
               </View>
             </TouchableOpacity>
               
-                <TouchableOpacity onPress={() => setUser({...user, tipo: 'usu'})}>
+                <TouchableOpacity onPress={() => setUser({...user, role: false})}>
                   <View style={styles.radio}>
                 <RadioButton.Android
                   value="usu"
-                  status={user.tipo === 'usu' ? 'checked' : 'unchecked'}
-                  onPress={() => setUser({...user, tipo: 'usu'})}
+                  status={user.role === false ? 'checked' : 'unchecked'}
+                  onPress={() => setUser({...user, role: false})}
                   uncheckedColor='#91C0E2'
                   color='#3C6294'
                 />
