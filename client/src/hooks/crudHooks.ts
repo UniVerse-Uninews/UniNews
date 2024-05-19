@@ -33,8 +33,6 @@ export const useCrud = () => {
         .catch((err) => console.log("Erro ao alterar"));
 };
 
-
-
   const addUserHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateEmail(user.email)) {
@@ -54,8 +52,8 @@ export const useCrud = () => {
     return regex.test(email);
   };
 
-  const deleteUserHandler = (email: string) => {
-    deleteUser(email)
+  const deleteUserHandler = (userId: string) => {
+    deleteUser(userId)
       .catch((err) => console.log("Erro ao deletar"));
   };
 

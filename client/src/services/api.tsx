@@ -16,5 +16,5 @@ export const addUser = (userData: any) => {
 };
 
 export const deleteUser = (userId: string) => {
-  return axios.delete(`${http}users/${userId}`);
+  return axios.delete(`${http}deleteuser/${userId}`);
 };
