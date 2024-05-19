@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
-import { StyleSheet} from 'react-native';
-import React from 'react';
-import {styles} from './tableStyle';
-import { View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { styles } from './tableStyle';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Name } from '../../theme/style';
 
-
-export function Table({ users }: { users: any }) {
+export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedUser: any) => void }) {
     const [page, setPage] = useState<number>(0);
     const [numPerPage] = useState([3, 4]);
     const [itemsPerPage, setItemsPerPage] = useState(numPerPage[0]);
-    const [selectedItem, setSelectedItem] = useState<any>(null); // State to track the selected item
+    const [selectedItem, setSelectedItem] = useState<any>(null);
 
     const inicio = page * itemsPerPage;
     const fim = Math.min((page + 1) * itemsPerPage, users.length);
@@ -20,9 +18,9 @@ export function Table({ users }: { users: any }) {
         setPage(0);
     }, [itemsPerPage]);
 
-    
     const handleRowClick = (item: any) => {
-        setSelectedItem(item); 
+        setSelectedItem(item);
+        onRowClick(item);
     };
 
     return (
@@ -55,7 +53,6 @@ export function Table({ users }: { users: any }) {
                     onItemsPerPageChange={setItemsPerPage}
                 />
             </DataTable>
-           
         </View>
     );
 }

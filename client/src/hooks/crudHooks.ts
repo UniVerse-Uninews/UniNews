@@ -6,6 +6,7 @@ import { getUsers, updateUser, addUser, deleteUser } from '../services/api';
 export const useCrud = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [user, setUser] = useState({
+    id: "",
     name: "",
     passwordHash: "",
     email: "",
@@ -18,19 +19,21 @@ export const useCrud = () => {
       .catch((err) => console.log('Erro ao mostrar'));
   };
 
-  const updateUserHandler = (email: string) => {
-    if (!validateEmail(user.email)) {
-      alert("Por favor, insira um endereço de e-mail válido.");
-      return;
+  const updateUserHandler = (userId: string, userData: any) => {
+    if (!validateEmail(userData.email)) {
+        alert("Por favor, insira um endereço de e-mail válido.");
+        return;
     }
-    if (user.passwordHash.length < 6) {
-      alert("A senha deve ter pelo menos 6 caracteres.");
-      return;
+    if (userData.passwordHash.length < 6) {
+        alert("A senha deve ter pelo menos 6 caracteres.");
+        return;
     }
 
-    updateUser(email, user)
-      .catch((err) => console.log("Erro ao alterar"));
-  };
+    updateUser(userId, userData)
+        .catch((err) => console.log("Erro ao alterar"));
+};
+
+
 
   const addUserHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +46,7 @@ export const useCrud = () => {
       return;
     }
     addUser({ ...user, role: false })
-      .then(() => setUser({ name: "",  email: "" , passwordHash: "", role: false || true}))
+      .then(() => setUser({id: "",  name: "",  email: "" , passwordHash: "", role: false || true}))
       .catch((err) => console.log("Erro ao adicionar"));
   };
   const validateEmail = (email: string) => {
@@ -56,6 +59,8 @@ export const useCrud = () => {
       .catch((err) => console.log("Erro ao deletar"));
   };
 
+  
+
   return {
     users,
     user,
@@ -63,6 +68,8 @@ export const useCrud = () => {
     fetchUsers,
     updateUserHandler,
     addUserHandler,
-    deleteUserHandler
+    deleteUserHandler,
   };
+
+
 };

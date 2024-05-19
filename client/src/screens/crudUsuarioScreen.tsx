@@ -23,6 +23,11 @@ export function CrudUsuario() {
     deleteUserHandler
   } = useCrud();
 
+  const handleRowClick = (clickedUser: any) => {
+    setUser(clickedUser);
+};
+
+
   return (
       <Container style={styles.container}>
         <View style={styles.cabecalho}> 
@@ -87,14 +92,14 @@ export function CrudUsuario() {
         <View style={styles.containerButton}>
           <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
           <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
-          <Button etiqueta="Alterar" handlePress={() => updateUserHandler(user.email || '')} />
+          <Button etiqueta="Alterar" handlePress={() => updateUserHandler(user.id, user)} />
           <Button etiqueta="Apagar" handlePress={() => deleteUserHandler(user.email || '')} />
         </View>
-      </View>
+      </View> 
       <View style={styles.containerTable}>
         <Name style={styles.titulo}>Dados Cadastrados</Name>
         <BorderColorTable style={styles.table}>
-          <Table users={users} />
+          <Table users={users} onRowClick={handleRowClick} />
         </BorderColorTable>
       </View>
       <StatusBar style="auto" />

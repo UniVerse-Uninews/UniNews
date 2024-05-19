@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const http = "https://tempdeploy.vercel.app";
+const http = "http://192.168.0.115:8080/";
 
 export const getUsers = () => {
   return axios.get<any[]>(`${http}getallusers`);
