@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import Button from "../components/addButton/Button";
+import { Checkbox } from "react-native-paper";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -9,22 +10,22 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    paddingTop: '4.5%',
-    height: '10%',
+    paddingTop: '7.5%',
+    height: '8%',
     alignItems: 'center',
   },
   line: {
     borderWidth: 3,
-    marginTop: '2.5%',
+    marginTop: '3.5%',
     width: '100%',
   },
   nameLogo:{
     marginLeft: '3%',
-    fontSize: 50,
+    fontSize: 25,
     fontFamily: 'Teachers Students',
   },
   nameLogoSecondary:{
-    fontSize: 50,
+    fontSize: 25,
     fontFamily: 'Teachers Students',
   },
      containerDados: {
@@ -84,10 +85,25 @@ export const styles = StyleSheet.create({
       width: '100%',
       height: '35%',
       marginTop: '5%',
-      marginLeft: '2%' },
+      marginLeft: '4%' },
     table: { 
       width: '90%',
       height: '100%',
       borderWidth: 2,
       borderRadius: 10 },
+    checkboxContainer: {
+      flexDirection: 'row',
+      paddingTop: '10%',
+      marginLeft: '5%',
+    },
+    checkbox: {
+      flexDirection: 'row',
+      paddingTop: '5%',
+    
+    },
+    textCheckbox: {
+      fontSize: 15,
+      fontFamily: 'Rubik_400Regular',
+      marginLeft: '4%',
+       },
   });

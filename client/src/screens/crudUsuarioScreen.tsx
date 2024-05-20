@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import Checkbox from 'expo-checkbox';
+
 
 import { styles } from '../styles/styleCrudUsuario';
 import Button from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, NameBlue, Name, Line, BorderColorInput, BorderColorContainer, BorderColorTable} from '../theme/style';
+import {Container, ScrollContainer, NameBlue, Name, Line, BorderColorInput, BorderColorContainer, BorderColorTable} from '../theme/style';
 
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
 
 export function CrudUsuario() {
+  const [isChecked, setChecked] = useState(false);
+
   const {
     users,
     user,
@@ -38,6 +42,7 @@ export function CrudUsuario() {
         <Name style={[ styles.nameLogoSecondary]}>NEWS</Name>
       </View>
       <Line style={styles.line} />
+      <ScrollContainer>
       <View style={styles.containerDados}>
         <View style={styles.viewDados}>
           <NameBlue style={styles.titulo}>Dados</NameBlue>
@@ -86,7 +91,16 @@ export function CrudUsuario() {
                 <Name style={styles.textRadio}>Usuário</Name>
                   </View>
                 </TouchableOpacity> 
-              
+                <View style={styles.checkboxContainer}>
+                  <Checkbox 
+                    style={styles.checkbox}
+                    value={isChecked} 
+                    onValueChange={setChecked} 
+                    color='#91C0E2'
+                  />
+                  <Name style={styles.textCheckbox}>Desativada?</Name>
+                </View>
+
           </BorderColorContainer>
         </View>
         <View style={styles.containerButton}>
@@ -97,12 +111,13 @@ export function CrudUsuario() {
         </View>
       </View> 
       <View style={styles.containerTable}>
-        <Name style={styles.titulo}>Dados Cadastrados</Name>
+        <NameBlue style={styles.titulo}>Dados Cadastrados</NameBlue>
         <BorderColorTable style={styles.table}>
           <Table users={users} onRowClick={handleRowClick} />
         </BorderColorTable>
       </View>
       <StatusBar style="auto" />
+      </ScrollContainer>
       </Container>
         );
 }

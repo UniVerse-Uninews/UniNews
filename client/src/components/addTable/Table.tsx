@@ -7,7 +7,7 @@ import { Name } from '../../theme/style';
 
 export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedUser: any) => void }) {
     const [page, setPage] = useState<number>(0);
-    const [numPerPage] = useState([3, 4]);
+    const [numPerPage] = useState([2, 3]);
     const [itemsPerPage, setItemsPerPage] = useState(numPerPage[0]);
     const [selectedItem, setSelectedItem] = useState<any>(null);
 
@@ -32,18 +32,21 @@ export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedU
                     <DataTable.Title style={styles.title}><Name>Senha</Name></DataTable.Title>
                     <DataTable.Title style={styles.title}><Name>E-mail</Name></DataTable.Title>
                     <DataTable.Title style={styles.title}><Name>Tipo</Name></DataTable.Title>
+                    <DataTable.Title style={styles.title}><Name>Desativada</Name></DataTable.Title>
+
                 </DataTable.Header>
 
                 {users.slice(inicio, fim).map((t: any) => (
                     <DataTable.Row key={t.id} style={styles.row} onPress={() => handleRowClick(t)}>
-                        <DataTable.Cell textStyle={styles.cell}>{t.id}</DataTable.Cell>
-                        <DataTable.Cell textStyle={styles.cell}>{t.name}</DataTable.Cell>
-                        <DataTable.Cell textStyle={styles.cell}>{t.passwordHash}</DataTable.Cell>
-                        <DataTable.Cell textStyle={styles.cell}>{t.email}</DataTable.Cell>
-                        <DataTable.Cell textStyle={styles.cell}>{t.tipo}</DataTable.Cell>
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.id}</Name></DataTable.Cell>
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.name}</Name></DataTable.Cell>
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.passwordHash}</Name></DataTable.Cell>
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.email}</Name></DataTable.Cell>
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.role}</Name></DataTable.Cell>
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.desactivated}</Name></DataTable.Cell>                            
                     </DataTable.Row>
                 ))}
-
+                
                 <DataTable.Pagination
                     page={page}
                     numberOfPages={Math.ceil(users.length / itemsPerPage)}
@@ -51,7 +54,9 @@ export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedU
                     label={`${inicio + 1}-${fim} de ${users.length}`}
                     numberOfItemsPerPage={itemsPerPage}
                     onItemsPerPageChange={setItemsPerPage}
+                    showFastPaginationControls
                 />
+                
             </DataTable>
         </View>
     );
