@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import DataTablePagination from 'react-native-paper/lib/typescript/components/DataTable/DataTablePagination';
 
 export const styles = StyleSheet.create({
     title:{
@@ -7,6 +8,7 @@ export const styles = StyleSheet.create({
     },
     header:{
         borderBottomColor: '#F3C63B'
+        
     },
     row:{
         width: '100%',
@@ -15,5 +17,6 @@ export const styles = StyleSheet.create({
     cell:{
         fontSize: 12,
         fontFamily: 'Rubik',
-    }
+    },
+
 });

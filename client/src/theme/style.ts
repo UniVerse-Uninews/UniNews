@@ -4,6 +4,11 @@ export const Container = styled.View`
     color: ${props=> props.theme.text};
     flex: 1;
 `;
+export const ScrollContainer = styled.ScrollView`
+    background: ${props=> props.theme.background};
+    color: ${props=> props.theme.text};
+    flex: 1;
+`;
 export const Name = styled.Text`
     color: ${props=> props.theme.primary};
 `;
