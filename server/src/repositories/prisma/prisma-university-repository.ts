@@ -3,59 +3,78 @@ import { Prisma, University } from "@prisma/client";
 import { UniversityRepository } from "../university-repository";
 
 export class PrismaUniversityRepository implements UniversityRepository {
-    findById(id: string): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; location: string; url: string; description: string; } | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: string): Promise<University | null> {
+        try {
+            const university = await prisma.university.findUnique({
+                where: { id },
+            });
+            return university;
+        } catch (error) {
+            // Handle error, log, or throw further
+            console.error("Error occurred while finding university by id:", error);
+            return null;
+        }
     }
-    findByUrl(url: string): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; location: string; url: string; description: string; } | null> {
-        throw new Error("Method not implemented.");
+
+    async findByUrl(url: string): Promise<University | null> {
+        try {
+            const university = await prisma.university.findUnique({
+                where: { id: url }, // Changed 'url' to 'id'
+            });
+            return university;
+        } catch (error) {
+            console.error("Error occurred while finding university by url:", error);
+            return null;
+        }
     }
-    // async findById(id: string): Promise<University | null> {
-    //     const university = await prisma.university.findUnique({
-    //     where: {
-    //         id,
-    //     },
-    //     });
-    //     return university;
-    // }
-    
-    // async findByUrl(url: string): Promise<University | null> {
-    //     const university = await prisma.university.findUnique({
-    //     where: {
-    //         id: url, // Replace 'url' with 'id'
-    //     },
-    //     });
-    //     return university;
-    // }
-    
-    async create(data: Prisma.UniversityCreateInput) {
-        const university = await prisma.university.create({
-        data,
-        });
-        return university;
+
+    async create(data: Prisma.UniversityCreateInput): Promise<University> {
+        try {
+            const university = await prisma.university.create({
+                data,
+            });
+            return university;
+        } catch (error) {
+            console.error("Error occurred while creating university:", error);
+            throw error;
+        }
     }
-    
-    async findAll() {
-        const allUniversities = await prisma.university.findMany();
-        return allUniversities;
+
+    async findAll(): Promise<University[]> {
+        try {
+            const allUniversities = await prisma.university.findMany();
+            return allUniversities;
+        } catch (error) {
+            console.error("Error occurred while finding all universities:", error);
+            return [];
+        }
     }
-    
-    async deleteUniversity(id: string) : Promise<University>{
-        const university = await prisma.university.delete({
-        where: {
-            id,
-        },
-        });
-        return university;
+
+    async deleteUniversity(id: string): Promise<University> {
+        try {
+            const university = await prisma.university.delete({
+                where: { id },
+            });
+            return university;
+        } catch (error) {
+            console.error("Error occurred while deleting university:", error);
+            throw error;
+        }
     }
-    
+
     async updateUniversity(id: string, data: Prisma.UniversityUpdateInput): Promise<University> {
-        const university = await prisma.university.update({
-        where: { id },
-        data: {
-            ...data,
-            updatedAt: new Date(),
-        },
-        });
-        return university;
+        try {
+            const university = await prisma.university.update({
+                where: { id },
+                data: {
+                    ...data,
+                    updatedAt: new Date(),
+                },
+            });
+            return university;
+        } catch (error) {
+            console.error("Error occurred while updating university:", error);
+            throw error;
+        }
     }
     }
