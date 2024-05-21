@@ -1,26 +1,31 @@
 import { prisma } from "@/lib/prisma ";
 import { Prisma, University } from "@prisma/client";
-import { UsersRepository } from "../users-repository";
 import { UniversityRepository } from "../university-repository";
 
 export class PrismaUniversityRepository implements UniversityRepository {
-    async findById(id: string): Promise<University | null> {
-        const university = await prisma.university.findUnique({
-        where: {
-            id,
-        },
-        });
-        return university;
+    findById(id: string): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; location: string; url: string; description: string; } | null> {
+        throw new Error("Method not implemented.");
     }
+    findByUrl(url: string): Promise<{ id: string; createdAt: Date; updatedAt: Date; name: string; location: string; url: string; description: string; } | null> {
+        throw new Error("Method not implemented.");
+    }
+    // async findById(id: string): Promise<University | null> {
+    //     const university = await prisma.university.findUnique({
+    //     where: {
+    //         id,
+    //     },
+    //     });
+    //     return university;
+    // }
     
-    async findByUrl(url: string): Promise<University | null> {
-        const university = await prisma.university.findUnique({
-        where: {
-            url: url,
-        },
-        });
-        return university;
-    }
+    // async findByUrl(url: string): Promise<University | null> {
+    //     const university = await prisma.university.findUnique({
+    //     where: {
+    //         id: url, // Replace 'url' with 'id'
+    //     },
+    //     });
+    //     return university;
+    // }
     
     async create(data: Prisma.UniversityCreateInput) {
         const university = await prisma.university.create({

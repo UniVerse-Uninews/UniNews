@@ -24,7 +24,7 @@ export class RegisterUniversityUseCase {
         url,
         description,
     }: RegisterUniversityUseCaseRequest): Promise<RegisterUniversityUseCaseResponse> {
-        const universityAlreadyExists = await this.universityRepository.findByEmail(url);
+        const universityAlreadyExists = await this.universityRepository.findByUrl(url);
 
         if (universityAlreadyExists) {
             throw new UniversityAlreadyExistError();
