@@ -1,32 +1,34 @@
 import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container: {
-        height:'13%',
+        flexDirection: 'column',
+        height:'35%',
+        width: '100%',
+        
       },
       cabecalho: {
+        marginTop: '15%',
         display: 'flex',
-        flexDirection: 'row',
         width: '100%',
-        paddingLeft: '2.5%',
-        paddingTop: '12%',
+        justifyContent: 'center',
         alignItems: 'center',
       },
       img: {
-        width: 50,
-        height: 50,
+        width: '50%',
+        height: '70%',   
       },
-      line: {
-        borderWidth: 3,
-        marginTop: '3.5%',
-        width: '100%',
+      containerTitleLogo:{
+        flexDirection: 'row',
+        marginBottom: '5%',
       },
       nameLogo:{
         marginLeft: '3%',
-        fontSize: 25,
+        fontSize: 50,
         fontFamily: 'Teachers Students',
+        color: '#4A94CC',
       },
       nameLogoSecondary:{
-        fontSize: 25,
+        fontSize: 50,
         fontFamily: 'Teachers Students',
       },
 });
