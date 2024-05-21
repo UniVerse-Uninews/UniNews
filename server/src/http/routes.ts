@@ -5,6 +5,7 @@ import { getUserProfileController } from "./controllers/get-user-profile";
 import { getAllUsersController } from "./controllers/get-all-users";
 import { deleteUser } from "./controllers/delete-user";
 import { updateUser } from "./controllers/update-user";
+import { registerUniversityController } from "./controllers/register-university";
 
 export async function appRoutes(app: FastifyInstance) {
     app.post("/users", register);
@@ -13,4 +14,5 @@ export async function appRoutes(app: FastifyInstance) {
     app.get("/getallusers", getAllUsersController);
     app.delete("/deleteuser/:id", deleteUser);
     app.put("/users/:userId", updateUser);
+    app.post("/university", registerUniversityController);
   }
