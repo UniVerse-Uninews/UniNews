@@ -4,29 +4,7 @@ import { Checkbox } from "react-native-paper";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  cabecalho: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    paddingLeft: '2.5%',
-    paddingTop: '7.5%',
-    height: '8%',
-    alignItems: 'center',
-  },
-  line: {
-    borderWidth: 3,
-    marginTop: '3.5%',
-    width: '100%',
-  },
-  nameLogo:{
-    marginLeft: '3%',
-    fontSize: 25,
-    fontFamily: 'Teachers Students',
-  },
-  nameLogoSecondary:{
-    fontSize: 25,
-    fontFamily: 'Teachers Students',
+    
   },
      containerDados: {
       width: '100%',
@@ -83,7 +61,7 @@ export const styles = StyleSheet.create({
     },
     containerTable: { 
       width: '100%',
-      height: '35%',
+      height: '50%',
       marginTop: '5%',
       marginLeft: '4%' },
     table: { 
@@ -94,7 +72,7 @@ export const styles = StyleSheet.create({
     checkboxContainer: {
       flexDirection: 'row',
       paddingTop: '10%',
-      marginLeft: '5%',
+      marginLeft: '4%',
     },
     checkbox: {
       flexDirection: 'row',

@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 export const Container = styled.View`
     background: ${props=> props.theme.background};
     color: ${props=> props.theme.text};
-    flex: 1;
 `;
 export const ScrollContainer = styled.ScrollView`
     background: ${props=> props.theme.background};
