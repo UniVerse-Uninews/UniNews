@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     row:{
         width: '100%',
         borderBottomColor: '#F3C63B',
+        padding: 10,
     },
     cell:{
         fontSize: 12,

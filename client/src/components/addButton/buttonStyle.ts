@@ -21,4 +21,13 @@ export const styles = StyleSheet.create({
       color: '#fff',
       fontFamily: 'Rubik',
     },
+    btnSpecial: {
+      backgroundColor: '#4A94CC',
+      borderRadius: 10,
+      width: '100%',
+      height: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: '15%',
+        },
   });

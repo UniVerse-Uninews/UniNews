@@ -1,9 +1,9 @@
-import {CrudUsuario} from './src/screens/crudUsuarioScreen';
+import { Cadastro } from './src/screens/cadastro';
+import { CrudUsuario } from './src/screens/crudUsuarioScreen';
 import { useColorScheme } from 'react-native';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
-import {Container, NameBlue, Name, Line, BorderColorInput, BorderColorContainer, BorderColorTable, ColorButton} from './src/theme/style';
 
 
 
@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-        <CrudUsuario/>
+        <Cadastro/>
     </ThemeProvider>
   );
 }

@@ -1,10 +1,10 @@
 import React from "react";
-import {StyleSheet, Text, Pressable, View } from "react-native";
+import {StyleSheet, Text, Pressable, View, Touchable, TouchableOpacity } from "react-native";
 import {styles} from './buttonStyle';
 import {ColorButton} from '../../theme/style';
 
 
-export default function Button({etiqueta, handlePress}:{etiqueta: any,handlePress:any}){
+export  function Button({etiqueta, handlePress}:{etiqueta: any,handlePress:any}){
     return (
         <View style={styles.botaoContainer}>
             <ColorButton style={styles.botao} 
@@ -13,4 +13,14 @@ export default function Button({etiqueta, handlePress}:{etiqueta: any,handlePres
             </ColorButton>
         </View>
     );
+}
+export function ButtonSpecial({etiqueta, handlePress}:{etiqueta: any,handlePress:any}){
+    return (
+        <View style={styles.botaoContainer}>
+            <TouchableOpacity style={styles.btnSpecial} 
+                onPress={handlePress}>
+                <Text style={styles.etiqueta}>{etiqueta}</Text>
+            </TouchableOpacity>
+            </View>
+            );
 }

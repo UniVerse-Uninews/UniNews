@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 export const Container = styled.View`
     background: ${props=> props.theme.background};
     color: ${props=> props.theme.text};
-    flex: 1;
 `;
 export const ScrollContainer = styled.ScrollView`
     background: ${props=> props.theme.background};
@@ -27,6 +26,9 @@ export const BorderColorInput= styled.TextInput`
 `;
 export const BorderColorTable= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
+`;
+export const BorderColorBlue= styled.View`
+    border-color: ${props=> props.theme.blue};
 `;
 export const ColorButton= styled.TouchableOpacity`
     background: ${props=> props.theme.btncrud};
