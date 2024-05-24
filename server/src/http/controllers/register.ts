@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import { z } from "zod";
 import { makeRegisterUseCase } from "../../services/factories/make-register-use-case";
 import dotenv from "dotenv";
@@ -15,16 +15,17 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     email: z.string().email(),
     passwordHash: z.string().min(6),
-    role : z.string()
+    desactivated: z.boolean().default(false),
+    role: z.enum(["ADMIN", "USER"]).default("USER"),
   });
 
   console.log(request.body);
 
   try {
-    const { name, email, passwordHash, role } = registerBodySchema.parse(request.body);
+    const { name, email, passwordHash, desactivated, role } = registerBodySchema.parse(request.body);
 
     const registerUseCase = makeRegisterUseCase();
-    await registerUseCase.execute({ name, email, passwordHash, role, desactivated: false});
+    await registerUseCase.execute({ name, email, passwordHash, desactivated, role});
 
     reply.status(201).send();
   } catch (error) {

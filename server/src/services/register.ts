@@ -24,7 +24,6 @@ export class RegisterUseCase {
     name,
     email,
     passwordHash,
-    role,
     desactivated
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
@@ -38,7 +37,6 @@ export class RegisterUseCase {
       name,
       email,
       passwordHash: passwordHashed,
-      
       desactivated
     });
 
