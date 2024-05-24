@@ -10,15 +10,20 @@ import { getAllUniversityController } from "./controllers/get-all-university"
 import { getUniversityController } from "./controllers/get-university";
 import { deleteUniversityController } from "./controllers/delete-university";
 import { updateUniversityController } from "./controllers/update-university";
+import { profile } from "./controllers/profile";
+import { refresh } from "./controllers/refresh";
+import { verifyUserRole } from "./middleware/verify-user-role";
 
 export async function appRoutes(app: FastifyInstance) {
   // User routes
     app.post("/users", register);
     app.post("/sessions",authenticate); 
     app.get("/users/:userId", getUserProfileController);
-    app.get("/getallusers", getAllUsersController);
+    app.get('/getallusers', { preHandler: verifyUserRole('ADMIN') }, getAllUsersController);
     app.delete("/deleteuser/:id", deleteUser);
     app.put("/users/:userId", updateUser);
+    app.get("/me", profile)
+    app.patch("/token/refresh", refresh)
 
   // University routes  
     app.post("/university", registerUniversityController);

@@ -9,7 +9,7 @@ interface RegisterUseCaseRequest {
   name: string;
   email: string;
   passwordHash: string;
-  role : boolean;
+  role : string;
   desactivated: boolean;
 }
 
@@ -24,7 +24,6 @@ export class RegisterUseCase {
     name,
     email,
     passwordHash,
-    role,
     desactivated
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
@@ -38,7 +37,6 @@ export class RegisterUseCase {
       name,
       email,
       passwordHash: passwordHashed,
-      role,
       desactivated
     });
 

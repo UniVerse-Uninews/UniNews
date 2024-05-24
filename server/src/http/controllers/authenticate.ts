@@ -14,18 +14,51 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
   });
 
   try {
+    
     const { email, password, desactivated } = authenticateBodySchema.parse(request.body);
 
     const authenticateUseCase = makeAuthenticateUseCase();
-    await authenticateUseCase.execute({ email, password, desactivated});
+    const { user } = await authenticateUseCase.execute({ email, password, desactivated });
 
-    return reply.status(200).send();
+    const token = await reply.jwtSign({
+      role: user.role,
+    },
+      {
+        sign: {
+          sub: user.id,
+      },
+    },
+    );
+
+    const refreshToken = await reply.jwtSign({
+      role: user.role,
+    },
+      {
+        sign: {
+          sub: user.id,
+          expiresIn: "7d",
+      },
+    },
+    );
+
+    return reply
+    .setCookie("refreshToken", refreshToken, {
+      path: "/",
+      httpOnly: true,
+      secure: true,
+      sameSite: true,
+    })
+    .status(200)
+    .send({
+      token
+    });
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(400).send({ message: error.message });
     } else {
       console.error("Error during authentication:", error);
       return reply.status(500).send({ message: "Internal Server Error" });
+      
     }
   }
 }
