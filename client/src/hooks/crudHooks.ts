@@ -1,5 +1,3 @@
-// crudHooks.ts - lida com a lógica de estado do CRUD
-
 import { useState } from 'react';
 import { getUsers, updateUser, addUser, deleteUser } from '../services/api';
 
@@ -9,8 +7,9 @@ export const useCrud = () => {
     id: "",
     name: "",
     passwordHash: "",
+    confirmPassword: "",
     email: "",
-    role: false || true
+    role: false
   });
 
   const fetchUsers = () => {
@@ -28,13 +27,16 @@ export const useCrud = () => {
         alert("A senha deve ter pelo menos 6 caracteres.");
         return;
     }
+    if (userData.passwordHash !== userData.confirmPassword) {
+        alert("As senhas não coincidem.");
+        return;
+    }
 
     updateUser(userId, userData)
         .catch((err) => console.log("Erro ao alterar"));
-};
+  };
 
-  const addUserHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const addUserHandler = () => {
     if (!validateEmail(user.email)) {
       alert("Por favor, insira um endereço de e-mail válido.");
       return;
@@ -43,10 +45,15 @@ export const useCrud = () => {
       alert("A senha deve ter pelo menos 6 caracteres.");
       return;
     }
+    if (user.passwordHash !== user.confirmPassword) {
+      alert("As senhas não coincidem.");
+      return;
+    }
     addUser({ ...user, role: false })
-      .then(() => setUser({id: "",  name: "",  email: "" , passwordHash: "", role: false || true}))
+      .then(() => setUser({id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: false}))
       .catch((err) => console.log("Erro ao adicionar"));
   };
+
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -57,8 +64,6 @@ export const useCrud = () => {
       .catch((err) => console.log("Erro ao deletar"));
   };
 
-  
-
   return {
     users,
     user,
@@ -68,6 +73,4 @@ export const useCrud = () => {
     addUserHandler,
     deleteUserHandler,
   };
-
-
 };

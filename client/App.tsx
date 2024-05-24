@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-        <CrudUsuario/>
+        <Cadastro/>
     </ThemeProvider>
   );
 }
