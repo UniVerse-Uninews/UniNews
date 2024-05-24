@@ -6,11 +6,11 @@ import Checkbox from 'expo-checkbox';
 
 
 import { styles } from '../styles/styleCrudUsuario';
-import Button from '../components/addButton/Button';
+import {Button} from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, ScrollContainer, NameBlue, Name, BorderColorInput, BorderColorContainer, BorderColorTable} from '../theme/style';
+import {Container, ScrollContainer, NameBlue, Name, BackgroundInputText, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput} from '../theme/style';
 import { Header } from '../components/addHeader/header';
 
 export function CrudUsuario() {
@@ -38,20 +38,20 @@ export function CrudUsuario() {
           <View style={styles.containerDados}>
             <View style={styles.viewDados}>
               <NameBlue style={styles.titulo}>Dados</NameBlue>
-              <BorderColorContainer style={styles.containerInput}>
-                <BorderColorInput
+              <BackgroundInput style={styles.containerInput}>
+                <BackgroundInputText
                   style={styles.input}
                   placeholder="Nome de Usuário"
                   value={user.name}
                   onChangeText={(n) => setUser({ ...user, name: n })}
                 />
-                <BorderColorInput
+                <BackgroundInputText
                   style={styles.input}
                   placeholder="E-mail"
                   value={user.email}
                   onChangeText={(e) => setUser({ ...user, email: e })}
                 />
-                <BorderColorInput
+                <BackgroundInputText
                   style={styles.input}
                   placeholder="Senha"
                   value={user.passwordHash}
@@ -92,7 +92,7 @@ export function CrudUsuario() {
                   />
                   <Name style={styles.textCheckbox}>Desativada?</Name>
                 </View>
-              </BorderColorContainer>
+              </BackgroundInput>
             </View>
             <View style={styles.containerButton}>
               <Button etiqueta="Cadastrar" handlePress={addUserHandler} />

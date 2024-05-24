@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import Button from "../components/addButton/Button";
+import {Button} from "../components/addButton/Button";
 import { Checkbox } from "react-native-paper";
 export const styles = StyleSheet.create({
   container: {
@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
       padding: 5,
       paddingTop: 10,
       paddingBottom: '10%',
+      
     },
     input: {
       borderWidth: 1,

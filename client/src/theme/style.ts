@@ -20,10 +20,6 @@ export const Line= styled.View`
 export const BorderColorContainer= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
 `;
-export const BorderColorInput= styled.TextInput`
-    border-color: ${props=> props.theme.borderColorInput};
-    color: ${props=> props.theme.primary};
-`;
 export const BorderColorTable= styled.View`
     border-color: ${props=> props.theme.borderColorYellow};
 `;
@@ -32,4 +28,17 @@ export const BorderColorBlue= styled.View`
 `;
 export const ColorButton= styled.TouchableOpacity`
     background: ${props=> props.theme.btncrud};
+`;
+export const BackgroundInput= styled.View`
+    background-color: ${props=> props.theme.backgroundInput};
+    border-color: ${props=> props.theme.borderColorInput};
+    color: ${props=> props.theme.primary};
+`;
+export const BackgroundContainerInput= styled.View`
+    background-color: ${props=> props.theme.backgroundContainerInput};
+`;
+export const BackgroundInputText= styled.TextInput`
+    background-color: ${props=> props.theme.backgroundInput};
+    border-color: ${props=> props.theme.borderColorInput};
+    color: ${props=> props.theme.primary};
 `;

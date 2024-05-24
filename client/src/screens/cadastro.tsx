@@ -1,11 +1,12 @@
 import { styles } from '../styles/styleCadastro';
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { BigHeader } from '../components/addBigHeader/bigHeader';
-import { Container } from '../theme/style';
+import { BackgroundContainerInput, BackgroundInput, Container } from '../theme/style';
 import {ButtonSpecial} from '../components/addButton/Button';
 import { useCrud } from '../hooks/crudHooks';
 import {Ionicons} from '@expo/vector-icons';
+
 
 
 export function Cadastro() {
@@ -19,33 +20,37 @@ export function Cadastro() {
         <>
             <BigHeader />
             <Container style={styles.container}>
-                <View style={styles.containerDados}>
+                <BackgroundContainerInput style={styles.containerDados}>
+                <KeyboardAvoidingView  
+                behavior={Platform.OS=='ios' ?"padding": "height"}
+                keyboardVerticalOffset={100}>
                     <View style={styles.containerCadastro}>
                         <Text style={styles.title}>Cadastro</Text>
                     </View>
                     <Text style={styles.subtitle}>Usuário</Text>
                     <View style={styles.containerInput}>  
-                        <View style={styles.inputArea}>
-                        <TextInput style={styles.input} placeholder="Nome"/>
-                        </View>
+                        <BackgroundInput style={styles.inputArea}>
+                        <TextInput style={styles.input} placeholder="Nome" placeholderTextColor={'#8F8F8F'}/>
+                        </BackgroundInput>
                     </View>
 
                     <Text style={styles.subtitle}>E-mail</Text>
                     <View style={styles.containerInput}> 
-                        <View style={styles.inputArea}> 
-                        <TextInput style={styles.input} placeholder="E-mail"/>
-                        </View>
+                        <BackgroundInput style={styles.inputArea}> 
+                        <TextInput style={styles.input} placeholder="E-mail"  placeholderTextColor={'#8F8F8F'}/>
+                        </BackgroundInput>
                     </View>
                     
                     <Text style={styles.subtitle}>Senha</Text>
                     <View style={styles.containerInput}>  
-                        <View style={styles.inputArea}>
+                        <BackgroundInput style={styles.inputArea}>
                             <TextInput 
                                 value={input} 
                                 style={styles.input}
                                 placeholder='Senha'
                                 secureTextEntry={true}
                                 onChangeText={(text)=>setInput(text)}
+                                placeholderTextColor={'#8F8F8F'}
                             />
                             <TouchableOpacity style={styles.icon} 
                             onPress={()=>setHidePass(!hidePass)}>
@@ -56,18 +61,19 @@ export function Cadastro() {
                                 }
                                 </TouchableOpacity>
                         
-                        </View>
+                        </BackgroundInput>
                     </View>
                     
                     <Text style={styles.subtitle}>Confirmar Senha</Text>
                     <View style={styles.containerInput}>  
-                        <View style={styles.inputArea}>
+                        <BackgroundInput style={styles.inputArea}>
                             <TextInput 
                                 value={input1} 
                                 style={styles.input} 
                                 placeholder='Confirmar Senha'
                                 secureTextEntry={true}
                                 onChangeText={(text)=>setInput1(text)}
+                                placeholderTextColor={'#8F8F8F'}
                                                             />
                             <TouchableOpacity style={styles.icon}
                             onPress={()=>setHidePass(!hidePass)}>
@@ -77,13 +83,14 @@ export function Cadastro() {
                                 <Ionicons name={'eye-off'} size={24} color="black" />
                                 }
                             </TouchableOpacity>
-                        </View>
+                        </BackgroundInput>
                     </View>
 
                     <View style={styles.containerInput}>  
                         <ButtonSpecial etiqueta="Cadastrar" handlePress={addUserHandler} />
                     </View>
-                </View>
+                </KeyboardAvoidingView>
+                </BackgroundContainerInput>
             </Container>
         </>
     );
