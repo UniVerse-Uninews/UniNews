@@ -3,8 +3,8 @@ import React from "react";
 import { styles } from "./styleImageBig";
 
 
-export function ImageBig({diretorio}:{diretorio:any}){
-    return(
-        <Image source={diretorio} style={styles.image}/>
+export function ImageBig({ diretorio }: { diretorio: any }) {
+    return (
+        <Image source={diretorio} style={styles.image} />
     );
 }

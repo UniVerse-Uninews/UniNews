@@ -1,26 +1,26 @@
 import React from "react";
-import {StyleSheet, Text, Pressable, View, Touchable, TouchableOpacity } from "react-native";
-import {styles} from './buttonStyle';
-import {ColorButton} from '../../theme/style';
+import { StyleSheet, Text, Pressable, View, Touchable, TouchableOpacity } from "react-native";
+import { styles } from './buttonStyle';
+import { ColorButton } from '../../theme/style';
 
 
-export  function Button({etiqueta, handlePress}:{etiqueta: any,handlePress:any}){
+export function Button({ etiqueta, handlePress }: { etiqueta: any, handlePress: any }) {
     return (
         <View style={styles.botaoContainer}>
-            <ColorButton style={styles.botao} 
+            <ColorButton style={styles.botao}
                 onPress={handlePress}>
                 <Text style={styles.etiqueta}>{etiqueta}</Text>
             </ColorButton>
         </View>
     );
 }
-export function ButtonSpecial({etiqueta, handlePress}:{etiqueta: any,handlePress:any}){
+export function ButtonSpecial({ etiqueta, handlePress }: { etiqueta: any, handlePress: any }) {
     return (
         <View style={styles.botaoContainer}>
-            <TouchableOpacity style={styles.btnSpecial} 
+            <TouchableOpacity style={styles.btnSpecial}
                 onPress={handlePress}>
                 <Text style={styles.etiqueta}>{etiqueta}</Text>
             </TouchableOpacity>
-            </View>
-            );
+        </View>
+    );
 }

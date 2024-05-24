@@ -20,20 +20,20 @@ export const useCrud = () => {
 
   const updateUserHandler = (userId: string, userData: any) => {
     if (!validateEmail(userData.email)) {
-        alert("Por favor, insira um endereço de e-mail válido.");
-        return;
+      alert("Por favor, insira um endereço de e-mail válido.");
+      return;
     }
     if (userData.passwordHash.length < 6) {
-        alert("A senha deve ter pelo menos 6 caracteres.");
-        return;
+      alert("A senha deve ter pelo menos 6 caracteres.");
+      return;
     }
     if (userData.passwordHash !== userData.confirmPassword) {
-        alert("As senhas não coincidem.");
-        return;
+      alert("As senhas não coincidem.");
+      return;
     }
 
     updateUser(userId, userData)
-        .catch((err) => console.log("Erro ao alterar"));
+      .catch((err) => console.log("Erro ao alterar"));
   };
 
   const addUserHandler = () => {
@@ -50,7 +50,7 @@ export const useCrud = () => {
       return;
     }
     addUser({ ...user, role: false })
-      .then(() => setUser({id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: false}))
+      .then(() => setUser({ id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: false }))
       .catch((err) => console.log("Erro ao adicionar"));
   };
 

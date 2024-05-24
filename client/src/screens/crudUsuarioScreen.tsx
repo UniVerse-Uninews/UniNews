@@ -6,11 +6,11 @@ import Checkbox from 'expo-checkbox';
 
 
 import { styles } from '../styles/styleCrudUsuario';
-import {Button} from '../components/addButton/Button';
+import { Button } from '../components/addButton/Button';
 import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, ScrollContainer, NameBlue, Name, BackgroundInputText, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput} from '../theme/style';
+import { Container, ScrollContainer, NameBlue, Name, BackgroundInputText, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput } from '../theme/style';
 import { Header } from '../components/addHeader/header';
 
 export function CrudUsuario() {
