@@ -4,6 +4,7 @@ import { useColorScheme } from 'react-native';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
+import Login from './src/screens/loginScreen';
 
 
 
@@ -13,7 +14,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-        <Cadastro/>
+        <Login/>
     </ThemeProvider>
   );
 }
