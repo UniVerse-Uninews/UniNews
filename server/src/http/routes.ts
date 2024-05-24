@@ -9,6 +9,7 @@ import { registerUniversityController } from "./controllers/register-university"
 import { getAllUniversityController } from "./controllers/get-all-university"
 import { getUniversityController } from "./controllers/get-university";
 import { deleteUniversityController } from "./controllers/delete-university";
+import { updateUniversityController } from "./controllers/update-university";
 
 export async function appRoutes(app: FastifyInstance) {
   // User routes
@@ -24,4 +25,5 @@ export async function appRoutes(app: FastifyInstance) {
     app.get("/getalluniversity", getAllUniversityController);
     app.get("/university/:id", getUniversityController);
     app.delete("/deleteuniversity/:id", deleteUniversityController);
+    app.put("/university/:id", updateUniversityController);
   }
