@@ -18,3 +18,7 @@ export const addUser = (userData: any) => {
 export const deleteUser = (userId: string) => {
   return axios.delete(`${http}deleteuser/${userId}`);
 };
+
+export const loginUser = (email: string, password: string) => {
+  return axios.post(`${http}sessions`, { email, password });
+};

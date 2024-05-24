@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet,
@@ -8,12 +9,35 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import React from 'react';
+import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
 
 const ImageLogo = require("../../assets/imagens/logomarca-semfundo.png");
 
 export default function App() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState('');
+
+    const handleLogin = () => {
+        if (!username || !password) {
+            setLoginError('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        // Call the loginUser function from your API
+        loginUser(username, password)
+            .then((response) => {
+                // Handle successful login (e.g., navigate to another screen)
+                console.log('Login successful:', response.data);
+            })
+            .catch((error) => {
+                // Handle login error
+                console.error('Login error:', error);
+                setLoginError('Erro ao fazer login. Verifique suas credenciais.');
+            });
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.logo}>
@@ -23,14 +47,26 @@ export default function App() {
             <View style={styles.box}>
                 <View style={styles.campo}>
                     <Text style={styles.campotext}>Usuário</Text>
-                    <TextInput style={styles.input} placeholder="  Usuário" />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="  Usuário"
+                        value={username}
+                        onChangeText={setUsername}
+                    />
                 </View>
                 <View style={styles.campo}>
                     <Text style={styles.campotext}>Senha</Text>
-                    <TextInput style={styles.input} placeholder="  Senha" />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="  Senha"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry={true}
+                    />
                 </View>
+                {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
                 <View style={styles.boxbutton}>
-                    <TouchableOpacity activeOpacity={.8} style={styles.button}>
+                    <TouchableOpacity activeOpacity={.8} style={styles.button} onPress={handleLogin}>
                         <Text style={styles.textbutton}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={.8} style={styles.button}>
@@ -53,7 +89,6 @@ export default function App() {
                 <TouchableOpacity activeOpacity={.8} style={styles.button2}>
                     <Text style={styles.textbutton2}>Facebook</Text>
                 </TouchableOpacity>
-
 
             </View>
 

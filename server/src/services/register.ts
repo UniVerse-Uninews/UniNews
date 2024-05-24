@@ -9,7 +9,7 @@ interface RegisterUseCaseRequest {
   name: string;
   email: string;
   passwordHash: string;
-  role : boolean;
+  role : string;
   desactivated: boolean;
 }
 
@@ -38,7 +38,7 @@ export class RegisterUseCase {
       name,
       email,
       passwordHash: passwordHashed,
-      role,
+      
       desactivated
     });
 

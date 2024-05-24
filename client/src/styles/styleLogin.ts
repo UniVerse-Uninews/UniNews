@@ -87,7 +87,13 @@ export const styles = StyleSheet.create({
     },
     News: {
         fontSize: 50
-    }
+    },
+
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 5,
+    },
 
 
 });

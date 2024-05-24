@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { getUsers, updateUser, addUser, deleteUser } from '../services/api';
+import { getUsers, updateUser, addUser, deleteUser, loginUser } from '../services/api';
 
 export const useCrud = () => {
   const [users, setUsers] = useState<any[]>([]);
+  const [loggedInUser, setLoggedInUser] = useState<any>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -62,6 +64,26 @@ export const useCrud = () => {
   const deleteUserHandler = (userId: string) => {
     deleteUser(userId)
       .catch((err) => console.log("Erro ao deletar"));
+  };
+
+  const loginHandler = (email: string, password: string) => {
+    if (!validateEmail(email)) {
+      setLoginError("Por favor, insira um endereço de e-mail válido.");
+      return;
+    }
+    if (password.length < 6) {
+      setLoginError("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+    loginUser(email, password)
+      .then((res: any) => {
+        setLoggedInUser(res.data);
+        setLoginError(null);
+      })
+      .catch((err: any) => {
+        setLoginError("Erro ao fazer login. Verifique suas credenciais.");
+        console.log("Erro ao fazer login:", err);
+      });
   };
 
   return {

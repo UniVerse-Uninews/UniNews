@@ -15,16 +15,16 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     email: z.string().email(),
     passwordHash: z.string().min(6),
-    role : z.boolean()
+    role : z.string()
   });
 
   console.log(request.body);
 
   try {
-    const { name, email, passwordHash } = registerBodySchema.parse(request.body);
+    const { name, email, passwordHash, role } = registerBodySchema.parse(request.body);
 
     const registerUseCase = makeRegisterUseCase();
-    await registerUseCase.execute({ name, email, passwordHash, role: false || true, desactivated: false});
+    await registerUseCase.execute({ name, email, passwordHash, role, desactivated: false});
 
     reply.status(201).send();
   } catch (error) {
