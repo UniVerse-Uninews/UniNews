@@ -3,7 +3,11 @@ import { appRoutes } from "./http/routes";
 import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import { env } from "process";
-import  fastifyCookie  from "@fastify/cookie";
+import fastifyCookie from "@fastify/cookie";
+import { verifyJwt } from "../src/http/middleware/verify-jwt"
+
+// Import custom typings to extend FastifyInstance
+import './@types/fastify-jwt.d.ts';
 
 export const app = fastify();
 
@@ -16,12 +20,12 @@ app.register(fastifyJwt, {
     sign: {
         expiresIn: "1h"
     }
-})
+});
 
 app.register(fastifyCookie);
-
 app.register(cors);
 
-
+// Decorate Fastify instance with verifyJwt
+app.decorate("verifyJwt", verifyJwt);
 
 app.register(appRoutes);

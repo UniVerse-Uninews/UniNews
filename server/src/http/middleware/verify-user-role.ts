@@ -20,6 +20,7 @@ export function verifyUserRole(roleToVerify: 'ADMIN' | 'USER') {
         }
 
         console.log('Role authorized:', role);
-        reply.status(200).send({ message: 'Authorized' });
+        // Proceed to the next middleware or handler
+        return;
     };
 }

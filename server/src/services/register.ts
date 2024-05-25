@@ -3,13 +3,13 @@
 import { hash } from "bcryptjs";
 import { UserAlreadyExistError } from "./errors/user-already-exist-error";
 import { UsersRepository } from "../repositories/users-repository";
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 
 interface RegisterUseCaseRequest {
   name: string;
   email: string;
   passwordHash: string;
-  role : string;
+  role : Role;
   desactivated: boolean;
 }
 
