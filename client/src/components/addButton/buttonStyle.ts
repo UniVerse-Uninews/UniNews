@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { responsiveHeight } from "react-native-responsive-dimensions";
 
 export const styles = StyleSheet.create({
   botaoContainer: {
@@ -28,5 +29,6 @@ export const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: responsiveHeight(4),
   },
 });

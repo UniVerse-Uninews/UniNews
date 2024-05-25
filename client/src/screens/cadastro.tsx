@@ -2,15 +2,16 @@ import { styles } from '../styles/styleCadastro';
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { BigHeader } from '../components/addBigHeader/bigHeader';
-import { BackgroundContainerInput, BackgroundInput, Container } from '../theme/style';
+import { BackgroundContainerInput, BackgroundInput, Container, NameBlue } from '../theme/style';
 import { ButtonSpecial } from '../components/addButton/Button';
 import { useCrud } from '../hooks/crudHooks';
 import { Ionicons } from '@expo/vector-icons';
+import { Link } from '@react-navigation/native';
 
 export function Cadastro() {
     const [hidePass, setHidePass] = React.useState(true);
     const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
-
+    const [hidePassConfirm, setHidePassConfirm] = React.useState(true);
     const {
         user,
         setUser,

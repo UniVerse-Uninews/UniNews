@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Container } from "../theme/style";
-import { responsiveFontSize, responsiveScreenFontSize } from "react-native-responsive-dimensions";
+import { responsiveFontSize, responsiveScreenFontSize, responsiveScreenHeight } from "react-native-responsive-dimensions";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -45,10 +45,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   containerDados: {
-    width: '70%',
+    width: '80%',
     borderWidth: 5,
     borderRadius: 25,
     borderColor: '#4A94CC',
+    height: responsiveScreenHeight(50),
   },
   containerCadastro: {
     width: '100%',

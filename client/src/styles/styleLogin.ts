@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { responsiveFontSize, responsiveScreenHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
     container: {
@@ -12,14 +13,14 @@ export const styles = StyleSheet.create({
     box: {
         borderWidth: 2,
         backgroundColor: '#ffffff',
-        width: '80%',
-        height: '60%',
+        width: responsiveScreenWidth(85),
+        height: responsiveScreenHeight(65),
         borderRadius: 10,
         borderColor: '#4A94CC',
         position: 'relative',
         alignItems: 'center',
         paddingTop: '7%',
-
+        justifyContent: 'space-around',
 
     },
     input: {
@@ -50,7 +51,7 @@ export const styles = StyleSheet.create({
     },
     textbutton: {
         color: '#fff',
-        fontSize: 16
+        fontSize: responsiveFontSize(2),
     },
     button2: {
         borderWidth: 2,
@@ -59,11 +60,12 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: '8%',
-        marginHorizontal: '1%'
+        marginHorizontal: '1%',
+        marginBottom: '5%',
     },
     textbutton2: {
         color: '#000000',
-        fontSize: 16
+        fontSize:responsiveFontSize(2),
     },
     boxbutton: {
         flexDirection: 'row',
@@ -78,15 +80,15 @@ export const styles = StyleSheet.create({
     logo: {
         flexDirection: 'row',
         position: 'relative',
-        padding: '20%'
-
+        padding: responsiveScreenHeight(10),
     },
     Uni: {
-        fontSize: 50,
+        fontSize: responsiveFontSize(6),
         color: '#4A94CC',
     },
     News: {
-        fontSize: 50
+        fontSize: responsiveFontSize(6),
+        color: '#000000',
     },
 
     errorText: {
