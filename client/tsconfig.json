@@ -2,6 +2,12 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "jsx": "react",
-    "strict": true
-  }
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "target": "es6",
+    "lib": ["dom", "es6"],
+    "skipLibCheck": true
+  },
+  "include": ["src", "env.d.ts"]
 }
