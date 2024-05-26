@@ -7,7 +7,6 @@ import Checkbox from 'expo-checkbox';
 
 import { styles } from '../styles/styleCrudUsuario';
 import { Button } from '../components/addButton/Button';
-import ImageViewer from '../components/addImageViewer/ImageViewer';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
 import { Container, ScrollContainer, NameBlue, Name, BackgroundInputText, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput } from '../theme/style';
@@ -58,12 +57,12 @@ export function CrudUsuario() {
                   onChangeText={(s) => setUser({ ...user, passwordHash: s })}
                 />
 
-                <TouchableOpacity onPress={() => setUser({ ...user, role: true })}>
+                <TouchableOpacity onPress={() => setUser({ ...user, role: "ADMIN" })}>
                   <View style={styles.radio}>
                     <RadioButton.Android
-                      value="adm"
-                      status={user.role === true ? 'checked' : 'unchecked'}
-                      onPress={() => setUser({ ...user, role: true })}
+                      value="ADMIN"
+                      status={user.role === "ADMIN" ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: "ADMIN" })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />
@@ -71,12 +70,12 @@ export function CrudUsuario() {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => setUser({ ...user, role: false })}>
+                <TouchableOpacity onPress={() => setUser({ ...user, role: "USER" })}>
                   <View style={styles.radio}>
                     <RadioButton.Android
-                      value="usu"
-                      status={user.role === false ? 'checked' : 'unchecked'}
-                      onPress={() => setUser({ ...user, role: false })}
+                      value="USER"
+                      status={user.role === "USER" ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: "USER" })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />

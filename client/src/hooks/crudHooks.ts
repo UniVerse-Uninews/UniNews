@@ -11,13 +11,20 @@ export const useCrud = () => {
     passwordHash: "",
     confirmPassword: "",
     email: "",
-    role: false
+    role: "USER"
   });
 
-  const fetchUsers = () => {
-    getUsers()
+  const fetchUsers = async () => {
+    try {
+      const res = await getUsers(user.role);
+      setUsers(res.data);
+    } catch (err) {
+      console.log('Erro ao mostrar', err);
+    }
+
+    getUsers(user.role)
       .then((res) => setUsers(res.data))
-      .catch((err) => console.log('Erro ao mostrar'));
+      .catch((err) => console.log('Erro ao mostrar', err));
   };
 
   const updateUserHandler = (userId: string, userData: any) => {
@@ -51,8 +58,8 @@ export const useCrud = () => {
       alert("As senhas não coincidem.");
       return;
     }
-    addUser({ ...user, role: false })
-      .then(() => setUser({ id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: false }))
+    addUser({ ...user, role: "USER" })
+      .then(() => setUser({ id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: "USER" }))
       .catch((err) => console.log("Erro ao adicionar"));
   };
 
@@ -66,7 +73,7 @@ export const useCrud = () => {
       .catch((err) => console.log("Erro ao deletar"));
   };
 
-  const loginHandler = (email: string, password: string) => {
+  const loginHandler = async (email: string, password: string) => {
     if (!validateEmail(email)) {
       setLoginError("Por favor, insira um endereço de e-mail válido.");
       return;
@@ -75,15 +82,15 @@ export const useCrud = () => {
       setLoginError("A senha deve ter pelo menos 6 caracteres.");
       return;
     }
-    loginUser(email, password)
-      .then((res: any) => {
-        setLoggedInUser(res.data);
-        setLoginError(null);
-      })
-      .catch((err: any) => {
-        setLoginError("Erro ao fazer login. Verifique suas credenciais.");
-        console.log("Erro ao fazer login:", err);
-      });
+
+    try {
+      const res = await loginUser(email, password);
+      setLoggedInUser(res.data);
+      setLoginError(null);
+    } catch (err) {
+      setLoginError("Erro ao fazer login. Verifique suas credenciais.");
+      console.log("Erro ao fazer login:", err);
+    }
   };
 
   return {
@@ -94,5 +101,8 @@ export const useCrud = () => {
     updateUserHandler,
     addUserHandler,
     deleteUserHandler,
+    loginHandler,
+    loggedInUser,
+    loginError
   };
 };

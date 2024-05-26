@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Container } from "../theme/style";
-import { responsiveFontSize, responsiveScreenFontSize } from "react-native-responsive-dimensions";
+import { responsiveScreenFontSize } from "react-native-responsive-dimensions";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

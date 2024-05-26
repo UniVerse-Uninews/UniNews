@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
 import { styles } from './tableStyle';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { Name } from '../../theme/style';
 
 export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedUser: any) => void }) {
@@ -43,10 +42,10 @@ export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedU
                         <DataTable.Cell textStyle={styles.cell}><Name>{t.passwordHash}</Name></DataTable.Cell>
                         <DataTable.Cell textStyle={styles.cell}><Name>{t.email}</Name></DataTable.Cell>
                         <DataTable.Cell textStyle={styles.cell}><Name>{t.role}</Name></DataTable.Cell>
-                        <DataTable.Cell textStyle={styles.cell}><Name>{t.desactivated}</Name></DataTable.Cell>                            
+                        <DataTable.Cell textStyle={styles.cell}><Name>{t.desactivated}</Name></DataTable.Cell>
                     </DataTable.Row>
                 ))}
-                
+
                 <DataTable.Pagination
                     page={page}
                     numberOfPages={Math.ceil(users.length / itemsPerPage)}
@@ -56,7 +55,7 @@ export function Table({ users, onRowClick }: { users: any; onRowClick: (clickedU
                     onItemsPerPageChange={setItemsPerPage}
                     showFastPaginationControls
                 />
-                
+
             </DataTable>
         </View>
     );

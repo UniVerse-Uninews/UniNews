@@ -1,7 +1,7 @@
 // src/screens/loginScreen.tsx
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, TextInput, View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native';
+import { TextInput, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
 
@@ -21,10 +21,9 @@ export default function Login({ navigation }: any) {
     loginUser(username, password)
       .then((response) => {
         console.log('Login successful:', response.data);
-        navigation.navigate('CrudUsuario'); 
+        navigation.navigate('CrudUsuario');
       })
       .catch((error) => {
-        // Handle login error
         console.error('Login error:', error);
         setLoginError('Erro ao fazer login. Verifique suas credenciais.');
       });

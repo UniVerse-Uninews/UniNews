@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Button } from "../components/addButton/Button";
-import { Checkbox } from "react-native-paper";
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
