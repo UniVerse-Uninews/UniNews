@@ -1,7 +1,7 @@
 // get-user-profile.ts
 import { PrismaUniversityRepository } from "@/repositories/prisma/prisma-university-repository ";
 import { University } from "@prisma/client";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface GetUniversityUseCaseRequest {
   universityId: string;

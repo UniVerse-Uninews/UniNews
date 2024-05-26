@@ -1,9 +1,7 @@
 // get-user-profile.ts
 import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository ";
-import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
-import { compare } from "bcryptjs";
 import { User } from "@prisma/client";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface GetUserProfileUseCaseRequest {
   userId: string;

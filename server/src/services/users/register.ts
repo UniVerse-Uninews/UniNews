@@ -1,8 +1,8 @@
 // register-use-case.ts
 
 import { hash } from "bcryptjs";
-import { UserAlreadyExistError } from "./errors/user-already-exist-error";
-import { UsersRepository } from "../repositories/users-repository";
+import { UserAlreadyExistError } from "../errors/user-already-exist-error";
+import { UsersRepository } from "../../repositories/users-repository";
 import { Role, User } from "@prisma/client";
 
 interface RegisterUseCaseRequest {
