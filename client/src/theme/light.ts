@@ -1,5 +1,3 @@
-import { BackgroundContainerInput } from "./style";
-
 export default {
     background: 'rgba(255,248,220, 0.3)',
     text: 'black',

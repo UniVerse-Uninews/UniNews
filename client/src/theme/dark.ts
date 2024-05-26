@@ -1,5 +1,3 @@
-import { BackgroundInput } from "./style";
-
 export default {
         background: '#343434',
         text: 'white',

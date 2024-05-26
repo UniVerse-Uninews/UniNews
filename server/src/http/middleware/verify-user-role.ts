@@ -20,7 +20,6 @@ export function verifyUserRole(roleToVerify: 'ADMIN' | 'USER') {
         }
 
         console.log('Role authorized:', role);
-        // Proceed to the next middleware or handler
         return;
     };
 }

@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { PrismaUsersRepository } from "../../repositories/prisma/prisma-users-repository";
-import { User } from "@prisma/client";
 
 export async function getAllUsersController(request: FastifyRequest, reply: FastifyReply) {
   try {

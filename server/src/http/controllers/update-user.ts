@@ -8,7 +8,7 @@ export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
     name: z.string().optional(),
     email: z.string().email().optional(),
     passwordHash: z.string().min(6).optional(),
-    role: z.boolean().optional()
+    role: z.string().optional()
   });
 
   const updateUserParamsSchema = z.object({
@@ -20,7 +20,7 @@ export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
     const { userId } = updateUserParamsSchema.parse(request.params);
 
     const updateUseCase = makeUpdateUserUseCase();
-    const result = await updateUseCase.execute({ userId, name, email, passwordHash, role });
+    const result = await updateUseCase.execute({ userId, name, email, passwordHash, });
 
     reply.status(200).send({ user: result.user });
   } catch (error) {

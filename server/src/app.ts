@@ -25,7 +25,6 @@ app.register(fastifyJwt, {
 app.register(fastifyCookie);
 app.register(cors);
 
-// Decorate Fastify instance with verifyJwt
 app.decorate("verifyJwt", verifyJwt);
 
 app.register(appRoutes);

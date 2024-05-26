@@ -10,7 +10,7 @@ export class PrismaUniversityRepository implements UniversityRepository {
             });
             return university;
         } catch (error) {
-            // Handle error, log, or throw further
+            
             console.error("Error occurred while finding university by id:", error);
             return null;
         }
@@ -19,7 +19,7 @@ export class PrismaUniversityRepository implements UniversityRepository {
     async findByUrl(url: string): Promise<University | null> {
         try {
             const university = await prisma.university.findUnique({
-                where: { id: url }, // Changed 'url' to 'id'
+                where: { id: url }, 
             });
             return university;
         } catch (error) {
