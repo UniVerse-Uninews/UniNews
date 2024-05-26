@@ -1,7 +1,7 @@
 import { expect, describe, it } from "vitest";
 import { compare } from "bcryptjs";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository ";
-import { RegisterUseCase } from "../register";
+import { RegisterUseCase } from "../users/register";
 import { UserAlreadyExistError } from "../errors/user-already-exist-error";
 
 describe("Register Use Case", () => {
@@ -13,7 +13,7 @@ describe("Register Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: "123456",
-      role: false,
+      role: "USER",
       desactivated: false,
 
     });
@@ -36,7 +36,7 @@ describe("Register Use Case", () => {
       name: "John Doe",
       email,
       passwordHash: "123456",
-      role: false,
+      role: "USER",
       desactivated: false,
     });
 
@@ -45,7 +45,7 @@ describe("Register Use Case", () => {
         name: "John Doe",
         email,
         passwordHash: "123456",
-        role: false,
+        role: "USER",
         desactivated: false,
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistError);
@@ -59,7 +59,7 @@ describe("Register Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: "123456",
-      role: false,
+      role: "USER",
       desactivated: false,
     });
 

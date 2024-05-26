@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { PrismaUniversityRepository } from '../../repositories/prisma/prisma-university-repository';
-import { GetUniversityUseCase } from "../../services/get-university";
-import { ResourceNotFoundError } from "../../services/errors/resource-not-found-error";
+import { PrismaUniversityRepository } from '../../../repositories/prisma/prisma-university-repository';
+import { GetUniversityUseCase } from "../../../services/university/get-university";
+import { ResourceNotFoundError } from "../../../services/errors/resource-not-found-error";
 
 export async function getUniversityController(request: FastifyRequest, reply: FastifyReply) {
     const { id } = request.params as { id: string };

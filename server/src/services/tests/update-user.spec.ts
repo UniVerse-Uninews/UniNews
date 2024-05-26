@@ -1,7 +1,7 @@
 import { expect, describe, it, beforeEach } from "vitest";
-import { hash } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 import { InMemoryUsersRepository } from "../../repositories/in-memory/in-memory-users-repository";
-import { UpdateUserUseCase } from "../update-user";
+import { UpdateUserUseCase } from "../users/update-user";
 
 describe("Update User Use Case", () => {
   let usersRepository: InMemoryUsersRepository;
@@ -17,7 +17,8 @@ describe("Update User Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: await hash("123456", 6),
-      role: false,
+      role: "USER",
+      desactivated: false,
     });
 
     const updatedUserResponse = await sut.execute({
@@ -33,7 +34,8 @@ describe("Update User Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: await hash("123456", 6),
-      role: false,
+      role: "USER",
+      desactivated: false,
     });
 
     const updatedUserResponse = await sut.execute({
@@ -49,16 +51,22 @@ describe("Update User Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: await hash("123456", 6),
-      role: false,
+      role: "USER",
     });
 
-    const updatedUserResponse = await sut.execute({
+    await sut.execute({
       userId: user.id,
-      passwordHash: "newpassword",
+      passwordHash: await hash("newpassword", 6),
     });
 
-    const isPasswordUpdated = await hash("newpassword", 6) === updatedUserResponse.user.passwordHash;
-    expect(isPasswordUpdated).toBe(true);
+    const updatedUser = await usersRepository.findById(user.id);
+    expect(updatedUser).not.toBeNull();
+    if (updatedUser) {
+      const isPasswordUpdated = await compare("newpassword", updatedUser.passwordHash);
+      expect(isPasswordUpdated).toBe(true);
+    } else {
+      throw new Error("User not found.");
+    }
   });
 
   it("should be able to update a user's role", async () => {
@@ -66,15 +74,15 @@ describe("Update User Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: await hash("123456", 6),
-      role: false,
+      role: "ADMIN",
     });
 
     const updatedUserResponse = await sut.execute({
       userId: user.id,
-      role: true,
+      role: "ADMIN",
     });
 
-    expect(updatedUserResponse.user.role).toBe(true);
+    expect(updatedUserResponse.user.role).toBe("ADMIN");
   });
 
   it("should not update a non-existent user", async () => {
@@ -91,7 +99,7 @@ describe("Update User Use Case", () => {
       name: "John Doe",
       email: "johndoe@example.com",
       passwordHash: await hash("123456", 6),
-      role: false,
+      role: "USER",
     });
 
     const updatedUserResponse = await sut.execute({
@@ -101,6 +109,6 @@ describe("Update User Use Case", () => {
 
     expect(updatedUserResponse.user.name).toBe("Jane Doe");
     expect(updatedUserResponse.user.email).toBe("johndoe@example.com");
-    expect(updatedUserResponse.user.role).toBe(false);
+    expect(updatedUserResponse.user.role).toBe("USER");
   });
 });

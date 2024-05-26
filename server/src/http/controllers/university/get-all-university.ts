@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { PrismaUniversityRepository } from "../../repositories/prisma/prisma-university-repository";
+import { PrismaUniversityRepository } from "../../../repositories/prisma/prisma-university-repository";
 
 export async function getAllUniversityController(request: FastifyRequest, reply: FastifyReply) {
   try {

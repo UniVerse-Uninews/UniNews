@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { makeRegisterUseCase } from "../../services/factories/make-register-use-case";
+import { makeRegisterUseCase } from "../../../services/factories/make-register-use-case";
 import dotenv from "dotenv";
 
-import { UserAlreadyExistError } from '../../services/errors/user-already-exist-error';
+import { UserAlreadyExistError } from '../../../services/errors/user-already-exist-error';
 
 dotenv.config();
 

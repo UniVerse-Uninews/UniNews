@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { PrismaUsersRepository } from "../../repositories/prisma/prisma-users-repository";
-import { DeleteUserUseCase } from "../../services/delete-user";
+import { PrismaUsersRepository } from "../../../repositories/prisma/prisma-users-repository";
+import { DeleteUserUseCase } from "../../../services/users/delete-user";
 
 export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
   try {

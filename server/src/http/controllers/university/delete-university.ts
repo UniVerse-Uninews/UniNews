@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { PrismaUniversityRepository } from '../../repositories/prisma/prisma-university-repository';
-import { DeleteUniversityUseCase } from '../../services/delete-university';
+import { PrismaUniversityRepository } from '../../../repositories/prisma/prisma-university-repository';
+import { DeleteUniversityUseCase } from '../../../services/university/delete-university';
 
 export async function deleteUniversityController(request: FastifyRequest, reply: FastifyReply) {
     const { id } = request.params as { id: string };

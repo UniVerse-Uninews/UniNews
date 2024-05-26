@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { makeRegisterUseCase} from "../../services/factories/make-register-university-use-case";
+import { makeRegisterUseCase} from "../../../services/factories/make-register-university-use-case";
 import dotenv from "dotenv";
 
-import { UniversityAlreadyExistError } from '../../services/errors/university-alreads-exist-error';
+import { UniversityAlreadyExistError } from '../../../services/errors/university-alreads-exist-error';
 
 dotenv.config();
 

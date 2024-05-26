@@ -1,5 +1,5 @@
 import { PrismaUniversityRepository } from "@/repositories/prisma/prisma-university-repository ";
-import { UpdateUniversityUseCase } from "../update-university";
+import { UpdateUniversityUseCase } from "../university/update-university";
 
 export function makeUpdateUniversityUseCase() {
   const prismaUniversityRepository = new PrismaUniversityRepository();

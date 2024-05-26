@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { z } from 'zod';
-import { makeUpdateUniversityUseCase } from '../../services/factories/make-update-university-use-case';
-import { ResourceNotFoundError } from '../../services/errors/resource-not-found-error';
+import { makeUpdateUniversityUseCase } from '../../../services/factories/make-update-university-use-case';
+import { ResourceNotFoundError } from '../../../services/errors/resource-not-found-error';
 
 export async function updateUniversityController(request: FastifyRequest, reply: FastifyReply) {
   const updateUniversityBodySchema = z.object({
