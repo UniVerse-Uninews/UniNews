@@ -1,4 +1,5 @@
 import '@fastify/jwt'
+import { FastifyInstance } from 'fastify';
 
 declare module '@fastify/jwt' {
     export interface FastifyJWT {
@@ -6,5 +7,11 @@ declare module '@fastify/jwt' {
             sub: string;
             role : 'ADMIN' | 'USER';
         }
+    }
+}
+
+declare module 'fastify' {
+    interface FastifyRequest {
+        verifyJwt: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
     }
 }

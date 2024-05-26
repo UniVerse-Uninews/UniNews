@@ -9,8 +9,6 @@ interface DeleteUniversityUseCaseResponse {
   university: University;
 }
 
-console.log("DeleteUniversityUseCase");
-
 export class DeleteUniversityUseCase {
   
   constructor(private universityRepository: UniversityRepository) {}
