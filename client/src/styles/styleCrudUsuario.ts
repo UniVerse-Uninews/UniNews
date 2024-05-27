@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,10 +11,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: '2%',
-    marginTop: '5%',
   },
   viewDados: {
-    width: '50%',
+    width: '55%',
     marginHorizontal: 8,
     marginTop: 10
   },
@@ -30,29 +30,30 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     padding: 5,
-    paddingTop: 10,
     paddingBottom: '10%',
-
+    borderColor: '#F3C63B',
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderRadius: 5,
-    height: 30,
+    height: responsiveHeight(3),
     fontFamily: 'Rubik_400Regular',
     paddingLeft: 5,
-    marginTop: '3%',
-
+    marginTop: '10%',
+    width: responsiveWidth(45),
+    marginLeft: responsiveWidth(3),
   },
   containerButton: {
-    margin: 30,
+    marginLeft: responsiveWidth(3),
   },
   campos: {
-    marginTop: 7,
     fontFamily: 'Rubik_400Regular',
   },
   radio: {
     flexDirection: 'row',
     paddingTop: '5%',
+    marginLeft: responsiveWidth(3),
+
   },
   textRadio: {
     fontSize: 15,
@@ -75,10 +76,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: '10%',
     marginLeft: '4%',
+    
   },
   checkbox: {
     flexDirection: 'row',
     paddingTop: '5%',
+    marginLeft: responsiveWidth(3),
 
   },
   textCheckbox: {

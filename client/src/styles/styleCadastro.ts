@@ -32,16 +32,18 @@ export const styles = StyleSheet.create({
     fontFamily: 'Rubik_400Regular',
     width: '80%',
     borderColor: '#F2A20C',
+    color: '#000',
   },
   inputArea: {
     borderWidth: 1,
     borderRadius: 15,
     height: '70%',
-    paddingLeft: 5,
+    paddingLeft: '5%',
     marginTop: '3%',
     width: '65%',
     borderColor: '#F2A20C',
     flexDirection: 'row',
+    paddingBottom: '1%',
   },
   containerDados: {
     width: '70%',
@@ -61,7 +63,7 @@ export const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F2A20C',
+    color: '#000',
   },
 
   errorText: {
