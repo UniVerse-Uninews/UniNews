@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
     marginTop: '10%',
     width: responsiveWidth(45),
     marginLeft: responsiveWidth(3),
+    color: '#000',
   },
   containerButton: {
     marginLeft: responsiveWidth(3),
