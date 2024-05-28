@@ -2,17 +2,18 @@ import { styles } from '../styles/styleCadastro';
 import React from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { BigHeader } from '../components/addBigHeader/bigHeader';
-import { BackgroundContainerInput, BackgroundInput, BackgroundInputText, Container } from '../theme/style';
+import { BackgroundContainerInput, Name, BackgroundInput, BackgroundInputText, Container } from '../theme/style';
 import { ButtonSpecial } from '../components/addButton/Button';
 import { useCrud } from '../hooks/crudHooks';
-import Icon from '@expo/vector-icons/FontAwesome';
-import ImageViewer from '../components/addImageViewer/ImageViewer';
+import { InputConfirmSenha, InputSenha } from '../components/addInput/Input';
 
 
-export function Cadastro() {
+export function Cadastro({ navigation }: any) {
     const [hidePass, setHidePass] = React.useState(true);
     const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
-    const image= require('../../assets/imagens/visibility_24dp.png');
+    const eye= require('../../assets/imagens/eye.png');
+    const eyeOff= require('../../assets/imagens/eyeOff.png');
+
 
     const {
         user,
@@ -29,14 +30,12 @@ export function Cadastro() {
             <BigHeader />
             <Container style={styles.container}>
                 <BackgroundContainerInput style={styles.containerDados}>
-                    <KeyboardAvoidingView
-                        behavior={Platform.OS == 'ios' ? "padding" : "height"}
-                        keyboardVerticalOffset={100}
+                    <View
                     >
                         <View style={styles.containerCadastro}>
                             <Text style={styles.title}>Cadastro</Text>
                         </View>
-                        <Text style={styles.subtitle}>Usuário</Text>
+                        <Name style={styles.subtitle}>Usuário</Name>
                         <View style={styles.containerInput}>
                             <BackgroundInput style={styles.inputArea}>
                                 <BackgroundInputText
@@ -49,7 +48,7 @@ export function Cadastro() {
                             </BackgroundInput>
                         </View>
 
-                        <Text style={styles.subtitle}>E-mail</Text>
+                        <Name style={styles.subtitle}>E-mail</Name>
                         <View style={styles.containerInput}>
                             <BackgroundInput style={styles.inputArea}>
                                 <BackgroundInputText
@@ -62,57 +61,19 @@ export function Cadastro() {
                             </BackgroundInput>
                         </View>
 
-                        <Text style={styles.subtitle}>Senha</Text>
-                        <View style={styles.containerInput}>
-                            <BackgroundInput style={styles.inputArea}>
-                                <BackgroundInputText
-                                    value={user.passwordHash}
-                                    style={styles.input}
-                                    placeholder='Senha'
-                                    secureTextEntry={hidePass}
-                                    onChangeText={(text) => handleInputChange('passwordHash', text)}
-                                    placeholderTextColor={'#8F8F8F'}
-                                />
-                                <TouchableOpacity style={styles.icon} onPress={() => setHidePass(!hidePass)}>
-                                    {hidePass ? (
-                                        <Image source={image}/>
-                                    ) : (
-                                        <Icon name="eye" size={24} color="black" />
-                                    )}
-                                </TouchableOpacity>
-                            </BackgroundInput>
-                        </View>
+                        <InputSenha/>
+                        <InputConfirmSenha/>
 
-                        <Text style={styles.subtitle}>Confirmar Senha</Text>
-                        <View style={styles.containerInput}>
-                            <BackgroundInput style={styles.inputArea}>
-                                <BackgroundInputText
-                                    value={user.confirmPassword}
-                                    style={styles.input}
-                                    placeholder='Confirmar Senha'
-                                    secureTextEntry={hideConfirmPass}
-                                    onChangeText={(text) => handleInputChange('confirmPassword', text)}
-                                    placeholderTextColor={'#8F8F8F'}
-                                />
-                                <TouchableOpacity style={styles.icon}
-                                    onPress={() => {setHideConfirmPass(!hideConfirmPass)}}>
-                                    {hideConfirmPass ?
-                                        <Icon name="eye-slash" size={24} color="green" />
-                                        :                                        
-                                        <Icon name="eye" size={24} color="black" />
-                                    }
-                            
-                                </TouchableOpacity>
-                            </BackgroundInput>
-                            
-                        </View>
-                        
-
-                        <View style={styles.containerInput}>
+                        <View style={styles.containerInputCadastro}>
                             <ButtonSpecial etiqueta="Cadastrar" handlePress={addUserHandler} />
                         </View>
-                    </KeyboardAvoidingView>
+                    </View>
                 </BackgroundContainerInput>
+                <View style={styles.containerLogin}>
+
+                    <Name>Já tem conta?</Name>
+                    <Text style={styles.login} onPress={() => navigation.navigate('Login')}> Faça login</Text>
+                </View>
             </Container>
         </>
     );

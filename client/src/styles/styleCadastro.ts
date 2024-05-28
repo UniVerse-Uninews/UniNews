@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { responsiveScreenFontSize } from "react-native-responsive-dimensions";
+import { responsiveHeight, responsiveScreenFontSize, responsiveScreenHeight } from "react-native-responsive-dimensions";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     position: 'absolute',
     marginLeft: '5%',
-    marginTop: '2%',
     color: '#FFFFFF',
   },
   subtitle: {
@@ -20,12 +19,17 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     marginLeft: '13%',
     marginTop: '5%',
-    color: '#000',
   },
   containerInput: {
     width: '100%',
+    height: responsiveScreenHeight(4.5),
+    alignItems: 'center',
+  },
+  containerInputCadastro: {
+    width: '100%',
     height: '10%',
     alignItems: 'center',
+    marginTop: '8%',
   },
   input: {
     height: '100%',
@@ -58,17 +62,32 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 12,
     height: '10%',
   },
-  icon: {
+  containerIcon: {
     width: '15%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#000',
   },
-
+  icon: {
+    width: '40%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingTop: '3%',
+  },
   errorText: {
     color: 'red',
     fontSize: 12,
     marginTop: 5,
   },
+  containerLogin: {
+    flexDirection: 'row',
+    marginTop: '5%',
+    width: '100%',  
+    justifyContent: 'center',
+
+  },
+  login: {
+    color: '#4169E1',
+  }
 });
