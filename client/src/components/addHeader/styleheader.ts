@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    paddingTop: '12%',
+    paddingTop: '5%',
     alignItems: 'center',
   },
   img: {
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     height: 50,
   },
   line: {
-    borderWidth: 3,
+    borderWidth: 2,
     marginTop: '3.5%',
     width: '100%',
   },

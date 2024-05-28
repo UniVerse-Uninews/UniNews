@@ -9,7 +9,7 @@ import { styles } from '../styles/styleCrudUsuario';
 import { Button } from '../components/addButton/Button';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import { Container, ScrollContainer, NameBlue, Name, BackgroundInputText, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput } from '../theme/style';
+import { Container, ScrollContainer, NameBlue, Name, BackgroundInputText, ContainerCrud, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput } from '../theme/style';
 import { Header } from '../components/addHeader/header';
 
 export function CrudUsuario() {
@@ -37,7 +37,7 @@ export function CrudUsuario() {
           <View style={styles.containerDados}>
             <View style={styles.viewDados}>
               <NameBlue style={styles.titulo}>Dados</NameBlue>
-              <BackgroundInput style={styles.containerInput}>
+              <ContainerCrud style={styles.containerInput}>
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="Nome de Usuário"
@@ -91,7 +91,7 @@ export function CrudUsuario() {
                   />
                   <Name style={styles.textCheckbox}>Desativada?</Name>
                 </View>
-              </BackgroundInput>
+              </ContainerCrud>
             </View>
             <View style={styles.containerButton}>
               <Button etiqueta="Cadastrar" handlePress={addUserHandler} />

@@ -1,5 +1,5 @@
 export default {
-    background: 'rgba(255,248,220, 0.3)',
+    background: 'rgba(255,248,220, 0.1)',
     text: 'black',
     primary: '#000',
     blue: '#0571D3',
@@ -8,5 +8,5 @@ export default {
     btncrud: '#0571D3',
     backgroundInput: '#FFFAFA',
     backgroundContainerInput: '#F5F5F5',
-
+    backgroundContainerInputCrud: '#F5F5F5',
 }
