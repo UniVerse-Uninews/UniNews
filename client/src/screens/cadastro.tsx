@@ -1,18 +1,18 @@
 import { styles } from '../styles/styleCadastro';
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { BigHeader } from '../components/addBigHeader/bigHeader';
 import { BackgroundContainerInput, BackgroundInput, BackgroundInputText, Container } from '../theme/style';
 import { ButtonSpecial } from '../components/addButton/Button';
 import { useCrud } from '../hooks/crudHooks';
-import  Feather  from '@expo/vector-icons/Feather';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Icon from '@expo/vector-icons/FontAwesome';
+import ImageViewer from '../components/addImageViewer/ImageViewer';
 
 
 export function Cadastro() {
     const [hidePass, setHidePass] = React.useState(true);
     const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
-
+    const image= require('../../assets/imagens/visibility_24dp.png');
 
     const {
         user,
@@ -75,9 +75,9 @@ export function Cadastro() {
                                 />
                                 <TouchableOpacity style={styles.icon} onPress={() => setHidePass(!hidePass)}>
                                     {hidePass ? (
-                                        <Feather name="eye-off" size={24} color="black" />
+                                        <Image source={image}/>
                                     ) : (
-                                        <Feather name="eye" size={24} color="black" />
+                                        <Icon name="eye" size={24} color="black" />
                                     )}
                                 </TouchableOpacity>
                             </BackgroundInput>
@@ -97,9 +97,9 @@ export function Cadastro() {
                                 <TouchableOpacity style={styles.icon}
                                     onPress={() => {setHideConfirmPass(!hideConfirmPass)}}>
                                     {hideConfirmPass ?
-                                        <Feather name="eye-off" size={24} color="black" />
+                                        <Icon name="eye-slash" size={24} color="green" />
                                         :                                        
-                                        <Feather name="eye" size={24} color="black" />
+                                        <Icon name="eye" size={24} color="black" />
                                     }
                             
                                 </TouchableOpacity>
