@@ -18,10 +18,10 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Cadastro">
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Cadastro" component={Cadastro} />
-          <Stack.Screen name="CrudUsuario" component={CrudUsuario} />
+        <Stack.Navigator initialRouteName="CrudUsuario">
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+          <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }}/>
+          <Stack.Screen name="CrudUsuario" component={CrudUsuario} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

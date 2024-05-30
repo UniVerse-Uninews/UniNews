@@ -43,6 +43,6 @@ export const BackgroundInputText = styled.TextInput`
     color: ${props => props.theme.primary};
 `;
 export const ContainerCrud = styled.View`
-    background: ${props => props.theme.backgroundContainerInputCrud};
+    background: ${props => props.theme.backgroundContainerInput};
     border-color: ${props => props.theme.borderColorInput};
 `;

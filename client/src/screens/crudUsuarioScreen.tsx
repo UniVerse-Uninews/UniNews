@@ -11,6 +11,7 @@ import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
 import { Container, ScrollContainer, NameBlue, Name, BackgroundInputText, ContainerCrud, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput } from '../theme/style';
 import { Header } from '../components/addHeader/header';
+import { InputSenhaSpecial } from '../components/addInput/Input';
 
 export function CrudUsuario() {
   const [isChecked, setChecked] = useState(false);
@@ -31,31 +32,28 @@ export function CrudUsuario() {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <Container style={styles.container}>
         <ScrollContainer>
           <View style={styles.containerDados}>
             <View style={styles.viewDados}>
               <NameBlue style={styles.titulo}>Dados</NameBlue>
-              <ContainerCrud style={styles.containerInput}>
+              <BackgroundContainerInput style={styles.containerInput}>
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="Nome de Usuário"
+                  placeholderTextColor={'#8F8F8F'}
                   value={user.name}
                   onChangeText={(n) => setUser({ ...user, name: n })}
                 />
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="E-mail"
+                  placeholderTextColor={'#8F8F8F'}
                   value={user.email}
                   onChangeText={(e) => setUser({ ...user, email: e })}
                 />
-                <BackgroundInputText
-                  style={styles.input}
-                  placeholder="Senha"
-                  value={user.passwordHash}
-                  onChangeText={(s) => setUser({ ...user, passwordHash: s })}
-                />
+                <InputSenhaSpecial/>
 
                 <TouchableOpacity onPress={() => setUser({ ...user, role: "ADMIN" })}>
                   <View style={styles.radio}>
@@ -91,7 +89,7 @@ export function CrudUsuario() {
                   />
                   <Name style={styles.textCheckbox}>Desativada?</Name>
                 </View>
-              </ContainerCrud>
+              </BackgroundContainerInput>
             </View>
             <View style={styles.containerButton}>
               <Button etiqueta="Cadastrar" handlePress={addUserHandler} />

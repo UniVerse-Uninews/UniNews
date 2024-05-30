@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { responsiveScreenHeight } from "react-native-responsive-dimensions";
 export const styles = StyleSheet.create({
   container: {
     height: '17%',
@@ -8,7 +9,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    paddingTop: '5%',
+    paddingTop: responsiveScreenHeight(7),
     alignItems: 'center',
   },
   img: {
