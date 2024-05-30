@@ -42,26 +42,30 @@ export const useCrud = () => {
     }
 
     updateUser(userId, userData)
-      .catch((err) => console.log("Erro ao alterar"));
+      .catch((err) => console.error("Erro ao alterar: ", err));
   };
 
-  const addUserHandler = () => {
-    if (!validateEmail(user.email)) {
-      alert("Por favor, insira um endereço de e-mail válido.");
-      return;
+  const addUserHandler = async () => {
+    console.log("PasswordHash:", user.passwordHash);
+    console.log("Email:", user.email);
+    try {
+      if (!validateEmail(user.email)) {
+        throw new Error("Por favor, insira um endereço de e-mail válido.");
+      }
+      if (user.passwordHash.length < 6) {
+        throw new Error("A senha deve ter pelo menos 6 caracteres.");
+      }
+      if (user.passwordHash !== user.confirmPassword) {
+        throw new Error("As senhas não coincidem.");
+      }
+
+      await addUser({ ...user, role: "USER" });
+      setUser({ id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: "USER" });
+    } catch (error) {
+      console.error("Erro ao adicionar usuário:", error);
     }
-    if (user.passwordHash.length < 6) {
-      alert("A senha deve ter pelo menos 6 caracteres.");
-      return;
-    }
-    if (user.passwordHash !== user.confirmPassword) {
-      alert("As senhas não coincidem.");
-      return;
-    }
-    addUser({ ...user, role: "USER" })
-      .then(() => setUser({ id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: "USER" }))
-      .catch((err) => console.log("Erro ao adicionar"));
   };
+
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -9,17 +9,18 @@ import { InputConfirmSenha, InputSenha } from '../components/addInput/Input';
 
 
 export function Cadastro({ navigation }: any) {
+    const {
+        user,
+        setUser,
+        addUserHandler,
+    } = useCrud();
     const [hidePass, setHidePass] = React.useState(true);
     const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
     const eye= require('../../assets/imagens/eye.png');
     const eyeOff= require('../../assets/imagens/eyeOff.png');
 
 
-    const {
-        user,
-        setUser,
-        addUserHandler,
-    } = useCrud();
+    
 
     const handleInputChange = (field: string, value: string) => {
         setUser({ ...user, [field]: value });
@@ -61,8 +62,9 @@ export function Cadastro({ navigation }: any) {
                             </BackgroundInput>
                         </View>
 
-                        <InputSenha/>
-                        <InputConfirmSenha/>
+                        <InputSenha user={user} setUser={setUser} />
+                        <InputConfirmSenha user={user} setUser={setUser} />
+
 
                         <View style={styles.containerInputCadastro}>
                             <ButtonSpecial etiqueta="Cadastrar" handlePress={addUserHandler} />
