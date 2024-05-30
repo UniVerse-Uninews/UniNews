@@ -4,18 +4,14 @@ import { styles } from './inputStyle';
 import { BackgroundInput, BackgroundInputText, Name } from '../../theme/style';
 import { useCrud } from '../../hooks/crudHooks';
 
-export function InputSenha() {
-    const eye= require('../../../assets/imagens/eye.png');
-    const eyeOff= require('../../../assets/imagens/eyeOff.png');
-    
+export function InputSenha({ user, setUser }: any) {
+
+    const eye = require('../../../assets/imagens/eye.png');
+    const eyeOff = require('../../../assets/imagens/eyeOff.png');
+
     const [hidePass, setHidePass] = React.useState(true);
-    
-    const {
-        user,
-        setUser,
-        addUserHandler,
-    } = useCrud();
-    
+
+
     const handleInputChange = (field: string, value: string) => {
         setUser({ ...user, [field]: value });
     };
@@ -36,34 +32,31 @@ export function InputSenha() {
                     />
                     <TouchableOpacity style={styles.icon} onPress={() => setHidePass(!hidePass)}>
                         {hidePass ? (
-                            <Image source={eye} style={styles.icon}/>
+                            <Image source={eye} style={styles.icon} />
                         ) : (
-                            <Image source={eyeOff} style={styles.icon}/>
+                            <Image source={eyeOff} style={styles.icon} />
                         )}
                     </TouchableOpacity>
                 </BackgroundInput>
             </View>
         </View>
-    )    
+    );
 }
-export function InputConfirmSenha(){
-const eye= require('../../../assets/imagens/eye.png');
-const eyeOff= require('../../../assets/imagens/eyeOff.png');
+export function InputConfirmSenha({ user, setUser }: any) {
 
-const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
 
-const {
-    user,
-    setUser,
-    addUserHandler,
-} = useCrud();
+    const eye = require('../../../assets/imagens/eye.png');
+    const eyeOff = require('../../../assets/imagens/eyeOff.png');
 
-const handleInputChange = (field: string, value: string) => {
-    setUser({ ...user, [field]: value });
-};
+    const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
+
+
+    const handleInputChange = (field: string, value: string) => {
+        setUser({ ...user, [field]: value });
+    };
     return (
         <View>
-        <Name style={styles.subtitle}>Confirmar Senha</Name>
+            <Name style={styles.subtitle}>Confirmar Senha</Name>
             <View style={styles.containerInput}>
                 <BackgroundInput style={styles.inputArea}>
                     <BackgroundInputText
@@ -74,32 +67,27 @@ const handleInputChange = (field: string, value: string) => {
                         onChangeText={(text) => handleInputChange('confirmPassword', text)}
                         placeholderTextColor={'#8F8F8F'}
                     />
-                    <TouchableOpacity style={styles.icon}
-                        onPress={() => {setHideConfirmPass(!hideConfirmPass)}}>
+                    <TouchableOpacity style={styles.icon} onPress={() => setHideConfirmPass(!hideConfirmPass)}>
                         {hideConfirmPass ?
-                            <Image source={eye} style={styles.icon}/>
-                            :                                        
-                            <Image source={eyeOff} style={styles.icon}/>
+                            <Image source={eye} style={styles.icon} />
+                            :
+                            <Image source={eyeOff} style={styles.icon} />
                         }
                     </TouchableOpacity>
                 </BackgroundInput>
             </View>
         </View>
-    )
-};
-export function InputSenhaSpecial(){
-    const {
-        user,
-        setUser,
-        addUserHandler,
-    } = useCrud();
-    return(
-    <BackgroundInputText
-                  style={styles.inputSpecial}
-                  placeholder="Senha"
-                  placeholderTextColor={'#8F8F8F'}
-                  value={user.passwordHash}
-                  onChangeText={(s) => setUser({ ...user, passwordHash: s })}
-                />
+    );
+}
+export function InputSenhaSpecial({ user, setUser} : any) {
+   
+    return (
+        <BackgroundInputText
+            style={styles.inputSpecial}
+            placeholder="Senha"
+            placeholderTextColor={'#8F8F8F'}
+            value={user.passwordHash}
+            onChangeText={(s) => setUser({ ...user, passwordHash: s })}
+        />
     )
 };

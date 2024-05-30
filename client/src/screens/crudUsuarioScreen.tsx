@@ -53,7 +53,7 @@ export function CrudUsuario() {
                   value={user.email}
                   onChangeText={(e) => setUser({ ...user, email: e })}
                 />
-                <InputSenhaSpecial/>
+                <InputSenhaSpecial user={user} setUser={setUser}/>
 
                 <TouchableOpacity onPress={() => setUser({ ...user, role: "ADMIN" })}>
                   <View style={styles.radio}>

@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
               inputSpecial: {
                 borderWidth: 1.5,
                 borderRadius: 5,
+                color: '#000',
                 height: responsiveScreenHeight(3),
                 fontFamily: 'Rubik_400Regular',
                 paddingLeft: 5,
