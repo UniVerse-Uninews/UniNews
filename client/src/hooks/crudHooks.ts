@@ -1,5 +1,11 @@
-import { useState } from 'react';
-import { getUsers, updateUser, addUser, deleteUser, loginUser } from '../services/api';
+import { useState } from "react";
+import {
+  getUsers,
+  updateUser,
+  addUser,
+  deleteUser,
+  loginUser,
+} from "../services/api";
 
 export const useCrud = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -11,7 +17,7 @@ export const useCrud = () => {
     passwordHash: "",
     confirmPassword: "",
     email: "",
-    role: "USER"
+    role: "USER",
   });
 
   const fetchUsers = async () => {
@@ -19,12 +25,12 @@ export const useCrud = () => {
       const res = await getUsers(user.role);
       setUsers(res.data);
     } catch (err) {
-      console.log('Erro ao mostrar', err);
+      console.log("Erro ao mostrar", err);
     }
 
     getUsers(user.role)
       .then((res) => setUsers(res.data))
-      .catch((err) => console.log('Erro ao mostrar', err));
+      .catch((err) => console.log("Erro ao mostrar", err));
   };
 
   const updateUserHandler = (userId: string, userData: any) => {
@@ -41,8 +47,9 @@ export const useCrud = () => {
       return;
     }
 
-    updateUser(userId, userData)
-      .catch((err) => console.error("Erro ao alterar: ", err));
+    updateUser(userId, userData).catch((err) =>
+      console.error("Erro ao alterar: ", err),
+    );
   };
 
   const addUserHandler = async () => {
@@ -60,12 +67,18 @@ export const useCrud = () => {
       }
 
       await addUser({ ...user, role: "USER" });
-      setUser({ id: "", name: "", email: "", passwordHash: "", confirmPassword: "", role: "USER" });
+      setUser({
+        id: "",
+        name: "",
+        email: "",
+        passwordHash: "",
+        confirmPassword: "",
+        role: "USER",
+      });
     } catch (error) {
       console.error("Erro ao adicionar usuário:", error);
     }
   };
-
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,8 +86,7 @@ export const useCrud = () => {
   };
 
   const deleteUserHandler = (userId: string) => {
-    deleteUser(userId)
-      .catch((err) => console.log("Erro ao deletar"));
+    deleteUser(userId).catch((err) => console.log("Erro ao deletar"));
   };
 
   const loginHandler = async (email: string, password: string) => {
@@ -107,6 +119,6 @@ export const useCrud = () => {
     deleteUserHandler,
     loginHandler,
     loggedInUser,
-    loginError
+    loginError,
   };
 };

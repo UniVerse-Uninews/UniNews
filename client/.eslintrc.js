@@ -1,0 +1,35 @@
+module.exports = {
+  parser: "@typescript-eslint/parser",
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "prettier",
+  ],
+  plugins: ["@typescript-eslint", "import", "prettier"],
+  rules: {
+    quotes: ["error", "double"],
+    "no-undef": "off",
+    "no-unused-vars": "warn",
+    "no-redeclare": "off",
+    "no-shadow": "off",
+    "no-dupe-class-members": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/no-shadow": "warn",
+    "@typescript-eslint/no-redeclare": "warn",
+    "@typescript-eslint/no-dupe-class-members": "warn",
+    "import/no-cycle": "warn",
+    "import/no-unresolved": [
+      "warn",
+      {
+        ignore: ["@env"],
+      },
+    ],
+    "prettier/prettier": "warn",
+    "import/namespace": ["warn", { allowComputed: true }],
+  },
+};
