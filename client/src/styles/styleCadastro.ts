@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import {
-  responsiveHeight,
   responsiveScreenFontSize,
   responsiveScreenHeight,
 } from "react-native-responsive-dimensions";

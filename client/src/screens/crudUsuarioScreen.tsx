@@ -14,11 +14,8 @@ import {
   NameBlue,
   Name,
   BackgroundInputText,
-  ContainerCrud,
-  BorderColorContainer,
   BorderColorTable,
   BackgroundContainerInput,
-  BackgroundInput,
 } from "../theme/style";
 import { Header } from "../components/addHeader/header";
 import { InputSenhaSpecial } from "../components/addInput/Input";

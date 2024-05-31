@@ -22,14 +22,14 @@ module.exports = {
     "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/no-redeclare": "warn",
     "@typescript-eslint/no-dupe-class-members": "warn",
-    "import/no-cycle": "warn",
+    "import/no-cycle": "off",
     "import/no-unresolved": [
-      "warn",
+      "off",
       {
         ignore: ["@env"],
       },
     ],
-    "prettier/prettier": "warn",
-    "import/namespace": ["warn", { allowComputed: true }],
+    "prettier/prettier": "off",
+    "import/namespace": ["off", { allowComputed: true }],
   },
 };

@@ -3,12 +3,6 @@ import React from "react";
 import {
   View,
   Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
 } from "react-native";
 import { BigHeader } from "../components/addBigHeader/bigHeader";
 import {

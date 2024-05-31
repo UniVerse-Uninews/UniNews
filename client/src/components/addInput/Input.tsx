@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, Image, TouchableOpacity } from "react-native";
 import { styles } from "./inputStyle";
 import { BackgroundInput, BackgroundInputText, Name } from "../../theme/style";
-import { useCrud } from "../../hooks/crudHooks";
 
 export function InputSenha({ user, setUser }: any) {
   const eye = require("../../../assets/imagens/eye.png");

@@ -25,12 +25,12 @@ export const useCrud = () => {
       const res = await getUsers(user.role);
       setUsers(res.data);
     } catch (err) {
-      console.log("Erro ao mostrar", err);
+      console.error("Erro ao mostrar", err);
     }
 
     getUsers(user.role)
       .then((res) => setUsers(res.data))
-      .catch((err) => console.log("Erro ao mostrar", err));
+      .catch((err) => console.error("Erro ao mostrar", err));
   };
 
   const updateUserHandler = (userId: string, userData: any) => {
@@ -86,7 +86,7 @@ export const useCrud = () => {
   };
 
   const deleteUserHandler = (userId: string) => {
-    deleteUser(userId).catch((err) => console.log("Erro ao deletar"));
+    deleteUser(userId).catch((err) => console.error("Erro ao deletar", err));
   };
 
   const loginHandler = async (email: string, password: string) => {
@@ -105,7 +105,7 @@ export const useCrud = () => {
       setLoginError(null);
     } catch (err) {
       setLoginError("Erro ao fazer login. Verifique suas credenciais.");
-      console.log("Erro ao fazer login:", err);
+      console.error("Erro ao fazer login:", err);
     }
   };
 
