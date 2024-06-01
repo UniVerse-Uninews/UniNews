@@ -1,10 +1,10 @@
-import { styles } from "./styleBigHeader";
-import React from "react";
-import { View } from "react-native";
-import { Container, NameBlue, Name } from "../../theme/style";
-import { ImageBig } from "../addImageBig/addImageBig";
+import { styles } from './styleBigHeader';
+import React from 'react';
+import { View } from 'react-native';
+import { Container, NameBlue, Name } from '../../theme/style';
+import { ImageBig } from '../addImageBig/addImageBig';
 export function BigHeader() {
-  const dirImagem = require("../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png");
+  const dirImagem = require('../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
   return (
     <Container style={styles.container}>
       <View style={styles.cabecalho}>

@@ -1,27 +1,27 @@
-import { styles } from "../styles/styleCadastro";
-import React from "react";
+import { styles } from '../styles/styleCadastro';
+import React from 'react';
 import {
   View,
   Text,
-} from "react-native";
-import { BigHeader } from "../components/addBigHeader/bigHeader";
+} from 'react-native';
+import { BigHeader } from '../components/addBigHeader/bigHeader';
 import {
   BackgroundContainerInput,
   Name,
   BackgroundInput,
   BackgroundInputText,
   Container,
-} from "../theme/style";
-import { ButtonSpecial } from "../components/addButton/Button";
-import { useCrud } from "../hooks/crudHooks";
-import { InputConfirmSenha, InputSenha } from "../components/addInput/Input";
+} from '../theme/style';
+import { ButtonSpecial } from '../components/addButton/Button';
+import { useCrud } from '../hooks/crudHooks';
+import { InputConfirmSenha, InputSenha } from '../components/addInput/Input';
 
 export function Cadastro({ navigation }: any) {
   const { user, setUser, addUserHandler } = useCrud();
   const [hidePass, setHidePass] = React.useState(true);
   const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
-  const eye = require("../../assets/imagens/eye.png");
-  const eyeOff = require("../../assets/imagens/eyeOff.png");
+  const eye = require('../../assets/imagens/eye.png');
+  const eyeOff = require('../../assets/imagens/eyeOff.png');
 
   const handleInputChange = (field: string, value: string) => {
     setUser({ ...user, [field]: value });
@@ -42,9 +42,9 @@ export function Cadastro({ navigation }: any) {
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="Nome"
-                  placeholderTextColor={"#8F8F8F"}
+                  placeholderTextColor={'#8F8F8F'}
                   value={user.name}
-                  onChangeText={(text) => handleInputChange("name", text)}
+                  onChangeText={(text) => handleInputChange('name', text)}
                 />
               </BackgroundInput>
             </View>
@@ -55,9 +55,9 @@ export function Cadastro({ navigation }: any) {
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="E-mail"
-                  placeholderTextColor={"#8F8F8F"}
+                  placeholderTextColor={'#8F8F8F'}
                   value={user.email}
-                  onChangeText={(text) => handleInputChange("email", text)}
+                  onChangeText={(text) => handleInputChange('email', text)}
                 />
               </BackgroundInput>
             </View>
@@ -77,9 +77,9 @@ export function Cadastro({ navigation }: any) {
           <Name>Já tem conta?</Name>
           <Text
             style={styles.login}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate('Login')}
           >
-            {" "}
+            {' '}
             Faça login
           </Text>
         </View>

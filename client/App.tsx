@@ -1,13 +1,13 @@
 // App.tsx
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Cadastro } from "./src/screens/cadastro";
-import { CrudUsuario } from "./src/screens/crudUsuarioScreen";
-import { useColorScheme } from "react-native";
-import { ThemeProvider } from "styled-components";
-import themes from "./src/theme";
-import Login from "./src/screens/loginScreen";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Cadastro } from './src/screens/cadastro';
+import { CrudUsuario } from './src/screens/crudUsuarioScreen';
+import { useColorScheme } from 'react-native';
+import { ThemeProvider } from 'styled-components';
+import themes from './src/theme';
+import Login from './src/screens/loginScreen';
 
 const Stack = createStackNavigator();
 

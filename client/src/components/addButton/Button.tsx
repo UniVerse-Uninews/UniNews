@@ -1,7 +1,7 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { styles } from "./buttonStyle";
-import { ColorButton } from "../../theme/style";
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { styles } from './buttonStyle';
+import { ColorButton } from '../../theme/style';
 
 export function Button({
   etiqueta,

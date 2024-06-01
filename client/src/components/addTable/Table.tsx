@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { DataTable } from "react-native-paper";
-import { styles } from "./tableStyle";
-import { View } from "react-native";
-import { Name } from "../../theme/style";
+import React, { useEffect, useState } from 'react';
+import { DataTable } from 'react-native-paper';
+import { styles } from './tableStyle';
+import { View } from 'react-native';
+import { Name } from '../../theme/style';
 
 export function Table({
   users,

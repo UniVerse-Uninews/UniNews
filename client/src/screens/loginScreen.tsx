@@ -1,37 +1,37 @@
 // src/screens/loginScreen.tsx
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import {
   TextInput,
   View,
   Text,
   SafeAreaView,
   TouchableOpacity,
-} from "react-native";
-import { loginUser } from "../services/api";
-import { styles } from "../styles/styleLogin";
+} from 'react-native';
+import { loginUser } from '../services/api';
+import { styles } from '../styles/styleLogin';
 
-const ImageLogo = require("../../assets/imagens/logomarca-semfundo.png");
+const ImageLogo = require('../../assets/imagens/logomarca-semfundo.png');
 
 export default function Login({ navigation }: any) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const handleLogin = () => {
     if (!username || !password) {
-      setLoginError("Por favor, preencha todos os campos.");
+      setLoginError('Por favor, preencha todos os campos.');
       return;
     }
 
     loginUser(username, password)
       .then((response) => {
-        console.log("Login successful:", response.data);
-        navigation.navigate("CrudUsuario");
+        console.log('Login successful:', response.data);
+        navigation.navigate('CrudUsuario');
       })
       .catch((error) => {
-        console.error("Login error:", error);
-        setLoginError("Erro ao fazer login. Verifique suas credenciais.");
+        console.error('Login error:', error);
+        setLoginError('Erro ao fazer login. Verifique suas credenciais.');
       });
   };
 
@@ -74,7 +74,7 @@ export default function Login({ navigation }: any) {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.button}
-            onPress={() => navigation.navigate("Cadastro")}
+            onPress={() => navigation.navigate('Cadastro')}
           >
             <Text style={styles.textbutton}>Criar conta</Text>
           </TouchableOpacity>

@@ -1,11 +1,11 @@
-import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
-import { styles } from "./inputStyle";
-import { BackgroundInput, BackgroundInputText, Name } from "../../theme/style";
+import React from 'react';
+import { View, Image, TouchableOpacity } from 'react-native';
+import { styles } from './inputStyle';
+import { BackgroundInput, BackgroundInputText, Name } from '../../theme/style';
 
 export function InputSenha({ user, setUser }: any) {
-  const eye = require("../../../assets/imagens/eye.png");
-  const eyeOff = require("../../../assets/imagens/eyeOff.png");
+  const eye = require('../../../assets/imagens/eye.png');
+  const eyeOff = require('../../../assets/imagens/eyeOff.png');
 
   const [hidePass, setHidePass] = React.useState(true);
 
@@ -23,8 +23,8 @@ export function InputSenha({ user, setUser }: any) {
             style={styles.input}
             placeholder="Senha"
             secureTextEntry={hidePass}
-            onChangeText={(text) => handleInputChange("passwordHash", text)}
-            placeholderTextColor={"#8F8F8F"}
+            onChangeText={(text) => handleInputChange('passwordHash', text)}
+            placeholderTextColor={'#8F8F8F'}
           />
           <TouchableOpacity
             style={styles.icon}
@@ -42,8 +42,8 @@ export function InputSenha({ user, setUser }: any) {
   );
 }
 export function InputConfirmSenha({ user, setUser }: any) {
-  const eye = require("../../../assets/imagens/eye.png");
-  const eyeOff = require("../../../assets/imagens/eyeOff.png");
+  const eye = require('../../../assets/imagens/eye.png');
+  const eyeOff = require('../../../assets/imagens/eyeOff.png');
 
   const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
 
@@ -60,8 +60,8 @@ export function InputConfirmSenha({ user, setUser }: any) {
             style={styles.input}
             placeholder="Confirmar Senha"
             secureTextEntry={hideConfirmPass}
-            onChangeText={(text) => handleInputChange("confirmPassword", text)}
-            placeholderTextColor={"#8F8F8F"}
+            onChangeText={(text) => handleInputChange('confirmPassword', text)}
+            placeholderTextColor={'#8F8F8F'}
           />
           <TouchableOpacity
             style={styles.icon}
@@ -83,7 +83,7 @@ export function InputSenhaSpecial({ user, setUser }: any) {
     <BackgroundInputText
       style={styles.inputSpecial}
       placeholder="Senha"
-      placeholderTextColor={"#8F8F8F"}
+      placeholderTextColor={'#8F8F8F'}
       value={user.passwordHash}
       onChangeText={(s) => setUser({ ...user, passwordHash: s })}
     />

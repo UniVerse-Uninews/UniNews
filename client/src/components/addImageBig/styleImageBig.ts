@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   image: {
-    width: "70%",
-    height: "100%",
+    width: '70%',
+    height: '100%',
   },
 });

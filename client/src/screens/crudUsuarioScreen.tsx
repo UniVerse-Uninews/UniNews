@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { View, TouchableOpacity } from "react-native";
-import { RadioButton } from "react-native-paper";
-import Checkbox from "expo-checkbox";
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { View, TouchableOpacity } from 'react-native';
+import { RadioButton } from 'react-native-paper';
+import Checkbox from 'expo-checkbox';
 
-import { styles } from "../styles/styleCrudUsuario";
-import { Button } from "../components/addButton/Button";
-import Table from "../components/addTable/Table";
-import { useCrud } from "../hooks/crudHooks";
+import { styles } from '../styles/styleCrudUsuario';
+import { Button } from '../components/addButton/Button';
+import Table from '../components/addTable/Table';
+import { useCrud } from '../hooks/crudHooks';
 import {
   Container,
   ScrollContainer,
@@ -16,9 +16,9 @@ import {
   BackgroundInputText,
   BorderColorTable,
   BackgroundContainerInput,
-} from "../theme/style";
-import { Header } from "../components/addHeader/header";
-import { InputSenhaSpecial } from "../components/addInput/Input";
+} from '../theme/style';
+import { Header } from '../components/addHeader/header';
+import { InputSenhaSpecial } from '../components/addInput/Input';
 
 export function CrudUsuario() {
   const [isChecked, setChecked] = useState(false);
@@ -49,27 +49,27 @@ export function CrudUsuario() {
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="Nome de Usuário"
-                  placeholderTextColor={"#8F8F8F"}
+                  placeholderTextColor={'#8F8F8F'}
                   value={user.name}
                   onChangeText={(n) => setUser({ ...user, name: n })}
                 />
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="E-mail"
-                  placeholderTextColor={"#8F8F8F"}
+                  placeholderTextColor={'#8F8F8F'}
                   value={user.email}
                   onChangeText={(e) => setUser({ ...user, email: e })}
                 />
                 <InputSenhaSpecial user={user} setUser={setUser} />
 
                 <TouchableOpacity
-                  onPress={() => setUser({ ...user, role: "ADMIN" })}
+                  onPress={() => setUser({ ...user, role: 'ADMIN' })}
                 >
                   <View style={styles.radio}>
                     <RadioButton.Android
                       value="ADMIN"
-                      status={user.role === "ADMIN" ? "checked" : "unchecked"}
-                      onPress={() => setUser({ ...user, role: "ADMIN" })}
+                      status={user.role === 'ADMIN' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: 'ADMIN' })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />
@@ -78,13 +78,13 @@ export function CrudUsuario() {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  onPress={() => setUser({ ...user, role: "USER" })}
+                  onPress={() => setUser({ ...user, role: 'USER' })}
                 >
                   <View style={styles.radio}>
                     <RadioButton.Android
                       value="USER"
-                      status={user.role === "USER" ? "checked" : "unchecked"}
-                      onPress={() => setUser({ ...user, role: "USER" })}
+                      status={user.role === 'USER' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: 'USER' })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />

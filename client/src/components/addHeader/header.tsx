@@ -1,10 +1,10 @@
-import { styles } from "./styleheader";
-import React from "react";
-import { View } from "react-native";
-import { Container, NameBlue, Name, Line } from "../../theme/style";
-import ImageViewer from "../addImageViewer/ImageViewer";
+import { styles } from './styleheader';
+import React from 'react';
+import { View } from 'react-native';
+import { Container, NameBlue, Name, Line } from '../../theme/style';
+import ImageViewer from '../addImageViewer/ImageViewer';
 export function Header() {
-  const dirImagem = require("../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png");
+  const dirImagem = require('../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
   return (
     <Container style={styles.container}>
       <View style={styles.cabecalho}>
