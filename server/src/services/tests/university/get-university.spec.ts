@@ -7,7 +7,6 @@ import { randomUUID } from "crypto";
 
 describe("Get University Use Case", () => {
     it("should return the university if it exists", async () => {
-        // Mock data
         const mockUniversity: University = {
           id: randomUUID(),
           name: "University A",

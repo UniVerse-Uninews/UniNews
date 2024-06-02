@@ -7,7 +7,18 @@
     "esModuleInterop": true,
     "target": "es6",
     "lib": ["dom", "es6"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@hooks/*": ["src/hooks/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@theme/*": ["src/theme/*"],
+      "@services/*": ["src/services/*"],
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"]
+    }
   },
   "include": ["src", "env.d.ts"]
 }
