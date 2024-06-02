@@ -1,11 +1,10 @@
-import { StyleSheet } from "react-native";
-import { responsiveFontSize } from "react-native-responsive-dimensions";
+import { StyleSheet } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     height: '32%',
     width: '100%',
-
   },
   cabecalho: {
     marginTop: '10%',

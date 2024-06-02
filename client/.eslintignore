@@ -1,0 +1,7 @@
+/.expo
+node_modules
+babel.config.js
+package.json
+package-lock.json
+src/services/api.tsx
+src/services/*

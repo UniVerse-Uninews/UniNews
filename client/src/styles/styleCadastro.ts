@@ -1,5 +1,8 @@
-import { StyleSheet } from "react-native";
-import { responsiveHeight, responsiveScreenFontSize, responsiveScreenHeight } from "react-native-responsive-dimensions";
+import { StyleSheet } from 'react-native';
+import {
+  responsiveScreenFontSize,
+  responsiveScreenHeight,
+} from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -83,11 +86,10 @@ export const styles = StyleSheet.create({
   containerLogin: {
     flexDirection: 'row',
     marginTop: '5%',
-    width: '100%',  
+    width: '100%',
     justifyContent: 'center',
-
   },
   login: {
     color: '#4169E1',
-  }
+  },
 });

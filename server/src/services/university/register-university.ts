@@ -1,8 +1,6 @@
 import { University } from "@prisma/client";
-import { PrismaClient } from "@prisma/client";
 import { UniversityRepository } from "../../repositories/university-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
-import { UniversityAlreadyExistError } from "../errors/university-alreads-exist-error";
+import { UniversityAlreadyExistError } from "../errors/university-already-exist-error";
 
 interface RegisterUniversityUseCaseRequest {
     name: string;

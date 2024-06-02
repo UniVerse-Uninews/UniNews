@@ -1,10 +1,12 @@
-import { StyleSheet } from "react-native";
-import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
+import { StyleSheet } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
   containerDados: {
     width: '100%',
@@ -15,7 +17,7 @@ export const styles = StyleSheet.create({
   viewDados: {
     width: '55%',
     marginHorizontal: 8,
-    marginTop: 10
+    marginTop: 10,
   },
   titulo: {
     fontSize: 30,
@@ -24,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     width: 50,
-    padding: '1%'
+    padding: '1%',
   },
   containerInput: {
     borderWidth: 2,
@@ -54,7 +56,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: '5%',
     marginLeft: responsiveWidth(3),
-
   },
   textRadio: {
     fontSize: 15,
@@ -65,25 +66,23 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '50%',
     marginTop: '5%',
-    marginLeft: '4%'
+    marginLeft: '4%',
   },
   table: {
     width: '90%',
     height: '100%',
     borderWidth: 2,
-    borderRadius: 10
+    borderRadius: 10,
   },
   checkboxContainer: {
     flexDirection: 'row',
     paddingTop: '10%',
     marginLeft: '4%',
-    
   },
   checkbox: {
     flexDirection: 'row',
     paddingTop: '5%',
     marginLeft: responsiveWidth(3),
-
   },
   textCheckbox: {
     fontSize: 15,

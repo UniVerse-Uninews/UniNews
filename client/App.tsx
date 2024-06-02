@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -19,9 +20,21 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-          <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }}/>
-          <Stack.Screen name="CrudUsuario" component={CrudUsuario} options={{ headerShown: false }}/>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Cadastro"
+            component={Cadastro}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CrudUsuario"
+            component={CrudUsuario}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

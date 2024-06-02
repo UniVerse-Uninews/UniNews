@@ -4,12 +4,19 @@ import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Checkbox from 'expo-checkbox';
 
-
 import { styles } from '../styles/styleCrudUsuario';
 import { Button } from '../components/addButton/Button';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import { Container, ScrollContainer, NameBlue, Name, BackgroundInputText, ContainerCrud, BorderColorContainer, BorderColorTable, BackgroundContainerInput, BackgroundInput } from '../theme/style';
+import {
+  Container,
+  ScrollContainer,
+  NameBlue,
+  Name,
+  BackgroundInputText,
+  BorderColorTable,
+  BackgroundContainerInput,
+} from '../theme/style';
 import { Header } from '../components/addHeader/header';
 import { InputSenhaSpecial } from '../components/addInput/Input';
 
@@ -23,7 +30,7 @@ export function CrudUsuario() {
     fetchUsers,
     updateUserHandler,
     addUserHandler,
-    deleteUserHandler
+    deleteUserHandler,
   } = useCrud();
 
   const handleRowClick = (clickedUser: any) => {
@@ -53,14 +60,16 @@ export function CrudUsuario() {
                   value={user.email}
                   onChangeText={(e) => setUser({ ...user, email: e })}
                 />
-                <InputSenhaSpecial user={user} setUser={setUser}/>
+                <InputSenhaSpecial user={user} setUser={setUser} />
 
-                <TouchableOpacity onPress={() => setUser({ ...user, role: "ADMIN" })}>
+                <TouchableOpacity
+                  onPress={() => setUser({ ...user, role: 'ADMIN' })}
+                >
                   <View style={styles.radio}>
                     <RadioButton.Android
                       value="ADMIN"
-                      status={user.role === "ADMIN" ? 'checked' : 'unchecked'}
-                      onPress={() => setUser({ ...user, role: "ADMIN" })}
+                      status={user.role === 'ADMIN' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: 'ADMIN' })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />
@@ -68,12 +77,14 @@ export function CrudUsuario() {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => setUser({ ...user, role: "USER" })}>
+                <TouchableOpacity
+                  onPress={() => setUser({ ...user, role: 'USER' })}
+                >
                   <View style={styles.radio}>
                     <RadioButton.Android
                       value="USER"
-                      status={user.role === "USER" ? 'checked' : 'unchecked'}
-                      onPress={() => setUser({ ...user, role: "USER" })}
+                      status={user.role === 'USER' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: 'USER' })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />
@@ -94,8 +105,14 @@ export function CrudUsuario() {
             <View style={styles.containerButton}>
               <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
               <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
-              <Button etiqueta="Alterar" handlePress={() => updateUserHandler(user.id, user)} />
-              <Button etiqueta="Apagar" handlePress={() => deleteUserHandler(user.id)} />
+              <Button
+                etiqueta="Alterar"
+                handlePress={() => updateUserHandler(user.id, user)}
+              />
+              <Button
+                etiqueta="Apagar"
+                handlePress={() => deleteUserHandler(user.id)}
+              />
             </View>
           </View>
           <View style={styles.containerTable}>

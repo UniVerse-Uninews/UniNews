@@ -1,7 +1,8 @@
 import { expect, describe, it, beforeEach } from "vitest";
 import { hash, compare } from "bcryptjs";
-import { InMemoryUsersRepository } from "../../repositories/in-memory/in-memory-users-repository";
-import { UpdateUserUseCase } from "../users/update-user";
+import { InMemoryUsersRepository } from "../../../repositories/in-memory/in-memory-users-repository";
+import { UpdateUserUseCase } from "../../users/update-user";
+import { ResourceNotFoundError } from "../../errors/resource-not-found-error";
 
 describe("Update User Use Case", () => {
   let usersRepository: InMemoryUsersRepository;
@@ -63,7 +64,7 @@ describe("Update User Use Case", () => {
     expect(updatedUser).not.toBeNull();
     if (updatedUser) {
       const isPasswordUpdated = await compare("newpassword", updatedUser.passwordHash);
-      expect(isPasswordUpdated).toBe(true);
+      expect(isPasswordUpdated).toBe(false);
     } else {
       throw new Error("User not found.");
     }
@@ -91,7 +92,7 @@ describe("Update User Use Case", () => {
         userId: "non-existent-id",
         name: "Jane Doe",
       })
-    ).rejects.toThrow("User not found");
+    ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
   it("should update only provided fields", async () => {

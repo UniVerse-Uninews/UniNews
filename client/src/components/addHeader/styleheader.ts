@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { responsiveScreenHeight } from "react-native-responsive-dimensions";
+import { StyleSheet } from 'react-native';
+import { responsiveScreenHeight } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     height: '17%',
