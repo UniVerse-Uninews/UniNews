@@ -4,12 +4,10 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fffdf6',
     alignItems: 'center',
   },
   box: {
     borderWidth: 2,
-    backgroundColor: '#ffffff',
     width: '80%',
     height: '60%',
     borderRadius: 10,
@@ -21,7 +19,7 @@ export const styles = StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 1.5,
     padding: 10,
     borderRadius: 15,
   },
@@ -57,7 +55,6 @@ export const styles = StyleSheet.create({
     marginHorizontal: '1%',
   },
   textbutton2: {
-    color: '#000000',
     fontSize: 16,
   },
   boxbutton: {
