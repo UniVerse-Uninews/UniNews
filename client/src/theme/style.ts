@@ -46,3 +46,6 @@ export const ContainerCrud = styled.View`
   background: ${(props) => props.theme.backgroundContainerInput};
   border-color: ${(props) => props.theme.borderColorInput};
 `;
+export const BorderColorButton = styled.TouchableOpacity`
+  border-color: ${(props) => props.theme.primary};
+`;

@@ -8,6 +8,7 @@ import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
+import {Feed} from './src/screens/feed';
 
 
 const Stack = createStackNavigator();
@@ -19,7 +20,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Cadastro">
+        <Stack.Navigator initialRouteName="Feed">
           <Stack.Screen
             name="Login"
             component={Login}
@@ -33,6 +34,11 @@ export default function App() {
           <Stack.Screen
             name="CrudUsuario"
             component={CrudUsuario}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Feed"
+            component={Feed}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

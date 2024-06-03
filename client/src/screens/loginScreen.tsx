@@ -5,13 +5,12 @@ import {
   TextInput,
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
+import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name } from '@theme/style';
 
-const ImageLogo = require('../../assets/imagens/logomarca-semfundo.png');
 
 export default function Login({ navigation }: any) {
   const [username, setUsername] = useState('');
@@ -36,32 +35,38 @@ export default function Login({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Container style={styles.container}>
       <View style={styles.logo}>
-        <Text style={styles.Uni}>UNI</Text>
-        <Text style={styles.News}>NEWS</Text>
+        <Name style={styles.Uni}>UNI</Name>
+        <Name style={styles.News}>NEWS</Name>
       </View>
 
-      <View style={styles.box}>
+      <BackgroundContainerInput style={styles.box}>
         <View style={styles.campo}>
-          <Text style={styles.campotext}>Usuário</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="  Usuário"
-            value={username}
-            onChangeText={setUsername}
-          />
+          <Name style={styles.campotext}>Usuário</Name>
+          <BackgroundInput
+            style={styles.input}>
+            <TextInput
+              placeholder="  Usuário"
+              value={username}
+              onChangeText={setUsername}
+              placeholderTextColor={'#8F8F8F'}
+            />
+          </BackgroundInput>
         </View>
-        <View style={styles.campo}>
-          <Text style={styles.campotext}>Senha</Text>
+        <BackgroundContainerInput style={styles.campo}>
+          <Name style={styles.campotext}>Senha</Name>
+          <BackgroundInput
+            style={styles.input}>
           <TextInput
-            style={styles.input}
             placeholder="  Senha"
             value={password}
             onChangeText={setPassword}
             secureTextEntry={true}
+            placeholderTextColor={'#8F8F8F'}
           />
-        </View>
+          </BackgroundInput>
+        </BackgroundContainerInput>
         {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
         <View style={styles.boxbutton}>
           <TouchableOpacity
@@ -80,24 +85,24 @@ export default function Login({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
-        <View style={[styles.text, { paddingTop: 20 }]}>
+        <Name style={[styles.text, { paddingTop: 20 }]}>
           <Text>Logar com</Text>
-        </View>
+        </Name>
 
-        <TouchableOpacity activeOpacity={0.8} style={styles.button2}>
-          <Text style={styles.textbutton2}>Google</Text>
-        </TouchableOpacity>
+        <BorderColorButton activeOpacity={0.8} style={styles.button2}>
+          <Name style={styles.textbutton2}>Google</Name>
+        </BorderColorButton>
 
         <View style={styles.text}>
-          <Text>Ou</Text>
+          <Name>Ou</Name>
         </View>
 
-        <TouchableOpacity activeOpacity={0.8} style={styles.button2}>
-          <Text style={styles.textbutton2}>Facebook</Text>
-        </TouchableOpacity>
-      </View>
+        <BorderColorButton activeOpacity={0.8} style={styles.button2}>
+          <Name style={styles.textbutton2}>Facebook</Name>
+        </BorderColorButton>
+      </BackgroundContainerInput>
 
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </Container>
   );
 }
