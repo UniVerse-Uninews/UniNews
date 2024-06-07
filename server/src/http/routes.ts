@@ -14,6 +14,9 @@
   import { refresh } from "./controllers/user/refresh";
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
+  import { addNews } from "./controllers/news/add-news";
+  import { getRSSFeed } from "./controllers/news/get-rss-feed";
+  import { getNewsByUniversity } from "./controllers/news/get-news-by-university";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -38,4 +41,9 @@
     app.get("/university/:id", { preValidation: [app.verifyJwt] }, getUniversityController);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
+
+    // News routes
+    app.post('/news', addNews);
+    app.get('/news/:text', getRSSFeed);
+    app.get('/news/university/:text', getNewsByUniversity);
   }
