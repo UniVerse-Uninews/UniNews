@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
     box: { // Added a colon (:) after "box"
         flexDirection: 'row',
         justifyContent: 'space-around',
-        flexWrap: 'wrap',
+        flexWrap: 'wrap'
     },
 });

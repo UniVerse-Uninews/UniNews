@@ -3,14 +3,14 @@ import { Container } from '@theme/style';
 import React from 'react'; 
 import { styles } from '@styles/styleFeed';
 import { View } from 'react-native';
-export { ThemeNews } from '../components/addTheme/theme';
-
 import { ThemeNews } from '../components/addTheme/theme';
+import { News } from '@components/addNews/news';
+import {Footer}from '../components/addFooter/footer';
 
 export function Feed({ navigation }: any) {
     return (
         <>
-            <Header />
+            <Header/>
                 <Container style={styles.container}>
                     <View style={styles.box}>
                         <ThemeNews name="Biológicas" />
@@ -20,6 +20,8 @@ export function Feed({ navigation }: any) {
                         <ThemeNews name="Tecnologia" />
                     </View>
                 </Container>
+            <News/>
+            <Footer/>
         </>
     );
 }
