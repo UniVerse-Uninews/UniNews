@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Container, NameBlue, Name, Line } from '../../theme/style';
 import ImageViewer from '../addImageViewer/ImageViewer';
+
 export function Header() {
   const dirImagem = require('../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
   return (
