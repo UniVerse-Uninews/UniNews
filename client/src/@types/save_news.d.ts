@@ -1,4 +1,4 @@
-export interface news {
+export interface save_news {
     id: string,
     title: string,
     description: string,
