@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         borderWidth: 5,
-        borderColor: `#fff`
+        borderColor: '#fff'
     },
     text: {
         borderWidth: 5,

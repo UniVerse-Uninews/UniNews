@@ -2,6 +2,7 @@ import React from 'react';
 import { Pressable, View, Image } from 'react-native';
 import { styles } from './footerStyle';
 
+
 const dirIconHouse = require("../../../assets/imagens/icon_casa_cheio.png");
 const dirIconGlass = require("../../../assets/imagens/icon_lupa_vazio.png");
 const dirIconSaved = require("../../../assets/imagens/icon_salvos_vazio.png");

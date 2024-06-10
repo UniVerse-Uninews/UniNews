@@ -43,6 +43,7 @@ export function News(/*news: news[] | temp_news[]*/) {
                                 <Text style={styles.text}>{t.description || ''}</Text>
                                 <Text style={styles.text}>Publicado em: {t.created ? format(new Date(t.created), 'dd/MM/yyyy HH:mm') : ''}</Text>
                                 <Text style={styles.text}>Por: {t.author || ''}</Text>
+
                                 <Pressable><Image source={dir} style={styles.icon}/></Pressable>
                             </View>
                         </View>

@@ -1,13 +1,13 @@
 export interface news {
-    id: String,
-    title: String,
-    description: String,
-    image: String,
-    link: String,
-    category: String,
-    content: String,
-    author: String,
+    id: string,
+    title: string,
+    description: string,
+    image: string,
+    link: string,
+    category: string,
+    content: string,
+    author: string,
     created: Date,
-    university: String,
-    user: String
+    university: string,
+    user: string
 };
