@@ -4,8 +4,9 @@ import { news } from 'src/@types/news';
 import { temp_news } from 'src/@types/temp_news';
 import { format } from 'date-fns';
 import { styles } from './newsStyle';
+import { BorderColorBlue, Name } from '@theme/style';
 
-const dir = require("../../../assets/imagens/icon_salvos_vazio.png");
+const dir = require('../../../assets/imagens/icon_salvos_vazio.png');
 
 export function News(/*news: news[] | temp_news[]*/) {
     const news = [{
@@ -35,18 +36,19 @@ export function News(/*news: news[] | temp_news[]*/) {
         <ScrollView>
             {news?.map((t: any) => (
                 <Pressable key={t?.id || ''} onPress={() => { Linking.openURL(t.link) }}>
-                    <View style={styles.viewCard}>
-                        <View style={styles.card}>
+                    <View>
+                        <BorderColorBlue style={styles.card}>
+                            <View style={styles.containerIcon}>
+                                    <Pressable><Image source={dir} style={styles.icon}/></Pressable>
+                                    </View> 
                             {t.image != '' ? (<Image source={{ uri: t.image }} style={styles.imageCard} />) : (<Text></Text>)}
-                            <Text style={styles.title}>{t.title}</Text>
+                            <Name style={styles.title}>{t.title}</Name>
                             <View style={styles.data}>
-                                <Text style={styles.text}>{t.description || ''}</Text>
-                                <Text style={styles.text}>Publicado em: {t.created ? format(new Date(t.created), 'dd/MM/yyyy HH:mm') : ''}</Text>
-                                <Text style={styles.text}>Por: {t.author || ''}</Text>
-
-                                <Pressable><Image source={dir} style={styles.icon}/></Pressable>
+                                <Name style={styles.text}>{t.description || ''}</Name>
+                                <Name style={styles.text}>Publicado em: {t.created ? format(new Date(t.created), 'dd/MM/yyyy HH:mm') : ''}</Name>
+                                <Name style={styles.text}>Por: {t.author || ''}</Name>
                             </View>
-                        </View>
+                        </BorderColorBlue>
                     </View>
                 </Pressable>
             ))}
