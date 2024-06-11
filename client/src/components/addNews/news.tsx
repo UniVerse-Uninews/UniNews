@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Linking, Pressable, Image, ScrollView } from 'react-native';
-import { news } from 'src/@types/news';
+import { save_news } from 'src/@types/save_news';
 import { temp_news } from 'src/@types/temp_news';
 import { format } from 'date-fns';
 import { styles } from './newsStyle';
@@ -8,7 +8,7 @@ import { BorderColorBlue, Name } from '@theme/style';
 
 const dir = require('../../../assets/imagens/icon_salvos_vazio.png');
 
-export function News(/*news: news[] | temp_news[]*/) {
+export function News(/*news: save_news[] | temp_news[]*/) {
     const news = [{
         id: 'teste',
         title: 'teste',
