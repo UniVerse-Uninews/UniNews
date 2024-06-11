@@ -1,9 +1,6 @@
 import { Header } from '@components/addHeader/header';
-import { Container } from '@theme/style';
 import React from 'react'; 
-import { styles } from '@styles/styleNoticia';
 import { View, Text } from 'react-native';
-import { News } from '@components/addNews/news';
 import {Footer}from '../components/addFooter/footer';
 import { temp_news } from 'src/@types/temp_news';
 import { save_news } from 'src/@types/save_news';
