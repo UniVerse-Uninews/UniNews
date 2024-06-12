@@ -6,7 +6,7 @@ import { temp_news } from 'src/@types/temp_news';
 import { save_news } from 'src/@types/save_news';
 import { format } from 'date-fns';
 
-export default function LerNoticia({navigation}:any, noticia:temp_news | save_news){
+export default function lerNoticia({navigation}:any, noticia:temp_news | save_news){
 
     return(
         <>

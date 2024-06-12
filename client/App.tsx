@@ -9,7 +9,8 @@ import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
 import {Feed} from './src/screens/feed';
-import LerNoticia from './src/screens/lerNoticia';
+import lerNoticia from './src/screens/lerNoticia';
+import {CrudUniversidade} from './src/screens/crudUniversidade';
 
 const Stack = createStackNavigator();
 
@@ -43,7 +44,12 @@ export default function App() {
           />
           <Stack.Screen
             name="LerNoticia"
-            component={LerNoticia}
+            component={lerNoticia}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CrudUniversidade"
+            component={CrudUniversidade}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
