@@ -4,6 +4,7 @@ import { REACT_APP_API_URL } from '@env';
 
 const http = REACT_APP_API_URL;
 
+
 const getToken = async () => {
   return await AsyncStorage.getItem('token');
 };

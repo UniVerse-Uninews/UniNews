@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
 import {Feed} from './src/screens/feed';
-import lerNoticia from './src/screens/lerNoticia';
+import LerNoticia from './src/screens/lerNoticia';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +20,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="LerNoticia">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
             component={Login}
@@ -43,7 +43,7 @@ export default function App() {
           />
           <Stack.Screen
             name="LerNoticia"
-            component={lerNoticia}
+            component={LerNoticia}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
