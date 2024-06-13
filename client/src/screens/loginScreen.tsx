@@ -26,7 +26,7 @@ export default function Login({ navigation }: any) {
     loginUser(username, password)
       .then((response) => {
         console.log('Login successful:', response.data);
-        navigation.navigate('CrudUsuario');
+        navigation.navigate('CrudUniversidade');
       })
       .catch((error) => {
         console.error('Login error:', error);

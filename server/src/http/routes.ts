@@ -40,7 +40,7 @@
     app.get("/getalluniversity", { preValidation: [app.verifyJwt] }, getAllUniversityController);
     app.get("/university/:id", { preValidation: [app.verifyJwt] }, getUniversityController);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
-    app.put("/university/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
+    app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
 
     // News routes
     app.post('/news', addNews);

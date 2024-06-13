@@ -19,7 +19,7 @@ export class PrismaUniversityRepository implements UniversityRepository {
     async findByUrl(url: string): Promise<University | null> {
         try {
             const university = await prisma.university.findUnique({
-                where: { id: url }, 
+                where: { url }, 
             });
             return university;
         } catch (error) {

@@ -37,7 +37,7 @@ model University {
   updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
   name        String
   location    String
-  url         String
+  url         String   @unique
   description String
   news        News[]
 

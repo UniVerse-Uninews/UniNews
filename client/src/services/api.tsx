@@ -57,7 +57,7 @@ export const loginUser = async (email: string, password: string) => {
 
 export const addUniversity = async (universityData: any) => {
   const token = await getToken();
-  return axios.post(`${http}/universities`, universityData, {
+  return axios.post(`${http}/university`, universityData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -66,7 +66,7 @@ export const addUniversity = async (universityData: any) => {
 
 export const getUniversities = async () => {
   const token = await getToken();
-  return axios.get(`${http}/getalluniversities`, {
+  return axios.get(`${http}/getalluniversity`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -75,7 +75,7 @@ export const getUniversities = async () => {
 
 export const getUniversity = async (universityId: string) => {
   const token = await getToken();
-  return axios.get(`${http}/universities/${universityId}`, {
+  return axios.get(`${http}/university/${universityId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -84,7 +84,7 @@ export const getUniversity = async (universityId: string) => {
 
 export const updateUniversity = async (universityId: string, universityData: any) => {
   const token = await getToken();
-  return axios.put(`${http}/universities/${universityId}`, universityData, {
+  return axios.put(`${http}/university/${universityId}`, universityData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

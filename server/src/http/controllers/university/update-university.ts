@@ -16,11 +16,11 @@ export async function updateUniversityController(request: FastifyRequest, reply:
   });
 
   try {
-    const { name, location, url, description } = updateUniversityBodySchema.parse(request.body);
+    const { name, location, url, description} = updateUniversityBodySchema.parse(request.body);
     const { universityId } = updateUniversityParamsSchema.parse(request.params);
 
     const updateUseCase = makeUpdateUniversityUseCase();
-    const result = await updateUseCase.execute({ universityId, name, location, url, description });
+    const result = await updateUseCase.execute({ universityId, name, location, url, description});
 
     reply.status(200).send({ university: result.university });
   } catch (error) {
