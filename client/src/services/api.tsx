@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { REACT_APP_API_URL } from '@env';
+import { temp_news } from 'src/@types/temp_news';
 
 
 
@@ -98,4 +99,24 @@ export const deleteUniversity = async (universityId: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const fetchUniversities = async (): Promise<temp_news[]> => {
+  try {
+    const response = await axios.get(`${http}/api/universities`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching universities:', error);
+    throw error;
+  }
+};
+
+export const fetchNewsByUniversity = async (universityName: string): Promise<temp_news[]> => {
+  try {
+    const response = await axios.get(`${http}/news/university/${universityName}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    throw error;
+  }
 };

@@ -1,12 +1,12 @@
 export interface temp_news {
     id: string,
+    createdAt : Date,
     title: string,
     description: string,
     image: string,
-    link: string,
+    url: string,
     category: string,
     content: string,
     author: string,
-    created: Date,
     university: string
 };
