@@ -14,21 +14,18 @@ export function Feed({ navigation }: any) {
     const [universityId, setUniversityId] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Debounce the input change handler
     const handleUniversityNameChange = debounce(async (name: string) => {
         try {
             if (!name.trim()) {
-                setUniversityId(''); // Clear universityId if name is empty
-                return;
+                setUniversityId(''); 
             }
             setLoading(true);
-            // Call API to fetch university details by name
             const universities = await fetchUniversities();
             const matchedUniversity = universities.find((university) => university.title === name);
             if (matchedUniversity) {
                 setUniversityId(matchedUniversity.id);
             } else {
-                // University not found, set universityId to empty string
+
                 setUniversityId('');
             }
         } catch (error) {
@@ -36,7 +33,7 @@ export function Feed({ navigation }: any) {
         } finally {
             setLoading(false);
         }
-    }, 500); // Adjust debounce delay as needed
+    }, 500);
 
     return (
         <>
@@ -58,7 +55,7 @@ export function Feed({ navigation }: any) {
                             handleUniversityNameChange(text);
                         }}
                     />
-                    {/* Only render News component when universityId is available and not loading */}
+                    {loading && <p>Loading...</p>}
                     {universityId && !loading && <News universityId={universityId} />}
                 </Container>
             </Container>
