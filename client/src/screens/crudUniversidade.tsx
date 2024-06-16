@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Button } from 'react-native';
 import { styles } from '../styles/styleCrudUniversidade';
-import { Button } from '../components/addButton/Button';
-import Table from '../components/addTable/Table';
-import { useCrud } from '../hooks/crudHooks';
+import { useUniversityCrud } from '../hooks/universityHooks';
 import {
   Container,
   ScrollContainer,
@@ -15,22 +12,27 @@ import {
   BackgroundContainerInput,
 } from '../theme/style';
 import { Header } from '../components/addHeader/header';
+import { Table } from '../components/addTableUniversity/TableUniversity';
+import { StatusBar } from 'expo-status-bar';
 
-export function CrudUsuario() {
+export function CrudUniversidade() {
   const [isChecked, setChecked] = useState(false);
+  const { 
+    universities,
+    university,
+    setUniversity,
+    fetchUniversities,
+    updateUniversityHandler,
+    addUniversityHandler,
+    deleteUniversityHandler,
+  } = useUniversityCrud();
 
-  const {
-    users,
-    user,
-    setUser,
-    fetchUsers,
-    updateUserHandler,
-    addUserHandler,
-    deleteUserHandler,
-  } = useCrud();
+  useEffect(() => {
+    fetchUniversities();
+  }, []);
 
-  const handleRowClick = (clickedUser: any) => {
-    setUser(clickedUser);
+  const handleRowClick = (university: any) => {
+    setUniversity(university);
   };
 
   return (
@@ -47,54 +49,52 @@ export function CrudUsuario() {
                   style={styles.input}
                   placeholder="Nome da Universidade"
                   placeholderTextColor={'#8F8F8F'}
-                  value={user.name}
-                  onChangeText={(n) => setUser({ ...user, name: n })}
+                  value={university.name}
+                  onChangeText={(n) => setUniversity({ ...university, name: n })}
                 />
-                  <Name>País</Name>
-                  <BackgroundInputText
-                    style={styles.input}
-                    placeholder="País"
-                    placeholderTextColor={'#8F8F8F'}
-                    value={user.email}
-                    onChangeText={(e) => setUser({ ...user, email: e })}
-                  />
-                   <Name>Estado</Name>
-                  <BackgroundInputText
-                    style={styles.input}
-                    placeholder="Estado"
-                    placeholderTextColor={'#8F8F8F'}
-                    value={user.email}
-                    onChangeText={(e) => setUser({ ...user, email: e })}
-                  />
-                   <Name>Descrição</Name>
-                  <BackgroundInputText
-                    style={styles.inputdisc}
-                    placeholder="Descrição"
-                    placeholderTextColor={'#8F8F8F'}
-                    value={user.email}
-                    onChangeText={(e) => setUser({ ...user, email: e })}
-                  />
-               
-            
+                <Name>Localização</Name>
+                <BackgroundInputText
+                  style={styles.input}
+                  placeholder="Localização"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={university.location}
+                  onChangeText={(e) => setUniversity({ ...university, location: e })}
+                />
+                <Name>URL</Name>
+                <BackgroundInputText
+                  style={styles.input}
+                  placeholder="URL"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={university.url}
+                  onChangeText={(e) => setUniversity({ ...university, url: e })}
+                />
+                <Name>Descrição</Name>
+                <BackgroundInputText
+                  style={styles.inputdisc}
+                  placeholder="Descrição"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={university.description}
+                  onChangeText={(e) => setUniversity({ ...university, description: e })}
+                />
               </BackgroundContainerInput>
             </View>
             <View style={styles.containerButton}>
-              <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
-              <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
+              <Button title="Cadastrar" onPress={addUniversityHandler} />
+              <Button title="Ver Todos" onPress={fetchUniversities} />
               <Button
-                etiqueta="Alterar"
-                handlePress={() => updateUserHandler(user.id, user)}
+                title="Alterar"
+                onPress={() => updateUniversityHandler(university.id, university)}
               />
               <Button
-                etiqueta="Apagar"
-                handlePress={() => deleteUserHandler(user.id)}
+                title="Apagar"
+                onPress={() => deleteUniversityHandler(university.id)}
               />
             </View>
           </View>
           <View style={styles.containerTable}>
             <NameBlue style={styles.titulo}>Dados Inseridos</NameBlue>
             <BorderColorTable style={styles.table}>
-              <Table users={users} onRowClick={handleRowClick} />
+              <Table universities={universities} onRowClick={handleRowClick} />
             </BorderColorTable>
           </View>
           <StatusBar style="auto" />
