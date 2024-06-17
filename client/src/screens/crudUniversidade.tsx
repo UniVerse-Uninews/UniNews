@@ -16,7 +16,7 @@ import {
 } from '../theme/style';
 import { Header } from '../components/addHeader/header';
 
-export function CrudUsuario() {
+export function CrudUniversidade() {
   const [isChecked, setChecked] = useState(false);
 
   const {
