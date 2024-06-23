@@ -10,10 +10,36 @@ jobs:
       uses: actions/checkout@v4
     
     - name: 📂 Sync files
+      id: ftp-deploy
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ftp.projetoscti.com.br
         username: ${{ secrets.username }}
         password: ${{ secrets.password }}
-        server-dir: '/uninews/'
-        timeout: 1500
+        protocol: ftps
+        local-dir: './local-path'
+        server-dir: '/remote-path'
+        log-level: 'info'
+        timeout: 1200  # Increased timeout to 20 minutes
+        security: 'strict'  # Use 'loose' if strict does not work
+        state-name: 'ftp-state.json'  # Save state to handle retries
+
+    - name: Retry on failure
+      if: ${{ failure() }}
+      run: |
+        echo "Retrying FTP deployment..."
+        retry --max-attempts=3 -- sleep 30 && \
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.projetoscti.com.br
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
+          protocol: ftps
+          local-dir: './local-path'
+          server-dir: '/remote-path'
+          log-level: 'info'
+          timeout: 1200  # Increased timeout to 20 minutes
+          security: 'strict'  # Use 'loose' if strict does not work
+          passive: true  # Enable passive mode
+          state-name: 'ftp-state.json'  # Save state to handle retries
+          max-retries: 3  # Number of retries in case of failure
