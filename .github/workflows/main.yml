@@ -1,15 +1,10 @@
+on: push
 name: 🚀 Deploy website on push
-
-on: 
-  push:
-    branches:
-      - main
 
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v4
@@ -23,10 +18,11 @@ jobs:
         password: ${{ secrets.password }}
         protocol: ftp
         server-dir: /uninews/
-        log-level: 'standard'
-        timeout: 1200   # Increased timeout to 20 minutes
+        log-level: 'standard'  # Valid log-level value
+        timeout: 60000   # Increased timeout to 20 minutes
         security: 'strict'  # Use 'loose' if strict does not work
         state-name: 'ftp-state.json'  # Save state to handle retries
+        
 
     - name: Retry on failure
       if: ${{ failure() }}
@@ -34,7 +30,16 @@ jobs:
         echo "Retrying FTP deployment..."
         for i in {1..3}; do
           echo "Attempt $i..."
-          if npx ftp-deploy --config ./server/deploy.config.js; then
+          if SamKirkland/FTP-Deploy-Action@v4.3.5 \
+            server=ftp.projetoscti.com.br \
+            username=${{ secrets.username }} \
+            password=${{ secrets.password }} \
+            protocol=ftp \
+            server-dir=/uninews \
+            log-level=standard \
+            timeout=1200 \
+            security=strict \
+            state-name=ftp-state.json; then
             echo "Deployment succeeded on attempt $i"
             break
           else
