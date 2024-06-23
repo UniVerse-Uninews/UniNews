@@ -21,9 +21,7 @@ jobs:
         log-level: 'standard'  # Valid log-level value
         timeout: 60000   # Increased timeout to 20 minutes
         security: 'strict'  # Use 'loose' if strict does not work
-        state-name: 'ftp-state.json'  # Save state to handle retries
-          
-        
+        state-name: 'ftp-state.json'  # Save state to handle retries 
 
     - name: Retry on failure
       if: ${{ failure() }}
