@@ -16,7 +16,7 @@ jobs:
         server: ftp.projetoscti.com.br
         username: ${{ secrets.username }}
         password: ${{ secrets.password }}
-        protocol: ftps
+        protocol: ftp
         server-dir: '/uninews/'
         log-level: 'standard'  # Valid log-level value
         timeout: 1200  # Increased timeout to 20 minutes
@@ -33,7 +33,7 @@ jobs:
             server=ftp.projetoscti.com.br \
             username=${{ secrets.username }} \
             password=${{ secrets.password }} \
-            protocol=ftps \
+            protocol=ftp \
             server-dir=/uninews \
             log-level=standard \
             timeout=1200 \
