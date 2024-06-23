@@ -23,4 +23,4 @@ jobs:
       with:
         server: ftp.projetoscti.com.br
         username: ${{ secrets.username }}
-        password: ${{ secrets.password }}
+        timeout: 60000
