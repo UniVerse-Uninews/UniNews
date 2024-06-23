@@ -18,3 +18,5 @@ ftpDeploy.deploy(config, function(err) {
     if (err) console.log(err)
     else console.log("Finished");
 });
+
+module.exports = config;
