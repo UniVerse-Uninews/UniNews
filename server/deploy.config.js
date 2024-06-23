@@ -3,8 +3,8 @@ const FtpDeploy = require("ftp-deploy");
 const ftpDeploy = new FtpDeploy();
 
 const config = {
-    user: process.env.FTP_USERNAME,
-    password: process.env.FTP_PASSWORD,
+    user: process.env.username,
+    password: process.env.password,
     host: "ftp.projetoscti.com.br",
     port: 21, // default is 21
     localRoot: __dirname,
