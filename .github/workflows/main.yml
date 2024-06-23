@@ -43,7 +43,7 @@ jobs:
       - name: 🚀 Deploy server
         working-directory: ./server  # Specify the server directory
         run: |
-          npm run dev
+          npm run start
 
       # # Step to deploy the client (frontend)
       # - name: 🚀 Deploy frontend
