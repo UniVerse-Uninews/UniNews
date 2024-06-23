@@ -36,7 +36,7 @@ jobs:
             protocol=ftp \
             server-dir=/uninews \
             log-level=standard \
-            timeout=1200 \
+            timeout=60000 \
             security=strict \
             state-name=ftp-state.json; then
             echo "Deployment succeeded on attempt $i"
