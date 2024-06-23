@@ -8,7 +8,7 @@ const config = {
     host: "ftp.projetoscti.com.br",
     port: 21, // default is 21
     localRoot: __dirname,
-    remoteRoot: "/uninews",
+    remoteRoot: "/uninews/",
     include: ["*", "**/*"],      // this would upload everything except dot files
     deleteRemote: false,         // delete existing files at destination before uploading
     forcePasv: true              // passive mode (for firewalls)
