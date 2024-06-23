@@ -3,7 +3,7 @@ name: 🚀 Build and Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,38 +14,34 @@ jobs:
       - name: 🚚 Checkout code
         uses: actions/checkout@v4
 
-      # Step to install dependencies for the client (frontend)
-      # - name: 📦 Install frontend dependencies
-      #   working-directory: ./client  # Specify the client directory
-      #   run: npm install
-
-      # # Step to build the frontend
-      # - name: 🏗️ Build frontend
-      #   working-directory: ./client  # Specify the client directory
-      #   run: npm run build  # Replace with your build script if applicable
-
       # Step to install dependencies for the server (backend)
       - name: 📦 Install backend dependencies
         working-directory: ./server  # Specify the server directory
         run: npm install
 
-      # Step to build the server (if applicable)
+      # Step to build the server
       - name: 🏗️ Build server
         working-directory: ./server  # Specify the server directory
         run: npm run build  # Replace with your build script if applicable
 
-      # # Step to run tests (if applicable) for the server
-      # - name: 🧪 Run backend tests
-      #   working-directory: ./server  # Specify the server directory
-      #   run: npm test  # Replace with your test command if applicable
+      # Step to set up environment variables for the server
+      - name: Set up environment variables
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PORT: ${{ secrets.PORT }}
+        run: echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ./server/.env \
+             && echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env \
+             && echo "PORT=${{ secrets.PORT }}" >> ./server/.env
 
       # Step to deploy the server (backend)
       - name: 🚀 Deploy server
         working-directory: ./server  # Specify the server directory
         run: |
-          npm run start
+          npm run start  # Replace with your actual start command for the server
 
-      # # Step to deploy the client (frontend)
+      # Optional: Step to deploy the client (frontend)
+      # Uncomment and modify as per your frontend deployment needs
       # - name: 🚀 Deploy frontend
       #   working-directory: ./client  # Specify the client directory
       #   run: |
