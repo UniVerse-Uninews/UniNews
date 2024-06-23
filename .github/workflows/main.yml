@@ -1,26 +1,53 @@
-on: push
-name: 🚀 Deploy website on push
-jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+name: 🚀 Build and Deploy
 
-    - name: Use Node.js 16
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-      
-    - name: 🔨 Build Project
-      run: |
-        npm install
-        npm run build
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ftp.projetoscti.com.br
-        username: ${{ secrets.username }}
-        password: ${{ secrets.password }}
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step to checkout the repository code
+      - name: 🚚 Checkout code
+        uses: actions/checkout@v4
+
+      # Step to install dependencies for the client (frontend)
+      - name: 📦 Install frontend dependencies
+        working-directory: ./client  # Specify the client directory
+        run: npm install
+
+      # Step to build the frontend
+      - name: 🏗️ Build frontend
+        working-directory: ./client  # Specify the client directory
+        run: npm run build  # Replace with your build script if applicable
+
+      # Step to install dependencies for the server (backend)
+      - name: 📦 Install backend dependencies
+        working-directory: ./server  # Specify the server directory
+        run: npm install
+
+      # Step to build the server (if applicable)
+      - name: 🏗️ Build server
+        working-directory: ./server  # Specify the server directory
+        run: npm run build  # Replace with your build script if applicable
+
+      # Step to run tests (if applicable) for the server
+      - name: 🧪 Run backend tests
+        working-directory: ./server  # Specify the server directory
+        run: npm test  # Replace with your test command if applicable
+
+      # Step to deploy the server (backend)
+      - name: 🚀 Deploy server
+        working-directory: ./server  # Specify the server directory
+        run: |
+          npm run dev
+
+      # Step to deploy the client (frontend)
+      - name: 🚀 Deploy frontend
+        working-directory: ./client  # Specify the client directory
+        run: |
+          # Add your deployment command/script here
+          # Example: npm start
