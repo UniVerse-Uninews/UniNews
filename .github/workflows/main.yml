@@ -41,5 +41,5 @@ jobs:
           server: ${{ secrets.host }}
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
-          local-dir: ./server/build  # Directory to upload to the FTP server
+          local-dir: ./server/build/  # Directory to upload to the FTP server
           server-dir: /uninews/  # Path on the FTP server
