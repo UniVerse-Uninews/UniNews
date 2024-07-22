@@ -21,7 +21,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="CrudUniversidade">
+        <Stack.Navigator initialRouteName="LerNoticia">
           <Stack.Screen
             name="Login"
             component={Login}
