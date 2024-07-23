@@ -1,7 +1,7 @@
 import { Header } from '@components/addHeader/header';
-import React, {useState} from 'react'; 
-import { View, Text, Pressable, Image, ScrollView, Linking, TouchableOpacity } from 'react-native';
-import {Footer}from '../components/addFooter/footer';
+import React from 'react'; 
+import { View, Text } from 'react-native';
+import { Footer }from '../components/addFooter/footer';
 import { temp_news } from 'src/@types/temp_news';
 import { save_news } from 'src/@types/save_news';
 import { format } from 'date-fns';

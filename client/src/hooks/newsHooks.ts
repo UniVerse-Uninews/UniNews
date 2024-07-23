@@ -35,11 +35,11 @@ export const useNews = () => {
           title: n.title,
           description: limitString(removeHtmlTags(n.description), 100),
           image: n.media.thumbnail?.url || '',
-          link: n.link,
+          url: n.link,
           category: n.category || '', // Corrected typo
           content: removeHtmlTags(n.content) || '',
           author: n.author,
-          created: n.created,
+          createdAt: n.created,
           university: news.link
         });
       });

@@ -1,0 +1,45 @@
+name: 🚀 Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step to checkout the repository code
+      - name: 🚚 Checkout code
+        uses: actions/checkout@v4
+
+      # Step to install dependencies for the server (backend)
+      - name: 📦 Install backend dependencies
+        working-directory: ./server  # Specify the server directory
+        run: npm install
+
+      # Step to build the server
+      - name: 🏗️ Build server
+        working-directory: ./server  # Specify the server directory
+        run: npm run build  # Replace with your build script if applicable
+
+      # Step to set up environment variables for the server
+      - name: Set up environment variables
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PORT: ${{ secrets.PORT }}
+        run: echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ./server/.env \
+             && echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env \
+             && echo "PORT=${{ secrets.PORT }}" >> ./server/.env
+
+      # Step to deploy the server to FTP
+      - name: 🚀 Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.host }}
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
+          local-dir: ./server/build/  # Directory to upload to the FTP server
+          server-dir: /uninews/  # Path on the FTP server

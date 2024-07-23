@@ -7,7 +7,7 @@ export interface save_news {
     category: string,
     content: string,
     author: string,
-    created: Date,
+    createdAt: Date,
     university: string,
     user: string
 };
