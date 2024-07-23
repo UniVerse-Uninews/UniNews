@@ -3,6 +3,7 @@ import {
   responsiveScreenHeight,
     responsiveHeight,
     responsiveWidth,
+    responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
     container:{
@@ -22,21 +23,28 @@ export const styles = StyleSheet.create({
         width: '100%',
         padding: responsiveWidth(2),
         marginBottom: responsiveWidth(2),
+        
     },
     imageCard: {
         width: '100%',
-        height: 300,
-        borderRadius: 10
+        height: responsiveScreenHeight(35),
+        borderRadius: 10,
+        marginTop: responsiveHeight(2),
+
     },
     title: {
-        fontSize: 20,
+        marginTop: responsiveHeight(1),
+        fontSize: responsiveFontSize(5),
         fontWeight: 'bold',
+        marginLeft: responsiveWidth(1),
     },
     text: {
-        margin: responsiveHeight(0.7)
+        marginLeft: responsiveHeight(3),
+        fontSize: responsiveFontSize(2),
     },
     data: {
-        paddingLeft: 5
+        paddingLeft: 5,
+        marginRight: responsiveHeight(3),
     },
     containerIcon:{
         marginTop: responsiveScreenHeight(2),
@@ -45,5 +53,10 @@ export const styles = StyleSheet.create({
     icon:{
         width: responsiveWidth(7),
         height: responsiveHeight(4),
-        }
+        },
+    infos:{
+        flexDirection: 'row',
+        marginTop: responsiveHeight(2),
+        marginBottom:responsiveHeight(1.5),
+    }
 });
