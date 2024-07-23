@@ -20,5 +20,6 @@ export const styles = StyleSheet.create({
     line: {
         borderWidth: 2,
         width: '100%',
+        marginTop: responsiveHeight(5)
       },
 });
