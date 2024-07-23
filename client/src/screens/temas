@@ -1,0 +1,86 @@
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React from 'react';
+import { Header } from '../components/addHeader/header';
+import { Footer } from '../components/addFooter/footer';
+import {
+  Name,
+  Container,
+  NameBlue,
+  Textbox,
+  Subbox,
+} from '../theme/style';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+
+
+export default function Temas() {
+  return (
+    <>
+    <ScrollView>
+    <Header />
+   
+    <View style={styles.container}>
+   
+    <Container style={styles.modo}>
+     
+     
+      <View style={styles.titulo} >
+        <NameBlue style={[styles.nameLogo]}>UNI</NameBlue>
+        <Name style={[styles.nameLogoSecondary]}>NEWS</Name>
+      </View>
+
+      <View style={styles.subtitulo}>
+        <Textbox>Seja bem-vindo(a) a sua janela para o</Textbox>
+        <Textbox>                  mundo acadêmico       </Textbox>
+        <Textbox> Para começar, selecione suas áreas</Textbox>
+        <Textbox>  de interesse para personalizar sua</Textbox>
+        <Textbox>                      experiência. </Textbox>
+        <Textbox>                        Vamos lá</Textbox>
+      </View>
+
+      
+        <NameBlue style={styles.titulo1}>TEMAS</NameBlue>
+        
+        <View style={styles.box}>
+
+          <Subbox style={styles.subbox}>
+            
+              <Image/>
+              <Text style={styles.tema}>  BIOLÓGICAS</Text>
+            
+          </Subbox>
+
+          <Subbox style={styles.subbox}>
+           
+              <Image/>
+              <Text style={styles.tema}>    HUMANAS</Text>
+           
+          </Subbox>
+        </View>
+
+        <View style={styles.box}>
+
+          <Subbox  style={styles.subbox}>
+              <Image/>
+              <Text style={styles.tema}>      EXATAS</Text>
+          </Subbox>
+
+          <Subbox  style={styles.subbox}>
+          <Image/>
+          <Text style={styles.tema}>TECNOLOGIAS</Text>
+          </Subbox>
+
+        </View>
+
+      
+       
+
+      
+
+    </Container>
+    </View>
+    
+    </ScrollView>
+    <Footer/>
+    </>
+  );
+}
