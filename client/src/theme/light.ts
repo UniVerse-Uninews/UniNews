@@ -9,4 +9,6 @@ export default {
   backgroundInput: '#FFFAFA',
   backgroundContainerInput: '#F5F5F5',
   backgroundContainerInputCrud: '#F5F5F5',
+  text2: '#0571D3',
+  subbox:'rgba(250, 201, 59, 0.7)',
 };
