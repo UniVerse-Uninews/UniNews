@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Linking, Pressable, Image, ScrollView } from 'react-native';
+import { Text, View, Linking, Pressable, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { format } from 'date-fns';
 import { styles } from './newsStyle';
 import { BorderColorBlue, Name } from '@theme/style';
@@ -7,8 +7,8 @@ import { fetchNewsByUniversity } from '@services/api';
 import { temp_news } from '../../@types/temp_news';
 
 
-const dir = require('../../../assets/imagens/icon_salvos_vazio.png');
-
+const dirIconNoSave = require('../../../assets/imagens/icon_salvos_vazio.png');
+const dirIconSave = require('../../../assets/imagens/icon_salvos_cheio.png');
 interface NewsProps {
   universityId: string;
 }
@@ -28,7 +28,11 @@ export function News({ universityId }: NewsProps) {
 
     getNews();
   }, [universityId]);
+  const [iconSaved, setIconSaved] = useState(false);
 
+  const handlePress = () => {
+      setIconSaved(!iconSaved);
+  };
   return (
     <ScrollView>
       {news.map(t => (
@@ -36,8 +40,13 @@ export function News({ universityId }: NewsProps) {
           <View>
             <BorderColorBlue style={styles.card}>
               <View style={styles.containerIcon}>
-                <Pressable><Image source={dir} style={styles.icon}/></Pressable>
-              </View>
+                        <TouchableOpacity style={styles.icon} onPress={handlePress}>
+                            <Image 
+                                source={iconSaved ? dirIconSave : dirIconNoSave} 
+                                style={styles.icon} 
+                            />
+                        </TouchableOpacity>
+                    </View>
               {t.image ? (<Image source={{ uri: t.image }} style={styles.imageCard} />) : (<Text></Text>)}
               <Name style={styles.title}>{t.title}</Name>
               <View style={styles.data}>
