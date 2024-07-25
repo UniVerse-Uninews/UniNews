@@ -8,4 +8,6 @@ export default {
   btncrud: '#4A92C7',
   backgroundInput: '#FFF', //d8d8d8
   backgroundContainerInput: '#414141', //C6C6C6
+  text2:'white',
+  subbox:'rgba(250, 201, 59, 1.0)',
 };
