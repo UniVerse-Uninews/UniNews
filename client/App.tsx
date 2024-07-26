@@ -12,6 +12,8 @@ import {perfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
 import {Feed} from './src/screens/feed';
 import lerNoticia from './src/screens/lerNoticia';
 import {CrudUniversidade} from './src/screens/crudUniversidade';
+import {Perfil} from './src/screens/perfil';
+import Temas from './src/screens/tema';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,17 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
+          
+        <Stack.Screen
+            name="Perfil"
+            component={Perfil}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Temas"
+            component={Temas}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="Login"
             component={Login}
