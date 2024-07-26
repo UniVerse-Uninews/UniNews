@@ -8,6 +8,7 @@ import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
+import {perfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
 import {Feed} from './src/screens/feed';
 import lerNoticia from './src/screens/lerNoticia';
 import {CrudUniversidade} from './src/screens/crudUniversidade';
@@ -21,7 +22,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="LerNoticia">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
             component={Login}
@@ -38,7 +39,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Feed"
+            name="feed"
             component={Feed}
             options={{ headerShown: false }}
           />
@@ -50,6 +51,11 @@ export default function App() {
           <Stack.Screen
             name="CrudUniversidade"
             component={CrudUniversidade}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PerfilUniversidade"
+            component={PfUni}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
