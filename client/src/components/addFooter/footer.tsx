@@ -18,6 +18,7 @@ export function Footer() {
                 <Pressable style={styles.button}><Image source={dirIconSaved} style={styles.icon}/></Pressable>
                 <Pressable style={styles.button}><Image source={dirIconProfile} style={styles.icon}/></Pressable>
             </Container>
-            </>
+            
+        </>
     );
 }
