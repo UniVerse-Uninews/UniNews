@@ -15,7 +15,7 @@ export class PrismaUsersRepository implements UsersRepository {
   async findByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        email: email,
       },
     });
     return user;
@@ -37,6 +37,17 @@ export class PrismaUsersRepository implements UsersRepository {
     const user = await prisma.user.delete({
       where: {
         id,
+      },
+    });
+    return user;
+  }
+
+  async updateUser(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        ...data,
+        updatedAt: new Date(),
       },
     });
     return user;

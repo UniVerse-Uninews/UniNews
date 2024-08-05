@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import Checkbox from 'expo-checkbox';
 
 import { styles } from '../styles/styleCrudUsuario';
-import Button from '../components/addButton/Button';
-import ImageViewer from '../components/addImageViewer/ImageViewer';
+import { Button } from '../components/addButton/Button';
 import Table from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
-import {Container, Name, Email} from '../theme/style';
-
-const dirImagem = require('../../assets/imagens/tcc-logo-quadrado.jpeg');
+import {
+  Container,
+  ScrollContainer,
+  NameBlue,
+  Name,
+  BackgroundInputText,
+  BorderColorTable,
+  BackgroundContainerInput,
+} from '../theme/style';
+import { Header } from '../components/addHeader/header';
+import { InputSenhaSpecial } from '../components/addInput/Input';
 
 export function CrudUsuario() {
+  const [isChecked, setChecked] = useState(false);
+
   const {
     users,
     user,
@@ -20,82 +30,100 @@ export function CrudUsuario() {
     fetchUsers,
     updateUserHandler,
     addUserHandler,
-    deleteUserHandler
+    deleteUserHandler,
   } = useCrud();
 
+  const handleRowClick = (clickedUser: any) => {
+    setUser(clickedUser);
+  };
+
   return (
+    <>
+      <Header />
       <Container style={styles.container}>
-        <View style={styles.cabecalho}> 
-        <View style={styles.imageContainer}>
-          <ImageViewer diretorio={dirImagem} />
-        </View>
-        <Text style={[ styles.nomeLogoAzul]}>UNI</Text>  
-        <Name style={[ styles.nomeLogoPreto]}>NEWS</Name>
-      </View>
-      <SafeAreaView style={styles.line} />
-      <View style={styles.containerDados}>
-        <View style={styles.viewDados}>
-          <Text style={styles.titulo}>Dados</Text>
-          <View style={styles.containerInput}>
-            <TextInput 
-              style={styles.input} 
-              placeholder="Nome de Usuário" 
-              value={user.name} 
-              onChangeText={(n) => setUser({ ...user, name: n })} 
-            />
-             <TextInput 
-              style={styles.input} 
-              placeholder="E-mail" 
-              value={user.email} 
-              onChangeText={(e) => setUser({ ...user, email: e })} 
-            />
-            <TextInput 
-              style={styles.input} 
-              placeholder="Senha" 
-              value={user.passwordHash} 
-              onChangeText={(s) => setUser({ ...user, passwordHash: s })} 
-            />
-           
-            {/* <TouchableOpacity onPress={() => setUser({...user, tipo: 'adm'})}>
-              <View style={styles.radio}>
-                <RadioButton.Android
-                  value="adm"
-                  status={user.tipo === 'adm' ? 'checked' : 'unchecked'}
-                  onPress={() => setUser({...user, tipo: 'adm'})}
-                  uncheckedColor='#91C0E2'
-                  color='#3C6294'
+        <ScrollContainer>
+          <View style={styles.containerDados}>
+            <View style={styles.viewDados}>
+              <NameBlue style={styles.titulo}>Dados</NameBlue>
+              <BackgroundContainerInput style={styles.containerInput}>
+                <BackgroundInputText
+                  style={styles.input}
+                  placeholder="Nome de Usuário"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={user.name}
+                  onChangeText={(n) => setUser({ ...user, name: n })}
                 />
-                <Text >Administrador</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setUser({...user, tipo: 'usu'})}>
-              <View style={styles.radio}>
-                <RadioButton.Android
-                  value="usu"
-                  status={user.tipo === 'usu' ? 'checked' : 'unchecked'}
-                  onPress={() => setUser({...user, tipo: 'usu'})}
-                  uncheckedColor='#91C0E2'
-                  color='#3C6294'
+                <BackgroundInputText
+                  style={styles.input}
+                  placeholder="E-mail"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={user.email}
+                  onChangeText={(e) => setUser({ ...user, email: e })}
                 />
-                <Text >Usuário</Text>
-              </View>
-            </TouchableOpacity> */}
+                <InputSenhaSpecial user={user} setUser={setUser} />
+
+                <TouchableOpacity
+                  onPress={() => setUser({ ...user, role: 'ADMIN' })}
+                >
+                  <View style={styles.radio}>
+                    <RadioButton.Android
+                      value="ADMIN"
+                      status={user.role === 'ADMIN' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: 'ADMIN' })}
+                      uncheckedColor="#91C0E2"
+                      color="#3C6294"
+                    />
+                    <Name style={styles.textRadio}>Administrador</Name>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => setUser({ ...user, role: 'USER' })}
+                >
+                  <View style={styles.radio}>
+                    <RadioButton.Android
+                      value="USER"
+                      status={user.role === 'USER' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...user, role: 'USER' })}
+                      uncheckedColor="#91C0E2"
+                      color="#3C6294"
+                    />
+                    <Name style={styles.textRadio}>Usuário</Name>
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.checkboxContainer}>
+                  <Checkbox
+                    style={styles.checkbox}
+                    value={isChecked}
+                    onValueChange={setChecked}
+                    color="#3C6294"
+                  />
+                  <Name style={styles.textCheckbox}>Desativada?</Name>
+                </View>
+              </BackgroundContainerInput>
+            </View>
+            <View style={styles.containerButton}>
+              <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
+              <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
+              <Button
+                etiqueta="Alterar"
+                handlePress={() => updateUserHandler(user.id, user)}
+              />
+              <Button
+                etiqueta="Apagar"
+                handlePress={() => deleteUserHandler(user.id)}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.containerButton}>
-          <Button etiqueta="Cadastrar" handlePress={addUserHandler} />
-          <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
-          <Button etiqueta="Alterar" handlePress={() => updateUserHandler(user.email || '')} />
-          <Button etiqueta="Apagar" handlePress={() => deleteUserHandler(user.email || '')} />
-        </View>
-      </View>
-      <View style={styles.containerTable}>
-        <Text style={styles.titulo}>Dados Cadastrados</Text>
-        <View style={styles.table}>
-          <Table users={users} />
-        </View>
-      </View>
-      <StatusBar style="auto" />
+          <View style={styles.containerTable}>
+            <NameBlue style={styles.titulo}>Dados Cadastrados</NameBlue>
+            <BorderColorTable style={styles.table}>
+              <Table users={users} onRowClick={handleRowClick} />
+            </BorderColorTable>
+          </View>
+          <StatusBar style="auto" />
+        </ScrollContainer>
       </Container>
-        );
+    </>
+  );
 }
