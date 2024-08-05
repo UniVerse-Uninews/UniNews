@@ -11,7 +11,7 @@ export function pesquisar({ navigation }: any, university: university) {
 
     const dir_lupa = require("../../assets/imagens/lupa-icon-pesquisa.png");
     const dir_filtro = require("../../assets/imagens/filtro-pesquisa.png");
-    const dir_up_set = require("../../assets/imagens/up-arrow.png");
+    const dir_left_set = require("../../assets/imagens/left-arrow.png");
     const dir_down_set = require("../../assets/imagens/down-arrow.png");
 
     const [getText, setText] = useState("");
@@ -19,36 +19,111 @@ export function pesquisar({ navigation }: any, university: university) {
         setText(text);
     };
 
-    const [isOpen, setIsOpen] = useState(false);
-    const dropdownAni = useRef(new Animated.Value(0)).current;
+    const [isOpenUniv, setIsOpenUniv] = useState(false);
+    const [isOpenArea, setIsOpenArea] = useState(false);
+    const [isOpenLoc, setIsOpenLoc] = useState(false);
+
+    const dropdownAniUniv = useRef(new Animated.Value(0)).current;
+    const dropdownAniArea = useRef(new Animated.Value(0)).current;
+    const dropdownAniLoc = useRef(new Animated.Value(0)).current;
 
     const drawer = useRef<DrawerLayoutAndroid>(null);
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-        Animated.timing(dropdownAni, {
-            toValue: isOpen ? 0 : 1,
+    const univ_filter = ['teste'];
+    const area_filter = ['teste'];
+    const loc_filter = ['teste'];
+    
+    const toggleDropdownUniv = () => {
+        setIsOpenUniv(!isOpenUniv);
+        Animated.timing(dropdownAniUniv, {
+            toValue: isOpenUniv ? 0 : 1,
             duration: 300,
             useNativeDriver: false
         }).start();
     };
 
+    const toggleDropdownArea = () => {
+        setIsOpenArea(!isOpenArea);
+        Animated.timing(dropdownAniArea, {
+            toValue: isOpenArea ? 0 : 1,
+            duration: 300,
+            useNativeDriver: false
+        }).start();
+    };
+
+    const toggleDropdownLoc = () => {
+        setIsOpenLoc(!isOpenLoc);
+        Animated.timing(dropdownAniLoc, {
+            toValue: isOpenLoc ? 0 : 1,
+            duration: 300,
+            useNativeDriver: false
+        }).start();
+    };
+    
+    const delete_univ_filter = (index : number) => {
+        univ_filter.splice(index,1);
+    };
+
+    const delete_area_filter = (index : number) => {
+        univ_filter.splice(index,1);
+    };
+    
+    const delete_loc_filter = (index : number) => {
+        univ_filter.splice(index,1);
+    };
+
     const drawerView = () => (
         <View>
-            <Pressable onPress={toggleDropdown}><Text>Universidade</Text></Pressable>
+            <Pressable onPress={toggleDropdownUniv} style={{flexDirection:'row'}}><Text>Universidade</Text>{!isOpenUniv ? <Image source={dir_left_set}/> : <Image source={dir_down_set}/>}</Pressable>
             <Animated.View style={[styles.dropdown, {
-                height: dropdownAni.interpolate({
+                height: dropdownAniUniv.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [0, 50], // Altura do dropdown expandido
+                    outputRange: [0, 150], // Altura do dropdown expandido
                 })
             }]}>
-                <Text>Item 1</Text>
-                <Text>Item 2</Text>
-                <Text>Item 3</Text>
+                <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                {univ_filter.map((univ, index) => {
+                    return(
+                        <>
+                        <Text>univ</Text><Pressable onPress={delete_univ_filter(index)}><Text>X</Text></Pressable>
+                        </>
+                    );
+                })}
             </Animated.View>
-            <Pressable onPress={toggleDropdown}><Text>Área</Text></Pressable>
 
-            <Pressable onPress={toggleDropdown}><Text>Estado</Text></Pressable>
+            <Pressable onPress={toggleDropdownArea} style={{flexDirection:'row'}}><Text>Área</Text>{!isOpenUniv ? <Image source={dir_left_set}/> : <Image source={dir_down_set}/>}</Pressable>
+            <Animated.View style={[styles.dropdown, {
+                height: dropdownAniArea.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 150], // Altura do dropdown expandido
+                })
+            }]}>
+                <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                {area_filter.map((area, index) => {
+                    return(
+                        <>
+                        <Text>univ</Text><Pressable onPress={delete_area_filter(index)}><Text>X</Text></Pressable>
+                        </>
+                    );
+                })}
+            </Animated.View>
+
+            <Pressable onPress={toggleDropdownLoc} style={{flexDirection:'row'}}><Text>Localidade</Text>{!isOpenUniv ? <Image source={dir_left_set}/> : <Image source={dir_down_set}/>}</Pressable>
+            <Animated.View style={[styles.dropdown, {
+                height: dropdownAniLoc.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 150], // Altura do dropdown expandido
+                })
+            }]}>
+                <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                {loc_filter.map((loc, index) => {
+                    return(
+                        <>
+                        <Text>univ</Text><Pressable onPress={delete_loc_filter(index)}><Text>X</Text></Pressable>
+                        </>
+                    );
+                })}
+            </Animated.View>
         </View>
     );
 
@@ -60,13 +135,13 @@ export function pesquisar({ navigation }: any, university: university) {
 
     return (
         <>
-            <Header />
             <DrawerLayoutAndroid
                 ref={drawer}
                 drawerWidth={300}
                 drawerPosition={'right'}
                 renderNavigationView={drawerView}
             >
+                <Header />
                 <Container style={styles.container1}>
                     <View style={styles.container2}>
                         <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
@@ -103,8 +178,8 @@ export function pesquisar({ navigation }: any, university: university) {
                         <Text>teste</Text>
                     </ScrollView>
                 </Container>
-            </DrawerLayoutAndroid>
-            <Footer />
+                <Footer />
+                </DrawerLayoutAndroid>
         </>
     );
 }
