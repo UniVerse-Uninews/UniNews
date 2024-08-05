@@ -7,6 +7,7 @@ interface RegisterUniversityUseCaseRequest {
     location: string;
     url: string;
     description: string;
+    image: string;
 }
 
 interface RegisterUniversityUseCaseResponse {
@@ -21,6 +22,7 @@ export class RegisterUniversityUseCase {
         location,
         url,
         description,
+        image
     }: RegisterUniversityUseCaseRequest): Promise<RegisterUniversityUseCaseResponse> {
         const universityAlreadyExists = await this.universityRepository.findByUrl(url);
 
@@ -33,6 +35,7 @@ export class RegisterUniversityUseCase {
             location,
             url,
             description,
+            image,
         });
 
         return {

@@ -39,6 +39,7 @@ model University {
   location    String
   url         String   @unique
   description String
+  image       String
   news        News[]
 
   @@map("universities")
