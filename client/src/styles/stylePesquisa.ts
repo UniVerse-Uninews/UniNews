@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container1:{},
     container2:{
-        flexDirection:'row'
+        flexDirection:'row',
     },
     container3:{
         flexDirection:'column'
@@ -16,7 +16,10 @@ export const styles = StyleSheet.create({
         
     },
     pesquisa:{
-        width:"50%"
+        width:200,
     },
-    dropdown:{}
+    impesqui:{
+        width: 15
+    },
+    dropdown:{},
 });

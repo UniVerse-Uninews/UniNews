@@ -3,20 +3,21 @@ import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
 import { Container } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import { View, Text, Image, ScrollView, Pressable, DrawerLayoutAndroid, Animated } from 'react-native';
+import { View, Text, Image, ScrollView, Pressable, DrawerLayoutAndroid, Animated, TouchableOpacity } from 'react-native';
 import { university } from '../@types/university';
 import { TextInput } from 'react-native-paper';
+import { SearchBar } from 'react-native-elements';
 
 export function pesquisar({ navigation }: any, university: university) {
 
     const dir_lupa = require("../../assets/imagens/lupa-icon-pesquisa.png");
     const dir_filtro = require("../../assets/imagens/filtro-pesquisa.png");
-    const dir_left_set = require("../../assets/imagens/left-arrow.png");
-    const dir_down_set = require("../../assets/imagens/down-arrow.png");
+    const dir_seta_filtro = require("../../assets/imagens/icon_setinha_filtro.png");
 
     const [getText, setText] = useState("");
-    const onChangeText = (text: string) => {
-        setText(text);
+    
+    const onChangeText = (search : string) => {
+        setText(search);
     };
 
     const [isOpenUniv, setIsOpenUniv] = useState(false);
@@ -74,65 +75,66 @@ export function pesquisar({ navigation }: any, university: university) {
 
     const drawerView = () => (
         <View>
-            <Pressable onPress={toggleDropdownUniv} style={{flexDirection:'row'}}><Text>Universidade</Text>{!isOpenUniv ? <Image source={dir_left_set}/> : <Image source={dir_down_set}/>}</Pressable>
+            <Pressable onPress={toggleDropdownUniv} style={{flexDirection:'row'}}><Text>Universidade</Text>{!isOpenUniv ? <Image style={{width: 15,transform:[{rotateX: '0deg'}]}} source={dir_seta_filtro}/><View style={}/> : <Image style={{width: 15,transform:[{rotateX: '90deg'}]}} source={dir_seta_filtro}/>}</Pressable>
             <Animated.View style={[styles.dropdown, {
                 height: dropdownAniUniv.interpolate({
                     inputRange: [0, 1],
                     outputRange: [0, 150], // Altura do dropdown expandido
                 })
             }]}>
-                <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                <Pressable onPress={()=>{}}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
                 {univ_filter.map((univ, index) => {
                     return(
-                        <>
-                        <Text>univ</Text><Pressable onPress={delete_univ_filter(index)}><Text>X</Text></Pressable>
-                        </>
+                        <View style={{flexDirection:'row'}}>
+                        <Text>univ</Text><Pressable onPress={() => delete_univ_filter(index)}><Text>X</Text></Pressable>
+                        </View>
                     );
                 })}
             </Animated.View>
 
-            <Pressable onPress={toggleDropdownArea} style={{flexDirection:'row'}}><Text>Área</Text>{!isOpenUniv ? <Image source={dir_left_set}/> : <Image source={dir_down_set}/>}</Pressable>
+            <Pressable onPress={toggleDropdownArea} style={{flexDirection:'row'}}><Text>Área</Text>{!isOpenUniv ? <Image style={{width: 15,transform:[{rotateX: '0deg'}]}} source={dir_seta_filtro}/> : <Image style={{width: 15,transform:[{rotateX: '90deg'}]}} source={dir_seta_filtro}/>}</Pressable>
             <Animated.View style={[styles.dropdown, {
                 height: dropdownAniArea.interpolate({
                     inputRange: [0, 1],
                     outputRange: [0, 150], // Altura do dropdown expandido
                 })
             }]}>
-                <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                <Pressable onPress={()=>{}}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
                 {area_filter.map((area, index) => {
                     return(
-                        <>
-                        <Text>univ</Text><Pressable onPress={delete_area_filter(index)}><Text>X</Text></Pressable>
-                        </>
+                        <View style={{flexDirection:'row'}}>
+                        <Text>univ</Text><Pressable onPress={() => delete_area_filter(index)}><Text>X</Text></Pressable>
+                        </View>
                     );
                 })}
             </Animated.View>
 
-            <Pressable onPress={toggleDropdownLoc} style={{flexDirection:'row'}}><Text>Localidade</Text>{!isOpenUniv ? <Image source={dir_left_set}/> : <Image source={dir_down_set}/>}</Pressable>
+            <Pressable onPress={toggleDropdownLoc} style={{flexDirection:'row'}}><Text>Localidade</Text>{!isOpenUniv ? <Image style={{width: 15,transform:[{rotateX: '0deg'}]}} source={dir_seta_filtro}/> : <Image style={{width: 15,transform:[{rotateX: '90deg'}]}} source={dir_seta_filtro}/>}</Pressable>
             <Animated.View style={[styles.dropdown, {
                 height: dropdownAniLoc.interpolate({
                     inputRange: [0, 1],
                     outputRange: [0, 150], // Altura do dropdown expandido
                 })
             }]}>
-                <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                <Pressable onPress={()=>{}}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
                 {loc_filter.map((loc, index) => {
                     return(
-                        <>
-                        <Text>univ</Text><Pressable onPress={delete_loc_filter(index)}><Text>X</Text></Pressable>
-                        </>
+                        <View style={{flexDirection:'row'}}>
+                        <Text>univ</Text><Pressable onPress={() => delete_loc_filter(index)}><Text>X</Text></Pressable>
+                        </View>
                     );
                 })}
             </Animated.View>
         </View>
     );
 
-    const universities = ["teste"]; /*fazer função para retornar as universidades nesse vetor conforme escreve*/
-
+    const preresult = ["homi mata"]; /*fazer função para retornar as universidades nesse vetor conforme escreve*/
+    const result = ["noticia1"];
     const cache = () => { return "oi" }; /*fazer funcao para mostrar historico de pesquisas ao clicar na barra*/
 
-    const history = ["teste"]; /*guardar retorno do historico neste vetor*/
+    const history = ["historico"]; /*guardar retorno do historico neste vetor*/
 
+    //ao clicar na barra de pesquisa, o historico deve aparecer como opcao flutuante, e o resultado preliminar ir aparecendo conforme pesquisa
     return (
         <>
             <DrawerLayoutAndroid
@@ -144,13 +146,25 @@ export function pesquisar({ navigation }: any, university: university) {
                 <Header />
                 <Container style={styles.container1}>
                     <View style={styles.container2}>
-                        <Pressable onPress={cache}><Image source={dir_lupa} /><TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={onChangeText} value={getText} /></Pressable>
+                        <Pressable onPress={cache}>
+                            <Image source={dir_lupa} style={styles.impesqui}/>
+                            <TextInput
+                                placeholder='pesquisar'
+                                onChangeText={onChangeText}
+                                value={getText}
+                                style={styles.pesquisa}
+                            />
+                        </Pressable>
+                        <Pressable onPress={() => drawer.current?.openDrawer()}>
+                            <Image style={styles.filtro} source={dir_filtro} />
+                        </Pressable>
+                    </View>
 
-                        {universities.length > 0 && (
+                    {preresult.length > 0 && (
                             <View>
-                                {universities.map((name, index) => {
+                                {preresult.map((name, index) => {
                                     return (<React.Fragment key={index}>
-                                        <Text>{name}</Text>
+                                        <Text onPress={() => {setText(name)}}>{name}</Text>
                                         <View />
                                     </React.Fragment>);
                                 })}
@@ -161,22 +175,22 @@ export function pesquisar({ navigation }: any, university: university) {
                             <View>
                                 {history.map((name, index) => {
                                     return (<React.Fragment key={index}>
-                                        <Text>{name}</Text>
+                                        <Text onPress={() => {setText(name)}}>{name}</Text>
                                         <View />
                                     </React.Fragment>);
                                 })}
                             </View>
                         )}
 
-
-                        <Pressable onPress={() => drawer.current?.openDrawer()}>
-                            <Image style={styles.filtro} source={dir_filtro} />
-                        </Pressable>
-                    </View>
-
-                    <ScrollView>
-                        <Text>teste</Text>
-                    </ScrollView>
+                        {result.length > 0 && (
+                            <ScrollView>
+                                {result.map(() => {
+                                    return(
+                                        <Text>Noticias aparecerao aqui</Text>
+                                    );
+                                })}
+                            </ScrollView>
+                        )}
                 </Container>
                 <Footer />
                 </DrawerLayoutAndroid>
