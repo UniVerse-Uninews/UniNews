@@ -6,13 +6,13 @@ import { Footer } from '../components/addFooter/footer';
 import { View, Text, Image, ScrollView, Pressable, Animated } from 'react-native';
 import { university } from '../@types/university';
 import { TextInput } from 'react-native-paper';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import {createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 
-export function pesquisar({ navigation }: any, university: university) {
+export function Pesquisar({ navigation }: any, university: university) {
 
     const dir_lupa = require("../../assets/imagens/lupa-icon-pesquisa.png");
-    const dir_filtro = require("../../assets/imagens/filtro-pesquisa.png");
+    const dir_filtro = require("../../assets/imagens/icon_filtro.png");
     const dir_seta_filtro = require("../../assets/imagens/icon_setinha_filtro.png");
 
     const [getText, setText] = useState("");
@@ -76,7 +76,7 @@ export function pesquisar({ navigation }: any, university: university) {
 
     function CustomDrawer(props: DrawerContentComponentProps){
         return (
-<View>
+        <View>
             <Pressable onPress={toggleDropdownUniv} style={{flexDirection:'row'}}><Text>Universidade</Text><View style={{width:15}}>{!isOpenUniv ? <Image style={{width: 15,transform:[{rotateX: '0deg'}]}} source={dir_seta_filtro}/> : <Image style={{width: 15,transform:[{rotateX: '90deg'}]}} source={dir_seta_filtro}/>}</View></Pressable>
             <Animated.View style={[styles.dropdown, {
                 height: dropdownAniUniv.interpolate({
@@ -145,7 +145,7 @@ export function pesquisar({ navigation }: any, university: university) {
     );
 }
 
-    const preresult = ["homi mata"]; /*fazer função para retornar as universidades nesse vetor conforme escreve*/
+    const preresult = ["homi mata muie"]; /*fazer função para retornar as universidades nesse vetor conforme escreve*/
     const result = ["noticia1"];
     const cache = () => { return "oi" }; /*fazer funcao para mostrar historico de pesquisas ao clicar na barra*/
 
@@ -153,8 +153,7 @@ export function pesquisar({ navigation }: any, university: university) {
 
     //ao clicar na barra de pesquisa, o historico deve aparecer como opcao flutuante, e o resultado preliminar ir aparecendo conforme pesquisa
     return (
-        <>
-            <NavigationContainer>
+            <NavigationContainer independent={true}>
                 <FilterDrawer/>
                 <Header />
                 <Container style={styles.container1}>
@@ -168,7 +167,7 @@ export function pesquisar({ navigation }: any, university: university) {
                                 style={styles.pesquisa}
                             />
                         </Pressable>
-                        <Pressable onPress={() => navigation.openDrawer()}>
+                        <Pressable onPress={}>
                             <Image style={styles.filtro} source={dir_filtro} />
                         </Pressable>
                     </View>
@@ -206,7 +205,6 @@ export function pesquisar({ navigation }: any, university: university) {
                         )}
                 </Container>
                 <Footer />
-                </NavigationContainer>
-        </>
+            </NavigationContainer>
     );
 }

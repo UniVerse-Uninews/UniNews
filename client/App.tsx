@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
 import {perfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
-import {pesquisar as Psq} from './src/screens/pesquisa';
+import {Pesquisar as Psq} from './src/screens/pesquisa';
 import {Feed} from './src/screens/feed';
 import lerNoticia from './src/screens/lerNoticia';
 import {CrudUniversidade} from './src/screens/crudUniversidade';
