@@ -3,10 +3,11 @@ import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
 import { Container } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import { View, Text, Image, ScrollView, Pressable, DrawerLayoutAndroid, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, Pressable, Animated } from 'react-native';
 import { university } from '../@types/university';
 import { TextInput } from 'react-native-paper';
-import { SearchBar } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
+import {createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 
 export function pesquisar({ navigation }: any, university: university) {
 
@@ -28,7 +29,7 @@ export function pesquisar({ navigation }: any, university: university) {
     const dropdownAniArea = useRef(new Animated.Value(0)).current;
     const dropdownAniLoc = useRef(new Animated.Value(0)).current;
 
-    const drawer = useRef<DrawerLayoutAndroid>(null);
+    const Drawer = createDrawerNavigator();
 
     const univ_filter = ['teste'];
     const area_filter = ['teste'];
@@ -73,9 +74,10 @@ export function pesquisar({ navigation }: any, university: university) {
         univ_filter.splice(index,1);
     };
 
-    const drawerView = () => (
-        <View>
-            <Pressable onPress={toggleDropdownUniv} style={{flexDirection:'row'}}><Text>Universidade</Text>{!isOpenUniv ? <Image style={{width: 15,transform:[{rotateX: '0deg'}]}} source={dir_seta_filtro}/><View style={}/> : <Image style={{width: 15,transform:[{rotateX: '90deg'}]}} source={dir_seta_filtro}/>}</Pressable>
+    function CustomDrawer(props: DrawerContentComponentProps){
+        return (
+<View>
+            <Pressable onPress={toggleDropdownUniv} style={{flexDirection:'row'}}><Text>Universidade</Text><View style={{width:15}}>{!isOpenUniv ? <Image style={{width: 15,transform:[{rotateX: '0deg'}]}} source={dir_seta_filtro}/> : <Image style={{width: 15,transform:[{rotateX: '90deg'}]}} source={dir_seta_filtro}/>}</View></Pressable>
             <Animated.View style={[styles.dropdown, {
                 height: dropdownAniUniv.interpolate({
                     inputRange: [0, 1],
@@ -127,6 +129,21 @@ export function pesquisar({ navigation }: any, university: university) {
             </Animated.View>
         </View>
     );
+    }
+
+    function Teste(){
+        return(
+            <></>
+        );
+    }
+
+    function FilterDrawer(){
+        return(
+        <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props}/>}>
+            <Drawer.Screen name="teste" component={Teste}/>
+        </Drawer.Navigator>
+    );
+}
 
     const preresult = ["homi mata"]; /*fazer função para retornar as universidades nesse vetor conforme escreve*/
     const result = ["noticia1"];
@@ -137,12 +154,8 @@ export function pesquisar({ navigation }: any, university: university) {
     //ao clicar na barra de pesquisa, o historico deve aparecer como opcao flutuante, e o resultado preliminar ir aparecendo conforme pesquisa
     return (
         <>
-            <DrawerLayoutAndroid
-                ref={drawer}
-                drawerWidth={300}
-                drawerPosition={'right'}
-                renderNavigationView={drawerView}
-            >
+            <NavigationContainer>
+                <FilterDrawer/>
                 <Header />
                 <Container style={styles.container1}>
                     <View style={styles.container2}>
@@ -155,7 +168,7 @@ export function pesquisar({ navigation }: any, university: university) {
                                 style={styles.pesquisa}
                             />
                         </Pressable>
-                        <Pressable onPress={() => drawer.current?.openDrawer()}>
+                        <Pressable onPress={() => navigation.openDrawer()}>
                             <Image style={styles.filtro} source={dir_filtro} />
                         </Pressable>
                     </View>
@@ -193,7 +206,7 @@ export function pesquisar({ navigation }: any, university: university) {
                         )}
                 </Container>
                 <Footer />
-                </DrawerLayoutAndroid>
+                </NavigationContainer>
         </>
     );
 }
