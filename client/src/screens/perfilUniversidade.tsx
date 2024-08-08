@@ -9,7 +9,7 @@ import { ScrollView } from 'react-native';
 import {university} from '../@types/university';
 
 
-export function perfilUniversidade({ navigation }: any, university:university) {
+export function PerfilUniversidade({ navigation }: any, university:university) {
 
     return (
         <>
