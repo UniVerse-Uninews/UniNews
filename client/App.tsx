@@ -13,7 +13,7 @@ import {Pesquisar as Psq} from './src/screens/pesquisa';
 import {Feed} from './src/screens/feed';
 import lerNoticia from './src/screens/lerNoticia';
 import {CrudUniversidade} from './src/screens/crudUniversidade';
-//import {Perfil} from './src/screens/perfil';
+import {Perfil} from './src/screens/perfil';
 import Temas from './src/screens/tema';
 
 const Stack = createStackNavigator();
@@ -26,13 +26,13 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Pesquisar">
-         {/* 
+         {
         <Stack.Screen
             name="Perfil"
             component={Perfil}
             options={{ headerShown: false }}
           />
-         */}<Stack.Screen
+         }<Stack.Screen
             name="Temas"
             component={Temas}
             options={{ headerShown: false }}
