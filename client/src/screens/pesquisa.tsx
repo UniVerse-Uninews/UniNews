@@ -17,6 +17,7 @@ const dir_seta_volta = require("../../assets/imagens/Arrow.png");
 const Drawer = createDrawerNavigator();
 
 function CustomDrawer(props: DrawerContentComponentProps) {
+
     const [isOpenUniv, setIsOpenUniv] = useState(false);
     const [isOpenArea, setIsOpenArea] = useState(false);
     const [isOpenLoc, setIsOpenLoc] = useState(false);
@@ -137,9 +138,11 @@ function Teste() {
 
 function FilterDrawer() {
     return (
-        <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
-            <Drawer.Screen name="Teste" component={Teste} />
-        </Drawer.Navigator>
+        <NavigationContainer>
+            <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
+                <Drawer.Screen name="Teste" component={Teste} />
+            </Drawer.Navigator>
+        </NavigationContainer>
     );
 }
 
@@ -154,8 +157,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
     const history = ["historico"];
 
     return (
-        <NavigationContainer independent={true}>
-            <FilterDrawer />
+        <>
             <Header />
             <Container style={styles.container1}>
                 <View style={styles.container2}>
@@ -204,7 +206,6 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                 )}
             </Container>
             <Footer />
-        </NavigationContainer>
-        
+        </>
     );
 }
