@@ -3,17 +3,18 @@ import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
 import { Container } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import { View, Text, Image, ScrollView, Pressable, Animated } from 'react-native';
+import { View, Text, Image, ScrollView, Pressable, Animated , TouchableOpacity} from 'react-native';
 import { university } from '../@types/university';
 import { TextInput } from 'react-native-paper';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
-import {createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
+import { NavigationContainer, DrawerActions, useNavigation } from '@react-navigation/native';
+import {createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList, useDrawerStatus} from '@react-navigation/drawer';
 
 export function Pesquisar({ navigation }: any, university: university) {
 
     const dir_lupa = require("../../assets/imagens/lupa-icon-pesquisa.png");
     const dir_filtro = require("../../assets/imagens/icon_filtro.png");
     const dir_seta_filtro = require("../../assets/imagens/icon_setinha_filtro.png");
+    const dir_seta_volta = require("../../assets/imagens/Arrow.png");
 
     const [getText, setText] = useState("");
     
@@ -127,6 +128,9 @@ export function Pesquisar({ navigation }: any, university: university) {
                     );
                 })}
             </Animated.View>
+            <Pressable onPress={navigation.goBack()}>
+                <Image source={dir_seta_volta}/>
+            </Pressable>
         </View>
     );
     }
@@ -137,11 +141,23 @@ export function Pesquisar({ navigation }: any, university: university) {
         );
     }
 
+    function AbreDrawer(){
+        const navigation = useNavigation();
+        
+        return(
+            <View>
+                <Pressable onPress={() => {navigation.openDrawer()}}>
+                    <Image style={styles.filtro} source={dir_filtro} />
+                </Pressable>
+            </View>
+        );
+    }
+
     function FilterDrawer(){
         return(
         <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props}/>}>
-            <Drawer.Screen name="teste" component={Teste}/>
-        </Drawer.Navigator>
+            <Drawer.Screen options={{title:' ', headerTransparent: true, headerShown: false}} name="teste" component={Teste}/>
+        </Drawer.Navigator> 
     );
 }
 
@@ -167,9 +183,7 @@ export function Pesquisar({ navigation }: any, university: university) {
                                 style={styles.pesquisa}
                             />
                         </Pressable>
-                        <Pressable onPress={}>
-                            <Image style={styles.filtro} source={dir_filtro} />
-                        </Pressable>
+                        <AbreDrawer/>
                     </View>
 
                     {preresult.length > 0 && (
