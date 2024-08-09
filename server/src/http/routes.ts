@@ -17,6 +17,8 @@
   import { addNews } from "./controllers/news/add-news";
   import { getRSSFeed } from "./controllers/news/get-rss-feed";
   import { getNewsByUniversity } from "./controllers/news/get-news-by-university";
+  import { getNews, createNews } from "./controllers/news/temp-news";
+  import { getNpmData } from "./controllers/news/temp-npm";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -43,7 +45,10 @@
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
 
     // News routes
-    app.post('/news', addNews);
-    app.get('/news/:text', getRSSFeed);
-    app.get('/news/university/:text', getNewsByUniversity);
+    // app.post('/news', addNews);
+    // app.get('/news/:text', getRSSFeed);
+    // app.get('/news/university/:text', getNewsByUniversity);
+    app.get('/news/:text', getNews);
+    app.post('/news', createNews);
+    app.get('/npm/:text', getNpmData);
   }

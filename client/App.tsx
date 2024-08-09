@@ -11,10 +11,11 @@ import Login from './src/screens/loginScreen';
 import {perfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
 import {Pesquisar as Psq} from './src/screens/pesquisa';
 import {Feed} from './src/screens/feed';
-import lerNoticia from './src/screens/lerNoticia';
+import LerNoticia from './src/screens/lerNoticia';
 import {CrudUniversidade} from './src/screens/crudUniversidade';
-import {Perfil} from './src/screens/perfil';
+import { Perfil } from './src/screens/perfil';
 import Temas from './src/screens/tema';
+import TempLerNoticia from './src/screens/tempLerNoticia';
 
 const Stack = createStackNavigator();
 
@@ -53,13 +54,13 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="feed"
+            name="Feed"
             component={Feed}
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="LerNoticia"
-            component={lerNoticia}
+            component={LerNoticia}
             options={{ headerShown: false }}
           />
           <Stack.Screen
