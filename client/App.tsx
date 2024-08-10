@@ -7,15 +7,15 @@ import { CrudUsuario } from './src/screens/crudUsuarioScreen';
 import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
-import Login from './src/screens/loginScreen';
-import {perfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
-import {Pesquisar as Psq} from './src/screens/pesquisa';
-import {Feed} from './src/screens/feed';
-import LerNoticia from './src/screens/lerNoticia';
-import {CrudUniversidade} from './src/screens/crudUniversidade';
+import { Login } from './src/screens/loginScreen';
+import {PerfilUniversidade} from './src/screens/perfilUniversidade';
+import { Pesquisar } from './src/screens/pesquisa';
+import { Feed } from './src/screens/feed';
+import { LerNoticia } from './src/screens/lerNoticia';
+import { CrudUniversidade } from './src/screens/crudUniversidade';
 import { Perfil } from './src/screens/perfil';
-import Temas from './src/screens/tema';
-import TempLerNoticia from './src/screens/tempLerNoticia';
+import { Temas}  from './src/screens/tema';
+import { TempLerNoticia } from './src/screens/tempLerNoticia';
 
 const Stack = createStackNavigator();
 
@@ -70,14 +70,14 @@ export default function App() {
           />
           <Stack.Screen
             name="PerfilUniversidade"
-            component={PfUni}
+            component={PerfilUniversidade}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Pesquisar"
             component={Psq}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

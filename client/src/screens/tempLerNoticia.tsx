@@ -7,7 +7,7 @@ import { getNews } from '../components/getNews/GetNews';
 import { temp_news } from '../@types/temp_news';
 import { getRss } from '@components/getRss/GetRss';
 
-export default function TempLerNoticia() {
+export  function TempLerNoticia() {
     const [text, onChangeText] = useState('');
     const [news, setNews] = useState<temp_news[] | null>(null);
 

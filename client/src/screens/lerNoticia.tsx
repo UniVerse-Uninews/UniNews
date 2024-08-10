@@ -25,7 +25,7 @@ const news = [{
     university: 'teste'
 }];
 
-export default function LerNoticia({ navigation }: any, noticia: temp_news | save_news) {
+export  function LerNoticia({ navigation }: any, noticia: temp_news | save_news) {
     const [iconSaved, setIconSaved] = useState(false);
 
     const handlePress = () => {
