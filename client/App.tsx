@@ -27,11 +27,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-<<<<<<< HEAD
         <Stack.Navigator initialRouteName="Login">
-=======
-        <Stack.Navigator initialRouteName="teste">
->>>>>>> 8a5f6b8175241806bff06a718d5231c2619ddce3
          {
         <Stack.Screen
             name="Perfil"
