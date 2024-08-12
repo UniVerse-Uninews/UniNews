@@ -1,21 +1,20 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL , REACT_APP_AXIOS_URL } from '@env';
 import { temp_news } from 'src/@types/temp_news';
-
 
 
 const http = REACT_APP_API_URL;
 console.log(http);
 
-
 const getToken = async () => {
   return await AsyncStorage.getItem('token');
 };
+console.log(getToken);
 
 export const getUsers = async (userRole: string) => {
   const token = await getToken();
-  return axios.get(`${http}/getallusers`, {
+  return axios.get(`${http}getallusers`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -24,7 +23,7 @@ export const getUsers = async (userRole: string) => {
 
 export const updateUser = async (userId: string, userData: any) => {
   const token = await getToken();
-  return axios.put(`${http}/users/${userId}`, userData, {
+  return axios.put(`${http}users/${userId}`, userData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -33,7 +32,7 @@ export const updateUser = async (userId: string, userData: any) => {
 
 export const addUser = async (userData: any) => {
   const token = await getToken();
-  return axios.post(`${http}/users`, userData, {
+  return axios.post(`${http}users`, userData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -42,7 +41,7 @@ export const addUser = async (userData: any) => {
 
 export const deleteUser = async (userId: string) => {
   const token = await getToken();
-  return axios.delete(`${http}/deleteuser/${userId}`, {
+  return axios.delete(`${http}deleteuser/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -50,15 +49,17 @@ export const deleteUser = async (userId: string) => {
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const response = await axios.post(`${http}/sessions`, { email, password });
+console.log(REACT_APP_AXIOS_URL);
+  const response = await axios.post('http://' + REACT_APP_AXIOS_URL + '/sessions', { email, password });
   const token = response.data.token;
+  console.log(token);
   await AsyncStorage.setItem('token', token);
   return response;
 };
 
 export const addUniversity = async (universityData: any) => {
   const token = await getToken();
-  return axios.post(`${http}/university`, universityData, {
+  return axios.post(`${http}university`, universityData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -67,7 +68,7 @@ export const addUniversity = async (universityData: any) => {
 
 export const getUniversities = async () => {
   const token = await getToken();
-  return axios.get(`${http}/getalluniversity`, {
+  return axios.get(`${http}getalluniversity`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -76,7 +77,7 @@ export const getUniversities = async () => {
 
 export const getUniversity = async (universityId: string) => {
   const token = await getToken();
-  return axios.get(`${http}/university/${universityId}`, {
+  return axios.get(`${http}university/${universityId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -85,7 +86,7 @@ export const getUniversity = async (universityId: string) => {
 
 export const updateUniversity = async (universityId: string, universityData: any) => {
   const token = await getToken();
-  return axios.put(`${http}/university/${universityId}`, universityData, {
+  return axios.put(`${http}university/${universityId}`, universityData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -94,7 +95,7 @@ export const updateUniversity = async (universityId: string, universityData: any
 
 export const deleteUniversity = async (universityId: string) => {
   const token = await getToken();
-  return axios.delete(`${http}/deleteuniversity/${universityId}`, {
+  return axios.delete(`${http}deleteuniversity/${universityId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -113,7 +114,7 @@ export const fetchUniversities = async (): Promise<temp_news[]> => {
 
 export const fetchNewsByUniversity = async (universityName: string): Promise<temp_news[]> => {
   try {
-    const response = await axios.get(`${http}/news/university/${universityName}`);
+    const response = await axios.get(`${http}news/university/${universityName}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching news:', error);

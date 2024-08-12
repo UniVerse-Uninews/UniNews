@@ -14,7 +14,6 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
   });
 
   try {
-    
     const { email, password, desactivated } = authenticateBodySchema.parse(request.body);
 
     const authenticateUseCase = makeAuthenticateUseCase();

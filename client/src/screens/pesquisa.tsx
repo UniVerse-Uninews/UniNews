@@ -9,10 +9,10 @@ import { TextInput } from 'react-native-paper';
 import { NavigationContainer, DrawerActions, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 
-const dir_lupa = require("../../assets/imagens/lupa-icon-pesquisa.png");
-const dir_filtro = require("../../assets/imagens/icon_filtro.png");
-const dir_seta_filtro = require("../../assets/imagens/icon_setinha_filtro.png");
-const dir_seta_volta = require("../../assets/imagens/Arrow.png");
+const dir_lupa = require('../../assets/imagens/lupa-icon-pesquisa.png');
+const dir_filtro = require('../../assets/imagens/icon_filtro.png');
+const dir_seta_filtro = require('../../assets/imagens/icon_setinha_filtro.png');
+const dir_seta_volta = require('../../assets/imagens/Arrow.png');
 
 const Drawer = createDrawerNavigator();
 
@@ -26,9 +26,9 @@ function CustomDrawer(props: DrawerContentComponentProps) {
     const dropdownAniArea = useRef(new Animated.Value(0)).current;
     const dropdownAniLoc = useRef(new Animated.Value(0)).current;
 
-    const [getTextUni, setTextUni] = useState("");
-    const [getTextArea, setTextArea] = useState("");
-    const [getTextLoc, setTextLoc] = useState("");
+    const [getTextUni, setTextUni] = useState('');
+    const [getTextArea, setTextArea] = useState('');
+    const [getTextLoc, setTextLoc] = useState('');
 
     const toggleDropdownUniv = () => {
         setIsOpenUniv(!isOpenUniv);
@@ -147,14 +147,14 @@ function FilterDrawer() {
 }
 
 export function Pesquisar({ navigation }: { navigation: any; university: university }) {
-    const [getText, setText] = useState("");
+    const [getText, setText] = useState('');
     const onChangeText = (search: string) => {
         setText(search);
     };
 
-    const preresult = ["homi mata muie"];
-    const result = ["noticia1"];
-    const history = ["historico"];
+    const preresult = ['homi mata muie'];
+    const result = ['noticia1'];
+    const history = ['historico'];
 
     return (
         <>

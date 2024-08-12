@@ -23,8 +23,12 @@ app.register(fastifyJwt, {
 });
 
 app.register(fastifyCookie);
-app.register(cors);
+app.register(cors, {
+    origin: "https://localhost:8081",
+});
 
 app.decorate("verifyJwt", verifyJwt);
 
 app.register(appRoutes);
+
+
