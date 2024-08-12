@@ -16,6 +16,7 @@ import { CrudUniversidade } from './src/screens/crudUniversidade';
 import { Perfil } from './src/screens/perfil';
 import { Temas }  from './src/screens/tema';
 import { TempLerNoticia } from './src/screens/tempLerNoticia';
+import  Teste  from './src/screens/teste';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +27,11 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
+<<<<<<< HEAD
         <Stack.Navigator initialRouteName="Login">
+=======
+        <Stack.Navigator initialRouteName="teste">
+>>>>>>> 8a5f6b8175241806bff06a718d5231c2619ddce3
          {
         <Stack.Screen
             name="Perfil"
@@ -77,7 +82,12 @@ export default function App() {
             name="Pesquisar"
             component={Psq}
             options={{ headerShown: false }}
-          /> */}
+        />*/}
+          <Stack.Screen
+            name="teste"
+            component={Teste}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
