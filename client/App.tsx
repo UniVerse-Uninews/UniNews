@@ -8,7 +8,7 @@ import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
 import Login from './src/screens/loginScreen';
-import {perfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
+import {PerfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
 import {Pesquisar as Psq} from './src/screens/pesquisa';
 import {Feed} from './src/screens/feed';
 import LerNoticia from './src/screens/lerNoticia';
@@ -16,6 +16,7 @@ import {CrudUniversidade} from './src/screens/crudUniversidade';
 import { Perfil } from './src/screens/perfil';
 import Temas from './src/screens/tema';
 import TempLerNoticia from './src/screens/tempLerNoticia';
+import Teste from './src/screens/teste';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +27,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Pesquisar">
+        <Stack.Navigator initialRouteName="teste">
          {
         <Stack.Screen
             name="Perfil"
@@ -76,6 +77,11 @@ export default function App() {
           <Stack.Screen
             name="Pesquisar"
             component={Psq}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="teste"
+            component={Teste}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
