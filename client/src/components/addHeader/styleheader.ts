@@ -2,14 +2,17 @@ import { StyleSheet } from 'react-native';
 import { responsiveScreenHeight } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
-    height: '15%',
+    
+  },
+  container2: {
+  
+    backgroundColor:'#000'
   },
   cabecalho: {
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    paddingTop: responsiveScreenHeight(7),
     alignItems: 'center',
   },
   img: {
@@ -18,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   line: {
     borderWidth: 2,
-    marginTop: '3.5%',
+    marginTop: '1%',
     width: '100%',
   },
   nameLogo: {
