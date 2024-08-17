@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, ScrollView, Pressable, Image, Text, Alert, Linking, Button } from 'react-native';
+import { View, TextInput, ScrollView, Pressable, Image, Text, Alert, Linking } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
@@ -26,32 +26,34 @@ export function Feed() {
     };
 
     const fetchUniversityUrl = async (name: string) => {
-        try {
-            const response = await axios.get(`http://200.145.153.212:8080/university/name/${encodeURIComponent(name)}`);
-            if (response.data && response.data.url) {
-                return response.data.url;
-            } else {
-                Alert.alert('Erro', 'Universidade não encontrada.');
-                return null;
-            }
-        } catch (error) {
-            console.error('Error fetching university URL:', error);
-            Alert.alert('Erro', 'Erro ao buscar URL da universidade.');
+    try {
+        // Certifique-se de que a URL está correta
+        const response = await axios.get(`http://200.145.153.212:8080/university/name/${encodeURIComponent(name)}`);
+        if (response.data && response.data.url) {
+            return response.data.url;
+        } else {
+            Alert.alert('Erro', 'Universidade não encontrada.');
             return null;
         }
-    };
+    } catch (error) {
+        console.error('Error fetching university URL:', error);
+        Alert.alert('Erro', 'Erro ao buscar URL da universidade.');
+        return null;
+    }
+};
+    
 
-    const handleSearch = async () => {
-        if (!universityName.trim()) {
-            setNews([]);
-            return;
-        }
-        setLoading(true);
-
+    const handleUniversityNameChange = debounce(async (name: string) => {
         try {
+            if (!name.trim()) {
+                setNews([]);
+                return;
+            }
+            setLoading(true);
+    
             // Obtenha a URL da universidade com base no nome
-            const universityUrl = await fetchUniversityUrl(universityName);
-
+            const universityUrl = await fetchUniversityUrl(name);
+    
             if (universityUrl) {
                 // Busque as notícias usando a URL da universidade
                 const fetchedNews = await fetchNews(universityUrl);
@@ -65,8 +67,8 @@ export function Feed() {
         } finally {
             setLoading(false);
         }
-    };
-
+    }, 500);
+    
     return (
         <>
             <Header />
@@ -82,10 +84,12 @@ export function Feed() {
                     <TextInput
                         placeholder="Type university name..."
                         value={universityName}
-                        onChangeText={setUniversityName}
+                        onChangeText={(text) => {
+                            setUniversityName(text);
+                            handleUniversityNameChange(text);
+                        }}
                         style={styles.textInput}
                     />
-                    <Button title="Buscar" onPress={handleSearch} />
                     {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (
                         <ScrollView>
