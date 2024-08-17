@@ -11,14 +11,14 @@ export async function getUniversityByNameController(
 ) {
   try {
     const universityRepository = new PrismaUniversityRepository();
-    const university = await universityRepository.findByName(request.params.name);
-    if (university) {
-      reply.status(200).send(university);
+    const universities = await universityRepository.findByName(request.params.name);
+    if (universities.length > 0) {
+      reply.status(200).send(universities);
     } else {
-      reply.status(404).send({ error: 'University not found' });
+      reply.status(404).send({ error: 'No universities found' });
     }
   } catch (error) {
-    console.error('Error retrieving university by name:', error);
+    console.error('Error retrieving universities by name:', error);
     reply.status(500).send({ error: 'Internal Server Error' });
   }
 }

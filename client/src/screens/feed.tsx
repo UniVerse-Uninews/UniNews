@@ -25,22 +25,21 @@ export function Feed() {
         }
     };
 
-    const fetchUniversityUrl = async (name: string) => {
-    try {
-        // Certifique-se de que a URL está correta
-        const response = await axios.get(`http://200.145.153.212:8080/university/name/${encodeURIComponent(name)}`);
-        if (response.data && response.data.url) {
-            return response.data.url;
-        } else {
-            Alert.alert('Erro', 'Universidade não encontrada.');
-            return null;
+    const fetchUniversityUrls = async (name: string) => {
+        try {
+            const response = await axios.get(`http://200.145.153.212:8080/university/name/${encodeURIComponent(name)}`);
+            if (response.data && response.data.length > 0) {
+                return response.data.map((university: { url: string }) => university.url);
+            } else {
+                Alert.alert('Erro', 'Nenhuma universidade encontrada.');
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching university URLs:', error);
+            Alert.alert('Erro', 'Erro ao buscar URLs das universidades.');
+            return [];
         }
-    } catch (error) {
-        console.error('Error fetching university URL:', error);
-        Alert.alert('Erro', 'Erro ao buscar URL da universidade.');
-        return null;
-    }
-};
+    };
     
 
     const handleUniversityNameChange = debounce(async (name: string) => {
@@ -51,13 +50,15 @@ export function Feed() {
             }
             setLoading(true);
     
-            // Obtenha a URL da universidade com base no nome
-            const universityUrl = await fetchUniversityUrl(name);
+            // Obtenha as URLs das universidades com base no nome
+            const universityUrls = await fetchUniversityUrls(name);
     
-            if (universityUrl) {
-                // Busque as notícias usando a URL da universidade
-                const fetchedNews = await fetchNews(universityUrl);
-                setNews(fetchedNews);
+            if (universityUrls.length > 0) {
+                // Busque as notícias usando as URLs das universidades
+                const newsPromises = universityUrls.map((url: string) => fetchNews(url));
+                const newsResults = await Promise.all(newsPromises);
+                const allNews = newsResults.flat();
+                setNews(allNews);
             } else {
                 setNews([]);
             }
@@ -68,6 +69,7 @@ export function Feed() {
             setLoading(false);
         }
     }, 500);
+    
     
     return (
         <>

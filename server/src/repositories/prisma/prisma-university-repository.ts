@@ -78,17 +78,23 @@ export class PrismaUniversityRepository implements UniversityRepository {
         }
     }
 
-    async findByName(name: string): Promise<University | null> {
+    async findByName(prefix: string): Promise<University[]> {
         try {
-            const university = await prisma.university.findUnique({
+            const universities = await prisma.university.findMany({
                 where: {
-                    name: name,
+                    name: {
+                        contains: prefix,
+                        mode: 'insensitive', // Opcional: busca case-insensitive
+                    },
+                },
+                orderBy: {
+                    name: 'asc',
                 },
             });
-            return university;
+            return universities;
         } catch (error) {
-            console.error("Error occurred while finding university by name:", error);
-            return null;
+            console.error("Error occurred while finding universities by name:", error);
+            return [];
         }
     }
 }
