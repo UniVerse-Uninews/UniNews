@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, ScrollView, Pressable, Image, Text, Alert, Linking } from 'react-native';
+import { View, TextInput, ScrollView, Pressable, Image, Text, Alert, Linking, Button } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
@@ -16,7 +16,7 @@ export function Feed() {
 
     const fetchNews = async (url: string) => {
         try {
-            const response = await axios.get(`http://192.168.0.108:8080/npm/${encodeURIComponent(url)}`);
+            const response = await axios.get(`http://200.145.153.212:8080/npm/${encodeURIComponent(url)}`);
             return response.data.items;
         } catch (error) {
             console.error('Error fetching news:', error);
@@ -25,23 +25,47 @@ export function Feed() {
         }
     };
 
-    const handleUniversityNameChange = debounce(async (name: string) => {
+    const fetchUniversityUrl = async (name: string) => {
         try {
-            if (!name.trim()) {
-                setNews([]);
-                return;
+            const response = await axios.get(`http://200.145.153.212:8080/university/name/${encodeURIComponent(name)}`);
+            if (response.data && response.data.url) {
+                return response.data.url;
+            } else {
+                Alert.alert('Erro', 'Universidade não encontrada.');
+                return null;
             }
-            setLoading(true);
-            const url = 'https://jornal.usp.br/feed/'; // Replace this with dynamic URL input if needed
-            const fetchedNews = await fetchNews(url);
-            setNews(fetchedNews);
+        } catch (error) {
+            console.error('Error fetching university URL:', error);
+            Alert.alert('Erro', 'Erro ao buscar URL da universidade.');
+            return null;
+        }
+    };
+
+    const handleSearch = async () => {
+        if (!universityName.trim()) {
+            setNews([]);
+            return;
+        }
+        setLoading(true);
+
+        try {
+            // Obtenha a URL da universidade com base no nome
+            const universityUrl = await fetchUniversityUrl(universityName);
+
+            if (universityUrl) {
+                // Busque as notícias usando a URL da universidade
+                const fetchedNews = await fetchNews(universityUrl);
+                setNews(fetchedNews);
+            } else {
+                setNews([]);
+            }
         } catch (error) {
             console.error('Error fetching news:', error);
             Alert.alert('Erro', 'Erro ao buscar notícias.');
         } finally {
             setLoading(false);
         }
-    }, 500);
+    };
 
     return (
         <>
@@ -58,12 +82,10 @@ export function Feed() {
                     <TextInput
                         placeholder="Type university name..."
                         value={universityName}
-                        onChangeText={(text) => {
-                            setUniversityName(text);
-                            handleUniversityNameChange(text);
-                        }}
+                        onChangeText={setUniversityName}
                         style={styles.textInput}
                     />
+                    <Button title="Buscar" onPress={handleSearch} />
                     {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (
                         <ScrollView>

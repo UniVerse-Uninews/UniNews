@@ -77,4 +77,18 @@ export class PrismaUniversityRepository implements UniversityRepository {
             throw error;
         }
     }
+
+    async findByName(name: string): Promise<University | null> {
+        try {
+            const university = await prisma.university.findUnique({
+                where: {
+                    name: name,
+                },
+            });
+            return university;
+        } catch (error) {
+            console.error("Error occurred while finding university by name:", error);
+            return null;
+        }
     }
+}

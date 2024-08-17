@@ -65,7 +65,7 @@ export const deleteUser = async (userId: string) => {
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const url = 'http://192.168.0.108:8080/sessions'; // Use o IP local do seu computador
+  const url = 'http://200.145.153.212:8080/sessions'; // Use o IP local do seu computador
 
   console.log('Logging in at:', url);
 
