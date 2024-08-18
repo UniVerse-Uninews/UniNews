@@ -34,13 +34,13 @@ export function Footer() {
                 </Pressable>
                 <Pressable 
                     style={styles.button}
-                    onPress={() => navigation.navigate('Perfil')}
+                    onPress={() => navigation.navigate('LerNoticia')}
                 >
                     <Image source={dirIconSaved} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={styles.button}
-                    onPress={() => navigation.navigate('PerfilUniversidade')}
+                    onPress={() => navigation.navigate('Perfil')}
                 >
                     <Image source={dirIconProfile} style={styles.icon} />
                 </Pressable>
