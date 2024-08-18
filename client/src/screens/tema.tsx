@@ -13,7 +13,7 @@ import {
 import { styles } from '../styles/styleTema';
 
 
-export default function Temas() {
+export  function Temas() {
   return (
     <>
       <ScrollView>

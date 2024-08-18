@@ -12,7 +12,7 @@ import { styles } from '../styles/styleLogin';
 import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name } from '@theme/style';
 
 
-export default function Login({ navigation }: any) {
+export  function Login({ navigation }: any) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');

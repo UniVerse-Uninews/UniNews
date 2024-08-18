@@ -7,14 +7,15 @@ import { CrudUsuario } from './src/screens/crudUsuarioScreen';
 import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import themes from './src/theme';
-import Login from './src/screens/loginScreen';
-import {PerfilUniversidade as PfUni} from './src/screens/perfilUniversidade';
-import {Feed} from './src/screens/feed';
-import LerNoticia from './src/screens/lerNoticia';
-import {CrudUniversidade} from './src/screens/crudUniversidade';
+import { Login } from './src/screens/loginScreen';
+import { PerfilUniversidade } from './src/screens/perfilUniversidade';
+import { Pesquisar } from './src/screens/pesquisa';
+import { Feed } from './src/screens/feed';
+import { LerNoticia } from './src/screens/lerNoticia';
+import { CrudUniversidade } from './src/screens/crudUniversidade';
 import { Perfil } from './src/screens/perfil';
-import Temas from './src/screens/tema';
-import TempLerNoticia from './src/screens/tempLerNoticia';
+import { Temas }  from './src/screens/tema';
+import  Teste  from './src/screens/teste';
 
 const Stack = createStackNavigator();
 
@@ -26,13 +27,13 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-          
+         {
         <Stack.Screen
             name="Perfil"
             component={Perfil}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+         }<Stack.Screen
             name="Temas"
             component={Temas}
             options={{ headerShown: false }}
@@ -69,12 +70,17 @@ export default function App() {
           />
           <Stack.Screen
             name="PerfilUniversidade"
-            component={PfUni}
+            component={PerfilUniversidade}
             options={{ headerShown: false }}
           />
+          {/* <Stack.Screen
+            name="Pesquisar"
+            component={Pesquisar}
+            options={{ headerShown: false }}
+        />*/}
           <Stack.Screen
-            name="TempLerNoticia"
-            component={TempLerNoticia}
+            name="teste"
+            component={Teste}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

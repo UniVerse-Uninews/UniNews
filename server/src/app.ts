@@ -28,3 +28,5 @@ app.register(cors);
 app.decorate("verifyJwt", verifyJwt);
 
 app.register(appRoutes);
+
+

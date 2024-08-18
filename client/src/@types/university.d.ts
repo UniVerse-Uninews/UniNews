@@ -1,4 +1,4 @@
-import {temp_news} from "./temp_news";
+import { temp_news } from './temp_news';
 
 export interface university{
     id:string,

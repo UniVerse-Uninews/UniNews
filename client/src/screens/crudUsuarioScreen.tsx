@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import Checkbox from 'expo-checkbox';
+import { Checkbox}  from 'expo-checkbox';
 
 import { styles } from '../styles/styleCrudUsuario';
 import { Button } from '../components/addButton/Button';
-import Table from '../components/addTable/Table';
+import { Table }  from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
 import {
   Container,

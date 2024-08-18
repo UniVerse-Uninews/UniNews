@@ -8,10 +8,6 @@ import { format } from 'date-fns';
 import { styles } from '../styles/lerNoticiaStyle';
 import { Container, Name, NameBlue } from '@theme/style';
 
-const dirIconArrow = require('../../assets/imagens/Arrow.png');
-const dirIconNoSave = require('../../assets/imagens/icon_salvos_vazio.png');
-const dirIconSave = require('../../assets/imagens/icon_salvos_cheio.png');
-
 const news = [{
     id: 'teste',
     title: 'teste',
@@ -25,7 +21,13 @@ const news = [{
     university: 'teste'
 }];
 
-export default function LerNoticia({ navigation }: any, noticia: temp_news | save_news) {
+const dirIconArrow = require('../../assets/imagens/Arrow.png');
+const dirIconNoSave = require('../../assets/imagens/icon_salvos_vazio.png');
+const dirIconSave = require('../../assets/imagens/icon_salvos_cheio.png');
+
+
+
+export  function LerNoticia({ navigation }: any, noticia: temp_news | save_news) {
     const [iconSaved, setIconSaved] = useState(false);
 
     const handlePress = () => {

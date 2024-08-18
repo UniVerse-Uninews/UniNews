@@ -14,11 +14,9 @@
   import { refresh } from "./controllers/user/refresh";
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
-  import { addNews } from "./controllers/news/add-news";
-  import { getRSSFeed } from "./controllers/news/get-rss-feed";
-  import { getNewsByUniversity } from "./controllers/news/get-news-by-university";
   import { getNews, createNews } from "./controllers/news/temp-news";
   import { getNpmData } from "./controllers/news/temp-npm";
+  import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -41,6 +39,7 @@
     app.post("/university", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, registerUniversityController);
     app.get("/getalluniversity", { preValidation: [app.verifyJwt] }, getAllUniversityController);
     app.get("/university/:id", { preValidation: [app.verifyJwt] }, getUniversityController);
+    app.get<{ Params: { name: string } }>('/university/name/:name', getUniversityByNameController);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
 
@@ -48,6 +47,7 @@
     // app.post('/news', addNews);
     // app.get('/news/:text', getRSSFeed);
     // app.get('/news/university/:text', getNewsByUniversity);
+    
     app.get('/news/:text', getNews);
     app.post('/news', createNews);
     app.get('/npm/:text', getNpmData);
