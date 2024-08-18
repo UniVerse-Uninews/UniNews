@@ -6,7 +6,7 @@ import { Footer } from '../components/addFooter/footer';
 import { View, Text, Image } from 'react-native';
 import { News } from '@components/addNews/news';
 import { ScrollView } from 'react-native';
-import {university} from '../@types/university';
+import { university } from '../@types/university';
 
 
 export function PerfilUniversidade({ navigation }: any, university:university) {

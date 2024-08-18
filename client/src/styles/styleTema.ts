@@ -1,4 +1,3 @@
-
 import { StyleSheet } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 

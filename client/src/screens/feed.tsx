@@ -13,10 +13,12 @@ export function Feed() {
     const [universityName, setUniversityName] = useState('');
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
+    
+    const BASE_URL = 'http://192.168.0.108:8080';
 
     const fetchNews = async (url: string) => {
         try {
-            const response = await axios.get(`http://200.145.153.212:8080/npm/${encodeURIComponent(url)}`);
+            const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
             return response.data.items;
         } catch (error) {
             console.error('Error fetching news:', error);
@@ -27,7 +29,7 @@ export function Feed() {
 
     const fetchUniversityUrls = async (name: string) => {
         try {
-            const response = await axios.get(`http://200.145.153.212:8080/university/name/${encodeURIComponent(name)}`);
+            const response = await axios.get(`${BASE_URL}/university/name/${encodeURIComponent(name)}`);
             if (response.data && response.data.length > 0) {
                 return response.data.map((university: { url: string }) => university.url);
             } else {

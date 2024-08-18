@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Drawer from './drawer';
 import { Header } from '../components/addHeader/header';
-import {Footer} from '../components/addFooter/footer';
+import { Footer } from '../components/addFooter/footer';
 
 
 const Teste = () => {

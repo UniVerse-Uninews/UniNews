@@ -6,7 +6,7 @@ import { Footer } from '../components/addFooter/footer';
 import { View, Text, Image, ScrollView, Pressable, Animated } from 'react-native';
 import { university } from '../@types/university';
 import { TextInput } from 'react-native-paper';
-import { NavigationContainer, DrawerActions, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 
 const dir_lupa = require('../../assets/imagens/lupa-icon-pesquisa.png');
