@@ -3,9 +3,8 @@ import { styles } from '@styles/stylePerfilUniversidade';
 import { Header } from '@components/addHeader/header';
 import { BorderColorContainer, Container, NameBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { News } from '@components/addNews/news';
-import { ScrollView } from 'react-native';
 import { university } from '../@types/university';
 
 
