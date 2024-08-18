@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, ScrollView, Pressable, Image, Text, Alert, Linking } from 'react-native';
+import { View, TextInput, ScrollView, Pressable, Image, Text, Alert } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
@@ -8,18 +8,24 @@ import { Footer } from '../components/addFooter/footer';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
 import { format } from 'date-fns';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../@types/navigation'; // Importe os tipos de navegação
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type FeedNavigationProp = StackNavigationProp<RootStackParamList, 'Feed'>;
 
 export function Feed() {
+    const navigation = useNavigation<FeedNavigationProp>();
     const [universityName, setUniversityName] = useState('');
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-    
+     // Utilize os tipos
+
     const BASE_URL = 'http://192.168.0.108:8080';
 
     const fetchNews = async (url: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-            // Assuming `response.data.items` structure is consistent
             return response.data.items.map((item: any) => ({
                 ...item,
                 image: extractImageFromDescription(item.description)
@@ -51,7 +57,7 @@ export function Feed() {
             return [];
         }
     };
-    
+
     const handleUniversityNameChange = debounce(async (name: string) => {
         try {
             if (!name.trim()) {
@@ -59,9 +65,9 @@ export function Feed() {
                 return;
             }
             setLoading(true);
-    
+
             const universityUrls = await fetchUniversityUrls(name);
-    
+
             if (universityUrls.length > 0) {
                 const newsPromises = universityUrls.map((url: string) => fetchNews(url));
                 const newsResults = await Promise.all(newsPromises);
@@ -77,7 +83,7 @@ export function Feed() {
             setLoading(false);
         }
     }, 500);
-    
+
     return (
         <>
             <Header />
@@ -103,7 +109,12 @@ export function Feed() {
                     {news.length > 0 && (
                         <ScrollView>
                             {news.map((item, index) => (
-                                <Pressable key={item.id || index} onPress={() => { Linking.openURL(item.link) }}>
+                                <Pressable
+                                    key={item.id || index}
+                                    onPress={() => {
+                                        navigation.navigate('LerNoticia', { noticia: item });
+                                    }}
+                                >
                                     <View style={styles.viewCard}>
                                         <View style={styles.card}>
                                             {item.image ? (
