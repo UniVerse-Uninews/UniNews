@@ -15,11 +15,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 type FeedNavigationProp = StackNavigationProp<RootStackParamList, 'Feed'>;
 
 export function Feed() {
-    const navigation = useNavigation<FeedNavigationProp>();
     const [universityName, setUniversityName] = useState('');
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-     // Utilize os tipos
+    const navigation = useNavigation<FeedNavigationProp>(); // Utilize os tipos
 
     const BASE_URL = 'http://192.168.0.108:8080';
 

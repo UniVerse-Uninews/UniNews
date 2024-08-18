@@ -59,3 +59,23 @@ export const createNews = async (request: FastifyRequest<{ Body: NewsData }>, re
         reply.status(500).send({ error: "Erro ao adicionar notícia: " + e });
     }
 };
+export const getNewsByLink = async (request: FastifyRequest<{ Params: { link: string } }>, reply: FastifyReply) => {
+    try {
+        // Decodificar o link para tratar caracteres especiais
+        const decodedLink = decodeURIComponent(request.params.link);
+
+        const news = await prisma.news.findUnique({
+            where: {
+                url: decodedLink,
+            },
+        });
+
+        if (!news) {
+            return reply.status(404).send({ error: "Notícia não encontrada" });
+        }
+
+        reply.send(news);
+    } catch (e) {
+        reply.status(500).send({ error: "Erro ao buscar notícia: " + e });
+    }
+};
