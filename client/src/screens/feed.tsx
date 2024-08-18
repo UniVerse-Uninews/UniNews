@@ -19,12 +19,21 @@ export function Feed() {
     const fetchNews = async (url: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-            return response.data.items;
+            // Assuming `response.data.items` structure is consistent
+            return response.data.items.map((item: any) => ({
+                ...item,
+                image: extractImageFromDescription(item.description)
+            }));
         } catch (error) {
             console.error('Error fetching news:', error);
             Alert.alert('Erro', 'Erro ao buscar notícias.');
             return [];
         }
+    };
+
+    const extractImageFromDescription = (description: string) => {
+        const match = description.match(/<img[^>]+src="([^">]+)"/);
+        return match ? match[1] : '';
     };
 
     const fetchUniversityUrls = async (name: string) => {
@@ -43,7 +52,6 @@ export function Feed() {
         }
     };
     
-
     const handleUniversityNameChange = debounce(async (name: string) => {
         try {
             if (!name.trim()) {
@@ -52,11 +60,9 @@ export function Feed() {
             }
             setLoading(true);
     
-            // Obtenha as URLs das universidades com base no nome
             const universityUrls = await fetchUniversityUrls(name);
     
             if (universityUrls.length > 0) {
-                // Busque as notícias usando as URLs das universidades
                 const newsPromises = universityUrls.map((url: string) => fetchNews(url));
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
@@ -71,7 +77,6 @@ export function Feed() {
             setLoading(false);
         }
     }, 500);
-    
     
     return (
         <>
