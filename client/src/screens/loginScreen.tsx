@@ -6,16 +6,38 @@ import {
   View,
   Text,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
 import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name } from '@theme/style';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 
 export  function Login({ navigation }: any) {
+  const [fontsLoaded] = useFonts({
+    Rubik: require('../../assets/fonts/Rubik.ttf'),
+});
+
+const test = StyleSheet.create({
+  container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  text: {
+      fontFamily: 'Rubik',
+      fontSize: 50,
+      
+  },
+});
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+
+  
 
   const handleLogin = () => {
     if (!username || !password) {
@@ -38,7 +60,11 @@ export  function Login({ navigation }: any) {
     <Container style={styles.container}>
       <View style={styles.logo}>
         <Name style={styles.Uni}>UNI</Name>
-        <Name style={styles.News}>NEWS</Name>
+        <Name style={test.text}>NEWS</Name>
+      </View>
+
+      <View style={test.container}>
+        <Text style={test.text}>Teste</Text>
       </View>
 
       <BackgroundContainerInput style={styles.box}>
