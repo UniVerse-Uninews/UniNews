@@ -4,6 +4,7 @@ import { REACT_APP_API_URL } from '@env';
 import { temp_news } from 'src/@types/temp_news';
 
 const http = REACT_APP_API_URL;
+const url = 'http://192.168.0.108:8080'; // Global URL variable
 
 const getToken = async () => {
   return await AsyncStorage.getItem('token');
@@ -11,12 +12,12 @@ const getToken = async () => {
 
 export const getUsers = async () => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/getallusers'; // Use o IP local do seu computador
+  const getUsersUrl = `${url}/getallusers`;
 
-  console.log('Fetching users from:', url);
+  console.log('Fetching users from:', getUsersUrl);
   console.log('Using token:', token);
 
-  return axios.get(url, {
+  return axios.get(getUsersUrl, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -25,12 +26,12 @@ export const getUsers = async () => {
 
 export const updateUser = async (userId: string, userData: any) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/users/' + userId; // Use o IP local do seu computador
+  const updateUserUrl = `${url}/users/${userId}`;
 
-  console.log('Updating user at:', url);
+  console.log('Updating user at:', updateUserUrl);
   console.log('Using token:', token);
 
-  return axios.put(url, userData, {
+  return axios.put(updateUserUrl, userData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -39,12 +40,12 @@ export const updateUser = async (userId: string, userData: any) => {
 
 export const addUser = async (userData: any) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/users'; // Use o IP local do seu computador
+  const addUserUrl = `${url}/users`;
 
-  console.log('Adding user at:', url);
+  console.log('Adding user at:', addUserUrl);
   console.log('Using token:', token);
 
-  return axios.post(url, userData, {
+  return axios.post(addUserUrl, userData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -53,11 +54,12 @@ export const addUser = async (userData: any) => {
 
 export const deleteUser = async (userId: string) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/deleteuser/' + userId; // Use o IP local do seu computador
-  console.log('Deleting user at:', url);
+  const deleteUserUrl = `${url}/deleteuser/${userId}`;
+
+  console.log('Deleting user at:', deleteUserUrl);
   console.log('Using token:', token);
 
-  return axios.delete(url, {
+  return axios.delete(deleteUserUrl, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -65,12 +67,12 @@ export const deleteUser = async (userId: string) => {
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const url = 'http://192.168.0.108:8080/sessions'; // Use o IP local do seu computador
+  const loginUrl = `${url}/sessions`;
 
-  console.log('Logging in at:', url);
+  console.log('Logging in at:', loginUrl);
 
   try {
-    const response = await axios.post(url, { email, password }, { timeout: 5000 });
+    const response = await axios.post(loginUrl, { email, password }, { timeout: 5000 });
 
     console.log('Response received:', response);
 
@@ -96,12 +98,12 @@ export const loginUser = async (email: string, password: string) => {
 
 export const addUniversity = async (universityData: any) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/universities'; // Use o IP local do seu computador
+  const addUniversityUrl = `${url}/universities`;
 
-  console.log('Adding university at:', url);
+  console.log('Adding university at:', addUniversityUrl);
   console.log('Using token:', token);
 
-  return axios.post(url, universityData, {
+  return axios.post(addUniversityUrl, universityData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -110,12 +112,12 @@ export const addUniversity = async (universityData: any) => {
 
 export const getUniversities = async () => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/getalluniversities'; // Use o IP local do seu computador
+  const getUniversitiesUrl = `${url}/getalluniversities`;
 
-  console.log('Fetching universities from:', url);
+  console.log('Fetching universities from:', getUniversitiesUrl);
   console.log('Using token:', token);
 
-  return axios.get(url, {
+  return axios.get(getUniversitiesUrl, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -124,12 +126,12 @@ export const getUniversities = async () => {
 
 export const getUniversity = async (universityId: string) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/university/' + universityId; // Use o IP local do seu computador
+  const getUniversityUrl = `${url}/university/${universityId}`;
 
-  console.log('Fetching university from:', url);
+  console.log('Fetching university from:', getUniversityUrl);
   console.log('Using token:', token);
 
-  return axios.get(url, {
+  return axios.get(getUniversityUrl, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -138,12 +140,12 @@ export const getUniversity = async (universityId: string) => {
 
 export const updateUniversity = async (universityId: string, universityData: any) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/universities/' + universityId; // Use o IP local do seu computador
+  const updateUniversityUrl = `${url}/universities/${universityId}`;
 
-  console.log('Updating university at:', url);
+  console.log('Updating university at:', updateUniversityUrl);
   console.log('Using token:', token);
 
-  return axios.put(url, universityData, {
+  return axios.put(updateUniversityUrl, universityData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -152,12 +154,12 @@ export const updateUniversity = async (universityId: string, universityData: any
 
 export const deleteUniversity = async (universityId: string) => {
   const token = await getToken();
-  const url = 'http://192.168.0.108:8080/universities/' + universityId; // Use o IP local do seu computador
+  const deleteUniversityUrl = `${url}/universities/${universityId}`;
 
-  console.log('Deleting university at:', url);
+  console.log('Deleting university at:', deleteUniversityUrl);
   console.log('Using token:', token);
 
-  return axios.delete(url, {
+  return axios.delete(deleteUniversityUrl, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -165,12 +167,12 @@ export const deleteUniversity = async (universityId: string) => {
 };
 
 export const fetchUniversities = async (): Promise<temp_news[]> => {
-  const url = `${http}/api/universities`;
+  const fetchUniversitiesUrl = `${url}/api/universities`;
 
-  console.log('Fetching universities from:', url);
+  console.log('Fetching universities from:', fetchUniversitiesUrl);
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(fetchUniversitiesUrl);
     return response.data;
   } catch (error) {
     console.error('Error fetching universities:', error);
@@ -179,12 +181,12 @@ export const fetchUniversities = async (): Promise<temp_news[]> => {
 };
 
 export const fetchNewsByUniversity = async (universityName: string): Promise<temp_news[]> => {
-  const url = `${http}/news/university/${universityName}`;
+  const fetchNewsUrl = `${url}/news/university/${universityName}`;
 
   console.log('Fetching news for university:', universityName);
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(fetchNewsUrl);
     return response.data;
   } catch (error) {
     console.error('Error fetching news:', error);
