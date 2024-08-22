@@ -18,7 +18,7 @@ export function Feed() {
     const [universityName, setUniversityName] = useState('');
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation<FeedNavigationProp>(); // Utilize os tipos
+    const navigation = useNavigation<FeedNavigationProp>();
 
     const BASE_URL = 'http://192.168.0.108:8080';
 

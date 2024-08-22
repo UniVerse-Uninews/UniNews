@@ -7,7 +7,7 @@ import { Container, Name, NameBlue } from '@theme/style';
 import { format } from 'date-fns';
 
 export function LerNoticia({ route }: any) {
-    const { noticia } = route.params; // Access the passed news item
+    const { noticia } = route.params;
 
     return (
         <>

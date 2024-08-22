@@ -1,4 +1,3 @@
-// Drawer.js
 import React from 'react';
 import { View, Text, Animated, TouchableOpacity, StyleSheet } from 'react-native';
 
