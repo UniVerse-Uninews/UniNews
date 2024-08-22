@@ -71,6 +71,7 @@ export const styles = StyleSheet.create({
   Uni: {
     fontSize: 50,
     color: '#4A94CC',
+    fontFamily: 'Teacher',
   },
   News: {
     fontSize: 50,
