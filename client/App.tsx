@@ -27,7 +27,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <FontLoader>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Feed">
+          <Stack.Navigator initialRouteName="Login">
             <Stack.Screen
               name="Perfil"
               component={Perfil}
@@ -79,7 +79,7 @@ export default function App() {
               options={{ headerShown: false }}
             /> */}
             <Stack.Screen
-              name="teste"
+              name="Teste"
               component={Teste}
               options={{ headerShown: false }}
             />

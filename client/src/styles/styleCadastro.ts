@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: responsiveScreenFontSize(3),
-    fontFamily: 'Teachers Students',
+    fontFamily: 'Teacher',
     textAlign: 'left',
     position: 'absolute',
     marginLeft: '5%',
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: responsiveScreenFontSize(2),
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
     textAlign: 'left',
     marginLeft: '13%',
     marginTop: '5%',
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: '100%',
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
     width: '80%',
     borderColor: '#F2A20C',
     color: '#000',
