@@ -26,10 +26,10 @@ export const styles = StyleSheet.create({
   nameLogo: {
     marginLeft: '3%',
     fontSize: 25,
-    fontFamily: 'Teachers Students',
+    fontFamily: 'Teacher',
   },
   nameLogoSecondary: {
     fontSize: 25,
-    fontFamily: 'Teachers Students',
+    fontFamily: 'Teacher',
   },
 });

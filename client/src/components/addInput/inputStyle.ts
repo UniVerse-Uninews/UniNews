@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: responsiveScreenFontSize(2),
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
     textAlign: 'left',
     marginLeft: '13%',
     marginTop: '5%',
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: '100%',
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
     width: '80%',
     borderColor: '#F2A20C',
     color: '#000',
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     color: '#000',
     height: responsiveScreenHeight(3),
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
     paddingLeft: 5,
     marginTop: '10%',
     width: responsiveWidth(45),

@@ -24,11 +24,11 @@ export const styles = StyleSheet.create({
   nameLogo: {
     marginLeft: '3%',
     fontSize: responsiveFontSize(6),
-    fontFamily: 'Teachers Students',
+    fontFamily: 'Teacher',
     color: '#4A94CC',
   },
   nameLogoSecondary: {
     fontSize: responsiveFontSize(6),
-    fontFamily: 'Teachers Students',
+    fontFamily: 'Teacher',
   },
 });
