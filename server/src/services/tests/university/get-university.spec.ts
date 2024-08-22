@@ -15,6 +15,7 @@ describe("Get University Use Case", () => {
           description: "Description A",
           createdAt: new Date(),
           updatedAt: new Date(),
+          image: "http://example.com/image.jpg",
         };
       
         const universityRepository = new InMemoryUniversityRepository();

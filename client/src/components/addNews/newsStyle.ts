@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { responsiveHeight, responsiveWidth, useResponsiveFontSize } from 'react-native-responsive-dimensions';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
     card: {

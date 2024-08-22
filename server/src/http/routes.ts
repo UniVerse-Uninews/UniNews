@@ -14,7 +14,7 @@
   import { refresh } from "./controllers/user/refresh";
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
-  import { getNews, createNews } from "./controllers/news/temp-news";
+  import { getNews, createNews, getNewsByLink } from "./controllers/news/temp-news";
   import { getNpmData } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
 
@@ -51,4 +51,5 @@
     app.get('/news/:text', getNews);
     app.post('/news', createNews);
     app.get('/npm/:text', getNpmData);
+    app.get('/news/link/:text', getNewsByLink);
   }

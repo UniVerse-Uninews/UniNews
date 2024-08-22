@@ -15,7 +15,7 @@ interface NewsData {
     image: string;
     content: string;
     author: string;
-    universityId: string; // Deve ser um ObjectId válido
+    universityId: string;
 }
 
 export const getNews = async (request: FastifyRequest<{ Params: Params }>, reply: FastifyReply) => {
@@ -57,5 +57,24 @@ export const createNews = async (request: FastifyRequest<{ Body: NewsData }>, re
         reply.send({ msg: "Notícia adicionada com sucesso!" });
     } catch (e) {
         reply.status(500).send({ error: "Erro ao adicionar notícia: " + e });
+    }
+};
+export const getNewsByLink = async (request: FastifyRequest<{ Params: { link: string } }>, reply: FastifyReply) => {
+    try {
+        const decodedLink = decodeURIComponent(request.params.link);
+
+        const news = await prisma.news.findUnique({
+            where: {
+                url: decodedLink,
+            },
+        });
+
+        if (!news) {
+            return reply.status(404).send({ error: "Notícia não encontrada" });
+        }
+
+        reply.send(news);
+    } catch (e) {
+        reply.status(500).send({ error: "Erro ao buscar notícia: " + e });
     }
 };

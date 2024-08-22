@@ -84,7 +84,7 @@ export class PrismaUniversityRepository implements UniversityRepository {
                 where: {
                     name: {
                         contains: prefix,
-                        mode: 'insensitive', // Opcional: busca case-insensitive
+                        mode: 'insensitive',
                     },
                 },
                 orderBy: {

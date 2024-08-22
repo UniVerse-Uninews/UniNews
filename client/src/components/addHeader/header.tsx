@@ -1,6 +1,6 @@
 import { styles } from './styleheader';
 import React from 'react';
-import { View, StatusBar,  SafeAreaView, Text } from 'react-native';
+import { View, StatusBar,  SafeAreaView } from 'react-native';
 import { Container, NameBlue, Name, Line } from '../../theme/style';
 import ImageViewer from '../addImageViewer/ImageViewer';
 

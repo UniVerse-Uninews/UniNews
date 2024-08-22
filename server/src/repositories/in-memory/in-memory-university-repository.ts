@@ -3,6 +3,9 @@ import { UniversityRepository } from "../university-repository";
 import { University, Prisma } from "@prisma/client";
 
 export class InMemoryUniversityRepository implements UniversityRepository {
+  findByName(prefix: string): Promise<University[]> {
+    throw new Error("Method not implemented.");
+  }
   private items: University[] = [];
 
   async findById(id: string): Promise<University | null> {
@@ -24,6 +27,7 @@ export class InMemoryUniversityRepository implements UniversityRepository {
       description: data.description,
       createdAt: new Date(),
       updatedAt: new Date(),
+      image: data.image
     };
 
     this.items.push(university);
