@@ -35,6 +35,17 @@ export function CrudUniversidade() {
     setUniversity(university);
   };
 
+  const clearFields = () => {
+    setUniversity({
+      id: '',
+      name: '',
+      location: '',
+      url: '',
+      description: '',
+      image: '',
+    });
+  };
+
   return (
     <>
       <Header />
@@ -77,6 +88,15 @@ export function CrudUniversidade() {
                   onChangeText={(e) => setUniversity({ ...university, description: e })}
                 />
               </BackgroundContainerInput>
+
+              <Name>Imagem</Name>
+              <BackgroundInputText
+                style={styles.input}
+                placeholder="Imagem"
+                placeholderTextColor={'#8F8F8F'}
+                value={university.image}
+                onChangeText={(e) => setUniversity({ ...university, image: e })}
+              />
             </View>
             <View style={styles.containerButton}>
               <Button title="Cadastrar" onPress={addUniversityHandler} />
@@ -88,6 +108,10 @@ export function CrudUniversidade() {
               <Button
                 title="Apagar"
                 onPress={() => deleteUniversityHandler(university.id)}
+              />
+              <Button
+                title="Limpar Campos"
+                onPress={clearFields}
               />
             </View>
           </View>

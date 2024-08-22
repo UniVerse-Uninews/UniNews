@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { Checkbox}  from 'expo-checkbox';
+import { Checkbox } from 'expo-checkbox';
 
 import { styles } from '../styles/styleCrudUsuario';
 import { Button } from '../components/addButton/Button';
-import { Table }  from '../components/addTable/Table';
+import { Table } from '../components/addTable/Table';
 import { useCrud } from '../hooks/crudHooks';
 import {
   Container,
@@ -19,6 +19,15 @@ import {
 } from '../theme/style';
 import { Header } from '../components/addHeader/header';
 import { InputSenhaSpecial } from '../components/addInput/Input';
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  passwordHash: string; // Ajuste conforme necessário
+  confirmPassword: string;
+}
 
 export function CrudUsuario() {
   const [isChecked, setChecked] = useState(false);
@@ -33,8 +42,20 @@ export function CrudUsuario() {
     deleteUserHandler,
   } = useCrud();
 
-  const handleRowClick = (clickedUser: any) => {
+  const handleRowClick = (clickedUser: User) => {
     setUser(clickedUser);
+  };
+
+  const clearFields = () => {
+    setUser({
+      id: '',
+      name: '',
+      email: '',
+      role: '',
+      passwordHash: '', // Ajuste conforme necessário
+      confirmPassword: '',
+    });
+    setChecked(false);
   };
 
   return (
@@ -112,6 +133,10 @@ export function CrudUsuario() {
               <Button
                 etiqueta="Apagar"
                 handlePress={() => deleteUserHandler(user.id)}
+              />
+              <Button
+                etiqueta="Limpar Campos"
+                handlePress={clearFields}
               />
             </View>
           </View>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { REACT_APP_API_URL } from '@env';
 import { temp_news } from 'src/@types/temp_news';
+import { university } from 'src/@types/university';
 
 const url = 'http://192.168.0.108:8080'; 
 interface LoginResponse{
@@ -132,7 +133,7 @@ export const getUniversity = async (universityId: string) => {
 
 export const updateUniversity = async (universityId: string, universityData: any) => {
   const token = await getToken();
-  const updateUniversityUrl = `${url}/universities/${universityId}`;
+  const updateUniversityUrl = `${url}/university/${universityId}`;
 
   console.log('Updating university at:', updateUniversityUrl);
   console.log('Using token:', token);
@@ -146,7 +147,7 @@ export const updateUniversity = async (universityId: string, universityData: any
 
 export const deleteUniversity = async (universityId: string) => {
   const token = await getToken();
-  const deleteUniversityUrl = `${url}/universities/${universityId}`;
+  const deleteUniversityUrl = `${url}/deleteuniversity/${universityId}`;
 
   console.log('Deleting university at:', deleteUniversityUrl);
   console.log('Using token:', token);
@@ -185,3 +186,17 @@ export const fetchNewsByUniversity = async (universityName: string): Promise<tem
     throw error;
   }
 };
+
+export const addUniversity = async (universityData: university) => {
+  const token = await getToken();
+  const addUniversityUrl = `${url}/university`;
+
+  console.log('Adding university at:', addUniversityUrl);
+  console.log('Using token:', token);
+
+  return axios.post(addUniversityUrl, universityData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

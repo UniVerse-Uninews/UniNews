@@ -23,7 +23,7 @@ export  function Login({ navigation }: any) {
       console.log('Login successful:', { token, role });
 
       if (role === 'ADMIN') {
-        navigation.navigate('CrudUniversidade');
+        navigation.navigate('CrudUsuario');
       } else {
         navigation.navigate('Feed');
       }
