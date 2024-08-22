@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image } from 'react-native';
-import Icon from '../../assets/imagens/editar.png';
+// import Icon from '../../assets/imagens/editar.png';
 
-// Define the props interface for the Drawer component
 interface DrawerProps {
   isOpen: boolean;
   toggleDrawer: () => void;
@@ -73,7 +72,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
         ) : (
           <TouchableOpacity style={styles.campo} onPress={handleImagePress}>
             <Text style={styles.input}>{textValue || ''}</Text>
-            <Image source={Icon} style={styles.icon} />
+            {/* <Image source={} style={styles.icon} /> */}
           </TouchableOpacity>
         )}
       </View>
