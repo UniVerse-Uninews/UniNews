@@ -22,7 +22,7 @@ export function Footer() {
             <Container style={styles.container}>
                 <Pressable 
                     style={styles.button}
-                    onPress={() => navigation.navigate('Feed')}
+                    onPress={() => navigation.navigate('Login')}
                 >
                     <Image source={dirIconHouse} style={styles.icon} />
                 </Pressable>
@@ -34,7 +34,7 @@ export function Footer() {
                 </Pressable>
                 <Pressable 
                     style={styles.button}
-                    onPress={() => navigation.navigate('LerNoticia')}
+                    onPress={() => navigation.navigate('Feed')}
                 >
                     <Image source={dirIconSaved} style={styles.icon} />
                 </Pressable>

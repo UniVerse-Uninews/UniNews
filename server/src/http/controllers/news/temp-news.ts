@@ -15,7 +15,7 @@ interface NewsData {
     image: string;
     content: string;
     author: string;
-    universityId: string; // Deve ser um ObjectId válido
+    universityId: string;
 }
 
 export const getNews = async (request: FastifyRequest<{ Params: Params }>, reply: FastifyReply) => {
@@ -61,7 +61,6 @@ export const createNews = async (request: FastifyRequest<{ Body: NewsData }>, re
 };
 export const getNewsByLink = async (request: FastifyRequest<{ Params: { link: string } }>, reply: FastifyReply) => {
     try {
-        // Decodificar o link para tratar caracteres especiais
         const decodedLink = decodeURIComponent(request.params.link);
 
         const news = await prisma.news.findUnique({

@@ -57,17 +57,17 @@ function CustomDrawer(props: DrawerContentComponentProps) {
         }).start();
     };
 
-    const delete_univ_filter = (index: number) => {
-        // Alterado para atualizar o estado
-    };
+    // const delete_univ_filter = (index: number) => {
+    //     // Alterado para atualizar o estado
+    // };
 
-    const delete_area_filter = (index: number) => {
-        // Alterado para atualizar o estado
-    };
+    // const delete_area_filter = (index: number) => {
+    //     // Alterado para atualizar o estado
+    // };
 
-    const delete_loc_filter = (index: number) => {
-        // Alterado para atualizar o estado
-    };
+    // const delete_loc_filter = (index: number) => {
+    //     // Alterado para atualizar o estado
+    // };
 
     return (
         <DrawerContentScrollView {...props}>
