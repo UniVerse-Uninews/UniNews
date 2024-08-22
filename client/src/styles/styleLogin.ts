@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,6 +74,7 @@ export const styles = StyleSheet.create({
   },
   News: {
     fontSize: 50,
+    fontFamily: 'Rubik',
   },
 
   errorText: {
