@@ -6,7 +6,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
@@ -14,29 +13,26 @@ import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container
 
 export  function Login({ navigation }: any) {
 
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  
+  const handleLogin = async () => {
+    try {
+      const { token, role } = await loginUser(username, password);
+      console.log('Login successful:', { token, role });
 
-  const handleLogin = () => {
-    if (!username || !password) {
-      setLoginError('Por favor, preencha todos os campos.');
-      return;
+      if (role === 'ADMIN') {
+        navigation.navigate('CrudUniversidade');
+      } else {
+        navigation.navigate('Feed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setLoginError('Erro ao fazer login. Verifique suas credenciais.');
     }
-
-    loginUser(username, password)
-      .then((response) => {
-        console.log('Login successful:', response.data);
-        navigation.navigate('CrudUsuario');
-      })
-      .catch((error) => {
-        console.error('Login error:', error);
-        setLoginError('Erro ao fazer login. Verifique suas credenciais.');
-      });
   };
+  
 
   return (
     <Container style={styles.container}>

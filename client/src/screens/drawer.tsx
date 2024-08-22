@@ -8,7 +8,6 @@ interface DrawerProps {
 }
 
 const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
-  // Create a ref for the Animated value
   const drawerTranslateX = useRef(new Animated.Value(Dimensions.get('window').width)).current;
   const screenWidth = Dimensions.get('window').width;
   const drawerWidth = screenWidth * 0.85;
@@ -27,20 +26,19 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
 
   useEffect(() => {
     if (isEditing && textInputRef.current) {
-      textInputRef.current.focus(); // Focus the TextInput when editing mode is active
+      textInputRef.current.focus();
     }
   }, [isEditing]);
 
   const handleImagePress = () => {
-    setIsEditing(true); // Enable editing when image is pressed
+    setIsEditing(true);
   };
 
   const handleTextInputBlur = () => {
-    setIsEditing(false); // Disable editing when TextInput loses focus
+    setIsEditing(false); 
   };
 
   const handleTextInputPress = (e: React.SyntheticEvent) => {
-    // Prevent direct focus if not in editing mode
     if (!isEditing) {
       e.stopPropagation();
     }
@@ -66,7 +64,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
             placeholderTextColor="#8F8F8F"
             value={textValue}
             onChangeText={setTextValue}
-            onBlur={handleTextInputBlur} // Switch back to button mode on blur
+            onBlur={handleTextInputBlur}
              
           />
         ) : (

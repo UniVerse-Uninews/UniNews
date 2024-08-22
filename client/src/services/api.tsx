@@ -1,10 +1,13 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { REACT_APP_API_URL } from '@env';
+// import { REACT_APP_API_URL } from '@env';
 import { temp_news } from 'src/@types/temp_news';
 
-const http = REACT_APP_API_URL;
-const url = 'http://192.168.0.108:8080'; // Global URL variable
+const url = 'http://192.168.0.108:8080'; 
+interface LoginResponse{
+  token: string;
+  role: string;
+}
 
 const getToken = async () => {
   return await AsyncStorage.getItem('token');
@@ -66,7 +69,7 @@ export const deleteUser = async (userId: string) => {
   });
 };
 
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (email: string, password: string): Promise<LoginResponse> => {
   const loginUrl = `${url}/sessions`;
 
   console.log('Logging in at:', loginUrl);
@@ -76,12 +79,15 @@ export const loginUser = async (email: string, password: string) => {
 
     console.log('Response received:', response);
 
+    // Verificar e ajustar a estrutura conforme necessário
+    const { token, role } = response.data;
+
     if (response.status === 200) {
-      const token = response.data.token;
       if (token) {
         console.log('Received token:', token);
         await AsyncStorage.setItem('token', token);
-        return response;
+        console.log('Role:', role);
+        return { token, role }; // Retorna o token e o papel
       } else {
         console.error('No token received in response');
         throw new Error('No token received');
@@ -96,23 +102,9 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-export const addUniversity = async (universityData: any) => {
-  const token = await getToken();
-  const addUniversityUrl = `${url}/universities`;
-
-  console.log('Adding university at:', addUniversityUrl);
-  console.log('Using token:', token);
-
-  return axios.post(addUniversityUrl, universityData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
 export const getUniversities = async () => {
   const token = await getToken();
-  const getUniversitiesUrl = `${url}/getalluniversities`;
+  const getUniversitiesUrl = `${url}/getalluniversity`;
 
   console.log('Fetching universities from:', getUniversitiesUrl);
   console.log('Using token:', token);
