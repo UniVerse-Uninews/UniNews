@@ -15,6 +15,7 @@ describe("Register University Use Case", () => {
       location: "Location A",
       url,
       description: "Description A",
+      image: "http://example.com/image.jpg",
     });
 
     console.log("First registration completed");
@@ -25,6 +26,7 @@ describe("Register University Use Case", () => {
         location: "Location B",
         url,
         description: "Description B",
+        image: "http://example.com/image.jpg",
       }),
     ).rejects.toBeInstanceOf(UniversityAlreadyExistError);
 
@@ -40,6 +42,7 @@ describe("Register University Use Case", () => {
       location: "Location A",
       url: "http://example.com",
       description: "Description A",
+      image: "http://example.com/image.jpg",
     });
 
     console.log("Registration successful");
