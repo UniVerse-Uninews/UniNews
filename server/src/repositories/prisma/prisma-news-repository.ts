@@ -17,7 +17,7 @@ export class PrismaNewsRepository {
           $match: {
             university: {
               $regex: regex.source,
-              $options: 'i', // Case-insensitive search
+              $options: 'i',
             },
           },
         },

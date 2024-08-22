@@ -6,7 +6,6 @@ import { env } from "process";
 import fastifyCookie from "@fastify/cookie";
 import { verifyJwt } from "../src/http/middleware/verify-jwt"
 
-// Import custom typings to extend FastifyInstance
 import './@types/fastify-jwt.d.ts';
 
 export const app = fastify();

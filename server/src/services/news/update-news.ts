@@ -17,7 +17,6 @@ async function updateNewsForUniversity(universityId: string, rssUrl: string) {
       universityId,
     }));
 
-    // Upsert news items
     await Promise.all(
       newsItems.map(async newsItem => {
         await prisma.news.upsert({
