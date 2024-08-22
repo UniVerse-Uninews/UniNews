@@ -25,10 +25,14 @@ export function Feed() {
     const fetchNews = async (url: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-            return response.data.items.map((item: any) => ({
-                ...item,
-                image: extractImageFromDescription(item.description)
-            }));
+            return response.data.items.map((item: any) => {
+                const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
+                return {
+                    ...item,
+                    image: imageUrl,
+                    description: cleanedDescription
+                };
+            });
         } catch (error) {
             console.error('Error fetching news:', error);
             Alert.alert('Erro', 'Erro ao buscar notícias.');
@@ -38,7 +42,13 @@ export function Feed() {
 
     const extractImageFromDescription = (description: string) => {
         const match = description.match(/<img[^>]+src="([^">]+)"/);
-        return match ? match[1] : '';
+        
+        if (match) {
+            const cleanedDescription = description.replace(/<img[^>]+>/g, '');
+            return { imageUrl: match[1], cleanedDescription };
+        } else {
+            return { imageUrl: '', cleanedDescription: description };
+        }
     };
 
     const fetchUniversityUrls = async (name: string) => {
