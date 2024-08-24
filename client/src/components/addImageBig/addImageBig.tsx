@@ -1,7 +1,17 @@
-import { Image } from 'react-native';
 import React from 'react';
-import { styles } from './styleImageBig';
+import { Image, ImageStyle } from 'react-native';
 
-export function ImageBig({ diretorio }: { diretorio: any }) {
-  return <Image source={diretorio} style={styles.image} />;
+interface ImageBigProps {
+  diretorio: string;
+  style?: ImageStyle;
+}
+
+export function ImageBig({ diretorio, style }: ImageBigProps) {
+  return (
+    <Image
+      source={{ uri: diretorio }}
+      style={style}
+      resizeMode="contain"
+    />
+  );
 }

@@ -15,7 +15,7 @@ import { styles } from '../styles/stylePerfil';
 export function Perfil() {
   const drawer = useRef<DrawerLayoutAndroid>(null);
   const [drawerPosition, setDrawerPosition] = useState<'right' | 'left'>('right');
-  const dirImagem = require('../../assets/imagens/menu.png');
+  const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/menu.png';
 
   const changeDrawerPosition = () => {
     setDrawerPosition(prevPosition => (prevPosition === 'left' ? 'right' : 'left'));
@@ -39,7 +39,7 @@ export function Perfil() {
         <ScrollView>
           <View style={styles.drawer}>
             <TouchableOpacity onPress={() => drawer.current?.openDrawer()}>
-              <Image style={styles.Logo} source={dirImagem} />
+              <Image style={styles.Logo} source={{uri : dirImagem}} />
             </TouchableOpacity>
           </View>
 

@@ -6,8 +6,8 @@ import { BorderColorBlue, Name } from '@theme/style';
 import { fetchNewsByUniversity } from '@services/api';
 import { temp_news } from '../../@types/temp_news';
 
-const dirIconNoSave = require('../../../assets/imagens/icon_salvos_vazio.png');
-const dirIconSave = require('../../../assets/imagens/icon_salvos_cheio.png');
+const dirIconNoSave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
+const dirIconSave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
 
 interface NewsProps {
   universityId: string;
@@ -57,7 +57,7 @@ export function News({ universityId, universityImage }: NewsProps) {
               <View style={styles.containerIcon}>
                 <TouchableOpacity onPress={() => handlePress(item.id)}>
                   <Image
-                    source={iconSaved[item.id] ? dirIconSave : dirIconNoSave}
+                    source={{ uri: iconSaved[item.id] ? dirIconSave : dirIconNoSave }}
                     style={styles.icon}
                   />
                 </TouchableOpacity>

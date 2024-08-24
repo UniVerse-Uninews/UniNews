@@ -6,10 +6,10 @@ import { RootStackParamList } from '../../@types/rootstack'; // Atualize o camin
 import { styles } from './footerStyle';
 import { BorderColorBlue, Container, FooterContainer } from '@theme/style';
 
-const dirIconHouse = require('../../../assets/imagens/icon_casa_cheio.png');
-const dirIconGlass = require('../../../assets/imagens/icon_lupa_vazio.png');
-const dirIconSaved = require('../../../assets/imagens/icon_salvos_vazio.png');
-const dirIconProfile = require('../../../assets/imagens/icon_perfil_vazio.png');
+const dirIconHouse ='http://projetoscti.com.br/projetoscti27/uninews/img/icon_casa_cheio.png';
+const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
+const dirIconSaved ='http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
+const dirIconProfile = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_vazio.png';
 
 type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -24,25 +24,25 @@ export function Footer() {
                     style={styles.button}
                     onPress={() => navigation.navigate('Login')}
                 >
-                    <Image source={dirIconHouse} style={styles.icon} />
+                    <Image source={{uri: dirIconHouse}} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={styles.button}
                     onPress={() => navigation.navigate('Pesquisar')}
                 >
-                    <Image source={dirIconGlass} style={styles.icon} />
+                    <Image source={{uri: dirIconGlass}} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={styles.button}
                     onPress={() => navigation.navigate('Feed')}
                 >
-                    <Image source={dirIconSaved} style={styles.icon} />
+                    <Image source={{uri: dirIconSaved}} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={styles.button}
                     onPress={() => navigation.navigate('Perfil')}
                 >
-                    <Image source={dirIconProfile} style={styles.icon} />
+                    <Image source={{ uri: dirIconProfile }} style={styles.icon} />
                 </Pressable>
             </FooterContainer>
         </>

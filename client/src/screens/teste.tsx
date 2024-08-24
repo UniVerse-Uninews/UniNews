@@ -12,14 +12,14 @@ const Teste = () => {
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
-  const dirImagem = require('../../assets/imagens/menu.png');
+  const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/menu.png';
 
   return (
     <>
     <Header/>
     <View style={styles.container}>
       <TouchableOpacity onPress={toggleDrawer} style={styles.menuButton}>
-        <Image style={styles.Logo} source={dirImagem}></Image>
+        <Image style={styles.Logo} source={{uri: dirImagem}}></Image>
       </TouchableOpacity>
       <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <View style={styles.perfil}></View>
