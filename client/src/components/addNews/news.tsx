@@ -11,7 +11,7 @@ const dirIconSave = require('../../../assets/imagens/icon_salvos_cheio.png');
 
 interface NewsProps {
   universityId: string;
-  universityImage: string; // Add this prop for the university's image
+  universityImage: string; 
 }
 
 export function News({ universityId, universityImage }: NewsProps) {
@@ -52,7 +52,7 @@ export function News({ universityId, universityImage }: NewsProps) {
               {item.image ? (
                 <Image source={{ uri: item.image }} style={styles.imageCard} />
               ) : (
-                <Image source={{ uri: universityImage }} style={styles.imageCard} /> // Use the university's image if news item image is not available
+                <Image source={{ uri: universityImage }} style={styles.imageCard} />
               )}
               <View style={styles.containerIcon}>
                 <TouchableOpacity onPress={() => handlePress(item.id)}>

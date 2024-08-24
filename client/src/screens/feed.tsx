@@ -41,10 +41,6 @@ export function Feed({ navigation }: { navigation: any }) { // Receive navigatio
 
     const fetchNews = async (url: string, universityImage: string, universityId: string) => {
         try {
-            console.log('Fetching news for university URL:', url); // Log the URL
-            console.log('University Image:', universityImage); // Log the university image
-            console.log('University ID:', universityId); // Log the university ID
-    
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
     
             if (response.data && response.data.items) {
@@ -85,7 +81,6 @@ export function Feed({ navigation }: { navigation: any }) { // Receive navigatio
     const fetchAllUniversities = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/getalluniversity`);
-            console.log('Universities response data:', response.data); // Log the response data
             if (response.data && response.data.length > 0) {
                 return response.data.map((university: { url: string, image: string, id: string }) => university);
             } else {
