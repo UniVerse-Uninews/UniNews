@@ -1,4 +1,8 @@
 import { StyleSheet } from 'react-native';
+import {
+  responsiveScreenFontSize,
+  responsiveScreenHeight,
+} from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -6,34 +10,34 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    borderWidth: 2,
+    borderWidth: responsiveScreenHeight(0.2),
     width: '80%',
     height: '60%',
-    borderRadius: 10,
+    borderRadius: responsiveScreenHeight(2),
     borderColor: '#4A94CC',
     position: 'relative',
     alignItems: 'center',
     paddingTop: '7%',
   },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1.5,
-    padding: 10,
-    borderRadius: 15,
+    height: responsiveScreenHeight(4.5),
+    margin: responsiveScreenHeight(1),
+    borderWidth:responsiveScreenHeight(0.2),
+    padding: responsiveScreenHeight(1),
+    borderRadius: responsiveScreenHeight(2),
   },
   campo: {
     width: '90%',
-    marginBottom: 10,
+    marginBottom: responsiveScreenHeight(2),
   },
   campotext: {
-    marginLeft: 29,
+    marginLeft: responsiveScreenHeight(2),
   },
   button: {
-    borderWidth: 2,
+    borderWidth: responsiveScreenHeight(0.1),
     borderColor: '#4A94CC',
-    height: 40,
-    borderRadius: 20,
+    height: responsiveScreenHeight(5),
+    borderRadius: responsiveScreenHeight(2.5),
     backgroundColor: '#4A94CC',
     alignItems: 'center',
     justifyContent: 'center',
@@ -42,19 +46,19 @@ export const styles = StyleSheet.create({
   },
   textbutton: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
   },
   button2: {
-    borderWidth: 2,
-    height: 40,
-    borderRadius: 20,
+    borderWidth: responsiveScreenHeight(0.2),
+    height: responsiveScreenHeight(5),
+    borderRadius: responsiveScreenHeight(2.5),
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: '8%',
     marginHorizontal: '1%',
   },
   textbutton2: {
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
   },
   boxbutton: {
     flexDirection: 'row',
@@ -69,18 +73,18 @@ export const styles = StyleSheet.create({
     padding: '20%',
   },
   Uni: {
-    fontSize: 50,
+    fontSize: responsiveScreenFontSize(10),
     color: '#4A94CC',
-    fontFamily: 'Rubik',
+    fontFamily: 'Teacher',
   },
   News: {
-    fontSize: 50,
-    fontFamily: 'Rubik',
+    fontSize: responsiveScreenFontSize(10),
+    fontFamily: 'Teacher'
   },
 
   errorText: {
     color: 'red',
-    fontSize: 12,
-    marginTop: 5,
+    fontSize: responsiveScreenFontSize(2),
+    marginTop: responsiveScreenHeight(1),
   },
 });
