@@ -5,8 +5,7 @@ import { Container, NameBlue, Name } from '../../theme/style';
 import { ImageBig } from '../addImageBig/addImageBig';
 
 export function BigHeader() {
-  // Replace with your FTP image URL
-  const ftpImageUrl = 'https://projetoscti.com.br/projetoscti27/uninews/img/tcc-logo-quadrado-sem-fundo.png';
+  const ftpImageUrl = 'http://projetoscti.com.br/projetoscti27/uninews/img/tcc-logo-quadrado-sem-fundo.png';
 
   return (
     <Container style={styles.container}>
