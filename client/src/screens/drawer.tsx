@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image } from 'react-native';
-// import Icon from '../../assets/imagens/editar.png';
+import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image, Button } from 'react-native';
 
 interface DrawerProps {
   isOpen: boolean;
   toggleDrawer: () => void;
 }
+
+const dirImagem = require('../../assets/imagens/seta-direita.png');
+const dirImagem1 = require('../../assets/imagens/ferramenta-lapis.png');
 
 const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   const drawerTranslateX = useRef(new Animated.Value(Dimensions.get('window').width)).current;
@@ -30,32 +32,29 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
     }
   }, [isEditing]);
 
-  const handleImagePress = () => {
-    setIsEditing(true);
+  const handleButtonPress = () => {
+    setIsEditing(true); // Start editing mode when button is pressed
   };
 
   const handleTextInputBlur = () => {
-    setIsEditing(false); 
-  };
-
-  const handleTextInputPress = (e: React.SyntheticEvent) => {
-    if (!isEditing) {
-      e.stopPropagation();
-    }
+    setIsEditing(false); // End editing mode when TextInput loses focus
   };
 
   return (
     <Animated.View style={[styles.drawer, { width: drawerWidth, transform: [{ translateX: drawerTranslateX }] }]}>
       <TouchableOpacity onPress={toggleDrawer}>
-        <Text style={styles.button}>Close Drawer</Text>
+        <Image style={styles.seta} source={dirImagem} />
       </TouchableOpacity>
 
       <View style={styles.containerInput}>
         <Text style={styles.titulo}>Dados Pessoais</Text>
       </View>
 
-      <View style={styles.containerInput}>
-        <Text>Nome de usuário</Text>
+      <View style={styles.grupo}>
+      
+      <Text>Nome:</Text>
+      
+      <View style={styles.campo}>
         {isEditing ? (
           <TextInput
             ref={textInputRef}
@@ -65,15 +64,22 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
             value={textValue}
             onChangeText={setTextValue}
             onBlur={handleTextInputBlur}
-             
+            returnKeyType="done"
           />
         ) : (
-          <TouchableOpacity style={styles.campo} onPress={handleImagePress}>
-            <Text style={styles.input}>{textValue || ''}</Text>
-            {/* <Image source={} style={styles.icon} /> */}
-          </TouchableOpacity>
-        )}
+          <Text style={styles.valueText}>{textValue}</Text>
+        )
+        }
+        
+      
       </View>
+      <View style={styles.campo1}>  
+          <TouchableOpacity onPress={handleButtonPress}>
+            <Image style={styles.imagem} source={dirImagem1}/>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
     </Animated.View>
   );
 };
@@ -101,25 +107,46 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 10,
   },
+  inputContainer: {
+    marginTop: 10
+  },
   input: {
     color: '#000',
     marginRight: '5%',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     paddingHorizontal: 5,
+    marginBottom: 10,
   },
   titulo: {
     color: '#0571D3',
     fontSize: 17,
   },
-  icon: {
-    width: 24,
-    height: 24,
+  seta: {
+    width: '7%',
+    height: '20%',
   },
-  campo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  valueText: {
+    fontSize: 14,
+    color: '#000',
+    paddingHorizontal:'4%'
   },
+  campo:{
+    justifyContent:'center',
+    alignContent:'center'
+  },
+  grupo:{
+    flexDirection:'row', 
+    alignItems:'center'
+  },
+  campo1:{
+    
+  },
+  imagem:{
+    width:15,
+    height:15
+  }
+  
 });
 
 export default Drawer;
