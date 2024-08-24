@@ -173,17 +173,47 @@ export const fetchUniversities = async (): Promise<temp_news[]> => {
   }
 };
 
-export const fetchNewsByUniversity = async (universityName: string): Promise<temp_news[]> => {
-  const fetchNewsUrl = `${url}/news/university/${universityName}`;
-
-  console.log('Fetching news for university:', universityName);
-
+export const getUniversityUrlById = async (universityId: string): Promise<string | null> => {
   try {
-    const response = await axios.get(fetchNewsUrl);
-    return response.data;
+    const response = await axios.get(`${url}/university/${universityId}`);
+    if (response.data && response.data.university && response.data.university.url) {
+      return response.data.university.url;
+    } else {
+      console.error('University URL is missing');
+      return null; // Return null if URL is not available
+    }
+  } catch (error) {
+    console.error('Error fetching university URL:', error);
+    throw error;
+  }
+};
+
+export const fetchNewsByUniversity = async (universityId: string): Promise<temp_news[]> => {
+  try {
+    // Get the university URL using the ID
+    const universityUrl = await getUniversityUrlById(universityId);
+    
+    if (!universityUrl) {
+      throw new Error('University URL is invalid');
+    }
+
+    // Fetch news using the retrieved URL
+    const fetchNewsUrl = `${url}/npm/${encodeURIComponent(universityUrl)}`;
+    console.log('Fetching news for university URL:', fetchNewsUrl);
+
+    const response = await axios.get<{ items: temp_news[] }>(fetchNewsUrl);
+    console.log('API Response:', response.data);
+
+    if (response.data && response.data.items) {
+      console.log('News items:', response.data.items);
+      return response.data.items;
+    } else {
+      console.error('Unexpected response structure:', response.data);
+      return []; // Return an empty array if the structure is unexpected
+    }
   } catch (error) {
     console.error('Error fetching news:', error);
-    throw error;
+    throw error; // Re-throw error to be handled by the caller
   }
 };
 

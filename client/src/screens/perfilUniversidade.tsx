@@ -68,7 +68,8 @@ export function PerfilUniversidade({ route }: { route: { params: { universityId:
                             <NameBlue style={styles.name1}>NOTÍCIAS RECENTES</NameBlue>
                         </BorderColorContainer>
                     </View>
-                    <News universityId={universityData.id} />
+                    {/* Pass universityId to the News component */}
+                    <News universityId={universityData.id} universityImage={universityData.image} />
                 </ScrollView>
             </Container>
             <Footer />

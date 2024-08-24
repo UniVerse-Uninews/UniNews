@@ -6,15 +6,17 @@ import { BorderColorBlue, Name } from '@theme/style';
 import { fetchNewsByUniversity } from '@services/api';
 import { temp_news } from '../../@types/temp_news';
 
-
 const dirIconNoSave = require('../../../assets/imagens/icon_salvos_vazio.png');
 const dirIconSave = require('../../../assets/imagens/icon_salvos_cheio.png');
+
 interface NewsProps {
   universityId: string;
+  universityImage: string; // Add this prop for the university's image
 }
 
-export function News({ universityId }: NewsProps) {
+export function News({ universityId, universityImage }: NewsProps) {
   const [news, setNews] = useState<temp_news[]>([]);
+  const [iconSaved, setIconSaved] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     async function getNews() {
@@ -28,36 +30,56 @@ export function News({ universityId }: NewsProps) {
 
     getNews();
   }, [universityId]);
-  const [iconSaved, setIconSaved] = useState(false);
 
-  const handlePress = () => {
-      setIconSaved(!iconSaved);
+  const handlePress = (newsId: string) => {
+    setIconSaved(prevState => ({ ...prevState, [newsId]: !prevState[newsId] }));
   };
+
+  const handlePressablePress = (url?: string) => {
+    if (url && typeof url === 'string') {
+      Linking.openURL(url).catch(err => console.error('Failed to open URL:', err));
+    } else {
+      console.warn('URL is invalid:', url);
+    }
+  };
+
   return (
     <ScrollView>
-      {news.map(t => (
-        <Pressable key={t.id} onPress={() => Linking.openURL(t.url)}>
-          <View>
-            <BorderColorBlue style={styles.card}>
+      {news.length > 0 ? (
+        news.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <BorderColorBlue>
+              {item.image ? (
+                <Image source={{ uri: item.image }} style={styles.imageCard} />
+              ) : (
+                <Image source={{ uri: universityImage }} style={styles.imageCard} /> // Use the university's image if news item image is not available
+              )}
               <View style={styles.containerIcon}>
-                        <TouchableOpacity style={styles.icon} onPress={handlePress}>
-                            <Image 
-                                source={iconSaved ? dirIconSave : dirIconNoSave} 
-                                style={styles.icon} 
-                            />
-                        </TouchableOpacity>
-                    </View>
-              {t.image ? (<Image source={{ uri: t.image }} style={styles.imageCard} />) : (<Text></Text>)}
-              <Name style={styles.title}>{t.title}</Name>
+                <TouchableOpacity onPress={() => handlePress(item.id)}>
+                  <Image
+                    source={iconSaved[item.id] ? dirIconSave : dirIconNoSave}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+              </View>
               <View style={styles.data}>
-                <Name style={styles.text}>{t.description}</Name>
-                <Name style={styles.text}>Publicado em: {t.createdAt ? format(new Date(t.createdAt), 'dd/MM/yyyy HH:mm') : ''}</Name>
-                <Name style={styles.text}>Por: {t.author}</Name>
+                <Name style={styles.title}>{item.title}</Name>
+                <Name style={styles.text}>{item.description}</Name>
+                <Pressable onPress={() => handlePressablePress(item.url)}>
+                  <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
+                    Read More
+                  </Text>
+                </Pressable>
+                <Name style={styles.text}>
+                    Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
+                  </Name>
               </View>
             </BorderColorBlue>
           </View>
-        </Pressable>
-      ))}
+        ))
+      ) : (
+        <Text>No news available</Text>
+      )}
     </ScrollView>
   );
 }

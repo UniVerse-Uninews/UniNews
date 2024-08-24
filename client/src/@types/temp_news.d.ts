@@ -9,4 +9,6 @@ export interface temp_news {
     content: string,
     author: string,
     university: string
+    link: string,
+    published: Date
 };
