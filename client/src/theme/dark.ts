@@ -10,4 +10,8 @@ export default {
   backgroundContainerInput: '#414141', 
   text2:'white',
   subbox:'rgba(250, 201, 59, 1.0)',
+  card: '#414141',
+  borderCard: '#4A92C7',
+  backgroundFooter: '#343434', 
+
 };

@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { temp_news } from 'src/@types/temp_news';
 import { university } from 'src/@types/university';
 
-const url = 'http://192.168.0.108:8080'; 
+const url = 'http://186.217.118.200:8080'; 
 interface LoginResponse{
   token: string;
   role: string;
@@ -76,7 +76,7 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
   console.log('Logging in at:', loginUrl);
 
   try {
-    const response = await axios.post(loginUrl, { email, password }, { timeout: 5000 });
+    const response = await axios.post(loginUrl, { email, password }, { timeout: 20000 });
 
     console.log('Response received:', response);
 

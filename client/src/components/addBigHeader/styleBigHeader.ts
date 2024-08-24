@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   cabecalho: {
-    marginTop: '10%',
+    marginTop: '15%',
     display: 'flex',
     width: '100%',
     alignItems: 'center',
@@ -23,12 +23,12 @@ export const styles = StyleSheet.create({
   },
   nameLogo: {
     marginLeft: '3%',
-    fontSize: responsiveFontSize(6),
+    fontSize: responsiveFontSize(10),
     fontFamily: 'Teacher',
     color: '#4A94CC',
   },
   nameLogoSecondary: {
-    fontSize: responsiveFontSize(6),
+    fontSize: responsiveFontSize(10),
     fontFamily: 'Teacher',
   },
 });

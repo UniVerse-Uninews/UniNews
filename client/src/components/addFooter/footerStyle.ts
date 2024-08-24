@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         height: responsiveHeight(3),
     },
     line: {
-        borderWidth: 2,
+        borderWidth: 1.3,
         width: '100%',
       },
 });

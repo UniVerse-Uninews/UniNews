@@ -3,8 +3,10 @@ import { useFonts } from 'expo-font';
 
 export  function FontLoader({ children }: { children: React.ReactNode }) {
   const [fontsLoaded] = useFonts({
-    Rubik: require('../../../assets/fonts/Rubik.ttf'),
+    RubikNormal: require('../../../assets/fonts/Rubik.ttf'),
     Teacher: require('../../../assets/fonts/Teachers Students.otf'),
+    RubikBold: require('../../../assets/fonts/Rubik-Bold.ttf'),
+    RubikMedium: require('../../../assets/fonts/Rubik-Medium.ttf'),
   });
 
 

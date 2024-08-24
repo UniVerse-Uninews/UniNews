@@ -11,4 +11,7 @@ export default {
   backgroundContainerInputCrud: '#F5F5F5',
   text2: '#0571D3',
   subbox:'rgba(250, 201, 59, 0.7)',
+  card: '#fcfcfc',
+  borderCard: '#4A92C7',
+  backgroundFooter: '#F5F5F5',
 };
