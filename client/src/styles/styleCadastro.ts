@@ -9,16 +9,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: responsiveScreenFontSize(3),
-    fontFamily: 'Teacher',
+    fontSize: responsiveScreenFontSize(2.5),
+    fontFamily: 'RubikMedium',
     textAlign: 'left',
     position: 'absolute',
     marginLeft: '5%',
+    marginTop: '3%',
     color: '#FFFFFF',
   },
   subtitle: {
     fontSize: responsiveScreenFontSize(2),
-    fontFamily: 'Rubik',
+    fontFamily: 'RubikNormal',
     textAlign: 'left',
     marginLeft: '13%',
     marginTop: '5%',
@@ -27,6 +28,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: responsiveScreenHeight(4.5),
     alignItems: 'center',
+    
   },
   containerInputCadastro: {
     width: '100%',

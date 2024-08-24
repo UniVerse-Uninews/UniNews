@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: responsiveScreenFontSize(2),
-    fontFamily: 'Rubik',
+    fontFamily: 'RubikNormal',
     textAlign: 'left',
     marginLeft: '13%',
     marginTop: '5%',

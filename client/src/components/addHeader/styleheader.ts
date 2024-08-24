@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     
@@ -19,17 +20,17 @@ export const styles = StyleSheet.create({
     height: 50,
   },
   line: {
-    borderWidth: 2,
+    borderWidth: 1.3,
     marginTop: '1%',
     width: '100%',
   },
   nameLogo: {
-    marginLeft: '3%',
-    fontSize: 25,
+    marginLeft: '1.5%',
+    fontSize: responsiveFontSize(4.5),
     fontFamily: 'Teacher',
   },
   nameLogoSecondary: {
-    fontSize: 25,
+    fontSize: responsiveFontSize(4.5),
     fontFamily: 'Teacher',
   },
 });

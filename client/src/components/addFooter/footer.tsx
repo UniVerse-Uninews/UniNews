@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack'; // Atualize o caminho conforme necessário
 import { styles } from './footerStyle';
-import { BorderColorBlue, Container } from '@theme/style';
+import { BorderColorBlue, Container, FooterContainer } from '@theme/style';
 
 const dirIconHouse = require('../../../assets/imagens/icon_casa_cheio.png');
 const dirIconGlass = require('../../../assets/imagens/icon_lupa_vazio.png');
@@ -19,7 +19,7 @@ export function Footer() {
     return (
         <>
             <BorderColorBlue style={styles.line} />
-            <Container style={styles.container}>
+            <FooterContainer style={styles.container}>
                 <Pressable 
                     style={styles.button}
                     onPress={() => navigation.navigate('Login')}
@@ -44,7 +44,7 @@ export function Footer() {
                 >
                     <Image source={dirIconProfile} style={styles.icon} />
                 </Pressable>
-            </Container>
+            </FooterContainer>
         </>
     );
 }

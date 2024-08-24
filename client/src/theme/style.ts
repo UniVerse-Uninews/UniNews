@@ -63,3 +63,10 @@ export const BorderColorButtonYellow = styled.TouchableOpacity`
 export const BorderColorBackground= styled.View`
   border-color: ${(props) => props.theme.background};
 `;
+export const Card= styled.View`
+  background: ${(props) => props.theme.card};
+  border-color: ${(props) => props.theme.borderCard};
+`;
+export const FooterContainer = styled.View` 
+  background: ${(props) => props.theme.backgroundFooter};
+`;

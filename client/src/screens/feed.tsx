@@ -3,7 +3,7 @@ import { View, TextInput, ScrollView, Pressable, Image, Text, Alert } from 'reac
 import { styles } from '@styles/styleFeed';
 import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
-import { Container } from '@theme/style';
+import { Container, Card, Name } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
@@ -20,7 +20,7 @@ export function Feed() {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation<FeedNavigationProp>();
 
-    const BASE_URL = 'http://192.168.0.108:8080';
+    const BASE_URL = 'http://186.217.118.200:8080';
 
     const fetchNews = async (url: string) => {
         try {
@@ -125,20 +125,18 @@ export function Feed() {
                                     }}
                                 >
                                     <View style={styles.viewCard}>
-                                        <View style={styles.card}>
+                                        <Card style={styles.card}>
                                             {item.image ? (
                                                 <Image source={{ uri: item.image }} style={styles.imageCard} />
                                             ) : (
-                                                <Text>Image not available</Text>
+                                                <Name>Image not available</Name>
                                             )}
-                                            <Text style={styles.title}>{item.title}</Text>
+                                            <Name style={styles.title}>{item.title}</Name>
                                             <View style={styles.data}>
-                                                <Text style={styles.text}>{item.description || ''}</Text>
-                                                <Text style={styles.text}>Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}</Text>
-                                                <Text style={styles.text}>By: {item.author || ''}</Text>
-                                                <Text style={styles.text}>Link: {item.link || ''}</Text>
+                                                <Name style={styles.text}>{item.description || ''}</Name>
+                                                <Name style={styles.text}>Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}</Name>
                                             </View>
-                                        </View>
+                                        </Card>
                                     </View>
                                 </Pressable>
                             ))}
