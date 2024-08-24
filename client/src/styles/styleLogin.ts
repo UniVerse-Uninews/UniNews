@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
   Uni: {
     fontSize: responsiveScreenFontSize(10),
     color: '#4A94CC',
-    fontFamily: 'Teacher',
+    fontFamily: 'Teacher'
   },
   News: {
     fontSize: responsiveScreenFontSize(10),

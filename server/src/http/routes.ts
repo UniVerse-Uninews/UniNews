@@ -38,7 +38,7 @@
     // University routes
     app.post("/university", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, registerUniversityController);
     app.get("/getalluniversity", getAllUniversityController);
-    app.get("/university/:id", { preValidation: [app.verifyJwt] }, getUniversityController);
+    app.get("/university/:id", getUniversityController);
     app.get<{ Params: { name: string } }>('/university/name/:name', getUniversityByNameController);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);

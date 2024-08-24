@@ -8,7 +8,7 @@ import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';
 
-export function Feed() {
+export function Feed({ navigation }: { navigation: any }) { // Receive navigation prop
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -21,7 +21,7 @@ export function Feed() {
                 const universities = await fetchAllUniversities();
 
                 if (universities.length > 0) {
-                    const newsPromises = universities.map((university: any) => fetchNews(university.url, university.image));
+                    const newsPromises = universities.map((university: any) => fetchNews(university.url, university.image, university.id));
                     const newsResults = await Promise.all(newsPromises);
                     const allNews = newsResults.flat();
                     setNews(allNews);
@@ -39,21 +39,23 @@ export function Feed() {
         fetchAllNews();
     }, []);
 
-    const fetchNews = async (url: string, universityImage: string) => {
+    const fetchNews = async (url: string, universityImage: string, universityId: string) => {
         try {
+            console.log('Fetching news for university URL:', url); // Log the URL
+            console.log('University Image:', universityImage); // Log the university image
+            console.log('University ID:', universityId); // Log the university ID
+    
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-            
-            // Log the entire response for debugging
-            console.log('Full API Response:', response);
     
             if (response.data && response.data.items) {
                 return response.data.items.map((item: any) => {
                     const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
                     return {
                         ...item,
-                        image: imageUrl || universityImage, // Use university image if news image is not available
+                        image: imageUrl || universityImage,
                         description: cleanedDescription,
                         link: item.link,
+                        universityId 
                     };
                 });
             } else {
@@ -66,8 +68,9 @@ export function Feed() {
             Alert.alert('Erro', 'Erro ao buscar notícias.');
             return [];
         }
-    };    
-
+    };
+    
+    
     const extractImageFromDescription = (description: string) => {
         const match = description.match(/<img[^>]+src="([^">]+)"/);
         
@@ -82,8 +85,9 @@ export function Feed() {
     const fetchAllUniversities = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/getalluniversity`);
+            console.log('Universities response data:', response.data); // Log the response data
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string, image: string }) => university);
+                return response.data.map((university: { url: string, image: string, id: string }) => university);
             } else {
                 Alert.alert('Erro', 'Nenhuma universidade encontrada.');
                 return [];
@@ -94,6 +98,7 @@ export function Feed() {
             return [];
         }
     };
+    
 
     return (
         <>
@@ -118,7 +123,9 @@ export function Feed() {
                                         ) : (
                                             <Name>Image not available</Name>
                                         )}
-                                        <Name style={styles.title}>{item.title}</Name>
+                                        <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
+                                            <Name style={styles.title}>{item.title}</Name>
+                                        </Pressable>
                                         <View style={styles.data}>
                                             <Name style={styles.text}>{item.description || ''}</Name>
                                             <Pressable onPress={() => Linking.openURL(item.link)}>
