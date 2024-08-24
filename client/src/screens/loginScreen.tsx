@@ -23,7 +23,7 @@ export  function Login({ navigation }: any) {
       console.log('Login successful:', { token, role });
 
       if (role === 'ADMIN') {
-        navigation.navigate('CrudUsuario');
+        navigation.navigate('Feed');
       } else {
         navigation.navigate('Feed');
       }
