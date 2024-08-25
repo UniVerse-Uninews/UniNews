@@ -18,6 +18,7 @@ import Teste from './src/screens/teste';
 import { FontLoader }  from './src/components/fontLoader/fontLoader';
 import { AuthProvider } from './src/context/authContext';
 import { RootStackParamList } from './src/@types/rootstack';
+
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {

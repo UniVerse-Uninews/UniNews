@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Pressable, Image, Text, Alert, Linking } from 'react-native';
+import { View, ScrollView, Pressable, Image, Text, Alert, Linking, Button } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
@@ -8,16 +8,17 @@ import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { useAuth } from '../context/authContext';
+import { useAuthCheck } from '../context/authNavigation';
 
-export function Feed({ navigation }: { navigation: any }) { // Receive navigation prop
+export function Feed({ navigation }: { navigation: any }) {
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-    const { user, isAuthenticated } = useAuth();
+    const { user } = useAuth();
+    const { checkAuth, handleLogout } = useAuthCheck();
 
-    useEffect(() => {
-        console.log('user', user);
-        console.log('isAuthenticated', isAuthenticated);
-      }, [user, isAuthenticated]);
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
     const BASE_URL = 'http://192.168.0.108:8080';
 
@@ -108,11 +109,8 @@ export function Feed({ navigation }: { navigation: any }) { // Receive navigatio
             <Container style={styles.container}>
                 <Container style={styles.view}>
                     <View style={styles.box}>
-                        <ThemeNews name="Biológicas" />
-                        <ThemeNews name="Exatas" />
-                        <ThemeNews name="Humanas" />
-                        <ThemeNews name="Linguagens" />
-                        <ThemeNews name="Tecnologia" />
+                    <Text>Bem-vindo, {user?.role}</Text>
+                    <Button title="Logout" onPress={handleLogout} />
                     </View>
                     {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (

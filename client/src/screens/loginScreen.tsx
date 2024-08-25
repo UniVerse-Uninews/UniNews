@@ -24,12 +24,10 @@ export  function Login({ navigation }: any) {
       const { token, role } = await loginUser(username, password);
       console.log('Login successful:', { token, role });
 
-      // Update authentication context
       login({ token, role });
 
-      // Navigate based on role
       if (role === 'ADMIN') {
-        navigation.navigate('CrudUniversidade');
+        navigation.navigate('Feed');
       } else {
         navigation.navigate('Feed');
       }

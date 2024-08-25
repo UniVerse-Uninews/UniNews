@@ -9,7 +9,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { Header } from '@components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
-import { RouteProp , ParamListBase } from '@react-navigation/native';
+import { RouteProp  } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useAuth } from '../context/authContext';
 import { RootStackParamList } from '../@types/rootstack'; // Import the correct type
