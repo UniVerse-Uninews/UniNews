@@ -14,8 +14,10 @@ import {
 import { Header } from '../components/addHeader/header';
 import { Table } from '../components/addTableUniversity/TableUniversity';
 import { StatusBar } from 'expo-status-bar';
+import { useAuth } from '../context/authContext';
 
 export function CrudUniversidade() {
+  const { user, isAuthenticated } = useAuth();
   const [isChecked, setChecked] = useState(false);
   const { 
     universities,
@@ -30,6 +32,11 @@ export function CrudUniversidade() {
   useEffect(() => {
     fetchUniversities();
   }, []);
+
+  useEffect(() => {
+    console.log('user', user);
+    console.log('isAuthenticated', isAuthenticated);
+  }, [user, isAuthenticated]);
 
   const handleRowClick = (university: any) => {
     setUniversity(university);

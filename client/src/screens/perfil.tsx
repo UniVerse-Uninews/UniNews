@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Button,
   DrawerLayoutAndroid,
@@ -11,11 +11,18 @@ import {
 import { Header } from '@components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
 import { styles } from '../styles/stylePerfil';
+import { useAuth } from '../context/authContext';
 
 export function Perfil() {
+  const { user, isAuthenticated } = useAuth();
   const drawer = useRef<DrawerLayoutAndroid>(null);
   const [drawerPosition, setDrawerPosition] = useState<'right' | 'left'>('right');
   const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/menu.png';
+
+  useEffect(() => {
+    console.log('user', user);
+    console.log('isAuthenticated', isAuthenticated);
+  }, [user, isAuthenticated]);
 
   const changeDrawerPosition = () => {
     setDrawerPosition(prevPosition => (prevPosition === 'left' ? 'right' : 'left'));

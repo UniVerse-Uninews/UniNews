@@ -7,10 +7,17 @@ import { Container, Card, Name } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';
+import { useAuth } from '../context/authContext';
 
 export function Feed({ navigation }: { navigation: any }) { // Receive navigation prop
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
+    const { user, isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        console.log('user', user);
+        console.log('isAuthenticated', isAuthenticated);
+      }, [user, isAuthenticated]);
 
     const BASE_URL = 'http://192.168.0.108:8080';
 

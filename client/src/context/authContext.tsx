@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 type AuthContextType = {
-  user: any; // Adjust the type based on your user object
+  user: any; 
   isAuthenticated: boolean;
   login: (userData: { token: string; role: string }) => void;
   logout: () => void;
