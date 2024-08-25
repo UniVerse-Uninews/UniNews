@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { View, ScrollView, Pressable, Image, Text, Alert, Linking, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/stylePerfilUniversidade';
-import { Header } from '@components/addHeader/header';
-import { BorderColorContainer, Container, NameBlue } from '@theme/style';
-import { Footer } from '../components/addFooter/footer';
-import { News } from '@components/addNews/news';
+import { styles as stylefeed } from '@styles/styleFeed';
+import { BorderColorContainer, NameBlue,  Container, Card, Name  } from '@theme/style';
 import { university as UniversityType } from 'src/@types/university';
 import axios from 'axios';
+import { format } from 'date-fns';
+import { Header } from '@components/addHeader/header';
+import { Footer } from '../components/addFooter/footer';
 
-export function PerfilUniversidade({ route }: { route: { params: { universityId: string } } }) {
+export function PerfilUniversidade({ route, navigation }: { route: { params: { universityId: string } }, navigation: any }) {
   const { universityId } = route.params;
   const [universityData, setUniversityData] = useState<UniversityType | null>(null);
   const [loading, setLoading] = useState(true);
+  const [news, setNews] = useState<any[]>([]);
 
   const BASE_URL = 'http://192.168.0.108:8080';
 
@@ -22,12 +24,10 @@ export function PerfilUniversidade({ route }: { route: { params: { universityId:
         if (response.data && response.data.university) {
           setUniversityData(response.data.university);
         } else {
-          console.error('Unexpected response structure or null data:', response.data);
           Alert.alert('Erro', 'Dados da universidade não encontrados.');
           setUniversityData(null);
         }
       } catch (error) {
-        console.error('Error fetching university:', error);
         Alert.alert('Erro', 'Erro ao buscar informações da universidade.');
       } finally {
         setLoading(false);
@@ -36,6 +36,40 @@ export function PerfilUniversidade({ route }: { route: { params: { universityId:
 
     fetchUniversity();
   }, [universityId]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(universityData?.url || '')}`);
+        if (response.data && response.data.items) {
+          const newsItems = response.data.items.map((item: any) => {
+            const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
+            return {
+              ...item,
+              image: imageUrl || universityData?.image,
+              description: cleanedDescription,
+              universityId: universityData?.id
+            };
+          });
+          setNews(newsItems);
+        } else {
+          Alert.alert('Erro', 'Nenhuma notícia encontrada.');
+        }
+      } catch (error) {
+        Alert.alert('Erro', 'Erro ao buscar notícias.');
+      }
+    };
+
+    if (universityData) {
+      fetchNews();
+    }
+  }, [universityData]);
+
+  const extractImageFromDescription = (description: string) => {
+    const match = description.match(/<img[^>]+src="([^">]+)"/);
+    const cleanedDescription = match ? description.replace(/<img[^>]+>/g, '') : description;
+    return { imageUrl: match ? match[1] : '', cleanedDescription };
+  };
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
@@ -61,12 +95,35 @@ export function PerfilUniversidade({ route }: { route: { params: { universityId:
               <Image source={{ uri: universityData.image }} style={styles.image1} />
             </View>
           </View>
-          <View style={styles.container4}>
-            <BorderColorContainer style={styles.news}>
-              <NameBlue style={styles.name1}>NOTÍCIAS RECENTES</NameBlue>
-            </BorderColorContainer>
-          </View>
-          <News universityId={universityData.id} universityImage={universityData.image} />
+          {news.length > 0 && (
+            <ScrollView>
+              {news.map((item, index) => (
+                <View key={item.id || index} style={stylefeed.viewCard}>
+                  <Card style={stylefeed.card}>
+                    {item.image ? (
+                      <Image source={{ uri: item.image }} style={stylefeed.imageCard} />
+                    ) : (
+                      <Name>Image not available</Name>
+                    )}
+                    <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
+                      <Name style={stylefeed.title}>{item.title}</Name>
+                    </Pressable>
+                    <View style={stylefeed.data}>
+                      <Name style={stylefeed.text}>{item.description || ''}</Name>
+                      <Pressable onPress={() => Linking.openURL(item.link)}>
+                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
+                          Read More
+                        </Text>
+                      </Pressable>
+                      <Name style={stylefeed.text}>
+                        Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
+                      </Name>
+                    </View>
+                  </Card>
+                </View>
+              ))}
+            </ScrollView>
+          )}
         </ScrollView>
       </Container>
       <Footer />

@@ -1,6 +1,6 @@
 import { styles } from './styleBigHeader';
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Container, NameBlue, Name } from '../../theme/style';
 import { ImageBig } from '../addImageBig/addImageBig';
 
@@ -11,7 +11,7 @@ export function BigHeader() {
     <Container style={styles.container}>
       <View style={styles.cabecalho}>
         <View style={styles.img}>
-          <ImageBig diretorio={ftpImageUrl} />
+          <Image source={{uri: ftpImageUrl}} />
         </View>
         <View style={styles.containerTitleLogo}>
           <NameBlue style={[styles.nameLogo]}>UNI</NameBlue>
