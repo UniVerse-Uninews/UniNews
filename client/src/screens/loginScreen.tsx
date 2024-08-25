@@ -10,20 +10,26 @@ import {
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
 import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name } from '@theme/style';
+import { useAuth } from '../context/authContext';
 
 export  function Login({ navigation }: any) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const { login } = useAuth();
 
   const handleLogin = async () => {
     try {
       const { token, role } = await loginUser(username, password);
       console.log('Login successful:', { token, role });
 
+      // Update authentication context
+      login({ token, role });
+
+      // Navigate based on role
       if (role === 'ADMIN') {
-        navigation.navigate('Feed');
+        navigation.navigate('CrudUniversidade');
       } else {
         navigation.navigate('Feed');
       }

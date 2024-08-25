@@ -1,3 +1,4 @@
+// src/screens/perfilUniversidade.tsx
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Image, Text, Alert, Linking, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/stylePerfilUniversidade';
@@ -8,12 +9,27 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { Header } from '@components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
+import { RouteProp , ParamListBase } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useAuth } from '../context/authContext';
+import { RootStackParamList } from '../@types/rootstack'; // Import the correct type
 
-export function PerfilUniversidade({ route, navigation }: { route: { params: { universityId: string } }, navigation: any }) {
+type PerfilUniversidadeRouteProp = RouteProp<RootStackParamList, 'PerfilUniversidade'>;
+type PerfilUniversidadeNavigationProp = StackNavigationProp<RootStackParamList, 'PerfilUniversidade'>;
+
+interface PerfilUniversidadeProps {
+  route: PerfilUniversidadeRouteProp;
+  navigation: PerfilUniversidadeNavigationProp;
+}
+
+
+export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProps) {
   const { universityId } = route.params;
   const [universityData, setUniversityData] = useState<UniversityType | null>(null);
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState<any[]>([]);
+  const { user, isAuthenticated } = useAuth();
+
 
   const BASE_URL = 'http://192.168.0.108:8080';
 
@@ -64,6 +80,12 @@ export function PerfilUniversidade({ route, navigation }: { route: { params: { u
       fetchNews();
     }
   }, [universityData]);
+
+  useEffect(() => {
+    console.log('user', user);
+    console.log('isAuthenticated', isAuthenticated);
+  }, [user, isAuthenticated]);
+
 
   const extractImageFromDescription = (description: string) => {
     const match = description.match(/<img[^>]+src="([^">]+)"/);

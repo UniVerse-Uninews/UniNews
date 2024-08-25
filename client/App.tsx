@@ -16,14 +16,16 @@ import { Perfil } from './src/screens/perfil';
 import { Temas } from './src/screens/tema';
 import Teste from './src/screens/teste';
 import { FontLoader }  from './src/components/fontLoader/fontLoader';
-
-const Stack = createStackNavigator();
+import { AuthProvider } from './src/context/authContext';
+import { RootStackParamList } from './src/@types/rootstack';
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   const deviceTheme = useColorScheme();
   const theme = themes[deviceTheme as keyof typeof themes] || themes.light;
 
   return (
+    <AuthProvider>
     <ThemeProvider theme={theme}>
       <FontLoader>
         <NavigationContainer>
@@ -79,13 +81,15 @@ export default function App() {
               options={{ headerShown: false }}
             /> */}
             <Stack.Screen
-              name="Teste"
+              name="teste"
               component={Teste}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>
+       
       </FontLoader>
     </ThemeProvider>
+    </AuthProvider>
   );
 }

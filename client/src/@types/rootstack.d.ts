@@ -2,7 +2,7 @@ export type RootStackParamList = {
     Feed: undefined;
     Pesquisar: undefined;
     Perfil: undefined;
-    PerfilUniversidade: undefined;
+    PerfilUniversidade: { universityId: string };
     Temas: undefined;
     Login: undefined;
     Cadastro: undefined;
