@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Pressable, Image, Text, Alert, Linking, Button } from 'react-native';
+import { View, ScrollView, Pressable, Image, Text, Alert, Linking, } from 'react-native';
 import { styles } from '@styles/styleFeed';
-import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
 import { Container, Card, Name } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
@@ -14,7 +13,7 @@ export function Feed({ navigation }: { navigation: any }) {
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
-    const { checkAuth, handleLogout } = useAuthCheck();
+    const { checkAuth } = useAuthCheck();
 
   useEffect(() => {
     checkAuth();
@@ -108,10 +107,6 @@ export function Feed({ navigation }: { navigation: any }) {
             <Header />
             <Container style={styles.container}>
                 <Container style={styles.view}>
-                    <View style={styles.box}>
-                    <Text>Bem-vindo, {user?.role}</Text>
-                    <Button title="Logout" onPress={handleLogout} />
-                    </View>
                     {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (
                         <ScrollView>

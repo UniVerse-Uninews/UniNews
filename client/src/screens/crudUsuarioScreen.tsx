@@ -25,7 +25,7 @@ interface User {
   name: string;
   email: string;
   role: string;
-  passwordHash: string; // Ajuste conforme necessário
+  passwordHash: string; 
   confirmPassword: string;
 }
 

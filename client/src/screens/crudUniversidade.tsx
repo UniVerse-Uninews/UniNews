@@ -15,9 +15,9 @@ import { Header } from '../components/addHeader/header';
 import { Table } from '../components/addTableUniversity/TableUniversity';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../context/authContext';
+import { useAuthCheck } from '../context/authNavigation';
 
 export function CrudUniversidade() {
-  const { user, isAuthenticated } = useAuth();
   const [isChecked, setChecked] = useState(false);
   const { 
     universities,
@@ -28,15 +28,17 @@ export function CrudUniversidade() {
     addUniversityHandler,
     deleteUniversityHandler,
   } = useUniversityCrud();
+    const { user } = useAuth();
+    const { checkAuth } = useAuthCheck();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     fetchUniversities();
   }, []);
 
-  useEffect(() => {
-    console.log('user', user);
-    console.log('isAuthenticated', isAuthenticated);
-  }, [user, isAuthenticated]);
 
   const handleRowClick = (university: any) => {
     setUniversity(university);
