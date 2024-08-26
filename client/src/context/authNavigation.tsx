@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '../@types/navigation-params'; // Ajuste o caminho conforme necessário
+import { NavigationProp } from '../@types/navigation-params'; 
 import { useAuth } from '../context/authContext';
 
 export function useAuthCheck() {

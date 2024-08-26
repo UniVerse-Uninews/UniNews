@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveScreenFontSize, responsiveScreenHeight } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     
@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    height: responsiveScreenHeight(8),
   },
   img: {
     width: 50,

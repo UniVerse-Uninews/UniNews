@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Image, Text, Alert, Linking, } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Card, Name } from '@theme/style';
+import { Container, Card, Name, ImageCard, BorderColorBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -19,7 +19,7 @@ export function Feed({ navigation }: { navigation: any }) {
     checkAuth();
   }, []);
 
-    const BASE_URL = 'http://192.168.0.108:8080';
+    const BASE_URL = 'http://200.145.153.212:8080';
 
     useEffect(() => {
         const fetchAllNews = async () => {
@@ -114,7 +114,9 @@ export function Feed({ navigation }: { navigation: any }) {
                                 <View key={item.id || index} style={styles.viewCard}>
                                     <Card style={styles.card}>
                                         {item.image ? (
-                                            <Image source={{ uri: item.image }} style={styles.imageCard} />
+        
+                                                <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+                                            
                                         ) : (
                                             <Name>Image not available</Name>
                                         )}

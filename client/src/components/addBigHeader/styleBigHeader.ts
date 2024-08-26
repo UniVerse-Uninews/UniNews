@@ -2,12 +2,11 @@ import { StyleSheet } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
     height: '32%',
     width: '100%',
   },
   cabecalho: {
-    marginTop: '15%',
+    marginTop: '10%',
     display: 'flex',
     width: '100%',
     alignItems: 'center',
@@ -15,11 +14,17 @@ export const styles = StyleSheet.create({
   },
   img: {
     width: '50%',
-    height: '50%',
-    marginLeft: '15%',
+    height: '60%',
+    marginLeft: '5%',
+  },
+  img1: {
+    width: '90%',
+    height: '100%',
+
   },
   containerTitleLogo: {
     flexDirection: 'row',
+
   },
   nameLogo: {
     marginLeft: '3%',
@@ -30,5 +35,6 @@ export const styles = StyleSheet.create({
   nameLogoSecondary: {
     fontSize: responsiveFontSize(10),
     fontFamily: 'Teacher',
-  },
+
+  }
 });

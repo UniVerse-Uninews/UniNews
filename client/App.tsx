@@ -30,7 +30,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <FontLoader>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="Perfil">
             <Stack.Screen
               name="Perfil"
               component={Perfil}

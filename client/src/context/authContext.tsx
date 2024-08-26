@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '../@types/navigation-params'; // Ajuste o caminho conforme necessário
 
 type AuthContextType = {
   user: any;

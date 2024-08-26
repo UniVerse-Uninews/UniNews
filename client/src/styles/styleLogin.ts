@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
   logo: {
     flexDirection: 'row',
     position: 'relative',
-    padding: '20%',
+    marginVertical: '20%',
   },
   Uni: {
     fontSize: responsiveScreenFontSize(10),

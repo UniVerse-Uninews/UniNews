@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
         height: responsiveHeight(23),
         borderRadius: 10,
         marginBottom: responsiveHeight(2),
+        borderWidth: 1,
     },
     title: {
         fontSize: responsiveFontSize(2.5),

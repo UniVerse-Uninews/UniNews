@@ -70,3 +70,6 @@ export const Card= styled.View`
 export const FooterContainer = styled.View` 
   background: ${(props) => props.theme.backgroundFooter};
 `;
+export const ImageCard = styled.Image`
+  border-color: ${(props) => props.theme.borderCard};
+`;
