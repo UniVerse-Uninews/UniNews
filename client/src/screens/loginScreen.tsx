@@ -6,6 +6,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
@@ -33,7 +34,11 @@ export  function Login({ navigation }: any) {
       }
     } catch (error) {
       console.error('Login error:', error);
-      setLoginError('Erro ao fazer login. Verifique suas credenciais.');
+      Alert.alert('Erro de autenticação',
+        'Erro ao fazer login. Verifique suas credenciais.',
+        [{ text: 'OK' }]);
+      setLoginError('Erro ao fazer login. Verifique suas credenciais.'
+      );
     }
   };
   

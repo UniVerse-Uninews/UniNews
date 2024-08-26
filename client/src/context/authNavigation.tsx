@@ -21,7 +21,10 @@ export function useAuthCheck() {
   };
   const handleLogout = () => {
     logout();
-    navigation.navigate('Login');
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'Login' }],
+  });
   };
 
   return { checkAuth, handleLogout };
