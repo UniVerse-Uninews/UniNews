@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
         height:responsiveScreenHeight(16),
         marginTop: responsiveScreenHeight(4),
         marginLeft: responsiveScreenWidth(2),
+        resizeMode:'stretch'
     },
     image1:
     {

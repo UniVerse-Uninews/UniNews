@@ -1,9 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { university } from './university';
 
 export type RootStackParamList = {
         Login: undefined;
         Feed: undefined;
-        Pesquisar: undefined;
+        Pesquisar: { university: university };
         Perfil: undefined;
         PerfilUniversidade: { universityId: string };
         Temas: undefined;

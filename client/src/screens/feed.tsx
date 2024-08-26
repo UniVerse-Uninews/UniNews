@@ -47,6 +47,11 @@ export function Feed({ navigation }: { navigation: any }) {
     }, []);
 
     const fetchNews = async (url: string, universityImage: string, universityId: string) => {
+        if (url === '1') {
+            console.warn('Invalid URL: Skipping request');
+            return [];
+        }
+    
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
     
@@ -72,8 +77,6 @@ export function Feed({ navigation }: { navigation: any }) {
             return [];
         }
     };
-    
-    
     const extractImageFromDescription = (description: string) => {
         const match = description.match(/<img[^>]+src="([^">]+)"/);
         
