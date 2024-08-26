@@ -1,9 +1,11 @@
 // App.js
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Button } from 'react-native';
 import Drawer from './drawer';
 import { Header } from '../components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
+import { useAuth } from '../context/authContext';
+import { useAuthCheck } from '../context/authNavigation';
 
 
 const Teste = () => {
@@ -13,6 +15,12 @@ const Teste = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
   const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/menu.png';
+  const { user } = useAuth();
+  const { checkAuth, handleLogout } = useAuthCheck();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <>
@@ -34,6 +42,7 @@ const Teste = () => {
                 <Text>Publicações</Text>
               </View>
             </View>
+            <Button title="Logout" onPress={handleLogout} />
     </View>
     <Footer/>
     </>

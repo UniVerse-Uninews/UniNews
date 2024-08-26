@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         height: responsiveHeight(8),
         paddingTop: responsiveHeight(2),
-        
     },
     button:{
         width: responsiveWidth(20),

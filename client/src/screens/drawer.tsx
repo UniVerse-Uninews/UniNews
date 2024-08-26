@@ -6,7 +6,7 @@ interface DrawerProps {
   toggleDrawer: () => void;
 }
 
-const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logut.png';
+const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logout.png';
 const dirImagem1 = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lapis_editar.png';
 
 const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   seta: {
     width: '7%',
     height: '20%',
+    resizeMode: 'contain',
   },
   valueText: {
     fontSize: 14,
