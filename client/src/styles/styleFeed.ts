@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: responsiveHeight(2),
         borderWidth: 1,
+        resizeMode: 'stretch'
     },
     title: {
         fontSize: responsiveFontSize(2.5),

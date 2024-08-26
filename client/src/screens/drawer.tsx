@@ -6,8 +6,8 @@ interface DrawerProps {
   toggleDrawer: () => void;
 }
 
-const dirImagem = require('../../assets/imagens/seta-direita.png');
-const dirImagem1 = require('../../assets/imagens/ferramenta-lapis.png');
+const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logut.png';
+const dirImagem1 = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lapis_editar.png';
 
 const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   const drawerTranslateX = useRef(new Animated.Value(Dimensions.get('window').width)).current;
@@ -33,17 +33,17 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   }, [isEditing]);
 
   const handleButtonPress = () => {
-    setIsEditing(true); // Start editing mode when button is pressed
+    setIsEditing(true); 
   };
 
   const handleTextInputBlur = () => {
-    setIsEditing(false); // End editing mode when TextInput loses focus
+    setIsEditing(false); 
   };
 
   return (
     <Animated.View style={[styles.drawer, { width: drawerWidth, transform: [{ translateX: drawerTranslateX }] }]}>
       <TouchableOpacity onPress={toggleDrawer}>
-        <Image style={styles.seta} source={dirImagem} />
+        <Image style={styles.seta} source={{uri: dirImagem}} />
       </TouchableOpacity>
 
       <View style={styles.containerInput}>
@@ -75,7 +75,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
       </View>
       <View style={styles.campo1}>  
           <TouchableOpacity onPress={handleButtonPress}>
-            <Image style={styles.imagem} source={dirImagem1}/>
+            <Image style={styles.imagem} source={{uri: dirImagem1}}/>
           </TouchableOpacity>
         </View>
       </View>

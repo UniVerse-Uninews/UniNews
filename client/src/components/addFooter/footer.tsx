@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack'; // Atualize o caminho conforme necessário
 import { styles } from './footerStyle';
-import { BorderColorBlue, Container, FooterContainer } from '@theme/style';
+import { BorderColorBlue, FooterContainer } from '@theme/style';
 
 const dirIconHouse ='http://projetoscti.com.br/projetoscti27/uninews/img/icon_casa_cheio.png';
 const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
@@ -40,7 +40,7 @@ export function Footer() {
                 </Pressable>
                 <Pressable 
                     style={styles.button}
-                    onPress={() => navigation.navigate('Perfil')}
+                    onPress={() => navigation.navigate('teste')}
                 >
                     <Image source={{ uri: dirIconProfile }} style={styles.icon} />
                 </Pressable>
