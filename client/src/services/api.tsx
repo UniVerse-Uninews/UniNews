@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { temp_news } from 'src/@types/temp_news';
 import { university } from 'src/@types/university';
 
-const url = 'http://200.145.153.212:8080'; 
+const url = 'http://192.168.0.108:8080'; 
 interface LoginResponse{
   token: string;
   role: string;
@@ -80,7 +80,6 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
 
     console.log('Response received:', response);
 
-    // Verificar e ajustar a estrutura conforme necessário
     const { token, role } = response.data;
 
     if (response.status === 200) {
@@ -88,7 +87,7 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
         console.log('Received token:', token);
         await AsyncStorage.setItem('token', token);
         console.log('Role:', role);
-        return { token, role }; // Retorna o token e o papel
+        return { token, role };
       } else {
         console.error('No token received in response');
         throw new Error('No token received');
@@ -180,7 +179,7 @@ export const getUniversityUrlById = async (universityId: string): Promise<string
       return response.data.university.url;
     } else {
       console.error('University URL is missing');
-      return null; // Return null if URL is not available
+      return null;
     }
   } catch (error) {
     console.error('Error fetching university URL:', error);
@@ -190,14 +189,12 @@ export const getUniversityUrlById = async (universityId: string): Promise<string
 
 export const fetchNewsByUniversity = async (universityId: string): Promise<temp_news[]> => {
   try {
-    // Get the university URL using the ID
     const universityUrl = await getUniversityUrlById(universityId);
     
     if (!universityUrl) {
       throw new Error('University URL is invalid');
     }
 
-    // Fetch news using the retrieved URL
     const fetchNewsUrl = `${url}/npm/${encodeURIComponent(universityUrl)}`;
     console.log('Fetching news for university URL:', fetchNewsUrl);
 
@@ -209,11 +206,11 @@ export const fetchNewsByUniversity = async (universityId: string): Promise<temp_
       return response.data.items;
     } else {
       console.error('Unexpected response structure:', response.data);
-      return []; // Return an empty array if the structure is unexpected
+      return []; 
     }
   } catch (error) {
     console.error('Error fetching news:', error);
-    throw error; // Re-throw error to be handled by the caller
+    throw error; 
   }
 };
 

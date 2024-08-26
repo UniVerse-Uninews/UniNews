@@ -81,11 +81,11 @@ export default function App() {
               component={Pesquisar}
               options={{ headerShown: false }}
             /> */}
-            <Stack.Screen
+            {/* <Stack.Screen
               name="teste"
               component={Teste}
               options={{ headerShown: false }}
-            />
+            /> */}
           </Stack.Navigator>
         </NavigationContainer>
        
