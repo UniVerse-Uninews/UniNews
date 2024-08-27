@@ -12,7 +12,6 @@ export type RootStackParamList = {
         CrudUsuario: undefined;
         CrudUniversidade: undefined;
         LerNoticia: undefined;
-        teste: undefined;
 }
 
 // Tipagem para navegação

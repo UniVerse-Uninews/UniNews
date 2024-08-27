@@ -12,9 +12,8 @@ import { Pesquisar } from './src/screens/pesquisa';
 import { Feed } from './src/screens/feed';
 import { LerNoticia } from './src/screens/lerNoticia';
 import { CrudUniversidade } from './src/screens/crudUniversidade';
-import { Perfil } from './src/screens/perfil';
 import { Temas } from './src/screens/tema';
-import Teste from './src/screens/teste';
+import Perfil from './src/screens/perfil';
 import { FontLoader }  from './src/components/fontLoader/fontLoader';
 import { AuthProvider } from './src/context/authContext';
 import { RootStackParamList } from './src/@types/rootstack';
@@ -31,11 +30,6 @@ export default function App() {
       <FontLoader>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen
-              name="Perfil"
-              component={Perfil}
-              options={{ headerShown: false }}
-            />
             <Stack.Screen
               name="Temas"
               component={Temas}
@@ -82,8 +76,8 @@ export default function App() {
               options={{ headerShown: false }}
             /> */}
             { <Stack.Screen
-              name="teste"
-              component={Teste}
+              name="Perfil"
+              component={Perfil}
               options={{ headerShown: false }}
             />}
           </Stack.Navigator>

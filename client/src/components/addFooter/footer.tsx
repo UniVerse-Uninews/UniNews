@@ -52,7 +52,7 @@ export function Footer() {
                 </Pressable>
                 <Pressable 
                     style={styles.button}
-                    onPress={() => navigation.navigate('teste')}
+                    onPress={() => navigation.navigate('Perfil')}
                 >
                     <Image source={{ uri: dirIconProfile }} style={styles.icon} />
                 </Pressable>
@@ -60,17 +60,41 @@ export function Footer() {
                 {isAdmin && (
                     <>
                         <Pressable 
-                            style={styles.button}
+                            style={styles.button1}
                             onPress={() => navigation.navigate('CrudUniversidade')}
                         >
                             <Image source={{ uri: dirIconCrudUniversidade }} style={styles.icon} />
                         </Pressable>
                         <Pressable 
-                            style={styles.button}
+                            style={styles.button1}
                             onPress={() => navigation.navigate('CrudUsuario')}
                         >
                             <Image source={{ uri: dirIconCrudUsuario }} style={styles.icon} />
                         </Pressable>
+                        <Pressable 
+                    style={styles.button1}
+                    onPress={() => navigation.navigate(user ? 'Feed' : 'Login')}
+                >
+                    <Image source={{ uri: dirIconHouse }} style={styles.icon} />
+                </Pressable>
+                <Pressable 
+                    style={styles.button1}
+                    onPress={() => navigation.navigate('Temas')}
+                >
+                    <Image source={{ uri: dirIconGlass }} style={styles.icon} />
+                </Pressable>
+                <Pressable 
+                    style={styles.button1}
+                    onPress={() => navigation.navigate('Feed')}
+                >
+                    <Image source={{ uri: dirIconSaved }} style={styles.icon} />
+                </Pressable>
+                <Pressable 
+                    style={styles.button1}
+                    onPress={() => navigation.navigate('Perfil')}
+                >
+                    <Image source={{ uri: dirIconProfile }} style={styles.icon} />
+                </Pressable>
                     </>
                 )}
             </FooterContainer>

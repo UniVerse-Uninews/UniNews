@@ -10,7 +10,7 @@ import { Name, NameBlue } from '@theme/style';
 import { getUser } from '@services/api';
 
 
-const Teste = () => {
+const Perfil = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [userData, setUserData] = useState<any>(null);
 
@@ -229,4 +229,4 @@ aliner:{
 },
 });
 
-export default Teste;
+export default Perfil;

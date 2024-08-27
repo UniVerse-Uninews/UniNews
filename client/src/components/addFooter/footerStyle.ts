@@ -15,6 +15,11 @@ export const styles = StyleSheet.create({
     icon:{
         width: responsiveWidth(5),
         height: responsiveHeight(3),
+
+    },
+    button1:{
+        width: responsiveWidth(10),
+        marginLeft: responsiveWidth(7),
     },
     line: {
         borderWidth: 1.3,
