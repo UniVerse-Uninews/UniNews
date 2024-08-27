@@ -49,6 +49,9 @@ export  function Login({ navigation }: any) {
         <Name style={styles.Uni}>UNI</Name>
         <Name style={styles.News}>NEWS</Name>
       </View>
+      <View style={styles.subtitle}>
+        <Name style={styles.subtitletext}>SUA JANELA PARA O MUNDO ACADÊMICO</Name>
+      </View>
 
       <BackgroundContainerInput style={styles.box}>
         <View style={styles.campo}>

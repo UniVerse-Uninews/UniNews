@@ -70,15 +70,15 @@ export const styles = StyleSheet.create({
   logo: {
     flexDirection: 'row',
     position: 'relative',
-    marginVertical: '20%',
+    marginTop: '20%',
   },
   Uni: {
-    fontSize: responsiveScreenFontSize(10),
+    fontSize: responsiveScreenFontSize(12),
     color: '#4A94CC',
     fontFamily: 'Teacher'
   },
   News: {
-    fontSize: responsiveScreenFontSize(10),
+    fontSize: responsiveScreenFontSize(12),
     fontFamily: 'Teacher'
   },
 
@@ -86,5 +86,14 @@ export const styles = StyleSheet.create({
     color: 'red',
     fontSize: responsiveScreenFontSize(2),
     marginTop: responsiveScreenHeight(1),
+  },
+  subtitle: {
+    position: 'relative',
+    marginBottom: '20%',
+  },
+  subtitletext: {
+    fontSize: responsiveScreenFontSize(3.5),
+    color: '#F2A20C',
+    fontFamily: 'Teacher'
   },
 });
