@@ -28,7 +28,7 @@
     // User routes
     app.post("/users", register);
     app.post("/sessions", authenticate);
-    app.get("/users/:userId", { preValidation: [app.verifyJwt] }, getUserProfileController);
+    app.get("/users/:userId", getUserProfileController);
     app.get('/getallusers', { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, getAllUsersController);
     app.delete("/deleteuser/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUser);
     app.put("/users/:userId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUser);

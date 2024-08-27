@@ -4,10 +4,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { temp_news } from 'src/@types/temp_news';
 import { university } from 'src/@types/university';
 
-const url = 'http://186.217.115.114:8080'; 
+const url = 'http://200.145.153.249:8080'; 
 interface LoginResponse{
   token: string;
   role: string;
+  id: string;
 }
 
 const getToken = async () => {
@@ -26,6 +27,16 @@ export const getUsers = async () => {
       Authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const getUser = async (userId: string) => {
+  const token = await getToken();
+  const getUserUrl = `${url}/users/${userId}`;
+
+  console.log('Fetching user from:', getUserUrl);
+  console.log('Using token:', token);
+
+  return axios.get(getUserUrl);
 };
 
 export const updateUser = async (userId: string, userData: any) => {
@@ -86,8 +97,10 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
       if (token) {
         console.log('Received token:', token);
         await AsyncStorage.setItem('token', token);
+        const id = response.data.id;
+        console.log('Id:', id);
         console.log('Role:', role);
-        return { token, role };
+        return { token, role, id };
       } else {
         console.error('No token received in response');
         throw new Error('No token received');

@@ -22,10 +22,10 @@ export  function Login({ navigation }: any) {
 
   const handleLogin = async () => {
     try {
-      const { token, role } = await loginUser(username, password);
-      console.log('Login successful:', { token, role });
+      const { token, role, id } = await loginUser(username, password);
+      console.log('Login successful:', { token, role, id });
 
-      login({ token, role });
+      login({ token, role, id });
 
       if (role === 'ADMIN') {
         navigation.navigate('Feed');

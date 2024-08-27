@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 type AuthContextType = {
   user: any;
   isAuthenticated: boolean;
-  login: (userData: { token: string; role: string }) => void;
+  login: (userData: { token: string; role: string, id: string }) => void;
   logout: () => void;
 };
 
@@ -13,7 +13,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const login = (userData: { token: string; role: string }) => {
+  const login = (userData: { token: string; role: string, id: string }) => {
     setUser(userData);
     setIsAuthenticated(true);
   };

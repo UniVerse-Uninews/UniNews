@@ -3,15 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Button } from 'react-native';
 import Drawer from './drawer';
 import { Header } from '../components/addHeader/header';
-import { Footer } from '../components/addFooter/footer';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Name, NameBlue } from '@theme/style';
+import { getUser } from '@services/api';
 
 
 const Teste = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [userData, setUserData] = useState<any>(null);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -25,61 +26,75 @@ const Teste = () => {
     checkAuth();
   }, []);
 
+
+  useEffect(() => {
+    if (user && user.id) {
+      getUser(user.id)
+        .then((response) => {
+          setUserData(response.data.user); 
+          console.log(response.data.user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [user]);
+
   return (
     <>
-    <Header/>
-    <View style={styles.container}>
-      <TouchableOpacity onPress={toggleDrawer} style={styles.menuButton}>
-        <Image style={styles.Logo} source={{uri: dirImagem}}></Image>
-      </TouchableOpacity>
-      <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-      <View style={styles.perfil}></View>
-      <View style={styles.containerNick}>
-            <Text style={styles.nick}>Ryandro Zerlin Moriizumi</Text>
-      </View>
-            <View style={styles.box}>
-              <View style={styles.seg}>
-                <Text>Seguidores</Text>
-              </View>
+      <Header />
+      <View style={styles.container}>
+        <TouchableOpacity onPress={toggleDrawer} style={styles.menuButton}>
+          <Image style={styles.Logo} source={{ uri: dirImagem }}></Image>
+        </TouchableOpacity>
+        <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+        <View style={styles.perfil}></View>
+        <View style={styles.containerNick}>
+          <Text style={styles.nick}>{userData?.name}</Text>
+        </View>
+        <View style={styles.box}>
+          <View style={styles.seg}>
+            <Text>Seguidores</Text>
+          </View>
 
-              <View style={styles.seg}>
-                <Text>Publicações</Text>
-              </View>
-            </View>
-            <View style={styles.viewTitle}>
-              <NameBlue style={styles.title}>DADOS PESSOAIS</NameBlue>
-            </View>
-            <View style={styles.containerData}>
-              <View style={styles.box}>
-              <Name style={styles.campotext}>Username</Name> 
-                <TouchableOpacity onPress={toggleDrawer}>
-                <Image source={{uri:dirImagem2}} style={styles.icon}/>
-                </TouchableOpacity>
-                </View>
-                <View style={styles.box}>
-                  <Name style={styles.campotext}>Email </Name>
-                  <TouchableOpacity onPress={toggleDrawer}>
-                    <Image source={{uri:dirImagem2}} style={styles.icon}/>
-                    </TouchableOpacity>
-                </View>
-              <Button title='Redefinir senha' onPress={toggleDrawer}/>
-            </View>
-            <View style={styles.viewTitle}>
-              <NameBlue style={styles.title}>CONFIGURAÇÕES</NameBlue>
-            </View>
-            <View style={styles.viewSubTitle}>
-              <Text style={styles.subTitle}>FEED</Text>
-            </View>
-            <View style={styles.aliner}>
-            <View style={styles.containerDataFeed}>
-              <Name>Notícias</Name>
-              </View>
-              <View style={styles.containerDataFeed}>
-              <Name>Universidades</Name>
-              </View>
-              </View>
-            <Button title="Logout" onPress={handleLogout} />
-    </View>
+          <View style={styles.seg}>
+            <Text>Publicações</Text>
+          </View>
+        </View>
+        <View style={styles.viewTitle}>
+          <NameBlue style={styles.title}>DADOS PESSOAIS</NameBlue>
+        </View>
+        <View style={styles.containerData}>
+          <View style={styles.box}>
+          <Name style={styles.campotext}>Username: {userData?.name}</Name>
+            <TouchableOpacity onPress={toggleDrawer}>
+              <Image source={{ uri: dirImagem2 }} style={styles.icon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.box}>
+          <Name style={styles.campotext}>Email: {userData?.email}</Name>
+            <TouchableOpacity onPress={toggleDrawer}>
+              <Image source={{ uri: dirImagem2 }} style={styles.icon} />
+            </TouchableOpacity>
+          </View>
+          <Button title='Redefinir senha' onPress={toggleDrawer} />
+        </View>
+        <View style={styles.viewTitle}>
+          <NameBlue style={styles.title}>CONFIGURAÇÕES</NameBlue>
+        </View>
+        <View style={styles.viewSubTitle}>
+          <Text style={styles.subTitle}>FEED</Text>
+        </View>
+        <View style={styles.aliner}>
+          <View style={styles.containerDataFeed}>
+            <Name>Notícias</Name>
+          </View>
+          <View style={styles.containerDataFeed}>
+            <Name>Universidades</Name>
+          </View>
+        </View>
+        <Button title="Logout" onPress={handleLogout} />
+      </View>
     </>
   );
 };
