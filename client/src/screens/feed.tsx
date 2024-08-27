@@ -19,7 +19,7 @@ export function Feed({ navigation }: { navigation: any }) {
     checkAuth();
   }, []);
 
-    const BASE_URL = 'http://192.168.0.108:8080';
+    const BASE_URL = 'http://186.217.115.114:8080';
 
     useEffect(() => {
         const fetchAllNews = async () => {

@@ -1,5 +1,7 @@
+import { Name, NameBlue } from '@theme/style';
 import React, { useState, useRef, useEffect } from 'react';
 import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image, Button } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 interface DrawerProps {
   isOpen: boolean;
@@ -47,12 +49,12 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
       </TouchableOpacity>
 
       <View style={styles.containerInput}>
-        <Text style={styles.titulo}>Dados Pessoais</Text>
+        <NameBlue style={styles.titulo}>Dados Pessoais</NameBlue>
       </View>
 
       <View style={styles.grupo}>
       
-      <Text>Nome:</Text>
+      <Name style={styles.label}>Nome:</Name>
       
       <View style={styles.campo}>
         {isEditing ? (
@@ -71,8 +73,44 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
         )
         }
         
+        
       
       </View>
+      
+      <View style={styles.campo1}>  
+          <TouchableOpacity onPress={handleButtonPress}>
+            <Image style={styles.imagem} source={{uri: dirImagem1}}/>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+
+      
+      <View style={styles.grupo}>
+      
+      <Name style={styles.label}>E-mail:</Name>
+      
+      <View style={styles.campo}>
+        {isEditing ? (
+          <TextInput
+            ref={textInputRef}
+            style={styles.input}
+            placeholder="E-mail do usuário"
+            placeholderTextColor="#8F8F8F"
+            value={textValue}
+            onChangeText={setTextValue}
+            onBlur={handleTextInputBlur}
+            returnKeyType="done"
+          />
+        ) : (
+          <Text style={styles.valueText}>{textValue}</Text>
+        )
+        }
+        
+        
+      
+      </View>
+      
       <View style={styles.campo1}>  
           <TouchableOpacity onPress={handleButtonPress}>
             <Image style={styles.imagem} source={{uri: dirImagem1}}/>
@@ -119,8 +157,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   titulo: {
-    color: '#0571D3',
-    fontSize: 17,
+    fontFamily: 'Teacher',
+    fontSize: responsiveFontSize(4),
   },
   seta: {
     width: '7%',
@@ -138,7 +176,8 @@ const styles = StyleSheet.create({
   },
   grupo:{
     flexDirection:'row', 
-    alignItems:'center'
+    alignItems:'center',
+    marginLeft:'6%',
   },
   campo1:{
     
@@ -146,8 +185,12 @@ const styles = StyleSheet.create({
   imagem:{
     width:15,
     height:15
+  },
+  label:
+  {
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'RubikNormal',
   }
-  
 });
 
 export default Drawer;
