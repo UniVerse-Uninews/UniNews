@@ -12,8 +12,8 @@ const dirIconHouse = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_c
 const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
 const dirIconSaved = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
 const dirIconProfile = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_vazio.png';
-const dirIconCrudUniversidade = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_editar_universidade.png'; 
-const dirIconCrudUsuario = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_cheio.png'; 
+const dirIconCrudUniversidade = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_uni.png'; 
+const dirIconCrudUsuario = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_user.png'; 
 
 type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
