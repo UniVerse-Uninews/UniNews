@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { temp_news } from 'src/@types/temp_news';
 import { university } from 'src/@types/university';
 
-const url = 'http://200.145.153.249:8080'; 
+const url = 'http://192.168.0.108:8080'; 
 interface LoginResponse{
   token: string;
   role: string;
