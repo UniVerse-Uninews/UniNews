@@ -5,7 +5,7 @@ import { Container, NameBlue, Name, Line } from '../../theme/style';
 import ImageViewer from '../addImageViewer/ImageViewer';
 
 export function Header() {
-  const dirImagem = require('../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
+  const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/tcc-logo-quadrado-sem-fundo.png';
   return (
     <>
     <StatusBar></StatusBar>
@@ -15,7 +15,7 @@ export function Header() {
     <Container style={styles.container}>
       <View style={styles.cabecalho}>
         <View>
-          <ImageViewer diretorio={dirImagem} />
+          <ImageViewer diretorio={{uri: dirImagem}} />
         </View>
         <NameBlue style={[styles.nameLogo]}>UNI</NameBlue>
         <Name style={[styles.nameLogoSecondary]}>NEWS</Name>
