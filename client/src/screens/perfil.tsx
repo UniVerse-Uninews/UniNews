@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, Button } from 'react-native';
 import Drawer from './drawer';
@@ -8,11 +7,12 @@ import { useAuthCheck } from '../context/authNavigation';
 import { styles } from '../styles/stylePerfilUser';
 import { Name, NameBlue } from '@theme/style';
 import { getUser } from '@services/api';
+import { User } from 'src/@types/interfaces';
 
 
 export function Perfil ()  {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<User | null > (null);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);

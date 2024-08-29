@@ -45,7 +45,7 @@ export function CrudUsuario() {
       name: '',
       email: '',
       role: '',
-      passwordHash: '', // Ajuste conforme necessário
+      passwordHash: '',
       confirmPassword: '',
     });
     setChecked(false);

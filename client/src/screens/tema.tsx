@@ -1,4 +1,3 @@
-
 import { Text, View, Image, ScrollView } from 'react-native';
 import React from 'react';
 import { Header } from '../components/addHeader/header';

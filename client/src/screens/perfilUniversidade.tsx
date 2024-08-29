@@ -1,4 +1,3 @@
-// src/screens/perfilUniversidade.tsx
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Image, Text, Alert, Linking, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/stylePerfilUniversidade';
