@@ -1,4 +1,3 @@
-// src/screens/loginScreen.tsx
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
@@ -6,43 +5,51 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
+  Alert,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
 import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name } from '@theme/style';
+import { useAuth } from '../context/authContext';
 
 export  function Login({ navigation }: any) {
-
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const { login } = useAuth();
 
-  
+  const handleLogin = async () => {
+    try {
+      const { token, role, id } = await loginUser(username, password);
+      console.log('Login successful:', { token, role, id });
 
-  const handleLogin = () => {
-    if (!username || !password) {
-      setLoginError('Por favor, preencha todos os campos.');
-      return;
+      login({ token, role, id });
+
+      if (role === 'ADMIN') {
+        navigation.navigate('Feed');
+      } else {
+        navigation.navigate('Feed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      Alert.alert('Erro de autenticação',
+        'Erro ao fazer login. Verifique suas credenciais.',
+        [{ text: 'OK' }]);
+      setLoginError('Erro ao fazer login. Verifique suas credenciais.'
+      );
     }
-
-    loginUser(username, password)
-      .then((response) => {
-        console.log('Login successful:', response.data);
-        navigation.navigate('CrudUsuario');
-      })
-      .catch((error) => {
-        console.error('Login error:', error);
-        setLoginError('Erro ao fazer login. Verifique suas credenciais.');
-      });
   };
+  
 
   return (
     <Container style={styles.container}>
       <View style={styles.logo}>
         <Name style={styles.Uni}>UNI</Name>
         <Name style={styles.News}>NEWS</Name>
+      </View>
+      <View style={styles.subtitle}>
+        <Name style={styles.subtitletext}>SUA JANELA PARA O MUNDO ACADÊMICO</Name>
       </View>
 
       <BackgroundContainerInput style={styles.box}>

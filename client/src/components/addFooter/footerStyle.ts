@@ -7,18 +7,23 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         height: responsiveHeight(8),
         paddingTop: responsiveHeight(2),
-        
     },
     button:{
         width: responsiveWidth(20),
         marginLeft: responsiveWidth(7),
     },
     icon:{
-        width: responsiveWidth(5),
+        width: responsiveWidth(6),
         height: responsiveHeight(3),
+        
+
+    },
+    button1:{
+        width: responsiveWidth(10),
+        marginLeft: responsiveWidth(7),
     },
     line: {
-        borderWidth: 2,
+        borderWidth: 1.3,
         width: '100%',
       },
 });

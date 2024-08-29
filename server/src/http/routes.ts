@@ -28,7 +28,7 @@
     // User routes
     app.post("/users", register);
     app.post("/sessions", authenticate);
-    app.get("/users/:userId", { preValidation: [app.verifyJwt] }, getUserProfileController);
+    app.get("/users/:userId", getUserProfileController);
     app.get('/getallusers', { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, getAllUsersController);
     app.delete("/deleteuser/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUser);
     app.put("/users/:userId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUser);
@@ -37,8 +37,8 @@
 
     // University routes
     app.post("/university", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, registerUniversityController);
-    app.get("/getalluniversity", { preValidation: [app.verifyJwt] }, getAllUniversityController);
-    app.get("/university/:id", { preValidation: [app.verifyJwt] }, getUniversityController);
+    app.get("/getalluniversity", getAllUniversityController);
+    app.get("/university/:id", getUniversityController);
     app.get<{ Params: { name: string } }>('/university/name/:name', getUniversityByNameController);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);

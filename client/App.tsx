@@ -12,27 +12,24 @@ import { Pesquisar } from './src/screens/pesquisa';
 import { Feed } from './src/screens/feed';
 import { LerNoticia } from './src/screens/lerNoticia';
 import { CrudUniversidade } from './src/screens/crudUniversidade';
-import { Perfil } from './src/screens/perfil';
 import { Temas } from './src/screens/tema';
-import Teste from './src/screens/teste';
+import { Perfil } from './src/screens/perfil';
 import { FontLoader }  from './src/components/fontLoader/fontLoader';
+import { AuthProvider } from './src/context/authContext';
+import { RootStackParamList } from './src/@types/rootstack';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   const deviceTheme = useColorScheme();
   const theme = themes[deviceTheme as keyof typeof themes] || themes.light;
 
   return (
+    <AuthProvider>
     <ThemeProvider theme={theme}>
       <FontLoader>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Feed">
-            <Stack.Screen
-              name="Perfil"
-              component={Perfil}
-              options={{ headerShown: false }}
-            />
+          <Stack.Navigator initialRouteName="Login">
             <Stack.Screen
               name="Temas"
               component={Temas}
@@ -78,14 +75,16 @@ export default function App() {
               component={Pesquisar}
               options={{ headerShown: false }}
             /> */}
-            <Stack.Screen
-              name="teste"
-              component={Teste}
+            { <Stack.Screen
+              name="Perfil"
+              component={Perfil}
               options={{ headerShown: false }}
-            />
+            />}
           </Stack.Navigator>
         </NavigationContainer>
+       
       </FontLoader>
     </ThemeProvider>
+    </AuthProvider>
   );
 }

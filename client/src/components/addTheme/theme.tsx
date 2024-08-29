@@ -2,15 +2,13 @@ import { BorderColorButtonYellow, NameBlue } from '../../theme/style';
 import React from 'react';
 import { styles } from './themeStyle';
 
-interface ThemeProps {
-    name: string;
-}
 
-export function ThemeNews({name}: ThemeProps) {
+
+export function ThemeNews({university}: any) {
     return (
         <>
             <BorderColorButtonYellow style={styles.border}>
-                <NameBlue style={styles.text}>{name}</NameBlue>
+                <NameBlue style={styles.text}>{university}</NameBlue>
             </BorderColorButtonYellow>
         </>
     );

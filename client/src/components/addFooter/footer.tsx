@@ -1,50 +1,81 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../@types/rootstack'; // Atualize o caminho conforme necessário
+import { RootStackParamList } from '../../@types/rootstack';
 import { styles } from './footerStyle';
-import { BorderColorBlue, Container } from '@theme/style';
+import { BorderColorBlue, FooterContainer } from '@theme/style';
+import { useAuth } from 'src/context/authContext';
+import { useAuthCheck } from 'src/context/authNavigation';
 
-const dirIconHouse = require('../../../assets/imagens/icon_casa_cheio.png');
-const dirIconGlass = require('../../../assets/imagens/icon_lupa_vazio.png');
-const dirIconSaved = require('../../../assets/imagens/icon_salvos_vazio.png');
-const dirIconProfile = require('../../../assets/imagens/icon_perfil_vazio.png');
+
+const dirIconHouse = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_casa_cheio.png';
+const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
+const dirIconSaved = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
+const dirIconProfile = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_vazio.png';
+const dirIconCrudUniversidade = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_uni.png'; 
+const dirIconCrudUsuario = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_user.png'; 
 
 type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
 export function Footer() {
     const navigation = useNavigation<FooterNavigationProp>();
+    const { user } = useAuth();
+    const { checkAuth } = useAuthCheck();
+  
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
+    const isAdmin = user?.role === 'ADMIN';
+    const buttonStyle = isAdmin ? styles.button1 : styles.button;
 
     return (
         <>
             <BorderColorBlue style={styles.line} />
-            <Container style={styles.container}>
+            <FooterContainer style={styles.container}>
                 <Pressable 
-                    style={styles.button}
-                    onPress={() => navigation.navigate('Login')}
+                    style={buttonStyle}
+                    onPress={() => navigation.navigate(user ? 'Feed' : 'Login')}
                 >
-                    <Image source={dirIconHouse} style={styles.icon} />
+                    <Image source={{ uri: dirIconHouse }} style={styles.icon} />
                 </Pressable>
                 <Pressable 
-                    style={styles.button}
-                    onPress={() => navigation.navigate('Pesquisar')}
+                    style={buttonStyle}
+                    onPress={() => navigation.navigate('Temas')}
                 >
-                    <Image source={dirIconGlass} style={styles.icon} />
+                    <Image source={{ uri: dirIconGlass }} style={styles.icon} />
                 </Pressable>
                 <Pressable 
-                    style={styles.button}
+                    style={buttonStyle}
                     onPress={() => navigation.navigate('Feed')}
                 >
-                    <Image source={dirIconSaved} style={styles.icon} />
+                    <Image source={{ uri: dirIconSaved }} style={styles.icon} />
                 </Pressable>
                 <Pressable 
-                    style={styles.button}
+                    style={buttonStyle}
                     onPress={() => navigation.navigate('Perfil')}
                 >
-                    <Image source={dirIconProfile} style={styles.icon} />
+                    <Image source={{ uri: dirIconProfile }} style={styles.icon} />
                 </Pressable>
-            </Container>
+
+                {isAdmin && (
+                    <>
+                        <Pressable 
+                            style={buttonStyle}
+                            onPress={() => navigation.navigate('CrudUniversidade')}
+                        >
+                            <Image source={{ uri: dirIconCrudUniversidade }} style={styles.icon} />
+                        </Pressable>
+                        <Pressable 
+                            style={buttonStyle}
+                            onPress={() => navigation.navigate('CrudUsuario')}
+                        >
+                            <Image source={{ uri: dirIconCrudUsuario }} style={styles.icon} />
+                        </Pressable>
+                    </>
+                )}
+            </FooterContainer>
         </>
     );
 }

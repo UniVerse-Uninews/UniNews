@@ -4,8 +4,8 @@ import { styles } from './inputStyle';
 import { BackgroundInput, BackgroundInputText, Name } from '../../theme/style';
 
 export function InputSenha({ user, setUser }: any) {
-  const eye = require('../../../assets/imagens/eye.png');
-  const eyeOff = require('../../../assets/imagens/eyeOff.png');
+  const eye = 'http://projetoscti.com.br/projetoscti27/uninews/img/eye.png';
+  const eyeOff ='http://projetoscti.com.br/projetoscti27/uninews/img/eyeOff.png';
 
   const [hidePass, setHidePass] = React.useState(true);
 
@@ -31,9 +31,9 @@ export function InputSenha({ user, setUser }: any) {
             onPress={() => setHidePass(!hidePass)}
           >
             {hidePass ? (
-              <Image source={eye} style={styles.icon} />
+              <Image source={{uri: eye}} style={styles.icon} />
             ) : (
-              <Image source={eyeOff} style={styles.icon} />
+              <Image source={{uri: eyeOff}} style={styles.icon} />
             )}
           </TouchableOpacity>
         </BackgroundInput>
@@ -42,9 +42,8 @@ export function InputSenha({ user, setUser }: any) {
   );
 }
 export function InputConfirmSenha({ user, setUser }: any) {
-  const eye = require('../../../assets/imagens/eye.png');
-  const eyeOff = require('../../../assets/imagens/eyeOff.png');
-
+  const eye = 'http://projetoscti.com.br/projetoscti27/uninews/img/eye.png';
+  const eyeOff ='http://projetoscti.com.br/projetoscti27/uninews/img/eyeOff.png';
   const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
 
   const handleInputChange = (field: string, value: string) => {
@@ -68,9 +67,9 @@ export function InputConfirmSenha({ user, setUser }: any) {
             onPress={() => setHideConfirmPass(!hideConfirmPass)}
           >
             {hideConfirmPass ? (
-              <Image source={eye} style={styles.icon} />
+              <Image source={{uri: eye}} style={styles.icon} />
             ) : (
-              <Image source={eyeOff} style={styles.icon} />
+              <Image source={{uri: eyeOff}} style={styles.icon} />
             )}
           </TouchableOpacity>
         </BackgroundInput>

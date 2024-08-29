@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 
 export function LerNoticia({ route }: any) {
     const { noticia } = route.params;
-
+    
     return (
         <>
             <Header />

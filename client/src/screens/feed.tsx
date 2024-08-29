@@ -1,45 +1,83 @@
-import React, { useState } from 'react';
-import { View, TextInput, ScrollView, Pressable, Image, Text, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, Pressable,  Text, Alert, Linking, } from 'react-native';
 import { styles } from '@styles/styleFeed';
-import { ThemeNews } from '../components/addTheme/theme';
 import { Header } from '@components/addHeader/header';
-import { Container } from '@theme/style';
+import { Container, Card, Name, ImageCard } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import debounce from 'lodash.debounce';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../@types/navigation'; // Importe os tipos de navegação
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useAuth } from '../context/authContext';
+import { useAuthCheck } from '../context/authNavigation';
+import { REACT_APP_API_URL } from '@env';
 
-type FeedNavigationProp = StackNavigationProp<RootStackParamList, 'Feed'>;
-
-export function Feed() {
-    const [universityName, setUniversityName] = useState('');
+export function Feed({ navigation }: { navigation: any }) {
     const [news, setNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation<FeedNavigationProp>();
+    const { user } = useAuth();
+    const { checkAuth } = useAuthCheck();
 
-    const BASE_URL = 'http://192.168.0.108:8080';
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
-    const fetchNews = async (url: string) => {
+    const BASE_URL = REACT_APP_API_URL;
+
+    useEffect(() => {
+        const fetchAllNews = async () => {
+            try {
+                setLoading(true);
+                const universities = await fetchAllUniversities();
+
+                if (universities.length > 0) {
+                    const newsPromises = universities.map((university: any) => fetchNews(university.url, university.image, university.id));
+                    const newsResults = await Promise.all(newsPromises);
+                    const allNews = newsResults.flat();
+                    setNews(allNews);
+                } else {
+                    setNews([]);
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                Alert.alert('Erro', 'Erro ao buscar notícias.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAllNews();
+    }, []);
+
+    const fetchNews = async (url: string, universityImage: string, universityId: string) => {
+        if (url === '1') {
+            console.warn('Invalid URL: Skipping request');
+            return [];
+        }
+    
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-            return response.data.items.map((item: any) => {
-                const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
-                return {
-                    ...item,
-                    image: imageUrl,
-                    description: cleanedDescription
-                };
-            });
+    
+            if (response.data && response.data.items) {
+                return response.data.items.map((item: any) => {
+                    const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
+                    return {
+                        ...item,
+                        image: imageUrl || universityImage,
+                        description: cleanedDescription,
+                        link: item.link,
+                        universityId 
+                    };
+                });
+            } else {
+                console.error('Unexpected response structure or null data:', response.data);
+                Alert.alert('Erro', 'A resposta do servidor não é a esperada ou está vazia.');
+                return [];
+            }
         } catch (error) {
             console.error('Error fetching news:', error);
             Alert.alert('Erro', 'Erro ao buscar notícias.');
             return [];
         }
     };
-
     const extractImageFromDescription = (description: string) => {
         const match = description.match(/<img[^>]+src="([^">]+)"/);
         
@@ -51,11 +89,11 @@ export function Feed() {
         }
     };
 
-    const fetchUniversityUrls = async (name: string) => {
+    const fetchAllUniversities = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/university/name/${encodeURIComponent(name)}`);
+            const response = await axios.get(`${BASE_URL}/getalluniversity`);
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string }) => university.url);
+                return response.data.map((university: { url: string, image: string, id: string }) => university);
             } else {
                 Alert.alert('Erro', 'Nenhuma universidade encontrada.');
                 return [];
@@ -66,81 +104,42 @@ export function Feed() {
             return [];
         }
     };
-
-    const handleUniversityNameChange = debounce(async (name: string) => {
-        try {
-            if (!name.trim()) {
-                setNews([]);
-                return;
-            }
-            setLoading(true);
-
-            const universityUrls = await fetchUniversityUrls(name);
-
-            if (universityUrls.length > 0) {
-                const newsPromises = universityUrls.map((url: string) => fetchNews(url));
-                const newsResults = await Promise.all(newsPromises);
-                const allNews = newsResults.flat();
-                setNews(allNews);
-            } else {
-                setNews([]);
-            }
-        } catch (error) {
-            console.error('Error fetching news:', error);
-            Alert.alert('Erro', 'Erro ao buscar notícias.');
-        } finally {
-            setLoading(false);
-        }
-    }, 500);
+    
 
     return (
         <>
             <Header />
             <Container style={styles.container}>
                 <Container style={styles.view}>
-                    <View style={styles.box}>
-                        <ThemeNews name="Biológicas" />
-                        <ThemeNews name="Exatas" />
-                        <ThemeNews name="Humanas" />
-                        <ThemeNews name="Linguagens" />
-                        <ThemeNews name="Tecnologia" />
-                    </View>
-                    <TextInput
-                        placeholder="Type university name..."
-                        value={universityName}
-                        onChangeText={(text) => {
-                            setUniversityName(text);
-                            handleUniversityNameChange(text);
-                        }}
-                        style={styles.textInput}
-                    />
                     {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (
                         <ScrollView>
                             {news.map((item, index) => (
-                                <Pressable
-                                    key={item.id || index}
-                                    onPress={() => {
-                                        navigation.navigate('LerNoticia', { noticia: item });
-                                    }}
-                                >
-                                    <View style={styles.viewCard}>
-                                        <View style={styles.card}>
-                                            {item.image ? (
-                                                <Image source={{ uri: item.image }} style={styles.imageCard} />
-                                            ) : (
-                                                <Text>Image not available</Text>
-                                            )}
-                                            <Text style={styles.title}>{item.title}</Text>
-                                            <View style={styles.data}>
-                                                <Text style={styles.text}>{item.description || ''}</Text>
-                                                <Text style={styles.text}>Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}</Text>
-                                                <Text style={styles.text}>By: {item.author || ''}</Text>
-                                                <Text style={styles.text}>Link: {item.link || ''}</Text>
-                                            </View>
+                                <View key={item.id || index} style={styles.viewCard}>
+                                    <Card style={styles.card}>
+                                        {item.image ? (
+        
+                                                <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+                                            
+                                        ) : (
+                                            <Name>Image not available</Name>
+                                        )}
+                                        <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
+                                            <Name style={styles.title}>{item.title}</Name>
+                                        </Pressable>
+                                        <View style={styles.data}>
+                                            <Name style={styles.text}>{item.description || ''}</Name>
+                                            <Pressable onPress={() => Linking.openURL(item.link)}>
+                                                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
+                                                    Read More
+                                                </Text>
+                                            </Pressable>
+                                            <Name style={styles.text}>
+                                                Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
+                                            </Name>
                                         </View>
-                                    </View>
-                                </Pressable>
+                                    </Card>
+                                </View>
                             ))}
                         </ScrollView>
                     )}

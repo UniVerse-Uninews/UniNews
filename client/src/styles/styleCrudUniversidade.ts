@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   titulo: {
     fontSize: 30,
     margin: '4%',
-    fontFamily: 'Teachers Students',
+    fontFamily: 'Teacher',
   },
   imageContainer: {
     width: 50,
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: 5,
     height: responsiveHeight(3),
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
     paddingLeft: 5,
     marginTop: '5%',
     width: responsiveWidth(45),
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     marginLeft: responsiveWidth(3),
   },
   campos: {
-    fontFamily: 'Rubik_400Regular',
+    fontFamily: 'Rubik',
   },
   radio: {
     flexDirection: 'row',
@@ -93,7 +93,7 @@ inputdisc:{
   borderWidth: 1.5,
   borderRadius: 5,
   height: responsiveHeight(10),
-  fontFamily: 'Rubik_400Regular',
+  fontFamily: 'Rubik',
   paddingLeft: 5,
   marginTop: '5%',
   width: responsiveWidth(45),

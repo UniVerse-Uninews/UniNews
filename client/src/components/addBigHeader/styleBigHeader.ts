@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
     height: '32%',
     width: '100%',
   },
@@ -15,20 +14,27 @@ export const styles = StyleSheet.create({
   },
   img: {
     width: '50%',
-    height: '50%',
-    marginLeft: '15%',
+    height: '60%',
+    marginLeft: '5%',
+  },
+  img1: {
+    width: '90%',
+    height: '100%',
+
   },
   containerTitleLogo: {
     flexDirection: 'row',
+
   },
   nameLogo: {
     marginLeft: '3%',
-    fontSize: responsiveFontSize(6),
-    fontFamily: 'Teachers Students',
+    fontSize: responsiveFontSize(10),
+    fontFamily: 'Teacher',
     color: '#4A94CC',
   },
   nameLogoSecondary: {
-    fontSize: responsiveFontSize(6),
-    fontFamily: 'Teachers Students',
-  },
+    fontSize: responsiveFontSize(10),
+    fontFamily: 'Teacher',
+
+  }
 });

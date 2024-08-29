@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
+    responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
@@ -22,36 +23,37 @@ export const styles = StyleSheet.create({
     textInput: {
         borderColor: '#ccc',
         borderWidth: 1,
-        padding: 10,
+        padding: responsiveHeight(1),  
         borderRadius: 5,
         marginVertical: responsiveHeight(2),
     },
     viewCard: {
         marginBottom: responsiveHeight(2),
+        marginHorizontal: responsiveWidth(2),
     },
     card: {
-        padding: 10,
+        padding: responsiveHeight(1.5),
         borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 5,
-        backgroundColor: '#fff',
+        borderRadius: 10,
     },
     imageCard: {
         width: '100%',
-        height: 200,
-        borderRadius: 5,
-        marginBottom: 10,
+        height: responsiveHeight(23),
+        borderRadius: 10,
+        marginBottom: responsiveHeight(2),
+        borderWidth: 1,
+        resizeMode: 'stretch'
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
+        fontSize: responsiveFontSize(2.5),
+        fontFamily: 'RubikBold',
+        marginBottom: responsiveHeight(1),
     },
     data: {
-        marginTop: 10,
+        marginBottom: responsiveHeight(2),
     },
     text: {
-        fontSize: 14,
-        marginBottom: 5,
+        fontSize: responsiveFontSize(1.6),
+        marginBottom: responsiveHeight(0.7),
     },
 });

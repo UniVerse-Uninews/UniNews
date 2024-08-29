@@ -15,6 +15,7 @@ export const useUniversityCrud = () => {
     location: '',
     url: '',
     description : '',
+    image : ''
   });
 
   const fetchUniversities = async () => {
@@ -37,13 +38,19 @@ export const useUniversityCrud = () => {
 
   const addUniversityHandler = async () => {
     try {
-      await addUniversity(university);
+      await addUniversity({
+        ...university,
+        createdAt: '',
+        updatedAt: '',
+        news: []
+      });
       setUniversity({
         id: '',
         name: '',
         location: '',
         url: '',
         description : '',
+        image : ''
       });
       fetchUniversities();
     } catch (error) {

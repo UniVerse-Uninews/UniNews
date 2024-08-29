@@ -9,10 +9,10 @@ import { TextInput } from 'react-native-paper';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 
-const dir_lupa = require('../../assets/imagens/lupa-icon-pesquisa.png');
-const dir_filtro = require('../../assets/imagens/icon_filtro.png');
-const dir_seta_filtro = require('../../assets/imagens/icon_setinha_filtro.png');
-const dir_seta_volta = require('../../assets/imagens/Arrow.png');
+const dir_lupa ='http://projetoscti.com.br/projetoscti27/uninews/img/lupa-icon-pesquisa.png';
+const dir_filtro = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_filtro.png';
+const dir_seta_filtro = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_setinha_filtro.png';
+const dir_seta_volta = 'http://projetoscti.com.br/projetoscti27/uninews/img/Arrow.png';
 
 const Drawer = createDrawerNavigator();
 
@@ -75,7 +75,7 @@ function CustomDrawer(props: DrawerContentComponentProps) {
                 <Pressable onPress={toggleDropdownUniv} style={{ flexDirection: 'row' }}>
                     <Text>Universidade</Text>
                     <View style={{ width: 15 }}>
-                        {!isOpenUniv ? <Image style={{ width: 15, transform: [{ rotateX: '0deg' }] }} source={dir_seta_filtro} /> : <Image style={{ width: 15, transform: [{ rotateX: '90deg' }] }} source={dir_seta_filtro} />}
+                        {!isOpenUniv ? <Image style={{ width: 15, transform: [{ rotateX: '0deg' }] }} source={{uri: dir_seta_filtro}} /> : <Image style={{ width: 15, transform: [{ rotateX: '90deg' }] }} source={{uri: dir_seta_filtro}} />}
                     </View>
                 </Pressable>
                 <Animated.View style={[styles.dropdown, {
@@ -85,7 +85,7 @@ function CustomDrawer(props: DrawerContentComponentProps) {
                     })
                 }]}>
                     <Pressable onPress={() => { }}>
-                        <Image source={dir_lupa} />
+                        <Image source={{uri: dir_lupa}} />
                         <TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={setTextUni} value={getTextUni} />
                     </Pressable>
                     {/* Lista de filtros */}
@@ -93,7 +93,7 @@ function CustomDrawer(props: DrawerContentComponentProps) {
 
                 <Pressable onPress={toggleDropdownArea} style={{ flexDirection: 'row' }}>
                     <Text>Área</Text>
-                    {!isOpenArea ? <Image style={{ width: 15, transform: [{ rotateX: '0deg' }] }} source={dir_seta_filtro} /> : <Image style={{ width: 15, transform: [{ rotateX: '90deg' }] }} source={dir_seta_filtro} />}
+                    {!isOpenArea ? <Image style={{ width: 15, transform: [{ rotateX: '0deg' }] }} source={{uri: dir_seta_filtro}} /> : <Image style={{ width: 15, transform: [{ rotateX: '90deg' }] }} source={{uri: dir_seta_filtro}} />}
                 </Pressable>
                 <Animated.View style={[styles.dropdown, {
                     height: dropdownAniArea.interpolate({
@@ -102,7 +102,7 @@ function CustomDrawer(props: DrawerContentComponentProps) {
                     })
                 }]}>
                     <Pressable onPress={() => { }}>
-                        <Image source={dir_lupa} />
+                        <Image source={{uri: dir_lupa}} />
                         <TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={setTextArea} value={getTextArea} />
                     </Pressable>
                     {/* Lista de filtros */}
@@ -110,7 +110,7 @@ function CustomDrawer(props: DrawerContentComponentProps) {
 
                 <Pressable onPress={toggleDropdownLoc} style={{ flexDirection: 'row' }}>
                     <Text>Localidade</Text>
-                    {!isOpenLoc ? <Image style={{ width: 15, transform: [{ rotateX: '0deg' }] }} source={dir_seta_filtro} /> : <Image style={{ width: 15, transform: [{ rotateX: '90deg' }] }} source={dir_seta_filtro} />}
+                    {!isOpenLoc ? <Image style={{ width: 15, transform: [{ rotateX: '0deg' }] }} source={{uri: dir_seta_filtro}} /> : <Image style={{ width: 15, transform: [{ rotateX: '90deg' }] }} source={{uri: dir_seta_filtro}} />}
                 </Pressable>
                 <Animated.View style={[styles.dropdown, {
                     height: dropdownAniLoc.interpolate({
@@ -119,13 +119,13 @@ function CustomDrawer(props: DrawerContentComponentProps) {
                     })
                 }]}>
                     <Pressable onPress={() => { }}>
-                        <Image source={dir_lupa} />
+                        <Image source={{uri: dir_lupa}} />
                         <TextInput style={styles.pesquisa} placeholder="pesquisar" onChangeText={setTextLoc} value={getTextLoc} />
                     </Pressable>
                     {/* Lista de filtros */}
                 </Animated.View>
                 <Pressable onPress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}>
-                    <Image source={dir_seta_volta} />
+                    <Image source={{uri: dir_seta_volta}} />
                 </Pressable>
             </View>
         </DrawerContentScrollView>
@@ -162,7 +162,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
             <Container style={styles.container1}>
                 <View style={styles.container2}>
                     <Pressable onPress={() => { }}>
-                        <Image source={dir_lupa} style={styles.impesqui} />
+                        <Image source={{uri: dir_lupa}} style={styles.impesqui} />
                         <TextInput
                             placeholder='pesquisar'
                             onChangeText={onChangeText}
@@ -171,7 +171,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                         />
                     </Pressable>
                     <Pressable onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-                        <Image style={styles.filtro} source={dir_filtro} />
+                        <Image style={styles.filtro} source={{uri: dir_filtro}} />
                     </Pressable>
                 </View>
 

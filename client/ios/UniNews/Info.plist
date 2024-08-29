@@ -54,6 +54,32 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
+		<string>Teachers Students.otf</string>
+		<string>Rubik-Black.ttf</string>
+		<string>Rubik-BlackItalic.ttf</string>
+		<string>Rubik-Bold.ttf</string>
+		<string>Rubik-BoldItalic.ttf</string>
+		<string>Rubik-ExtraBold.ttf</string>
+		<string>Rubik-ExtraBoldItalic.ttf</string>
+		<string>Rubik-Italic.ttf</string>
+		<string>Rubik-Light.ttf</string>
+		<string>Rubik-LightItalic.ttf</string>
+		<string>Rubik-Medium.ttf</string>
+		<string>Rubik-MediumItalic.ttf</string>
+		<string>Rubik-Regular.ttf</string>
+		<string>Rubik-SemiBold.ttf</string>
+		<string>Rubik-SemiBoldItalic.ttf</string>
+		<string>Rubik.ttf</string>
+		<string>Teachers-Bold.ttf</string>
+		<string>Teachers-BoldItalic.ttf</string>
+		<string>Teachers-ExtraBold.ttf</string>
+		<string>Teachers-ExtraBoldItalic.ttf</string>
+		<string>Teachers-Italic.ttf</string>
+		<string>Teachers-Medium.ttf</string>
+		<string>Teachers-MediumItalic.ttf</string>
+		<string>Teachers-Regular.ttf</string>
+		<string>Teachers-SemiBold.ttf</string>
+		<string>Teachers-SemiBoldItalic.ttf</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

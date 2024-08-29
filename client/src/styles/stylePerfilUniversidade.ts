@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
         height:responsiveScreenHeight(16),
         marginTop: responsiveScreenHeight(4),
         marginLeft: responsiveScreenWidth(2),
+        resizeMode:'stretch'
     },
     image1:
     {
@@ -26,6 +27,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth:2,
         borderColor:'#3c6294',
+        resizeMode:'stretch'
     },
     description1:{
         borderWidth:3,
