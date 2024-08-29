@@ -13,8 +13,9 @@ export const styles = StyleSheet.create({
         marginLeft: responsiveWidth(7),
     },
     icon:{
-        width: responsiveWidth(5),
+        width: responsiveWidth(6),
         height: responsiveHeight(3),
+        
 
     },
     button1:{

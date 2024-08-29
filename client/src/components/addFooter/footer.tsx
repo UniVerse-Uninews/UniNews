@@ -12,8 +12,8 @@ const dirIconHouse = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_c
 const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
 const dirIconSaved = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
 const dirIconProfile = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_vazio.png';
-const dirIconCrudUniversidade = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_editar_universidade.png'; 
-const dirIconCrudUsuario = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_editar_user.png'; 
+const dirIconCrudUniversidade = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_uni.png'; 
+const dirIconCrudUsuario = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_user.png'; 
 
 type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -61,13 +61,13 @@ export function Footer() {
                 {isAdmin && (
                     <>
                         <Pressable 
-                            style={styles.button1}
+                            style={buttonStyle}
                             onPress={() => navigation.navigate('CrudUniversidade')}
                         >
                             <Image source={{ uri: dirIconCrudUniversidade }} style={styles.icon} />
                         </Pressable>
                         <Pressable 
-                            style={styles.button1}
+                            style={buttonStyle}
                             onPress={() => navigation.navigate('CrudUsuario')}
                         >
                             <Image source={{ uri: dirIconCrudUsuario }} style={styles.icon} />
