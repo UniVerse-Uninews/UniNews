@@ -30,7 +30,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState<any[]>([]);
   const { user } = useAuth();
-  const { checkAuth, handleLogout } = useAuthCheck();
+  const { checkAuth } = useAuthCheck();
 
   useEffect(() => {
     checkAuth();
