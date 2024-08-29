@@ -19,17 +19,20 @@ enum Role {
 }
 
 model User {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at")
   name         String
-  email        String   @unique
+  email        String      @unique
   passwordHash String
-  role         Role     @default(USER)
-  desactivated Boolean  @default(false)
+  role         Role        @default(USER)
+  desactivated Boolean     @default(false)
+  follows      Follow[]    
+  savedNews    SavedNews[]
 
   @@map("users")
 }
+
 
 model University {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -41,22 +44,48 @@ model University {
   description String
   image       String
   news        News[]
+  follows     Follow[]
 
   @@map("universities")
 }
 
 model News {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime   @default(now()) @map("created_at")
-  updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at")
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at")
   title        String
   description  String
-  url          String     @unique
+  url          String       @unique
   image        String
   content      String
   author       String
-  universityId String     @db.ObjectId
-  university   University @relation(fields: [universityId], references: [id])
+  universityId String       @db.ObjectId
+  university   University   @relation(fields: [universityId], references: [id])
+  savedBy      SavedNews[]  
 
   @@map("news")
+}
+
+
+model Follow {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime    @default(now()) @map("created_at")
+  userId        String      @db.ObjectId
+  universityId  String      @db.ObjectId
+  user          User        @relation(fields: [userId], references: [id])
+  university    University  @relation(fields: [universityId], references: [id])
+
+  @@unique([userId, universityId])
+  @@map("follows")
+}
+
+model SavedNews {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String   @db.ObjectId
+  newsId  String   
+  user    User     @relation(fields: [userId], references: [id])
+  news    News     @relation(fields: [newsId], references: [url]) 
+
+  @@map("saved_news")
+  @@unique([userId, newsId])
 }

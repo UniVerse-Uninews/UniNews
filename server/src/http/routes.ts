@@ -17,6 +17,7 @@
   import { getNews, createNews, getNewsByLink } from "./controllers/news/temp-news";
   import { getNpmData } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
+  import { followUniversityHandler, saveNewsHandler, getSavedNewsHandler } from "./controllers/save/save";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -52,4 +53,9 @@
     app.post('/news', createNews);
     app.get('/npm/:text', getNpmData);
     app.get('/news/link/:text', getNewsByLink);
+
+    // Save and follow routes
+    app.post('/followuniversity', followUniversityHandler);
+    app.post('/save-news', saveNewsHandler);
+    app.get<{Params: { userId: string } }>('/saved-news/:userId', getSavedNewsHandler);
   }

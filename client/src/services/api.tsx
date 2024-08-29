@@ -238,3 +238,24 @@ export const addUniversity = async (universityData: university) => {
     },
   });
 }
+
+export const useUniversityActions = () => {
+  const followUniversity = async (userId: string, universityId: string) => {
+    try {
+      await axios.post(`${http}/followuniversity`, { userId, universityId });
+    } catch (err) {
+      console.error('Error following university:', err);
+    }
+  };
+
+  const saveNewsArticle = async (userId: string, newsId: string) => {
+    try {
+      await axios.post(`${http}/save-news`, { userId, newsId });
+    } catch (err) {
+      console.error('Error saving news article:', err);
+    }
+  };
+
+  return { followUniversity, saveNewsArticle };
+};
+

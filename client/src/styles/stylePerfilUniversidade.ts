@@ -61,5 +61,22 @@ export const styles = StyleSheet.create({
     name1:
     {
         fontSize: responsiveFontSize(2)
+    },
+
+    followButton:
+    {
+        marginTop: responsiveScreenHeight(2),
+        backgroundColor: '#3c6294',
+        padding: responsiveFontSize(1),
+        borderRadius: 10,
+        width: responsiveScreenWidth(50),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    followButtonText:
+    {
+        color: 'white',
+        fontSize: responsiveFontSize(2)
     }
 });
