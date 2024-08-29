@@ -14,6 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useAuth } from '../context/authContext';
 import { RootStackParamList } from '../@types/rootstack';
 import { useAuthCheck } from 'src/context/authNavigation'; 
+import { REACT_APP_API_URL } from '@env';
 
 type PerfilUniversidadeRouteProp = RouteProp<RootStackParamList, 'PerfilUniversidade'>;
 type PerfilUniversidadeNavigationProp = StackNavigationProp<RootStackParamList, 'PerfilUniversidade'>;
@@ -35,7 +36,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
     checkAuth();
   }, []);
 
-  const BASE_URL = 'http://192.168.0.108:8080';
+  const BASE_URL = REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchUniversity = async () => {

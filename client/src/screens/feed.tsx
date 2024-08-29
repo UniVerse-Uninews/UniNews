@@ -8,6 +8,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
+import { REACT_APP_API_URL } from '@env';
 
 export function Feed({ navigation }: { navigation: any }) {
     const [news, setNews] = useState<any[]>([]);
@@ -19,7 +20,7 @@ export function Feed({ navigation }: { navigation: any }) {
     checkAuth();
   }, []);
 
-    const BASE_URL = 'http://192.168.0.108:8080';
+    const BASE_URL = REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchAllNews = async () => {

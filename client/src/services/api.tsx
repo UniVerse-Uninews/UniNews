@@ -1,10 +1,12 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '@env';
 import { temp_news } from 'src/@types/temp_news';
 import { university } from 'src/@types/university';
 
-const url = 'http://192.168.0.108:8080'; 
+const http = REACT_APP_API_URL;
+console.log(http);
+
 interface LoginResponse{
   token: string;
   role: string;
@@ -17,7 +19,7 @@ const getToken = async () => {
 
 export const getUsers = async () => {
   const token = await getToken();
-  const getUsersUrl = `${url}/getallusers`;
+  const getUsersUrl = `${http}/getallusers`;
 
   console.log('Fetching users from:', getUsersUrl);
   console.log('Using token:', token);
@@ -31,7 +33,7 @@ export const getUsers = async () => {
 
 export const getUser = async (userId: string) => {
   const token = await getToken();
-  const getUserUrl = `${url}/users/${userId}`;
+  const getUserUrl = `${http}/users/${userId}`;
 
   console.log('Fetching user from:', getUserUrl);
   console.log('Using token:', token);
@@ -41,7 +43,7 @@ export const getUser = async (userId: string) => {
 
 export const updateUser = async (userId: string, userData: any) => {
   const token = await getToken();
-  const updateUserUrl = `${url}/users/${userId}`;
+  const updateUserUrl = `${http}/users/${userId}`;
 
   console.log('Updating user at:', updateUserUrl);
   console.log('Using token:', token);
@@ -55,7 +57,7 @@ export const updateUser = async (userId: string, userData: any) => {
 
 export const addUser = async (userData: any) => {
   const token = await getToken();
-  const addUserUrl = `${url}/users`;
+  const addUserUrl = `${http}/users`;
 
   console.log('Adding user at:', addUserUrl);
   console.log('Using token:', token);
@@ -69,7 +71,7 @@ export const addUser = async (userData: any) => {
 
 export const deleteUser = async (userId: string) => {
   const token = await getToken();
-  const deleteUserUrl = `${url}/deleteuser/${userId}`;
+  const deleteUserUrl = `${http}/deleteuser/${userId}`;
 
   console.log('Deleting user at:', deleteUserUrl);
   console.log('Using token:', token);
@@ -82,7 +84,7 @@ export const deleteUser = async (userId: string) => {
 };
 
 export const loginUser = async (email: string, password: string): Promise<LoginResponse> => {
-  const loginUrl = `${url}/sessions`;
+  const loginUrl = `${http}/sessions`;
 
   console.log('Logging in at:', loginUrl);
 
@@ -117,7 +119,7 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
 
 export const getUniversities = async () => {
   const token = await getToken();
-  const getUniversitiesUrl = `${url}/getalluniversity`;
+  const getUniversitiesUrl = `${http}/getalluniversity`;
 
   console.log('Fetching universities from:', getUniversitiesUrl);
   console.log('Using token:', token);
@@ -131,7 +133,7 @@ export const getUniversities = async () => {
 
 export const getUniversity = async (universityId: string) => {
   const token = await getToken();
-  const getUniversityUrl = `${url}/university/${universityId}`;
+  const getUniversityUrl = `${http}/university/${universityId}`;
 
   console.log('Fetching university from:', getUniversityUrl);
   console.log('Using token:', token);
@@ -145,7 +147,7 @@ export const getUniversity = async (universityId: string) => {
 
 export const updateUniversity = async (universityId: string, universityData: any) => {
   const token = await getToken();
-  const updateUniversityUrl = `${url}/university/${universityId}`;
+  const updateUniversityUrl = `${http}/university/${universityId}`;
 
   console.log('Updating university at:', updateUniversityUrl);
   console.log('Using token:', token);
@@ -159,7 +161,7 @@ export const updateUniversity = async (universityId: string, universityData: any
 
 export const deleteUniversity = async (universityId: string) => {
   const token = await getToken();
-  const deleteUniversityUrl = `${url}/deleteuniversity/${universityId}`;
+  const deleteUniversityUrl = `${http}/deleteuniversity/${universityId}`;
 
   console.log('Deleting university at:', deleteUniversityUrl);
   console.log('Using token:', token);
@@ -172,7 +174,7 @@ export const deleteUniversity = async (universityId: string) => {
 };
 
 export const fetchUniversities = async (): Promise<temp_news[]> => {
-  const fetchUniversitiesUrl = `${url}/api/universities`;
+  const fetchUniversitiesUrl = `${http}/api/universities`;
 
   console.log('Fetching universities from:', fetchUniversitiesUrl);
 
@@ -187,7 +189,7 @@ export const fetchUniversities = async (): Promise<temp_news[]> => {
 
 export const getUniversityUrlById = async (universityId: string): Promise<string | null> => {
   try {
-    const response = await axios.get(`${url}/university/${universityId}`);
+    const response = await axios.get(`${http}/university/${universityId}`);
     if (response.data && response.data.university && response.data.university.url) {
       return response.data.university.url;
     } else {
@@ -208,7 +210,7 @@ export const fetchNewsByUniversity = async (universityId: string): Promise<temp_
       throw new Error('University URL is invalid');
     }
 
-    const fetchNewsUrl = `${url}/npm/${encodeURIComponent(universityUrl)}`;
+    const fetchNewsUrl = `${http}/npm/${encodeURIComponent(universityUrl)}`;
     console.log('Fetching news for university URL:', fetchNewsUrl);
 
     const response = await axios.get<{ items: temp_news[] }>(fetchNewsUrl);
@@ -229,7 +231,7 @@ export const fetchNewsByUniversity = async (universityId: string): Promise<temp_
 
 export const addUniversity = async (universityData: university) => {
   const token = await getToken();
-  const addUniversityUrl = `${url}/university`;
+  const addUniversityUrl = `${http}/university`;
 
   console.log('Adding university at:', addUniversityUrl);
   console.log('Using token:', token);

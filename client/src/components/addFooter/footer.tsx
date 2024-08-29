@@ -8,6 +8,7 @@ import { BorderColorBlue, FooterContainer } from '@theme/style';
 import { useAuth } from 'src/context/authContext';
 import { useAuthCheck } from 'src/context/authNavigation';
 
+
 const dirIconHouse = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_casa_cheio.png';
 const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
 const dirIconSaved = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
