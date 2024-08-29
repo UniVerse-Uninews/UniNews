@@ -38,9 +38,6 @@ export const getSavedNews = async (userId: string) => {
   try {
     const savedNews = await prisma.savedNews.findMany({
       where: { userId },
-      include: {
-        news: true, // Inclua a relação com `news`
-      },
     });
     return savedNews;
   } catch (error) {

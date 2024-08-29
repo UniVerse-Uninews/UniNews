@@ -34,8 +34,8 @@ export const saveNewsHandler = async (request: FastifyRequest, reply: FastifyRep
 };
 
 export async function getSavedNewsHandler(request: FastifyRequest<{ Params: { userId: string } }>, reply: FastifyReply) {
-  const userId = request.params.userId; // Pegando o userId dos parâmetros da URL
-
+  const userId = request.params.userId; 
+  console.log('Teste:', userId);
   try {
     const savedNews = await getSavedNews(userId);
 
