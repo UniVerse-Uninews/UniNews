@@ -95,6 +95,7 @@ campotext:{
     fontFamily:'RubikNormal',
     marginRight:'7%',
     marginLeft:'15%',
+    color:'#000',
 },
 icon:{
     width:responsiveWidth(4),

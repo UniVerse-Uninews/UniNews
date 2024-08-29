@@ -13,7 +13,7 @@ import { Feed } from './src/screens/feed';
 import { LerNoticia } from './src/screens/lerNoticia';
 import { CrudUniversidade } from './src/screens/crudUniversidade';
 import { Temas } from './src/screens/tema';
-import Perfil from './src/screens/perfil';
+import { Perfil } from './src/screens/perfil';
 import { FontLoader }  from './src/components/fontLoader/fontLoader';
 import { AuthProvider } from './src/context/authContext';
 import { RootStackParamList } from './src/@types/rootstack';
