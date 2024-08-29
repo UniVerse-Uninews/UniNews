@@ -19,15 +19,8 @@ import {
 } from '../theme/style';
 import { Header } from '../components/addHeader/header';
 import { InputSenhaSpecial } from '../components/addInput/Input';
+import { User } from 'src/@types/interfaces';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  passwordHash: string; 
-  confirmPassword: string;
-}
 
 export function CrudUsuario() {
   const [isChecked, setChecked] = useState(false);

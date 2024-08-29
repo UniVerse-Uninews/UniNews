@@ -3,15 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { REACT_APP_API_URL } from '@env';
 import { temp_news } from 'src/@types/temp_news';
 import { university } from 'src/@types/university';
+import { LoginResponse } from 'src/@types/interfaces';
 
 const http = REACT_APP_API_URL;
 console.log(http);
 
-interface LoginResponse{
-  token: string;
-  role: string;
-  id: string;
-}
 
 const getToken = async () => {
   return await AsyncStorage.getItem('token');

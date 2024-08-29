@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Pressable, Image, Text, Alert, Linking, } from 'react-native';
+import { View, ScrollView, Pressable,  Text, Alert, Linking, } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Card, Name, ImageCard, BorderColorBlue } from '@theme/style';
+import { Container, Card, Name, ImageCard } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';

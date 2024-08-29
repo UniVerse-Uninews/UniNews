@@ -1,12 +1,9 @@
 import { Name, NameBlue } from '@theme/style';
 import React, { useState, useRef, useEffect } from 'react';
-import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image, Button } from 'react-native';
+import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image, } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { DrawerProps } from 'src/@types/interfaces';
 
-interface DrawerProps {
-  isOpen: boolean;
-  toggleDrawer: () => void;
-}
 
 const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logout.png';
 const dirImagem1 = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lapis_editar.png';
