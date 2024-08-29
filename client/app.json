@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/imagens/tcc-logo-quadrado-sem-fundo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#343434"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,7 +21,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#343434"
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.anonymous.client"
