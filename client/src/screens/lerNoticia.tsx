@@ -34,15 +34,15 @@ export function LerNoticia() {
     
             try {
                 const response = await axios.get(`${BASE_URL}/saved-news/${user.id}`);
-                console.log('Response Data:', response.data); // Log para depuração
+                console.log('Response Data:', response.data); 
     
                 if (response.data && response.data.savedNews && Array.isArray(response.data.savedNews)) {
                     const newsRequests = response.data.savedNews.map(async (saved: any) => {
                         try {
                             const url = encodeURIComponent(saved.newsId);
-                            console.log('Fetching news with encoded URL:', url); // Log para depuração
+                            console.log('Fetching news with encoded URL:', url); 
                             const newsResponse = await axios.get(`${BASE_URL}/news-by-url/${url}`);
-                            console.log('News Response:', newsResponse.data); // Log para depuração
+                            console.log('News Response:', newsResponse.data); 
                             return newsResponse.data;
                         } catch (error: any) {
                             console.error('Error fetching news:', error);

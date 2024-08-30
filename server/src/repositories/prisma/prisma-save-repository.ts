@@ -67,7 +67,6 @@ export async function findNewsByUrl(url: string) {
   }
 }
 
-// src/repositories/prisma/prisma-save-repository.ts
 export const getNewsByUrl = async (url: string) => {
   console.log('Fetching news with URL:', url); 
   if (!url) {
