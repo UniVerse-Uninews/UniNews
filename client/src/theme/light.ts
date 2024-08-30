@@ -14,4 +14,5 @@ export default {
   card: '#fcfcfc',
   borderCard: '#4A92C7',
   backgroundFooter: '#F5F5F5',
+  backgroundData: '#f5f5f5',
 };

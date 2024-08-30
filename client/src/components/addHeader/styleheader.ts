@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingLeft: '2.5%',
-    alignItems: 'flex-end',
-    height: responsiveScreenHeight(8),
+    alignItems: 'center',
+    height: responsiveScreenHeight(6),
   },
   img: {
     width: 50,

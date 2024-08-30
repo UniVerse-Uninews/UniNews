@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
 container: {
     flex: 1,   
     alignItems:'center',
-    paddingTop:10,
+    paddingTop:responsiveHeight(2),
     flexDirection: 'column',
   },
   menuButton: {
@@ -14,7 +14,6 @@ container: {
   },
   menuButtonText: {
     color: 'white',
-    fontSize: 16,
     
   },
   mainContent: {
@@ -23,7 +22,7 @@ container: {
     alignItems: 'center',
   },
   mainText: {
-    fontSize: 24,
+    fontSize: responsiveFontSize(3),
   },
   perfil:{
     marginTop:'3%',
@@ -35,10 +34,9 @@ container: {
 },
 containerNick:{
     margin:'3%',
-    borderColor:'#F2A20C',
+    borderColor:'#FFc250',
     borderWidth:1,
     borderRadius:20,
-    backgroundColor:'#fff',
 },
 nick:{
     padding:'2%',
@@ -49,10 +47,16 @@ seg:{
 },
 box:{
     flexDirection:'row',
+    
+},
+box1:{
+    flexDirection:'row',
+    justifyContent:'center',
+    marginVertical:'4%',
 },
 drawer:{
     flex: 1,   
-    paddingTop:10,
+    paddingTop:responsiveHeight(2),
     alignItems:'center',
     justifyContent:'center',
     flexDirection: 'column',
@@ -60,8 +64,8 @@ drawer:{
      
 },
 Logo:{
-    width:30,
-    height:30
+    width:responsiveFontSize(5),
+    height:responsiveFontSize(5),
 },
 title:{
     fontSize:responsiveFontSize(4.5),
@@ -95,7 +99,14 @@ campotext:{
     fontFamily:'RubikNormal',
     marginRight:'7%',
     marginLeft:'15%',
-    color:'#000',
+},
+campotext1:{
+  margin:'3%',
+  fontSize:responsiveFontSize(1.8),
+  fontFamily:'RubikNormal',
+  marginRight:'7%',
+  marginLeft:'15%',
+  color:'#000',
 },
 icon:{
     width:responsiveWidth(4),
@@ -104,20 +115,18 @@ icon:{
 },
 containerData:{
   margin:'3%',
-  borderColor:'#F2A20C',
+  borderColor:'#FFc250',
   borderWidth:1,
   borderRadius:20,
-  backgroundColor:'#fff',
   width:responsiveWidth(70),
   justifyContent:'center',
- 
+  
 },
 containerDataFeed:{
   margin:'3%',
-  borderColor:'#F2A20C',
+  borderColor:'#FFc250',
   borderWidth:1,
   borderRadius:10,
-  backgroundColor:'#fff',
   width:responsiveWidth(25),
   height:responsiveHeight(3),
   justifyContent:'center',
@@ -129,6 +138,14 @@ aliner:{
   justifyContent:'center',
   alignItems:'flex-start',
   margin:'3%',
+},
+button:{
+  backgroundColor:'#FFc250',
+  borderRadius:20,
+  width:responsiveWidth(40),
+  justifyContent:'center',
+  alignItems:'center',
+  
 },
 }
 );

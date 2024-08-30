@@ -5,7 +5,7 @@ import { Header } from '../components/addHeader/header';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { styles } from '../styles/stylePerfilUser';
-import { Name, NameBlue } from '@theme/style';
+import { BorderColorBackground, BorderColorBlue, Container, ContainerData, Name, NameBlue } from '@theme/style';
 import { getUser } from '@services/api';
 import { User } from 'src/@types/interfaces';
 
@@ -43,28 +43,25 @@ export function Perfil ()  {
   return (
     <>
       <Header />
-      <View style={styles.container}>
-        <TouchableOpacity onPress={toggleDrawer} style={styles.menuButton}>
-          <Image style={styles.Logo} source={{ uri: dirImagem }}></Image>
-        </TouchableOpacity>
+      <Container style={styles.container}>
         <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-        <View style={styles.perfil}></View>
-        <View style={styles.containerNick}>
-          <Text style={styles.nick}>{userData?.name}</Text>
-        </View>
+        <BorderColorBlue style={styles.perfil}></BorderColorBlue>
+        <ContainerData style={styles.containerNick}>
+          <Name style={styles.nick}>{userData?.name}</Name>
+        </ContainerData>
         <View style={styles.box}>
           <View style={styles.seg}>
-            <Text>Seguidores</Text>
+            <Name>Seguidores</Name>
           </View>
 
           <View style={styles.seg}>
-            <Text>Publicações</Text>
+            <Name>Publicações</Name>
           </View>
         </View>
         <View style={styles.viewTitle}>
           <NameBlue style={styles.title}>DADOS PESSOAIS</NameBlue>
         </View>
-        <View style={styles.containerData}>
+        <ContainerData style={styles.containerData}>
           <View style={styles.box}>
           <Name style={styles.campotext}>Username: {userData?.name}</Name>
             <TouchableOpacity onPress={toggleDrawer}>
@@ -77,8 +74,12 @@ export function Perfil ()  {
               <Image source={{ uri: dirImagem2 }} style={styles.icon} />
             </TouchableOpacity>
           </View>
-          <Button title='Redefinir senha' onPress={toggleDrawer} />
-        </View>
+          <View style={styles.box1}>
+            <TouchableOpacity style={styles.button} onPress={toggleDrawer}>
+              <Text style={styles.campotext1}>Redefinir senha</Text>
+            </TouchableOpacity>
+          </View>
+        </ContainerData>
         <View style={styles.viewTitle}>
           <NameBlue style={styles.title}>CONFIGURAÇÕES</NameBlue>
         </View>
@@ -86,15 +87,15 @@ export function Perfil ()  {
           <Text style={styles.subTitle}>FEED</Text>
         </View>
         <View style={styles.aliner}>
-          <View style={styles.containerDataFeed}>
+          <ContainerData style={styles.containerDataFeed}>
             <Name>Notícias</Name>
-          </View>
-          <View style={styles.containerDataFeed}>
+          </ContainerData>
+          <ContainerData style={styles.containerDataFeed}>
             <Name>Universidades</Name>
-          </View>
+          </ContainerData>
         </View>
         <Button title="Logout" onPress={handleLogout} />
-      </View>
+    </Container>
     </>
   );
 };
