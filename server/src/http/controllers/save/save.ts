@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { followUniversity, saveNewsArticle, getSavedNews } from '../../../repositories/prisma/prisma-save-repository';
+import { followUniversity, saveNewsArticle, getSavedNews, getNewsByUrl  } from '../../../repositories/prisma/prisma-save-repository';
 
 export const followUniversityHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   const { userId, universityId } = request.body as { userId: string; universityId: string };
@@ -22,10 +22,10 @@ export const saveNewsHandler = async (request: FastifyRequest, reply: FastifyRep
 
   try {
       const result = await saveNewsArticle(userId, newsId);
+      console.log('Saved news:', result);
       return reply.send(result);
   } catch (error: any) {
       if (error.code === 'P2002') {
-          // Unique constraint violation
           return reply.status(400).send({ error: 'News is already saved' });
       }
       console.error('Error saving news:', error);
@@ -35,11 +35,8 @@ export const saveNewsHandler = async (request: FastifyRequest, reply: FastifyRep
 
 export async function getSavedNewsHandler(request: FastifyRequest<{ Params: { userId: string } }>, reply: FastifyReply) {
   const userId = request.params.userId; 
-  console.log('Teste:', userId);
   try {
     const savedNews = await getSavedNews(userId);
-
-    // Se houver notícias salvas, retorná-las
     if (savedNews.length > 0) {
       reply.send({ savedNews });
     } else {
@@ -50,3 +47,21 @@ export async function getSavedNewsHandler(request: FastifyRequest<{ Params: { us
     reply.status(500).send({ message: 'Internal server error' });
   }
 }
+
+export const getNewsByUrlController = async (request: FastifyRequest, reply: FastifyReply) => {
+  const { url } = request.params as { url: string };
+  console.log('URL:', url);
+  try {
+    const decodedUrl = decodeURIComponent(url);
+    console.log('Decoded URL:', decodedUrl);
+    const news = await getNewsByUrl(decodedUrl);
+    if (news) {
+      reply.send(news);
+    } else {
+      reply.status(404).send({ message: 'News not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching news by URL:', error);
+    reply.status(500).send({ message: 'Error fetching news' });
+  }
+};

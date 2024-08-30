@@ -66,3 +66,23 @@ export async function findNewsByUrl(url: string) {
     throw new Error('Erro ao buscar notícia.');
   }
 }
+
+// src/repositories/prisma/prisma-save-repository.ts
+export const getNewsByUrl = async (url: string) => {
+  console.log('Fetching news with URL:', url); 
+  if (!url) {
+      throw new Error('URL is required');
+  }
+
+  try {
+      const news = await prisma.news.findUnique({
+          where: {
+              url: url, 
+          },
+      });
+      return news;
+  } catch (error) {
+      console.error('Error fetching news by URL:', error);
+      throw error;
+  }
+};
