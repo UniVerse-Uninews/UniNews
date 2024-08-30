@@ -1,4 +1,4 @@
-import { Name, NameBlue } from '@theme/style';
+import { Container, Name, NameBlue } from '@theme/style';
 import React, { useState, useRef, useEffect } from 'react';
 import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image, } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -40,7 +40,9 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   };
 
   return (
+
     <Animated.View style={[styles.drawer, { width: drawerWidth, transform: [{ translateX: drawerTranslateX }] }]}>
+      <Container style={styles.container}>
       <TouchableOpacity onPress={toggleDrawer}>
         <Image style={styles.seta} source={{uri: dirImagem}} />
       </TouchableOpacity>
@@ -66,7 +68,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
             returnKeyType="done"
           />
         ) : (
-          <Text style={styles.valueText}>{textValue}</Text>
+          <Name style={styles.valueText}>{textValue}</Name>
         )
         }
         
@@ -100,7 +102,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
             returnKeyType="done"
           />
         ) : (
-          <Text style={styles.valueText}>{textValue}</Text>
+          <Name style={styles.valueText}>{textValue}</Name>
         )
         }
         
@@ -114,12 +116,17 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
           </TouchableOpacity>
         </View>
       </View>
-      
+      </Container>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: responsiveFontSize(2),
+    paddingLeft: responsiveFontSize(2),
+  },
   drawer: {
     position: 'absolute',
     top: 0,
@@ -131,7 +138,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    padding: 20,
     zIndex: 1000,
   },
   button: {
@@ -164,7 +170,7 @@ const styles = StyleSheet.create({
   },
   valueText: {
     fontSize: 14,
-    color: '#000',
+    color: '#3c6294',
     paddingHorizontal:'4%'
   },
   campo:{

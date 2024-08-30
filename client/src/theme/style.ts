@@ -39,7 +39,6 @@ export const ColorButton = styled.TouchableOpacity`
 `;
 export const BackgroundInput = styled.View`
   background-color: ${(props) => props.theme.backgroundInput};
-  border-color: ${(props) => props.theme.borderColorInput};
   color: ${(props) => props.theme.primary};
 `;
 export const BackgroundContainerInput = styled.View`
@@ -72,4 +71,7 @@ export const FooterContainer = styled.View`
 `;
 export const ImageCard = styled.Image`
   border-color: ${(props) => props.theme.borderCard};
+`;
+export const ContainerData = styled.View`
+  background: ${(props) => props.theme.backgroundData};
 `;

@@ -13,5 +13,5 @@ export default {
   card: '#414141',
   borderCard: '#4A92C7',
   backgroundFooter: '#343434', 
-
+  backgroundData: '#3c6294',
 };
