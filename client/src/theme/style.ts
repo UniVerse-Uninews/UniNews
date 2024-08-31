@@ -1,8 +1,11 @@
 import styled from 'styled-components/native';
-
 export const Container = styled.View`
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
+`;
+export const ContainerAlter = styled.View`
+  background: ${(props) => props.theme.backgroundAlter};
+  color: ${(props) => props.theme.textAlter};
 `;
 export const ScrollContainer = styled.ScrollView`
   background: ${(props) => props.theme.background};
@@ -14,6 +17,9 @@ export const Subbox = styled.TouchableOpacity`
 `;
 export const Name = styled.Text`
   color: ${(props) => props.theme.primary};
+`;
+export const NameAlter = styled.Text`
+  color: ${(props) => props.theme.textAlter};
 `;
 export const NameBlue = styled.Text`
   color: ${(props) => props.theme.blue};
@@ -74,4 +80,5 @@ export const ImageCard = styled.Image`
 `;
 export const ContainerData = styled.View`
   background: ${(props) => props.theme.backgroundData};
+  border-color: ${(props) => props.theme.blue};  
 `;

@@ -1,5 +1,5 @@
 export default {
-  background: 'rgba(255,248,220, 0.1)',
+  background: '#FFFDF6',
   text: 'black',
   primary: '#000',
   blue: '#0571D3',
@@ -15,4 +15,6 @@ export default {
   borderCard: '#4A92C7',
   backgroundFooter: '#F5F5F5',
   backgroundData: '#f5f5f5',
+  backgroundAlter: '#343434',
+  textAlter: 'white',
 };

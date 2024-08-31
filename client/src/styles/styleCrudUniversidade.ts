@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
+  responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
@@ -16,41 +17,35 @@ export const styles = StyleSheet.create({
   },
   viewDados: {
     width: '55%',
-    marginHorizontal: 8,
-    marginTop: 10,
+    marginHorizontal: responsiveWidth(1.5),
+    marginTop: responsiveHeight(1),
   },
   titulo: {
-    fontSize: 30,
+    fontSize: responsiveFontSize(5),
     margin: '4%',
     fontFamily: 'Teacher',
   },
-  imageContainer: {
-    width: 50,
-    padding: '1%',
-  },
   containerInput: {
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 5,
+    borderWidth: responsiveWidth(0.4),
+    borderRadius: responsiveWidth(4),
+    padding: '3%',
     paddingBottom: '10%',
     borderColor: '#F3C63B',
   },
   input: {
-    borderWidth: 1.5,
-    borderRadius: 5,
+    borderWidth: responsiveWidth(0.4),
+    borderRadius: responsiveWidth(1),
     height: responsiveHeight(3),
     fontFamily: 'Rubik',
-    paddingLeft: 5,
+    paddingLeft: responsiveWidth(1),
     marginTop: '5%',
     width: responsiveWidth(45),
     marginLeft: responsiveWidth(3),
     color: '#000',
+    marginBottom: '5%',
   },
   containerButton: {
     marginLeft: responsiveWidth(3),
-  },
-  campos: {
-    fontFamily: 'Rubik',
   },
   radio: {
     flexDirection: 'row',
@@ -58,7 +53,7 @@ export const styles = StyleSheet.create({
     marginLeft: responsiveWidth(3),
   },
   textRadio: {
-    fontSize: 15,
+    fontSize: responsiveFontSize(2),
     fontFamily: 'Rubik_400Regular',
     paddingTop: '5%',
   },
@@ -71,8 +66,8 @@ export const styles = StyleSheet.create({
   table: {
     width: '90%',
     height: '100%',
-    borderWidth: 2,
-    borderRadius: 10,
+    borderWidth: responsiveWidth(0.4),
+    borderRadius: responsiveWidth(3),
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -85,20 +80,21 @@ export const styles = StyleSheet.create({
     marginLeft: responsiveWidth(3),
   },
   textCheckbox: {
-    fontSize: 15,
+    fontSize: responsiveFontSize(2),
     fontFamily: 'Rubik_400Regular',
     marginLeft: '4%',
   },
 inputdisc:{
-  borderWidth: 1.5,
-  borderRadius: 5,
+  borderWidth: responsiveWidth(0.4),
+  borderRadius:  responsiveWidth(1),
   height: responsiveHeight(10),
   fontFamily: 'Rubik',
-  paddingLeft: 5,
+  paddingLeft: responsiveWidth(1),
   marginTop: '5%',
   width: responsiveWidth(45),
   marginLeft: responsiveWidth(3),
   color: '#000',
- 
+  marginBottom: '5%',
+
 }
 });

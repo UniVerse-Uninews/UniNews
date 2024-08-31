@@ -19,19 +19,20 @@ export const styles = StyleSheet.create({
         marginTop: responsiveScreenHeight(4),
         marginLeft: responsiveScreenWidth(2),
         resizeMode:'stretch'
+        
     },
     image1:
     {
         width:responsiveScreenWidth(32),
         height:responsiveScreenHeight(16),
-        borderRadius: 10,
-        borderWidth:2,
+        borderRadius: responsiveScreenWidth(2),
+        borderWidth:responsiveScreenWidth(0.4),
         borderColor:'#3c6294',
         resizeMode:'stretch'
     },
     description1:{
-        borderWidth:3,
-        borderRadius:20,
+        borderWidth:responsiveScreenWidth(0.6),
+        borderRadius:responsiveScreenWidth(6),
         width: responsiveScreenWidth(50),
         padding:responsiveFontSize(1),
         justifyContent: 'center',
@@ -45,8 +46,8 @@ export const styles = StyleSheet.create({
     },
     news:
     {
-        borderWidth:2,
-        borderRadius:20,
+        borderWidth:responsiveScreenWidth(0.6),
+        borderRadius:responsiveScreenWidth(6),
         height: responsiveScreenHeight(4),
         width: responsiveScreenWidth(80),
         justifyContent:'center',
@@ -68,10 +69,11 @@ export const styles = StyleSheet.create({
         marginTop: responsiveScreenHeight(2),
         backgroundColor: '#3c6294',
         padding: responsiveFontSize(1),
-        borderRadius: 10,
+        borderRadius: responsiveScreenHeight(1.5),
         width: responsiveScreenWidth(50),
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: responsiveScreenHeight(2)
     },
 
     followButtonText:

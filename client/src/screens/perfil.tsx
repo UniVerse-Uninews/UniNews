@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Button, Alert, Modal } from 'react-native';
 import Drawer from './drawer';
 import { Header } from '../components/addHeader/header';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { styles } from '../styles/stylePerfilUser';
-import { BorderColorBackground, BorderColorBlue, Container, ContainerData, Name, NameBlue } from '@theme/style';
+import { ContainerAlter, BorderColorBlue, Container, ContainerData, Name, NameBlue, NameAlter } from '@theme/style';
 import { getUser } from '@services/api';
 import { User } from 'src/@types/interfaces';
 
 
 export function Perfil ()  {
+  //Modal para popup senha editar
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  //
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [userData, setUserData] = useState<User | null > (null);
 
@@ -64,19 +70,33 @@ export function Perfil ()  {
         <ContainerData style={styles.containerData}>
           <View style={styles.box}>
           <Name style={styles.campotext}>Username: {userData?.name}</Name>
-            <TouchableOpacity onPress={toggleDrawer}>
-              <Image source={{ uri: dirImagem2 }} style={styles.icon} />
-            </TouchableOpacity>
           </View>
           <View style={styles.box}>
           <Name style={styles.campotext}>Email: {userData?.email}</Name>
-            <TouchableOpacity onPress={toggleDrawer}>
-              <Image source={{ uri: dirImagem2 }} style={styles.icon} />
-            </TouchableOpacity>
+
           </View>
           <View style={styles.box1}>
-            <TouchableOpacity style={styles.button} onPress={toggleDrawer}>
-              <Text style={styles.campotext1}>Redefinir senha</Text>
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+                setModalVisible(!modalVisible);
+              }}>
+                <View style={styles.centeredView}>
+                  <ContainerAlter style={styles.modalView}>
+                    <NameAlter style={styles.modalText}>Hello World!</NameAlter>
+                    <TouchableOpacity
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => setModalVisible(!modalVisible)}>
+                      <NameAlter style={styles.textStyle}>Hide Modal</NameAlter>
+                    </TouchableOpacity>
+                  </ContainerAlter>
+                </View>
+              </Modal>
+            <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)} >
+              <Text style={styles.campotext1}>EDITAR INFORMAÇÕES</Text>
             </TouchableOpacity>
           </View>
         </ContainerData>
@@ -94,7 +114,9 @@ export function Perfil ()  {
             <Name>Universidades</Name>
           </ContainerData>
         </View>
-        <Button title="Logout" onPress={handleLogout} />
+        <TouchableOpacity onPress={handleLogout} style={styles.button}>
+          <Text style={styles.textButton}>LOGOUT</Text>
+        </TouchableOpacity>
     </Container>
     </>
   );

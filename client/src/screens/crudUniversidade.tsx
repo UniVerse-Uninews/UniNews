@@ -88,6 +88,7 @@ export function CrudUniversidade() {
                   value={university.url}
                   onChangeText={(e) => setUniversity({ ...university, url: e })}
                 />
+                
                 <Name>Descrição</Name>
                 <BackgroundInputText
                   style={styles.inputdisc}
@@ -96,9 +97,7 @@ export function CrudUniversidade() {
                   value={university.description}
                   onChangeText={(e) => setUniversity({ ...university, description: e })}
                 />
-              </BackgroundContainerInput>
-
-              <Name>Imagem</Name>
+                <Name>Imagem</Name>
               <BackgroundInputText
                 style={styles.input}
                 placeholder="Imagem"
@@ -106,6 +105,7 @@ export function CrudUniversidade() {
                 value={university.image}
                 onChangeText={(e) => setUniversity({ ...university, image: e })}
               />
+              </BackgroundContainerInput>
             </View>
             <View style={styles.containerButton}>
               <Button title="Cadastrar" onPress={addUniversityHandler} />
