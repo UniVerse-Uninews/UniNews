@@ -8,11 +8,7 @@ import {
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    view: {
-        marginTop: responsiveHeight(2),
-        marginLeft: responsiveWidth(1),
-        marginRight: responsiveWidth(1),
+        paddingTop: responsiveFontSize(2),
     },
     box: {
         flexDirection: 'row',
@@ -39,9 +35,9 @@ export const styles = StyleSheet.create({
     imageCard: {
         width: '100%',
         height: responsiveHeight(23),
-        borderRadius: 10,
+        borderRadius: responsiveWidth(2),
         marginBottom: responsiveHeight(2),
-        borderWidth: 1,
+        borderWidth: responsiveWidth(0.3),
         resizeMode: 'stretch'
     },
     title: {

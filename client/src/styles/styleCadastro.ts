@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import {
   responsiveScreenFontSize,
   responsiveScreenHeight,
+  responsiveWidth,
 } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
@@ -38,14 +39,14 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: '100%',
-    fontFamily: 'Rubik',
+    fontFamily: 'RubikMedium',
     width: '80%',
     borderColor: '#F2A20C',
     color: '#000',
   },
   inputArea: {
-    borderWidth: 1,
-    borderRadius: 15,
+    borderWidth: responsiveWidth(0.3),
+    borderRadius: responsiveWidth(10),
     height: '70%',
     paddingLeft: '5%',
     marginTop: '3%',
@@ -56,15 +57,15 @@ export const styles = StyleSheet.create({
   },
   containerDados: {
     width: '70%',
-    borderWidth: 5,
-    borderRadius: 25,
+    borderWidth: responsiveWidth(1),
+    borderRadius: responsiveWidth(6),
     borderColor: '#4A94CC',
   },
   containerCadastro: {
     width: '100%',
     backgroundColor: '#4A94CC',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: responsiveScreenHeight(2),
+    borderTopRightRadius: responsiveScreenHeight(2),
     height: '10%',
   },
   containerIcon: {
@@ -82,8 +83,8 @@ export const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    fontSize: 12,
-    marginTop: 5,
+    fontSize: responsiveScreenFontSize(1.5),
+    marginTop: responsiveScreenHeight(1),
   },
   containerLogin: {
     flexDirection: 'row',

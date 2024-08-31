@@ -27,16 +27,16 @@ container: {
   perfil:{
     marginTop:'3%',
     padding:'15%',
-    borderWidth:2,
+    borderWidth:responsiveWidth(0.5),
     width:'10%',
-    borderRadius:90,
+    borderRadius:responsiveWidth(15),
 
 },
 containerNick:{
     margin:'3%',
     borderColor:'#FFc250',
-    borderWidth:1,
-    borderRadius:20,
+    borderWidth:responsiveWidth(0.4),
+    borderRadius:responsiveWidth(20),
 },
 nick:{
     padding:'2%',
@@ -102,8 +102,8 @@ campotext:{
 },
 campotext1:{
   margin:'3%',
-  fontSize:responsiveFontSize(1.8),
-  fontFamily:'RubikNormal',
+  fontSize:responsiveFontSize(2.7),
+  fontFamily:'Teacher',
   marginRight:'7%',
   marginLeft:'15%',
   color:'#000',
@@ -116,8 +116,8 @@ icon:{
 containerData:{
   margin:'3%',
   borderColor:'#FFc250',
-  borderWidth:1,
-  borderRadius:20,
+  borderWidth:responsiveWidth(0.4),
+  borderRadius:responsiveWidth(7),
   width:responsiveWidth(70),
   justifyContent:'center',
   
@@ -125,8 +125,8 @@ containerData:{
 containerDataFeed:{
   margin:'3%',
   borderColor:'#FFc250',
-  borderWidth:1,
-  borderRadius:10,
+  borderWidth:responsiveWidth(0.4),
+  borderRadius:responsiveWidth(3.5),
   width:responsiveWidth(25),
   height:responsiveHeight(3),
   justifyContent:'center',
@@ -141,11 +141,50 @@ aliner:{
 },
 button:{
   backgroundColor:'#FFc250',
-  borderRadius:20,
+  borderRadius:responsiveWidth(7),
   width:responsiveWidth(40),
   justifyContent:'center',
   alignItems:'center',
   
+},
+textButton:{
+  fontSize:responsiveFontSize(2.7),
+  fontFamily:'Teacher',
+  color:'#000',
+},
+centeredView: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+modalView: {
+  margin: 20,
+  borderRadius: 20,
+  padding: 35,
+  alignItems: 'center',
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5,
+},
+
+buttonOpen: {
+  backgroundColor: '#F194FF',
+},
+buttonClose: {
+  backgroundColor: '#2196F3',
+},
+textStyle: {
+  fontWeight: 'bold',
+  textAlign: 'center',
+},
+modalText: {
+  marginBottom: 15,
+  textAlign: 'center',
 },
 }
 );

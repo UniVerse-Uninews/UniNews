@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'flex-end',
+  },
   title: {
     width: '20%',
     fontFamily: 'Rubik',
@@ -14,7 +18,7 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   cell: {
-    fontSize: 12,
+    fontSize: responsiveFontSize(2),
     fontFamily: 'Rubik',
   },
 });

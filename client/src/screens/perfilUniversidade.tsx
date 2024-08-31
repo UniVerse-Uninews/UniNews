@@ -128,7 +128,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
             <View style={styles.container3}>
               <NameBlue style={styles.name}>{universityData.name}</NameBlue>
               <BorderColorContainer style={styles.description1}>
-                <Text>{universityData.description}</Text>
+                <Name>{universityData.description}</Name>
               </BorderColorContainer>
               {/* Follow Button */}
               <Pressable onPress={handleFollowUniversity} style={styles.followButton}>

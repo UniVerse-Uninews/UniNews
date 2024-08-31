@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Text, Alert, Linking } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Card, Name, ImageCard } from '@theme/style';
+import { Container, Card, Name, ImageCard, ContainerData } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios, { AxiosError } from 'axios';
 import { format } from 'date-fns';
@@ -168,14 +168,14 @@ export function Feed({ navigation }: { navigation: any }) {
     return (
         <>
             <Header />
-            <Container style={styles.container}>
-                <Container style={styles.view}>
+                
                     {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (
                         <ScrollView>
+                            <Container style={styles.container}>
                             {news.map((item, index) => (
                                 <View key={item.id || index} style={styles.viewCard}>
-                                    <Card style={styles.card}>
+                                    <ContainerData style={styles.card}>
                                         {item.image ? (
                                             <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
                                         ) : (
@@ -200,13 +200,13 @@ export function Feed({ navigation }: { navigation: any }) {
                                                 </Text>
                                             </Pressable>
                                         </View>
-                                    </Card>
+                                    </ContainerData>
                                 </View>
                             ))}
+                            </Container>
                         </ScrollView>
                     )}
-                </Container>
-            </Container>
+                
             <Footer />
         </>
     );
