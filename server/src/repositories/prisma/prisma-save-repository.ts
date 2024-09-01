@@ -4,14 +4,14 @@ const prisma = new PrismaClient();
 
 export const saveNewsToDatabase = async (userId: string, newsData: any) => {
   const news = {
-    link: newsData.link, // Use 'link' as the primary key
+    link: newsData.link, 
     title: newsData.title,
     description: newsData.description,
-    image: newsData.image || '', // Provide a default value if not available
+    image: newsData.image || '', 
     author: newsData.author,
     published: new Date(newsData.published),
     created: new Date(newsData.created),
-    category: newsData.category || [], // Provide a default empty array if not available
+    category: newsData.category || [], 
     enclosures: newsData.enclosures || [],
     media: newsData.media || {},
   };
@@ -58,46 +58,12 @@ export const followUniversity = async (userId: string, universityId: string) => 
   });
 };
 
-// export const saveNewsArticle = async (userId: string, newsId: string) => {
-//   const existingSavedNews = await prisma.savedNews.findUnique({
-//       where: {
-//           userId_newsId: {
-//               userId,
-//               newsId
-//           }
-//       }
-//   });
-
-//   if (existingSavedNews) {
-//       return { message: 'News already saved' };
-//   }
-
-//   return prisma.savedNews.create({
-//       data: {
-//           userId,
-//           newsUrl: newsId
-//       }
-//   });
-// };
-
-
-export const getSavedNews = async (userId: string) => {
-  try {
-    const savedNews = await prisma.savedNews.findMany({
-      where: { userId },
-    });
-    return savedNews;
-  } catch (error) {
-    console.error('Error fetching saved news:', error);
-    throw error;
-  }
-};
 
 export const getSavedNewsByUser = async (userId: string) => {
   try {
     return prisma.savedNews.findMany({
       where: { userId },
-      include: { news: true }, // Include news details
+      include: { news: true }, 
     });
   } catch (error) {
     console.error('Error fetching saved news:', error);

@@ -14,10 +14,10 @@
   import { refresh } from "./controllers/user/refresh";
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
-  import { getNews, createNews, getNewsByLink } from "./controllers/news/temp-news";
+  import { createNews, getNewsByLink } from "./controllers/news/temp-news";
   import { getNpmData } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
-  import { followUniversityHandler, saveNewsHandler, getSavedNewsHandler, getNewsByUrlHandler, getSavedNewsByUserIdHandler  } from "./controllers/save/save";
+  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler  } from "./controllers/save/save";
 
   declare module "fastify" {
     interface FastifyInstance {

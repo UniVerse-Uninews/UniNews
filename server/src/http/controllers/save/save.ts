@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { followUniversity, getSavedNews, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId   } from '../../../repositories/prisma/prisma-save-repository';
+import { followUniversity, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId   } from '../../../repositories/prisma/prisma-save-repository';
 
 interface GetSavedNewsQuery {
   userId: string;
@@ -84,24 +84,6 @@ export async function getSavedNewsHandler(request: FastifyRequest<{ Params: { us
     reply.status(500).send({ message: 'Internal server error' });
   }
 }
-
-// export const getNewsByUrlController = async (request: FastifyRequest, reply: FastifyReply) => {
-//   const { url } = request.params as { url: string };
-//   console.log('URL:', url);
-//   try {
-//     const decodedUrl = decodeURIComponent(url);
-//     console.log('Decoded URL:', decodedUrl);
-//     const news = await getNewsByUrl(decodedUrl);
-//     if (news) {
-//       reply.send(news);
-//     } else {
-//       reply.status(404).send({ message: 'News not found' });
-//     }
-//   } catch (error) {
-//     console.error('Error fetching news by URL:', error);
-//     reply.status(500).send({ message: 'Error fetching news' });
-//   }
-// };
 
 export async function getSavedNewsByUserIdHandler(req: FastifyRequest<{ Querystring: GetSavedNewsQuery }>, reply: FastifyReply) {
   const userId = req.query.userId;

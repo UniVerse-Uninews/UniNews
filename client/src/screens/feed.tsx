@@ -48,42 +48,6 @@ export function Feed({ navigation }: { navigation: any }) {
         fetchAllNews();
     }, []);
 
-    useEffect(() => {
-        const fetchSavedNews = async () => {
-            if (!user) return;
-            console.log('userId:', user.id);
-            try {
-                const response = await axios.get<{ savedNews: string[] }>(`${BASE_URL}/saved-news/${user.id}`);
-                console.log('response:', response.data);
-                
-                if (response.data && response.data.savedNews) {
-                    setSavedNewsIds(new Set(response.data.savedNews));
-                } else {
-                    console.error('Unexpected response structure:', response.data);
-                    Alert.alert('Erro', 'A resposta do servidor não é a esperada.');
-                }
-            } catch (error: any) {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        console.error('Endpoint not found:', error);
-                        Alert.alert('Erro', 'Endpoint não encontrado. Verifique a URL.');
-                    } else if (error.response.status === 500) {
-                        console.error('Server error:', error);
-                        Alert.alert('Erro', 'Erro interno do servidor. Tente novamente mais tarde.');
-                    } else {
-                        console.error('Error fetching saved news:', error);
-                        Alert.alert('Erro', 'Erro ao carregar notícias salvas.');
-                    }
-                } else {
-                    console.error('Error fetching saved news:', error);
-                    Alert.alert('Erro', 'Erro ao carregar notícias salvas.');
-                }
-            }
-        };
-        
-        fetchSavedNews();
-    }, [user]);
-
     const fetchNews = async (url: string, universityImage: string, universityId: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
@@ -186,13 +150,6 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     };
     
-    
-    
-    
-    
-    
-    
-
     return (
         <>
             <Header />
