@@ -18,7 +18,7 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
 
   try {
     await prisma.news.upsert({
-      where: { link: news.link }, // Use 'link' as the identifier
+      where: { link: news.link },
       update: {
         title: news.title,
         description: news.description,
@@ -34,7 +34,7 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
     });
 
     await prisma.savedNews.upsert({
-      where: { userId_newsUrl: { userId, newsUrl: news.link } }, // Adjust field names as necessary
+      where: { userId_newsUrl: { userId, newsUrl: news.link } }, 
       update: {},
       create: {
         userId,
@@ -144,3 +144,17 @@ export const getNewsByUrl = async (link: string) => {
       throw error;
   }
 };
+
+export async function getSavedNewsByUserId(userId: string) {
+  try {
+    const savedNews = await prisma.savedNews.findMany({
+      where: { userId },
+      include: { news: true } // Inclua os dados relacionados às notícias
+    });
+    console.log('Saved news:', savedNews);
+    return savedNews; // Certifique-se de que isso é um array
+  } catch (error) {
+    console.error('Error fetching saved news from database:', error);
+    throw error; // Propague o erro para ser tratado no handler
+  }
+}

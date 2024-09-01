@@ -1,33 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { followUniversity, getSavedNews, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser   } from '../../../repositories/prisma/prisma-save-repository';
+import { followUniversity, getSavedNews, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId   } from '../../../repositories/prisma/prisma-save-repository';
 
-
-interface News {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  author: string;
-  published: number; // Assuming this is a timestamp
-  created: number; // Assuming this is a timestamp
-  category: string[];
-  enclosures?: any[];
-  media?: any;
-}
-
-interface SaveNewsRequestBody {
+interface GetSavedNewsQuery {
   userId: string;
-  news: {
-    id: string;
-    title: string;
-    description: string;
-    author: string;
-    published: number;
-    created: number;
-    category: string[];
-    enclosures?: any[];
-    media?: any;
-  };
 }
 
 export const followUniversityHandler = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -46,25 +21,24 @@ export const followUniversityHandler = async (request: FastifyRequest, reply: Fa
 export async function saveNewsHandler(request: FastifyRequest, reply: FastifyReply) {
   const { userId, news } = request.body as { userId: string; news: any };
 
-  if (!userId || !news || !news.link) { // Check for 'link' field
+  if (!userId || !news || !news.link) { 
       return reply.status(400).send({ error: 'Missing required fields' });
   }
 
-  // Assume the university URL is provided elsewhere and not in the news item
-  const universityUrl = ''; // You need to determine how to get this
+  const universityUrl = '';
 
   const newsData = {
-      link: news.link, // Use 'link' instead of 'url'
+      link: news.link, 
       title: news.title,
       description: news.description,
-      image: news.image || '', // Extract image if available
+      image: news.image || '', 
       author: news.author,
       published: new Date(news.published),
       created: new Date(news.created),
       category: news.category,
       enclosures: news.enclosures || [],
       media: news.media || {},
-      universityId: universityUrl // Replace with correct universityId based on URL
+      universityId: universityUrl 
   };
 
   try {
@@ -129,4 +103,24 @@ export async function getSavedNewsHandler(request: FastifyRequest<{ Params: { us
 //   }
 // };
 
+export async function getSavedNewsByUserIdHandler(req: FastifyRequest<{ Querystring: GetSavedNewsQuery }>, reply: FastifyReply) {
+  const userId = req.query.userId;
+
+  if (!userId) {
+    return reply.status(400).send({ error: 'User ID is required' });
+  }
+
+  try {
+    const savedNews = await getSavedNewsByUserId(userId);
+    // Verifique se `savedNews` é um array
+    if (!Array.isArray(savedNews)) {
+      console.error('Saved news is not an array:', savedNews);
+      return reply.status(500).send({ error: 'Internal Server Error' });
+    }
+    return reply.send({ savedNews });
+  } catch (error) {
+    console.error('Error fetching saved news:', error);
+    return reply.status(500).send({ error: 'Internal Server Error' });
+  }
+}
 

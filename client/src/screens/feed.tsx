@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Text, Alert, Linking } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Card, Name, ImageCard, ContainerData } from '@theme/style';
+import { Container, Name, ImageCard, ContainerData } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { format } from 'date-fns';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
@@ -151,7 +151,7 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     
         const newsData = {
-            link: news.link, // Ensure this is the correct field
+            link: news.link, 
             title: news.title || '',
             description: news.description || '',
             image: news.image || '',
