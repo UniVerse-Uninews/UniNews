@@ -30,37 +30,13 @@ export function LerNoticia() {
         }
 
         const fetchSavedNews = async () => {
-            if (!user) return;
-    
             try {
-                const response = await axios.get(`${BASE_URL}/saved-news/${user.id}`);
-                console.log('Response Data:', response.data); 
-    
-                if (response.data && response.data.savedNews && Array.isArray(response.data.savedNews)) {
-                    const newsRequests = response.data.savedNews.map(async (saved: any) => {
-                        try {
-                            const url = encodeURIComponent(saved.newsId);
-                            console.log('Fetching news with encoded URL:', url); 
-                            const newsResponse = await axios.get(`${BASE_URL}/news-by-url/${url}`);
-                            console.log('News Response:', newsResponse.data); 
-                            return newsResponse.data;
-                        } catch (error: any) {
-                            console.error('Error fetching news:', error);
-                            return null;
-                        }
-                    });
-    
-                    const news = await Promise.all(newsRequests);
-                    setSavedNews(news.filter((item) => item !== null));
-                } else {
-                    console.error('Unexpected response structure:', response.data);
-                    Alert.alert('Erro', 'A resposta do servidor não é a esperada.');
-                }
-                setLoading(false);
-            } catch (error: any) {
+                const response = await axios.get(`${BASE_URL}/saved-news`, {
+                    params: { userId: user.id }
+                });
+                setSavedNews(response.data);
+            } catch (error) {
                 console.error('Error fetching saved news:', error);
-                Alert.alert('Erro', 'Erro ao carregar notícias salvas.');
-                setLoading(false);
             }
         };
         

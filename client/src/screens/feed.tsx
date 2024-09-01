@@ -138,20 +138,43 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     };
 
-    const handleSaveNews = async (newsId: string) => {
+    const handleSaveNews = async (news: any) => {
         if (!user) {
             Alert.alert('Erro', 'Você precisa estar logado para salvar uma notícia.');
             return;
         }
     
+        if (!news.link) {
+            console.error('News link is missing');
+            Alert.alert('Erro', 'Link da notícia está ausente.');
+            return;
+        }
+    
+        const newsData = {
+            link: news.link, // Ensure this is the correct field
+            title: news.title || '',
+            description: news.description || '',
+            image: news.image || '',
+            author: news.author || '',
+            published: news.published || new Date(),
+            created: news.created || new Date(),
+            category: news.category || [],
+            enclosures: news.enclosures || [],
+            media: news.media || {}
+        };
+    
         try {
+            console.log('Sending data:', {
+                userId: user.id,
+                news: newsData
+            });
+    
             const response = await axios.post(`${BASE_URL}/save-news`, {
                 userId: user.id,
-                newsId
+                news: newsData
             });
     
             if (response.status === 200) {
-                setSavedNewsIds(prevIds => new Set(prevIds).add(newsId));
                 Alert.alert('Sucesso', 'Notícia salva com sucesso.');
             } else {
                 console.error('Error saving news:', response.data);
@@ -162,6 +185,11 @@ export function Feed({ navigation }: { navigation: any }) {
             Alert.alert('Erro', 'Erro ao salvar notícia.');
         }
     };
+    
+    
+    
+    
+    
     
     
 
@@ -194,7 +222,7 @@ export function Feed({ navigation }: { navigation: any }) {
                                             <Name style={styles.text}>
                                                 Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
                                             </Name>
-                                            <Pressable onPress={() => handleSaveNews(item.id)}>
+                                            <Pressable onPress={() => handleSaveNews(item)}>
                                                 <Text style={{ color: savedNewsIds.has(item.id) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
                                                     {savedNewsIds.has(item.id) ? 'Saved' : 'Save News'}
                                                 </Text>

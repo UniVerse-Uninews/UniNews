@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
@@ -49,6 +49,11 @@ export function CrudUsuario() {
     });
     setChecked(false);
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }
+  , []);
 
   return (
     <>
