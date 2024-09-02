@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Text, Alert, Linking } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Name, ImageCard, ContainerData } from '@theme/style';
+import { Container, Name, ImageCard, ContainerData, NameBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -167,7 +167,7 @@ export function Feed({ navigation }: { navigation: any }) {
                                             <Name>Image not available</Name>
                                         )}
                                         <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
-                                            <Name style={styles.title}>{item.title}</Name>
+                                            <NameBlue style={styles.title}>{item.title}</NameBlue>
                                         </Pressable>
                                         <View style={styles.data}>
                                             <Name style={styles.text}>{item.description || ''}</Name>

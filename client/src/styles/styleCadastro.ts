@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     width: '80%',
     borderColor: '#F2A20C',
     color: '#000',
-  },
+  },  
   inputArea: {
     borderWidth: responsiveWidth(0.3),
     borderRadius: responsiveWidth(10),

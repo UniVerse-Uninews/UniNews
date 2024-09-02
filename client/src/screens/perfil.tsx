@@ -5,15 +5,25 @@ import { Header } from '../components/addHeader/header';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { styles } from '../styles/stylePerfilUser';
-import { ContainerAlter, BorderColorBlue, Container, ContainerData, Name, NameBlue, NameAlter } from '@theme/style';
+import { ContainerAlter, BorderColorBlue, Container, ContainerData, Name, NameBlue, NameAlter, BackgroundInput, BackgroundInputText } from '@theme/style';
 import { getUser } from '@services/api';
 import { User } from 'src/@types/interfaces';
+import { TextInput } from 'react-native-paper';
+import { InputAlteraSenha, InputConfirmAlteraSenha, InputConfirmSenha, InputSenha } from '@components/addInput/Input';
+import { useCrud } from '../hooks/crudHooks';
+
 
 
 export function Perfil ()  {
   //Modal para popup senha editar
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { setUser, addUserHandler } = useCrud();
+
+  const handleInputChange = (field: string, value: string) => {
+    setUser({ ...user, [field]: value });
+  };
 
   //
 
@@ -86,11 +96,39 @@ export function Perfil ()  {
               }}>
                 <View style={styles.centeredView}>
                   <ContainerAlter style={styles.modalView}>
-                    <NameAlter style={styles.modalText}>Hello World!</NameAlter>
+                    <NameAlter style={styles.modalText}>Nome: </NameAlter>
+                    <View style={styles.containerInput}>
+                      <BackgroundInput style={styles.inputArea}>
+                        <BackgroundInputText
+                          style={styles.input}
+                          placeholder="Nome"
+                          placeholderTextColor={'#8F8F8F'}
+                          value={user.name}
+                          onChangeText={(text) => handleInputChange('name', text)}
+                        />
+                      </BackgroundInput>
+                    </View>
+                    <NameAlter style={styles.modalText}>Email: </NameAlter>
+                    <View style={styles.containerInput}>
+                      <BackgroundInput style={styles.inputArea}>
+                        <BackgroundInputText
+                          style={styles.input}
+                          placeholder="E-mail"
+                          placeholderTextColor={'#8F8F8F'}
+                          value={user.email}
+                          onChangeText={(text) => handleInputChange('email', text)}
+                        />
+                      </BackgroundInput>
+                    </View>
+                    
+                    <NameAlter style={styles.modalText}>Senha: </NameAlter>
+                    <InputAlteraSenha user={user} setUser={setUser}  placeholder='Insira sua nova senha' />
+                    <NameAlter style={styles.modalText}>Confirme sua senha: </NameAlter>
+                    <InputConfirmAlteraSenha user={user} setUser={setUser} placeholder='Confirme sua nova senha' />
                     <TouchableOpacity
                       style={[styles.button, styles.buttonClose]}
                       onPress={() => setModalVisible(!modalVisible)}>
-                      <NameAlter style={styles.textStyle}>Hide Modal</NameAlter>
+                      <NameAlter style={styles.textStyle}>Salvar Dados</NameAlter>
                     </TouchableOpacity>
                   </ContainerAlter>
                 </View>

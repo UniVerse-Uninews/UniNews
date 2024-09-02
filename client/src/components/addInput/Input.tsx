@@ -88,3 +88,73 @@ export function InputSenhaSpecial({ user, setUser }: any) {
     />
   );
 }
+export function InputAlteraSenha({ user, setUser }: any) {
+  const eye = 'http://projetoscti.com.br/projetoscti27/uninews/img/eye.png';
+  const eyeOff ='http://projetoscti.com.br/projetoscti27/uninews/img/eyeOff.png';
+  const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
+
+  const handleInputChange = (field: string, value: string) => {
+    setUser({ ...user, [field]: value });
+  };
+  return (
+    <View>
+      <View style={styles.containerInput}>
+        <BackgroundInput style={styles.inputArea}>
+          <BackgroundInputText
+            value={user.confirmPassword}
+            style={styles.input}
+            placeholder="Senha"
+            secureTextEntry={hideConfirmPass}
+            onChangeText={(text) => handleInputChange('confirmPassword', text)}
+            placeholderTextColor={'#8F8F8F'}
+          />
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setHideConfirmPass(!hideConfirmPass)}
+          >
+            {hideConfirmPass ? (
+              <Image source={{uri: eye}} style={styles.icon} />
+            ) : (
+              <Image source={{uri: eyeOff}} style={styles.icon} />
+            )}
+          </TouchableOpacity>
+        </BackgroundInput>
+      </View>
+    </View>
+  );
+}
+export function InputConfirmAlteraSenha({ user, setUser }: any) {
+  const eye = 'http://projetoscti.com.br/projetoscti27/uninews/img/eye.png';
+  const eyeOff ='http://projetoscti.com.br/projetoscti27/uninews/img/eyeOff.png';
+  const [hideConfirmPass, setHideConfirmPass] = React.useState(true);
+
+  const handleInputChange = (field: string, value: string) => {
+    setUser({ ...user, [field]: value });
+  };
+  return (
+    <View>
+      <View style={styles.containerInput}>
+        <BackgroundInput style={styles.inputArea}>
+          <BackgroundInputText
+            value={user.confirmPassword}
+            style={styles.input}
+            placeholder="Confirmar Senha"
+            secureTextEntry={hideConfirmPass}
+            onChangeText={(text) => handleInputChange('confirmPassword', text)}
+            placeholderTextColor={'#8F8F8F'}
+          />
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setHideConfirmPass(!hideConfirmPass)}
+          >
+            {hideConfirmPass ? (
+              <Image source={{uri: eye}} style={styles.icon} />
+            ) : (
+              <Image source={{uri: eyeOff}} style={styles.icon} />
+            )}
+          </TouchableOpacity>
+        </BackgroundInput>
+      </View>
+    </View>
+  );
+}

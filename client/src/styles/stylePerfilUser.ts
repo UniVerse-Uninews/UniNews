@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveHeight, responsiveScreenHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
 container: {
@@ -158,33 +158,56 @@ centeredView: {
   alignItems: 'center',
 },
 modalView: {
-  margin: 20,
-  borderRadius: 20,
-  padding: 35,
+  margin: responsiveHeight(5),
+  borderRadius: responsiveWidth(5),
+  padding: responsiveHeight(5),
   alignItems: 'center',
   shadowColor: '#000',
   shadowOffset: {
     width: 0,
-    height: 2,
+    height: responsiveHeight(0.5),
   },
   shadowOpacity: 0.25,
   shadowRadius: 4,
   elevation: 5,
 },
-
-buttonOpen: {
-  backgroundColor: '#F194FF',
-},
 buttonClose: {
-  backgroundColor: '#2196F3',
+  backgroundColor: '#FFc250',
+  marginTop: responsiveHeight(2),
+  height: responsiveHeight(4),
 },
 textStyle: {
-  fontWeight: 'bold',
   textAlign: 'center',
+  fontFamily:'Teacher',
+  fontSize:responsiveFontSize(2.7),
 },
 modalText: {
-  marginBottom: 15,
+  marginVertical: responsiveWidth(1.5),
   textAlign: 'center',
+  fontSize:responsiveFontSize(3),
+  fontFamily:'Teacher'
+},
+input: {
+  height: '100%',
+  fontFamily: 'RubikNormal',
+  width: '100%',
+  borderColor: '#F2A20C',
+  color: '#000',
+  borderRadius: responsiveWidth(10),
+  
+},  
+containerInput: {
+  width: '100%',
+  alignItems: 'center',
+},
+inputArea: {
+  borderWidth: responsiveWidth(0.3),
+  borderRadius: responsiveWidth(10),
+  height: responsiveScreenHeight(3.5),
+  paddingLeft: '5%',
+  width: '75%',
+  borderColor: '#F2A20C',
+  flexDirection: 'row',
 },
 }
 );
