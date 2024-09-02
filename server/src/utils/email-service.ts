@@ -2,16 +2,16 @@ import nodemailer from "nodemailer";
 
 export async function sendPasswordResetEmail(email: string, token: string) {
   const transporter = nodemailer.createTransport({
-    service: "gmail", // Use o serviço de e-mail apropriado
+    service: "gmail", 
     auth: {
-      user: process.env.EMAIL_USER, // Seu e-mail
-      pass: process.env.EMAIL_PASS, // Sua senha de e-mail (ou senha de app para Gmail)
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS, 
     },
   });
 
   const mailOptions = {
-    from: `"YourApp Name" <${process.env.EMAIL_USER}>`, // Remetente
-    to: email, // Destinatário
+    from: `"UniNews" <${process.env.EMAIL_USER}>`, 
+    to: email,
     subject: "Password Reset Request",
     text: `You requested a password reset. Use the following token to reset your password: ${token}`,
     html: `<p>You requested a password reset. Use the following token to reset your password:</p><p><strong>${token}</strong></p>`,

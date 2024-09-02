@@ -14,7 +14,7 @@
   import { refresh } from "./controllers/user/refresh";
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
-  import { createNews, getNewsByLink } from "./controllers/news/temp-news";
+  import { createNews } from "./controllers/news/temp-news";
   import { getNpmData } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
   import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler  } from "./controllers/save/save";
@@ -49,18 +49,13 @@
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
 
     // News routes
-    // app.post('/news', addNews);
-    // app.get('/news/:text', getRSSFeed);
-    // app.get('/news/university/:text', getNewsByUniversity);
-    
-    // app.get('/news/:text', getNews);
     app.post('/news', createNews);
     app.get('/npm/:text', getNpmData);
-    app.get('/news/link/:text', getNewsByLink);
+    app.get('/news/:url', getNewsByUrlHandler);
 
     // Save and follow routes
     app.post('/followuniversity', followUniversityHandler);
     app.post('/save-news', saveNewsHandler);
     app.get('/saved-news', getSavedNewsByUserIdHandler);
-    app.get('/news/:url', getNewsByUrlHandler);
+    
   }
