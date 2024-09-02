@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma ";
-import { Prisma, User } from "@prisma/client";
+import { Prisma, User, PasswordReset } from "@prisma/client";
 import { UsersRepository } from "../users-repository";
 
 export class PrismaUsersRepository implements UsersRepository {
@@ -47,6 +47,46 @@ export class PrismaUsersRepository implements UsersRepository {
       where: { id },
       data: {
         ...data,
+        updatedAt: new Date(),
+      },
+    });
+    return user;
+  }
+
+  async createPasswordResetToken(userId: string, token: string, expiresAt: Date): Promise<PasswordReset> {
+    const passwordReset = await prisma.passwordReset.create({
+      data: {
+        userId,
+        token,
+        expiresAt,
+      },
+    });
+    return passwordReset;
+  }
+
+  async findPasswordResetByToken(token: string): Promise<PasswordReset | null> {
+    const passwordReset = await prisma.passwordReset.findUnique({
+      where: {
+        token,
+      },
+    });
+    return passwordReset;
+  }
+
+  async deletePasswordResetToken(token: string): Promise<PasswordReset> {
+    const passwordReset = await prisma.passwordReset.delete({
+      where: {
+        token,
+      },
+    });
+    return passwordReset;
+  }
+
+  async updatePassword(userId: string, hashedPassword: string): Promise<User> {
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        passwordHash: hashedPassword, 
         updatedAt: new Date(),
       },
     });

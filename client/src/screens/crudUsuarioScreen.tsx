@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Checkbox } from 'expo-checkbox';
-
 import { styles } from '../styles/styleCrudUsuario';
 import { Button } from '../components/addButton/Button';
 import { Table } from '../components/addTable/Table';
@@ -51,11 +50,16 @@ export function CrudUsuario() {
     setChecked(false);
   };
 
+  useEffect(() => {
+    fetchUsers();
+  }
+  , []);
+
   return (
     <>
       <Header />
+      <ScrollContainer>
       <Container style={styles.container}>
-        <ScrollContainer>
           <View style={styles.containerDados}>
             <View style={styles.viewDados}>
               <NameBlue style={styles.titulo}>Dados</NameBlue>
@@ -140,8 +144,8 @@ export function CrudUsuario() {
             </BorderColorTable>
           </View>
           <StatusBar style="auto" />
-        </ScrollContainer>
       </Container>
+      </ScrollContainer>
     </>
   );
 }

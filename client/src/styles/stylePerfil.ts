@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { responsiveHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
 
 
 export const styles = StyleSheet.create({
     container: {
       flex: 1,   
-      paddingTop:10,
+      paddingTop:responsiveHeight(2),
       alignItems:'center',
       justifyContent:'center',
       flexDirection: 'column',
@@ -17,9 +18,9 @@ export const styles = StyleSheet.create({
     perfil:{
       marginTop:'3%',
       padding:'15%',
-      borderWidth:2,
+      borderWidth:responsiveScreenWidth(0.6),
       width:'10%',
-      borderRadius:90,
+      borderRadius:responsiveScreenWidth(10),
   
   },
   nick:{

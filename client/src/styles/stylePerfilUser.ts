@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveHeight, responsiveScreenHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
 container: {
     flex: 1,   
     alignItems:'center',
-    paddingTop:10,
+    paddingTop:responsiveHeight(2),
     flexDirection: 'column',
   },
   menuButton: {
@@ -14,7 +14,6 @@ container: {
   },
   menuButtonText: {
     color: 'white',
-    fontSize: 16,
     
   },
   mainContent: {
@@ -23,22 +22,21 @@ container: {
     alignItems: 'center',
   },
   mainText: {
-    fontSize: 24,
+    fontSize: responsiveFontSize(3),
   },
   perfil:{
     marginTop:'3%',
     padding:'15%',
-    borderWidth:2,
+    borderWidth:responsiveWidth(0.5),
     width:'10%',
-    borderRadius:90,
+    borderRadius:responsiveWidth(15),
 
 },
 containerNick:{
     margin:'3%',
-    borderColor:'#F2A20C',
-    borderWidth:1,
-    borderRadius:20,
-    backgroundColor:'#fff',
+    borderColor:'#FFc250',
+    borderWidth:responsiveWidth(0.4),
+    borderRadius:responsiveWidth(20),
 },
 nick:{
     padding:'2%',
@@ -49,10 +47,16 @@ seg:{
 },
 box:{
     flexDirection:'row',
+    
+},
+box1:{
+    flexDirection:'row',
+    justifyContent:'center',
+    marginVertical:'4%',
 },
 drawer:{
     flex: 1,   
-    paddingTop:10,
+    paddingTop:responsiveHeight(2),
     alignItems:'center',
     justifyContent:'center',
     flexDirection: 'column',
@@ -60,8 +64,8 @@ drawer:{
      
 },
 Logo:{
-    width:30,
-    height:30
+    width:responsiveFontSize(5),
+    height:responsiveFontSize(5),
 },
 title:{
     fontSize:responsiveFontSize(4.5),
@@ -95,7 +99,14 @@ campotext:{
     fontFamily:'RubikNormal',
     marginRight:'7%',
     marginLeft:'15%',
-    color:'#000',
+},
+campotext1:{
+  margin:'3%',
+  fontSize:responsiveFontSize(2.7),
+  fontFamily:'Teacher',
+  marginRight:'7%',
+  marginLeft:'15%',
+  color:'#000',
 },
 icon:{
     width:responsiveWidth(4),
@@ -104,20 +115,18 @@ icon:{
 },
 containerData:{
   margin:'3%',
-  borderColor:'#F2A20C',
-  borderWidth:1,
-  borderRadius:20,
-  backgroundColor:'#fff',
+  borderColor:'#FFc250',
+  borderWidth:responsiveWidth(0.4),
+  borderRadius:responsiveWidth(7),
   width:responsiveWidth(70),
   justifyContent:'center',
- 
+  
 },
 containerDataFeed:{
   margin:'3%',
-  borderColor:'#F2A20C',
-  borderWidth:1,
-  borderRadius:10,
-  backgroundColor:'#fff',
+  borderColor:'#FFc250',
+  borderWidth:responsiveWidth(0.4),
+  borderRadius:responsiveWidth(3.5),
   width:responsiveWidth(25),
   height:responsiveHeight(3),
   justifyContent:'center',
@@ -129,6 +138,76 @@ aliner:{
   justifyContent:'center',
   alignItems:'flex-start',
   margin:'3%',
+},
+button:{
+  backgroundColor:'#FFc250',
+  borderRadius:responsiveWidth(7),
+  width:responsiveWidth(40),
+  justifyContent:'center',
+  alignItems:'center',
+  
+},
+textButton:{
+  fontSize:responsiveFontSize(2.7),
+  fontFamily:'Teacher',
+  color:'#000',
+},
+centeredView: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+modalView: {
+  margin: responsiveHeight(5),
+  borderRadius: responsiveWidth(5),
+  padding: responsiveHeight(5),
+  alignItems: 'center',
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: responsiveHeight(0.5),
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5,
+},
+buttonClose: {
+  backgroundColor: '#FFc250',
+  marginTop: responsiveHeight(2),
+  height: responsiveHeight(4),
+},
+textStyle: {
+  textAlign: 'center',
+  fontFamily:'Teacher',
+  fontSize:responsiveFontSize(2.7),
+},
+modalText: {
+  marginVertical: responsiveWidth(1.5),
+  textAlign: 'center',
+  fontSize:responsiveFontSize(3),
+  fontFamily:'Teacher'
+},
+input: {
+  height: '100%',
+  fontFamily: 'RubikNormal',
+  width: '100%',
+  borderColor: '#F2A20C',
+  color: '#000',
+  borderRadius: responsiveWidth(10),
+  
+},  
+containerInput: {
+  width: '100%',
+  alignItems: 'center',
+},
+inputArea: {
+  borderWidth: responsiveWidth(0.3),
+  borderRadius: responsiveWidth(10),
+  height: responsiveScreenHeight(3.5),
+  paddingLeft: '5%',
+  width: '75%',
+  borderColor: '#F2A20C',
+  flexDirection: 'row',
 },
 }
 );

@@ -9,7 +9,7 @@ export function useAuthCheck() {
 
   const checkAuth = () => {
     if (!isAuthenticated){
-    Alert.alert(
+      Alert.alert(
         'Autenticação Necessária',
         'Você precisa estar logado para acessar esta tela.',
         [
@@ -19,12 +19,13 @@ export function useAuthCheck() {
       );
     }
   };
+
   const handleLogout = () => {
     logout();
-  navigation.reset({
-    index: 0,
-    routes: [{ name: 'Login' }],
-  });
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
   };
 
   return { checkAuth, handleLogout };

@@ -22,9 +22,11 @@ export const styles = StyleSheet.create({
   input: {
     height: responsiveScreenHeight(4.5),
     margin: responsiveScreenHeight(1),
-    borderWidth:responsiveScreenHeight(0.2),
+    borderWidth:responsiveScreenHeight(0.1),
     padding: responsiveScreenHeight(1),
     borderRadius: responsiveScreenHeight(2),
+    borderColor: '#F2A20C',
+
   },
   campo: {
     width: '90%',

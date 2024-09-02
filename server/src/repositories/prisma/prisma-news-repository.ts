@@ -6,6 +6,7 @@ interface MongoDBResult {
   };
 }
 
+
 export class PrismaNewsRepository {
   private prisma = new PrismaClient();
 
@@ -31,4 +32,5 @@ export class PrismaNewsRepository {
   async create(newsData: any) {
     return await this.prisma.news.create({ data: newsData });
   }
+
 }

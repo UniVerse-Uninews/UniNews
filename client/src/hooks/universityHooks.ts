@@ -6,9 +6,10 @@ import {
   updateUniversity,
   deleteUniversity,
 } from '../services/api';
+import { university } from '../@types/university';
 
 export const useUniversityCrud = () => {
-  const [universities, setUniversities] = useState<any[]>([]);
+  const [universities, setUniversities] = useState<university[]>([]);
   const [university, setUniversity] = useState({
     id: '',
     name: '',
@@ -58,7 +59,7 @@ export const useUniversityCrud = () => {
     }
   };
 
-  const updateUniversityHandler = async (universityId: string, universityData: any) => {
+  const updateUniversityHandler = async (universityId: string, universityData: Partial<university>) => {
     try {
       await updateUniversity(universityId, universityData);
       fetchUniversities();

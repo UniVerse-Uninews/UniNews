@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
+  responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
@@ -16,31 +17,27 @@ export const styles = StyleSheet.create({
   },
   viewDados: {
     width: '55%',
-    marginHorizontal: 8,
-    marginTop: 10,
+    marginHorizontal: responsiveWidth(2),
+    marginTop: responsiveHeight(1),
   },
   titulo: {
-    fontSize: 30,
+    fontSize: responsiveFontSize(5),
     margin: '4%',
     fontFamily: 'Teacher',
   },
-  imageContainer: {
-    width: 50,
-    padding: '1%',
-  },
   containerInput: {
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 5,
+    borderWidth: responsiveWidth(0.4),
+    borderRadius: responsiveWidth(3),
+    padding: responsiveWidth(1.5),
     paddingBottom: '10%',
     borderColor: '#F3C63B',
   },
   input: {
-    borderWidth: 1.5,
-    borderRadius: 5,
+    borderWidth: responsiveWidth(0.5),
+    borderRadius: responsiveWidth(1),
     height: responsiveHeight(3),
     fontFamily: 'Rubik',
-    paddingLeft: 5,
+    paddingLeft: responsiveWidth(1),
     marginTop: '10%',
     width: responsiveWidth(45),
     marginLeft: responsiveWidth(3),
@@ -49,17 +46,15 @@ export const styles = StyleSheet.create({
   containerButton: {
     marginLeft: responsiveWidth(3),
   },
-  campos: {
-    fontFamily: 'Rubik',
-  },
+
   radio: {
     flexDirection: 'row',
     paddingTop: '5%',
     marginLeft: responsiveWidth(3),
   },
   textRadio: {
-    fontSize: 15,
-    fontFamily: 'Rubik',
+    fontSize: responsiveFontSize(1.7),
+    fontFamily: 'RubikNormal',
     paddingTop: '5%',
   },
   containerTable: {
@@ -71,8 +66,7 @@ export const styles = StyleSheet.create({
   table: {
     width: '90%',
     height: '100%',
-    borderWidth: 2,
-    borderRadius: 10,
+    borderWidth: responsiveWidth(0.4),
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -85,8 +79,8 @@ export const styles = StyleSheet.create({
     marginLeft: responsiveWidth(3),
   },
   textCheckbox: {
-    fontSize: 15,
-    fontFamily: 'Rubik',
+    fontSize: responsiveWidth(3.3),
+    fontFamily: 'RubikNormal',
     marginLeft: '4%',
   },
 });

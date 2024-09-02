@@ -19,6 +19,10 @@ export const styles = StyleSheet.create({
         height: responsiveHeight(4),
         width: responsiveWidth(7),
     },
+    viewCard: {
+        marginBottom: responsiveHeight(2),
+        marginHorizontal: responsiveWidth(2),
+    },
     card: {
         width: '100%',
         padding: responsiveWidth(2),

@@ -13,5 +13,7 @@ export default {
   card: '#414141',
   borderCard: '#4A92C7',
   backgroundFooter: '#343434', 
-
+  backgroundData: '#3E3E3E',
+  backgroundAlter: '#FFFDF6',
+  textAlter: 'black',
 };

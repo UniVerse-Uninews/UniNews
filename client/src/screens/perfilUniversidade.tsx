@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Image, Text, Alert, Linking, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/stylePerfilUniversidade';
 import { styles as stylefeed } from '@styles/styleFeed';
-import { BorderColorContainer, NameBlue,  Container, Card, Name  } from '@theme/style';
+import { BorderColorContainer, NameBlue, Container, Card, Name } from '@theme/style';
 import { university as UniversityType } from 'src/@types/university';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { Header } from '@components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
-import { RouteProp  } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useAuth } from '../context/authContext';
 import { RootStackParamList } from '../@types/rootstack';
@@ -28,6 +28,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
   const [universityData, setUniversityData] = useState<UniversityType | null>(null);
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState<any[]>([]);
+  const [isFollowing, setIsFollowing] = useState(false); // New state to track if following
   const { user } = useAuth();
   const { checkAuth } = useAuthCheck();
 
@@ -91,6 +92,25 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
     return { imageUrl: match ? match[1] : '', cleanedDescription };
   };
 
+  const handleFollowUniversity = async () => {
+    if (!user) {
+      Alert.alert('Erro', 'Você precisa estar logado para seguir uma universidade.');
+      return;
+    }
+
+    try {
+      await axios.post(`${BASE_URL}/followuniversity`, {
+        userId: user.id,
+        universityId: universityData?.id
+      });
+      setIsFollowing(true);
+      Alert.alert('Sucesso', 'Você agora está seguindo esta universidade.');
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao seguir a universidade.');
+      console.error('Erro ao seguir universidade:', error);
+    }
+  };
+
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -108,8 +128,12 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
             <View style={styles.container3}>
               <NameBlue style={styles.name}>{universityData.name}</NameBlue>
               <BorderColorContainer style={styles.description1}>
-                <Text>{universityData.description}</Text>
+                <Name>{universityData.description}</Name>
               </BorderColorContainer>
+              {/* Follow Button */}
+              <Pressable onPress={handleFollowUniversity} style={styles.followButton}>
+                <Text style={styles.followButtonText}>{isFollowing ? 'Seguindo' : 'Seguir Universidade'}</Text>
+              </Pressable>
             </View>
             <View style={styles.image}>
               <Image source={{ uri: universityData.image }} style={styles.image1} />

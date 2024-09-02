@@ -3,6 +3,7 @@ import { DataTable } from 'react-native-paper';
 import { styles } from './tableStyle';
 import { View } from 'react-native';
 import { Name } from '../../theme/style';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
 
 export function Table({
   users,
@@ -15,6 +16,11 @@ export function Table({
   const [numPerPage] = useState([2, 3]);
   const [itemsPerPage, setItemsPerPage] = useState(numPerPage[0]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+
+  const ViewStyleProps = {
+    backgroundColor: '#F3C63B',
+    flex:1,
+  };
 
   const inicio = page * itemsPerPage;
   const fim = Math.min((page + 1) * itemsPerPage, users.length);
@@ -30,7 +36,7 @@ export function Table({
 
   return (
     <View>
-      <DataTable>
+      <DataTable style={styles.container}>
         <DataTable.Header style={styles.header}>
           <DataTable.Title style={styles.title} sortDirection="ascending">
             <Name>ID</Name>
@@ -87,6 +93,7 @@ export function Table({
           numberOfItemsPerPage={itemsPerPage}
           onItemsPerPageChange={setItemsPerPage}
           showFastPaginationControls
+          style={ViewStyleProps}
         />
       </DataTable>
     </View>

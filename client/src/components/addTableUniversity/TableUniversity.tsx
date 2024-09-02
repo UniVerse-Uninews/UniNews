@@ -17,6 +17,10 @@ export function Table({
   const [itemsPerPage, setItemsPerPage] = useState(numPerPage[0]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
+  const ViewStyleProps = {
+    backgroundColor: '#F3C63B',
+  };
+
   const inicio = page * itemsPerPage;
   const fim = Math.min((page + 1) * itemsPerPage, universities.length);
 
@@ -82,6 +86,8 @@ export function Table({
           numberOfItemsPerPage={itemsPerPage}
           onItemsPerPageChange={setItemsPerPage}
           showFastPaginationControls
+          style={ViewStyleProps}
+
         />
       </DataTable>
 
