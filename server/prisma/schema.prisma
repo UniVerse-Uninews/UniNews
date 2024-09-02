@@ -29,6 +29,8 @@ model User {
   desactivated Boolean     @default(false)
   follows      Follow[]
   savedNews    SavedNews[]
+  PasswordReset PasswordReset[]
+
 
   @@map("users")
 }
@@ -88,4 +90,14 @@ model SavedNews {
 
   @@map("saved_news")
   @@unique([userId, newsUrl])
+}
+
+model PasswordReset {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  token     String   @unique
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("password_resets")
 }

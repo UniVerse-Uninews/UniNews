@@ -57,18 +57,13 @@ export function LerNoticia() {
     }, [user, BASE_URL]);
 
     const handleSaveNews = async (newsItem: any) => {
-        // Add or remove news item from saved news
         if (savedNewsIds.has(newsItem.id)) {
-            // Implement logic to remove news item from saved news
-            // Example: await axios.delete(`${BASE_URL}/saved-news/${newsItem.id}`);
             setSavedNewsIds((prev) => {
                 const updated = new Set(prev);
                 updated.delete(newsItem.id);
                 return updated;
             });
         } else {
-            // Implement logic to save news item
-            // Example: await axios.post(`${BASE_URL}/saved-news`, { userId: user.id, newsId: newsItem.id });
             setSavedNewsIds((prev) => new Set(prev).add(newsItem.id));
         }
     };
@@ -82,7 +77,7 @@ export function LerNoticia() {
                 <ScrollView>
                     {savedNews.length > 0 ? (
                         savedNews.map((item: any) => {
-                            const noticia = item.news; // Acessa a notícia dentro de `savedNews`
+                            const noticia = item.news; 
 
                             return (
                                 <View key={item.id} style={styles.viewCard}>
@@ -92,7 +87,7 @@ export function LerNoticia() {
                                         ) : (
                                             <Name>Image not available</Name>
                                         )}
-                                        <Pressable onPress={() => {/* Add navigation to news details if needed */}}>
+                                        <Pressable onPress={() => {}}>
                                             <NameBlue style={styles.title}>{noticia.title}</NameBlue>
                                         </Pressable>
                                         <View style={styles.data}>

@@ -8,14 +8,12 @@ import { styles } from '../styles/stylePerfilUser';
 import { ContainerAlter, BorderColorBlue, Container, ContainerData, Name, NameBlue, NameAlter, BackgroundInput, BackgroundInputText } from '@theme/style';
 import { getUser } from '@services/api';
 import { User } from 'src/@types/interfaces';
-import { TextInput } from 'react-native-paper';
-import { InputAlteraSenha, InputConfirmAlteraSenha, InputConfirmSenha, InputSenha } from '@components/addInput/Input';
+import { InputAlteraSenha, InputConfirmAlteraSenha} from '@components/addInput/Input';
 import { useCrud } from '../hooks/crudHooks';
 
 
 
 export function Perfil ()  {
-  //Modal para popup senha editar
 
   const [modalVisible, setModalVisible] = useState(false);
 

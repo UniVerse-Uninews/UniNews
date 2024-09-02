@@ -18,6 +18,7 @@
   import { getNpmData } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
   import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler  } from "./controllers/save/save";
+  import { requestPasswordResetHandler, resetPasswordHandler } from "./controllers/user/update-password";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -35,6 +36,9 @@
     app.put("/users/:userId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUser);
     app.get("/me", { preValidation: [app.verifyJwt] }, profile);
     app.patch("/token/refresh", refresh);
+    app.post("/password-reset/request", requestPasswordResetHandler);
+    app.post('/password-reset/reset', resetPasswordHandler);
+
 
     // University routes
     app.post("/university", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, registerUniversityController);
