@@ -2,8 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { v4 as uuidv4 } from 'uuid';
 import { hash } from 'bcryptjs';
 import { PrismaUsersRepository } from '../../../repositories/prisma/prisma-users-repository';
-import { sendPasswordResetEmail } from '../../../utils/email-service';
-
+import { sendPasswordResetEmail } from '../../../utils/email-service'; 
 interface RequestPasswordResetBody {
   email: string;
 }
@@ -24,11 +23,12 @@ export const requestPasswordResetHandler = async (req: FastifyRequest<{ Body: Re
       return reply.status(404).send({ error: 'User not found' });
     }
 
-    const token = uuidv4();
+    const token = Math.random().toString(36).substr(2, 6); 
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 1);
 
     await usersRepository.createPasswordResetToken(user.id, token, expiresAt);
+
     await sendPasswordResetEmail(email, token);
 
     return reply.status(200).send({ message: 'Password reset token sent' });
@@ -49,7 +49,7 @@ export const resetPasswordHandler = async (req: FastifyRequest<{ Body: ResetPass
       return reply.status(400).send({ error: 'Invalid or expired token' });
     }
 
-    const hashedPassword = await hash(newPassword, 10);
+    const hashedPassword = await hash(newPassword, 6);
     await usersRepository.updatePassword(passwordReset.userId, hashedPassword);
     await usersRepository.deletePasswordResetToken(token);
 
