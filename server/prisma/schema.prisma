@@ -84,7 +84,7 @@ model Follow {
 model SavedNews {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   userId  String   @db.ObjectId
-  newsUrl String   @unique
+  newsUrl String   
   user    User     @relation(fields: [userId], references: [id])
   news    News     @relation(fields: [newsUrl], references: [link]) 
 

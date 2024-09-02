@@ -17,7 +17,7 @@
   import { createNews } from "./controllers/news/temp-news";
   import { getNpmData } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
-  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler  } from "./controllers/save/save";
+  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler  } from "./controllers/save/save";
   import { requestPasswordResetHandler, resetPasswordHandler } from "./controllers/user/update-password";
 
   declare module "fastify" {
@@ -57,5 +57,6 @@
     app.post('/followuniversity', followUniversityHandler);
     app.post('/save-news', saveNewsHandler);
     app.get('/saved-news', getSavedNewsByUserIdHandler);
+    app.delete('/remove-news', removeNewsHandler)
     
   }

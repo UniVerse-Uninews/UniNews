@@ -52,4 +52,12 @@ export const styles = StyleSheet.create({
         fontSize: responsiveFontSize(1.6),
         marginBottom: responsiveHeight(0.7),
     },
+
+    saveIcon: {
+        width: responsiveWidth(8),
+        height: responsiveHeight(4),
+        position: 'absolute',
+        right: responsiveWidth(2),
+        bottom: responsiveHeight(1),
+    }
 });

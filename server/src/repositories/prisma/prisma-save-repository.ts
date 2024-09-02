@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const saveNewsToDatabase = async (userId: string, newsData: any) => {
+
+
   const news = {
     link: newsData.link, 
     title: newsData.title,
@@ -17,6 +19,19 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
   };
 
   try {
+    
+    const existingSave = await prisma.savedNews.findFirst({
+      where: {
+        userId: userId,
+        newsUrl: news.link,
+      },
+    });
+
+    if (existingSave) {
+      console.log('Notícia já salva para este usuário.');
+      return; 
+    }
+
     await prisma.news.upsert({
       where: { link: news.link },
       update: {
@@ -115,12 +130,34 @@ export async function getSavedNewsByUserId(userId: string) {
   try {
     const savedNews = await prisma.savedNews.findMany({
       where: { userId },
-      include: { news: true } // Inclua os dados relacionados às notícias
+      include: { news: true } 
     });
     console.log('Saved news:', savedNews);
-    return savedNews; // Certifique-se de que isso é um array
+    return savedNews; 
   } catch (error) {
     console.error('Error fetching saved news from database:', error);
-    throw error; // Propague o erro para ser tratado no handler
+    throw error; 
+  }
+}
+
+export async function removeNewsFromDatabase(userId: string, newsUrl: string) {
+  try {
+    console.log(`Removing news for userId: ${userId} and newsUrl: ${newsUrl}`);
+
+    const result = await prisma.savedNews.deleteMany({
+      where: {
+        userId: userId,
+        newsUrl: newsUrl,
+      },
+    });
+
+    if (result.count > 0) {
+      console.log('Notícia removida com sucesso.');
+    } else {
+      console.log('Nenhuma notícia encontrada para remover.');
+    }
+  } catch (error) {
+    console.error('Erro ao remover notícia:', error);
+    throw new Error('Erro ao remover notícia');
   }
 }

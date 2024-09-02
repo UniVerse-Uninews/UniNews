@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { followUniversity, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId   } from '../../../repositories/prisma/prisma-save-repository';
+import { followUniversity, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId, removeNewsFromDatabase   } from '../../../repositories/prisma/prisma-save-repository';
 
 interface GetSavedNewsQuery {
   userId: string;
@@ -106,3 +106,22 @@ export async function getSavedNewsByUserIdHandler(req: FastifyRequest<{ Querystr
   }
 }
 
+export const removeNewsHandler = async (request: FastifyRequest, reply: FastifyReply) => {
+  const { userId, newsUrl } = request.body as { userId: string; newsUrl: string };
+
+  if (typeof newsUrl !== 'string') {
+    return reply.status(400).send({ error: 'newsUrl must be a string' });
+  }
+
+  if (!userId || !newsUrl) {
+    return reply.status(400).send({ error: 'Missing required fields' });
+  }
+
+  try {
+    await removeNewsFromDatabase(userId, newsUrl);
+    return reply.status(200).send({ message: 'News removed successfully' });
+  } catch (error) {
+    console.error('Error removing news:', error);
+    return reply.status(500).send({ error: 'Error removing news' });
+  }
+};

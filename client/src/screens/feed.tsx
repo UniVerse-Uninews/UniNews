@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Pressable, Text, Alert, Linking } from 'react-native';
+import { View, ScrollView, Pressable, Text, Alert, Linking, Image } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
 import { Container, Name, ImageCard, ContainerData, NameBlue } from '@theme/style';
@@ -149,6 +149,39 @@ export function Feed({ navigation }: { navigation: any }) {
             Alert.alert('Erro', 'Erro ao salvar notícia.');
         }
     };
+
+    const handleRemoveNews = async (newsUrl: string) => {
+        if (!user) {
+          Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
+          return;
+        }
+      
+        try {
+          const response = await fetch(`${BASE_URL}/remove-news`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.id,
+              newsUrl: newsUrl.link,
+            }),
+            
+          });
+          console.log('response:', newsUrl);
+      
+          if (response.ok) {
+            Alert.alert('Sucesso', 'Notícia removida com sucesso.');
+          } else {
+            const errorData = await response.json();
+            Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+          }
+        } catch (error) {
+          console.error('Error removing news:', error);
+          Alert.alert('Erro', 'Erro ao remover notícia.');
+        }
+      };
+      
     
     return (
         <>
@@ -183,6 +216,12 @@ export function Feed({ navigation }: { navigation: any }) {
                                                 <Text style={{ color: savedNewsIds.has(item.id) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
                                                     {savedNewsIds.has(item.id) ? 'Saved' : 'Save News'}
                                                 </Text>
+                                            </Pressable>
+                                            <Pressable onPress={() => handleRemoveNews(item)}>
+                                            <Image
+                                              source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
+                                                style={styles.saveIcon}
+                                            />
                                             </Pressable>
                                         </View>
                                     </ContainerData>
