@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { responsiveScreenHeight } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
     container1:{},
@@ -12,7 +13,8 @@ export const styles = StyleSheet.create({
         borderWidth:3
     },
     filtro:{
-        
+        width: responsiveScreenHeight(5),
+        height: responsiveScreenHeight(5),
     },
     pesquisa:{
         width:200,
