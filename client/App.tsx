@@ -70,11 +70,11 @@ export default function App() {
               component={PerfilUniversidade}
               options={{ headerShown: false }}
             />
-            {/* <Stack.Screen
+            { <Stack.Screen
               name="Pesquisar"
               component={Pesquisar}
               options={{ headerShown: false }}
-            /> */}
+            /> }
             { <Stack.Screen
               name="Perfil"
               component={Perfil}
