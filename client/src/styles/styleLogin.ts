@@ -12,12 +12,12 @@ export const styles = StyleSheet.create({
   box: {
     borderWidth: responsiveScreenHeight(0.2),
     width: '80%',
-    height: '60%',
+    height: 'auto',
     borderRadius: responsiveScreenHeight(2),
     borderColor: '#4A94CC',
     position: 'relative',
     alignItems: 'center',
-    paddingTop: '7%',
+    paddingTop: '5%',
   },
   input: {
     height: responsiveScreenHeight(4.5),
@@ -58,9 +58,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: '8%',
     marginHorizontal: '1%',
+    marginBottom:'4%'
   },
   textbutton2: {
     fontSize: responsiveScreenFontSize(2),
+    
   },
   boxbutton: {
     flexDirection: 'row',
@@ -87,15 +89,20 @@ export const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: responsiveScreenFontSize(2),
-    marginTop: responsiveScreenHeight(1),
+  
+
   },
   subtitle: {
     position: 'relative',
-    marginBottom: '20%',
+    marginBottom: '12%',
   },
   subtitletext: {
     fontSize: responsiveScreenFontSize(3.5),
     color: '#F2A20C',
     fontFamily: 'Teacher'
   },
+  senha:{
+    color:'#4A94CC',
+    padding:'5%'
+  }
 });
