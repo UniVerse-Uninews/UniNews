@@ -2,7 +2,7 @@ import { university } from './university';
 
 export type RootStackParamList = {
     Feed: undefined;
-    Pesquisar:  { navigation:any,};
+    Pesquisar:  { navigation};
     Perfil: undefined;
     PerfilUniversidade: { universityId: string };
     Temas: undefined;
