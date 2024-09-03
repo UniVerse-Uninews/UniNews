@@ -79,6 +79,11 @@ export  function Login({ navigation }: any) {
           </BackgroundInput>
         </BackgroundContainerInput>
         {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
+        
+        <TouchableOpacity >
+          <Text style={styles.senha}>Esqueci a senha</Text>
+        </TouchableOpacity>
+
         <View style={styles.boxbutton}>
           <TouchableOpacity
             activeOpacity={0.8}
