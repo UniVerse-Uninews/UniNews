@@ -45,7 +45,9 @@ export function Footer() {
                 </Pressable>
                 <Pressable 
                     style={buttonStyle}
-                    onPress={() => navigation.navigate('Pesquisar', { navigation })}
+                    onPress={() => navigation.navigate('Pesquisar', 
+                        {navigation}
+                        )}
                 >
                     <Image source={{ uri: dirIconGlass }} style={styles.icon} />
                 </Pressable>
