@@ -3,6 +3,9 @@ export const Container = styled.View`
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
 `;
+export const ContainerDrawer = styled.View`
+  background: ${(props) => props.theme.card};
+`;
 export const ContainerAlter = styled.View`
   background: ${(props) => props.theme.backgroundAlter};
   color: ${(props) => props.theme.textAlter};

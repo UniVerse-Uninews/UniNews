@@ -2,7 +2,7 @@ import  React, {useState, useRef} from 'react';
 
 import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions, TextInput, Image } from 'react-native';
 import {
-  Container,
+  ContainerDrawer,
   ScrollContainer,
   NameBlue,
   Name,
@@ -10,6 +10,7 @@ import {
   BorderColorTable,
   BackgroundContainerInput,
 } from '../theme/style';
+import { responsiveHeight, responsiveScreenHeight } from 'react-native-responsive-dimensions';
 
 const Icon= require('../../assets/imagens/icon_editar_vazio.png');
 
@@ -48,7 +49,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   return (
    
     <Animated.View style={[styles.drawer, { width: drawerWidth, transform: [{ translateX: drawerTranslateX }] }]}>
-      
+      <ContainerDrawer style={styles.container}>
       <TouchableOpacity onPress={toggleDrawer}>
         <Text style={styles.button}>Close Drawer</Text>
       </TouchableOpacity>
@@ -86,7 +87,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
       </View>
       
       
-     
+      </ContainerDrawer>
      
     </Animated.View>
    
@@ -96,18 +97,18 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
 const styles = StyleSheet.create({
   drawer: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-    height: '100%',
-    backgroundColor: 'white',
+    height: responsiveScreenHeight(100),
     shadowColor: '#000',
     shadowOffset: { width: -2, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    padding: 20,
-    zIndex:1000
+    zIndex: 1000,
   },
+  container:
+  {
+    padding: responsiveHeight(2),
+    flex: 1,  },
   text: {
     fontSize: 18,
     marginBottom: 20,

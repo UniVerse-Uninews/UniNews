@@ -173,6 +173,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
         <>
             <Header />
             <Container style={styles.container1}>
+                
                 <View style={styles.container2}>
                     <Pressable onPress={() => { }}>
                         <Image source={{uri: dir_lupa}} style={styles.impesqui} />
@@ -189,7 +190,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                     <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
 
                 </View>
-
+                <View style={styles.container3}>
                 {preresult.length > 0 && (
                     <View>
                         {preresult.map((name, index) => (
@@ -219,6 +220,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                         ))}
                     </ScrollView>
                 )}
+                </View>
             </Container>
             <Footer />
         </>
