@@ -2,12 +2,15 @@ import { StyleSheet } from 'react-native';
 import { responsiveScreenHeight } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
-    container1:{},
+    container1:{
+        flex: 1,
+    },
     container2:{
         flexDirection:'row',
     },
     container3:{
-        flexDirection:'column'
+        flexDirection:'column',
+        position: 'relative',
     },
     description:{
         borderWidth:3
@@ -23,4 +26,7 @@ export const styles = StyleSheet.create({
         width: 15
     },
     dropdown:{},
+    text:{
+        position: 'relative',
+    },
 });
