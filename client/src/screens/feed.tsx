@@ -18,7 +18,7 @@ export function Feed({ navigation }: { navigation: any }) {
     const { checkAuth } = useAuthCheck();
 
     const [isFollowing, setIsFollowing] = useState(true);
-    const [followedNews, setFollowedNews] = useState<any[]>([]);
+    const [page, setPage] = useState(1); // Add page state
 
     useEffect(() => {
         checkAuth();
@@ -32,9 +32,7 @@ export function Feed({ navigation }: { navigation: any }) {
         } else {
             fetchAllNews();
         }
-    }, [isFollowing]);
-
-    
+    }, [isFollowing, page]); // Add page to dependency array
 
     const fetchFollowedUniversitiesNews = async () => {
         try {
@@ -53,8 +51,13 @@ export function Feed({ navigation }: { navigation: any }) {
                 );
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
-                setNews(allNews);
-                setFollowedNews(allNews); // Armazena as notícias seguidas
+
+                // Combine with existing news and remove duplicates
+                setNews((prevNews) => {
+                    const existingUrls = new Set(prevNews.map((item) => item.link));
+                    const newNews = allNews.filter((item) => !existingUrls.has(item.link));
+                    return [...prevNews, ...newNews];
+                });
             } else {
                 setNews([]);
             }
@@ -77,7 +80,13 @@ export function Feed({ navigation }: { navigation: any }) {
                 );
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
-                setNews(allNews);
+
+                // Combine with existing news and remove duplicates
+                setNews((prevNews) => {
+                    const existingUrls = new Set(prevNews.map((item) => item.link));
+                    const newNews = allNews.filter((item) => !existingUrls.has(item.link));
+                    return [...prevNews, ...newNews];
+                });
             } else {
                 setNews([]);
             }
@@ -151,16 +160,18 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     };
 
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);
+    };
+
+
     const extractImageFromDescription = (description: string) => {
         const match = description.match(/<img[^>]+src="([^">]+)"/);
-
-        if (match) {
-            const cleanedDescription = description.replace(/<img[^>]+>/g, '');
-            return { imageUrl: match[1], cleanedDescription };
-        } else {
-            return { imageUrl: '', cleanedDescription: description };
-        }
-    };
+        
+        const cleanedDescription = description.replace(/<\/?[^>]+(>|$)/g, '');
+      
+        return { imageUrl: match ? match[1] : '', cleanedDescription };
+      };
 
     const handleSaveNews = async (news: any) => {
         if (!user) {
@@ -243,10 +254,10 @@ export function Feed({ navigation }: { navigation: any }) {
       };
       
     
-    return (
+      return (
         <>
             <Header />
-                        <View style={styles.headerTabs}>
+            <View style={styles.headerTabs}>
                 <Pressable
                     style={[styles.tabButton, isFollowing ? styles.tabButtonActive : styles.tabButtonInactive]}
                     onPress={() => setIsFollowing(true)}
@@ -261,50 +272,55 @@ export function Feed({ navigation }: { navigation: any }) {
                     <Text style={!isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Todas</Text>
                 </Pressable>
             </View>
-                    {loading && <Text>Loading...</Text>}
-                    {news.length > 0 && (
-                        <ScrollView>
-                            <Container style={styles.container}>
-                            {news.map((item, index) => (
-                                <View key={item.id || index} style={styles.viewCard}>
-                                    <ContainerData style={styles.card}>
-                                        {item.image ? (
-                                            <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
-                                        ) : (
-                                            <Name>Image not available</Name>
-                                        )}
-                                        <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
-                                            <NameBlue style={styles.title}>{item.title}</NameBlue>
-                                        </Pressable>
-                                        <View style={styles.data}>
-                                            <Name style={styles.text}>{item.description || ''}</Name>
-                                            <Pressable onPress={() => Linking.openURL(item.link)}>
-                                                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                                                    Read More
-                                                </Text>
-                                            </Pressable>
-                                            <Name style={styles.text}>
-                                                Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
-                                            </Name>
-                                            <Pressable onPress={() => handleSaveNews(item)}>
-                                                <Text style={{ color: savedNewsIds.has(item.id) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
-                                                    {savedNewsIds.has(item.id) ? 'Saved' : 'Save News'}
-                                                </Text>
-                                            </Pressable>
-                                            <Pressable onPress={() => handleRemoveNews(item)}>
-                                            <Image
-                                              source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
-                                                style={styles.saveIcon}
-                                            />
-                                            </Pressable>
-                                        </View>
-                                    </ContainerData>
+            {loading && <Text>Loading...</Text>}
+            <ScrollView
+                onScroll={({ nativeEvent }) => {
+                    const isNearBottom = nativeEvent.contentOffset.y + nativeEvent.layoutMeasurement.height >= nativeEvent.contentSize.height - 50;
+                    if (isNearBottom && !loading) {
+                        handleLoadMore();
+                    }
+                }}
+                scrollEventThrottle={400}
+            >
+                <Container style={styles.container}>
+                    {news.map((item, index) => (
+                        <View key={item.link || index} style={styles.viewCard}>
+                            <ContainerData style={styles.card}>
+                                {item.image ? (
+                                    <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+                                ) : (
+                                    <Name>Image not available</Name>
+                                )}
+                                <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
+                                    <NameBlue style={styles.title}>{item.title}</NameBlue>
+                                </Pressable>
+                                <View style={styles.data}>
+                                    <Name style={styles.text}>{item.description || ''}</Name>
+                                    <Pressable onPress={() => Linking.openURL(item.link)}>
+                                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
+                                            Read More
+                                        </Text>
+                                    </Pressable>
+                                    <Name style={styles.text}>
+                                        Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
+                                    </Name>
+                                    <Pressable onPress={() => handleSaveNews(item)}>
+                                        <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
+                                            {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
+                                        </Text>
+                                    </Pressable>
+                                    <Pressable onPress={() => handleRemoveNews(item)}>
+                                        <Image
+                                            source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
+                                            style={styles.saveIcon}
+                                        />
+                                    </Pressable>
                                 </View>
-                            ))}
-                            </Container>
-                        </ScrollView>
-                    )}
-                
+                            </ContainerData>
+                        </View>
+                    ))}
+                </Container>
+            </ScrollView>
             <Footer />
         </>
     );

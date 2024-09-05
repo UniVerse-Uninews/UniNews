@@ -6,18 +6,28 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  Modal,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
-import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name } from '@theme/style';
+import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name, BackgroundInputText, ContainerAlter, NameAlter, BorderColorBlue, ContainerData, NameBlue } from '@theme/style';
 import { useAuth } from '../context/authContext';
+import { REACT_APP_API_URL } from '@env';
+import axios from 'axios';
+import { styles as modal } from '../styles/stylePerfilUser';
 
-export  function Login({ navigation }: any) {
+export function Login({ navigation }: any) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const { login } = useAuth();
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [emailForReset, setEmailForReset] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [token, setToken] = useState('');
+  const http = REACT_APP_API_URL;
 
   const handleLogin = async () => {
     try {
@@ -26,21 +36,43 @@ export  function Login({ navigation }: any) {
 
       login({ token, role, id });
 
-      if (role === 'ADMIN') {
-        navigation.navigate('Feed');
-      } else {
-        navigation.navigate('Feed');
-      }
+      navigation.navigate('Feed');
     } catch (error) {
       console.error('Login error:', error);
       Alert.alert('Erro de autenticação',
         'Erro ao fazer login. Verifique suas credenciais.',
         [{ text: 'OK' }]);
-      setLoginError('Erro ao fazer login. Verifique suas credenciais.'
-      );
+      setLoginError('Erro ao fazer login. Verifique suas credenciais.');
     }
   };
-  
+
+  const handleResetPasswordRequest = async () => {
+    try {
+      await axios.post(`${http}/password-reset/request`, { email: emailForReset });
+      console.log('Reset password email sent.', emailForReset);
+      Alert.alert('Success', 'Reset password email sent.');
+      setEmailForReset('');
+      setShowResetModal(false);
+    } catch (error) {
+      Alert.alert('Error', 'Failed to send reset password email.');
+      console.error('Failed to send reset password email.', error);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (newPassword !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match.');
+      return;
+    }
+    try {
+      await axios.post(`${http}/password-reset/reset`, { token, newPassword });
+      Alert.alert('Success', 'Password reset successful.');
+      setShowResetModal(false);
+    } catch (error) {
+      Alert.alert('Error', 'Failed to reset password.');
+      console.error('Failed to reset password.', error);
+    }
+  };
 
   return (
     <Container style={styles.container}>
@@ -55,8 +87,7 @@ export  function Login({ navigation }: any) {
       <BackgroundContainerInput style={styles.box}>
         <View style={styles.campo}>
           <Name style={styles.campotext}>Usuário</Name>
-          <BackgroundInput
-            style={styles.input}>
+          <BackgroundInput style={styles.input}>
             <TextInput
               placeholder="  Usuário"
               value={username}
@@ -67,20 +98,19 @@ export  function Login({ navigation }: any) {
         </View>
         <BackgroundContainerInput style={styles.campo}>
           <Name style={styles.campotext}>Senha</Name>
-          <BackgroundInput
-            style={styles.input}>
-          <TextInput
-            placeholder="  Senha"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={true}
-            placeholderTextColor={'#8F8F8F'}
-          />
+          <BackgroundInput style={styles.input}>
+            <TextInput
+              placeholder="  Senha"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
+              placeholderTextColor={'#8F8F8F'}
+            />
           </BackgroundInput>
         </BackgroundContainerInput>
         {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
         
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => setShowResetModal(true)}>
           <Text style={styles.senha}>Esqueci a senha</Text>
         </TouchableOpacity>
 
@@ -117,6 +147,80 @@ export  function Login({ navigation }: any) {
           <Name style={styles.textbutton2}>Facebook</Name>
         </BorderColorButton>
       </BackgroundContainerInput>
+
+      {/* Reset Password Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showResetModal}
+        onRequestClose={() => {
+          setShowResetModal(false);
+        }}>
+        <View style={modal.centeredView}>
+          <ContainerAlter style={modal.modalView}>
+            <NameAlter style={modal.modalText}>Email para redefinir senha:</NameAlter>
+            <View style={modal.containerInput}>
+              <BackgroundInput style={modal.inputArea}>
+                <BackgroundInputText
+                  style={modal.input}
+                  placeholder="E-mail"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={emailForReset}
+                  onChangeText={setEmailForReset}
+                />
+              </BackgroundInput>
+            </View>
+            <TouchableOpacity
+              style={[modal.button, modal.buttonClose]}
+              onPress={handleResetPasswordRequest}>
+              <NameAlter style={modal.textStyle}>Enviar E-mail de Redefinição</NameAlter>
+            </TouchableOpacity>
+            <NameAlter style={modal.modalText}>Token:</NameAlter>
+            <View style={modal.containerInput}>
+              <BackgroundInput style={modal.inputArea}>
+                <BackgroundInputText
+                  style={modal.input}
+                  placeholder="Token"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={token}
+                  onChangeText={setToken}
+                />
+              </BackgroundInput>
+            </View>
+            <NameAlter style={modal.modalText}>Nova Senha:</NameAlter>
+            <View style={modal.containerInput}>
+              <BackgroundInput style={modal.inputArea}>
+                <BackgroundInputText
+                  style={modal.input}
+                  placeholder="Nova Senha"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  secureTextEntry
+                />
+              </BackgroundInput>
+            </View>
+            <NameAlter style={modal.modalText}>Confirmar Nova Senha:</NameAlter>
+            <View style={modal.containerInput}>
+              <BackgroundInput style={modal.inputArea}>
+                <BackgroundInputText
+                  style={modal.input}
+                  placeholder="Confirmar Nova Senha"
+                  placeholderTextColor={'#8F8F8F'}
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  secureTextEntry
+                />
+              </BackgroundInput>
+            </View>
+            <TouchableOpacity
+              style={[modal.button, modal.buttonClose]}
+              onPress={handleResetPassword}>
+              <NameAlter style={modal.textStyle}>Redefinir Senha</NameAlter>
+            </TouchableOpacity>
+          </ContainerAlter>
+        </View>
+      </Modal>
 
       <StatusBar style="auto" />
     </Container>

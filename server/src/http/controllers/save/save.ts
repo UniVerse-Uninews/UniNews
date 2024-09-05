@@ -111,7 +111,6 @@ export async function getSavedNewsByUserIdHandler(req: FastifyRequest<{ Querystr
 
   try {
     const savedNews = await getSavedNewsByUserId(userId);
-    // Verifique se `savedNews` é um array
     if (!Array.isArray(savedNews)) {
       console.error('Saved news is not an array:', savedNews);
       return reply.status(500).send({ error: 'Internal Server Error' });
