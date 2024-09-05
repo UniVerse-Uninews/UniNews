@@ -61,7 +61,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(universityData?.url || '')}`);
+        const response = await axios.get(`${BASE_URL}/npm/university/${encodeURIComponent(universityData?.url || '')}`);
         if (response.data && response.data.items) {
           const newsItems = response.data.items.map((item: any) => {
             const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
@@ -69,7 +69,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
               ...item,
               image: imageUrl || universityData?.image,
               description: cleanedDescription,
-              universityId: universityData?.id
+              universityId: universityData?.id,
             };
           });
           setNews(newsItems);
@@ -88,7 +88,9 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
 
   const extractImageFromDescription = (description: string) => {
     const match = description.match(/<img[^>]+src="([^">]+)"/);
-    const cleanedDescription = match ? description.replace(/<img[^>]+>/g, '') : description;
+    
+    const cleanedDescription = description.replace(/<\/?[^>]+(>|$)/g, '');
+  
     return { imageUrl: match ? match[1] : '', cleanedDescription };
   };
 
@@ -111,6 +113,28 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
     }
   };
 
+  const handleUnfollowUniversity = async () => {
+    if (!user) {
+      Alert.alert('Erro', 'Você precisa estar logado para deixar de seguir uma universidade.');
+      return;
+    }
+  
+    try {
+      await axios.delete(`${BASE_URL}/unfollowuniversity`, {
+        data: {
+          userId: user.id,
+          universityId: universityData?.id,
+        },
+      });
+      setIsFollowing(false);
+      Alert.alert('Sucesso', 'Você deixou de seguir esta universidade.');
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao deixar de seguir a universidade.');
+      console.error('Erro ao deixar de seguir universidade:', error);
+    }
+  };
+  
+
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -130,9 +154,11 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
               <BorderColorContainer style={styles.description1}>
                 <Name>{universityData.description}</Name>
               </BorderColorContainer>
-              {/* Follow Button */}
               <Pressable onPress={handleFollowUniversity} style={styles.followButton}>
                 <Text style={styles.followButtonText}>{isFollowing ? 'Seguindo' : 'Seguir Universidade'}</Text>
+              </Pressable>
+              <Pressable onPress={handleUnfollowUniversity} style={styles.followButton}>
+                <Text style={styles.followButtonText}>Deixar de seguir</Text>
               </Pressable>
             </View>
             <View style={styles.image}>

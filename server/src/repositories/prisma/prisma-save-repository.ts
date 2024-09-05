@@ -161,3 +161,29 @@ export async function removeNewsFromDatabase(userId: string, newsUrl: string) {
     throw new Error('Erro ao remover notícia');
   }
 }
+
+export const unfollowUniversity = async (userId: string, universityId: string) => {
+  return await prisma.follow.deleteMany({
+    where: {
+      userId,
+      universityId,
+    },
+  });
+};
+
+export const getFollowedUniversitiesByUser = async (userId: string) => {
+  try {
+    const followedUniversities = await prisma.follow.findMany({
+      where: {
+        userId: userId
+      },
+      include: {
+        university: true  
+      }
+    });
+
+    return followedUniversities.map(follow => follow.university);
+  } catch (error) {
+    throw new Error('Erro ao buscar universidades seguidas pelo usuário.');
+  }
+};

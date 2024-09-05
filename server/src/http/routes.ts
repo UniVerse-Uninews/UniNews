@@ -15,9 +15,9 @@
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
   import { createNews } from "./controllers/news/temp-news";
-  import { getNpmData } from "./controllers/news/temp-npm";
+  import { getNpmData, getNpmDataWithoutLimit } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
-  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler  } from "./controllers/save/save";
+  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler, unfollowUniversityHandler, getFollowedUniversitiesHandler  } from "./controllers/save/save";
   import { requestPasswordResetHandler, resetPasswordHandler } from "./controllers/user/update-password";
 
   declare module "fastify" {
@@ -44,13 +44,16 @@
     app.post("/university", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, registerUniversityController);
     app.get("/getalluniversity", getAllUniversityController);
     app.get("/university/:id", getUniversityController);
+    app.get('/getuniversityfollowed', getFollowedUniversitiesHandler);
     app.get<{ Params: { name: string } }>('/university/name/:name', getUniversityByNameController);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
+    app.delete("/unfollowuniversity", unfollowUniversityHandler);
 
     // News routes
     app.post('/news', createNews);
     app.get('/npm/:text', getNpmData);
+    app.get('/npm/university/:text', getNpmDataWithoutLimit);
     app.get('/news/:url', getNewsByUrlHandler);
 
     // Save and follow routes
