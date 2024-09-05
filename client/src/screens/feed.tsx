@@ -17,8 +17,8 @@ export function Feed({ navigation }: { navigation: any }) {
     const { user } = useAuth();
     const { checkAuth } = useAuthCheck();
 
-    const [isFollowing, setIsFollowing] = useState(true); // Novo estado para alternar entre "Seguindo" e "Todas"
-    const [followedNews, setFollowedNews] = useState<any[]>([]); // Estado para armazenar as notícias seguidas
+    const [isFollowing, setIsFollowing] = useState(true);
+    const [followedNews, setFollowedNews] = useState<any[]>([]);
 
     useEffect(() => {
         checkAuth();
@@ -26,7 +26,6 @@ export function Feed({ navigation }: { navigation: any }) {
 
     const BASE_URL = REACT_APP_API_URL;
 
-    // Carregar as notícias das universidades seguidas por padrão
     useEffect(() => {
         if (isFollowing) {
             fetchFollowedUniversitiesNews();
@@ -34,6 +33,8 @@ export function Feed({ navigation }: { navigation: any }) {
             fetchAllNews();
         }
     }, [isFollowing]);
+
+    
 
     const fetchFollowedUniversitiesNews = async () => {
         try {
@@ -245,7 +246,7 @@ export function Feed({ navigation }: { navigation: any }) {
     return (
         <>
             <Header />
-            <View style={styles.headerTabs}>
+                        <View style={styles.headerTabs}>
                 <Pressable
                     style={[styles.tabButton, isFollowing ? styles.tabButtonActive : styles.tabButtonInactive]}
                     onPress={() => setIsFollowing(true)}
@@ -260,6 +261,7 @@ export function Feed({ navigation }: { navigation: any }) {
                     <Text style={!isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Todas</Text>
                 </Pressable>
             </View>
+                    {loading && <Text>Loading...</Text>}
                     {news.length > 0 && (
                         <ScrollView>
                             <Container style={styles.container}>
