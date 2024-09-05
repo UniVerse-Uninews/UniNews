@@ -59,5 +59,47 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         right: responsiveWidth(2),
         bottom: responsiveHeight(1),
-    }
+    },
+
+    tabText: {  
+        fontSize: responsiveFontSize(2),
+        fontFamily: 'RubikBold',
+    },
+    tabTextActive: {
+        fontSize: responsiveFontSize(2),
+        fontFamily: 'RubikBold',
+        color: '#0072bc',
+    },
+    tabTextInactive: {
+        fontSize: responsiveFontSize(2),
+        fontFamily: 'RubikBold',
+        color: '#ccc',
+    },
+
+    tabButton: {
+        padding: responsiveHeight(1),
+        flex: 1,
+        alignItems: 'center',
+    },
+    tabButtonActive: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#0072bc',
+    },
+    tabButtonInactive: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#ccc',
+    },
+
+    headerTabs: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#343434',
+        alignItems: 'center',
+    },
+    
+    separator: {
+        width: 1,
+        backgroundColor: '#ccc',
+        height: '100%',
+    },
 });

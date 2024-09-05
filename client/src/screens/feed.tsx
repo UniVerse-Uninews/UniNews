@@ -17,74 +17,81 @@ export function Feed({ navigation }: { navigation: any }) {
     const { user } = useAuth();
     const { checkAuth } = useAuthCheck();
 
+    const [isFollowing, setIsFollowing] = useState(true); // Novo estado para alternar entre "Seguindo" e "Todas"
+    const [followedNews, setFollowedNews] = useState<any[]>([]); // Estado para armazenar as notícias seguidas
+
     useEffect(() => {
         checkAuth();
     }, []);
 
     const BASE_URL = REACT_APP_API_URL;
 
-    // useEffect(() => {
-    //     const fetchAllNews = async () => {
-    //         try {
-    //             setLoading(true);
-    //             const universities = await fetchAllUniversities();
-
-    //             if (universities.length > 0) {
-    //                 const newsPromises = universities.map((university: any) => fetchNews(university.url, university.image, university.id));
-    //                 const newsResults = await Promise.all(newsPromises);
-    //                 const allNews = newsResults.flat();
-    //                 setNews(allNews);
-    //             } else {
-    //                 setNews([]);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching news:', error);
-    //             Alert.alert('Erro', 'Erro ao buscar notícias.');
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchAllNews();
-    // }, []);
-
+    // Carregar as notícias das universidades seguidas por padrão
     useEffect(() => {
-        const fetchFollowedUniversitiesNews = async () => {
-            try {
-                setLoading(true);
+        if (isFollowing) {
+            fetchFollowedUniversitiesNews();
+        } else {
+            fetchAllNews();
+        }
+    }, [isFollowing]);
 
-                if (!user) {
-                    Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
-                    return;
-                }
+    const fetchFollowedUniversitiesNews = async () => {
+        try {
+            setLoading(true);
 
-                const followedUniversities = await fetchFollowedUniversities();
-
-                if (followedUniversities.length > 0) {
-                    const newsPromises = followedUniversities.map((university: any) => fetchNews(university.url, university.image, university.id));
-                    const newsResults = await Promise.all(newsPromises);
-                    const allNews = newsResults.flat();
-                    setNews(allNews);
-                } else {
-                    setNews([]);
-                }
-            } catch (error) {
-                console.error('Error fetching news:', error);
-                Alert.alert('Erro', 'Erro ao buscar notícias.');
-            } finally {
-                setLoading(false);
+            if (!user) {
+                Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
+                return;
             }
-        };
 
-        fetchFollowedUniversitiesNews();
-    }, [user])
+            const followedUniversities = await fetchFollowedUniversities();
+
+            if (followedUniversities.length > 0) {
+                const newsPromises = followedUniversities.map((university: any) =>
+                    fetchNews(university.url, university.image, university.id)
+                );
+                const newsResults = await Promise.all(newsPromises);
+                const allNews = newsResults.flat();
+                setNews(allNews);
+                setFollowedNews(allNews); // Armazena as notícias seguidas
+            } else {
+                setNews([]);
+            }
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            Alert.alert('Erro', 'Erro ao buscar notícias.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchAllNews = async () => {
+        try {
+            setLoading(true);
+            const universities = await fetchAllUniversities();
+
+            if (universities.length > 0) {
+                const newsPromises = universities.map((university: any) =>
+                    fetchNews(university.url, university.image, university.id)
+                );
+                const newsResults = await Promise.all(newsPromises);
+                const allNews = newsResults.flat();
+                setNews(allNews);
+            } else {
+                setNews([]);
+            }
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            Alert.alert('Erro', 'Erro ao buscar notícias.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const fetchNews = async (url: string, universityImage: string, universityId: string) => {
         try {
-            const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`, {
-                params: { limit: 5 } 
-            });
-    
+            const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
+
             if (response.data && response.data.items) {
                 return response.data.items.map((item: any) => {
                     const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
@@ -93,7 +100,7 @@ export function Feed({ navigation }: { navigation: any }) {
                         image: imageUrl || universityImage,
                         description: cleanedDescription,
                         link: item.link,
-                        universityId
+                        universityId,
                     };
                 });
             } else {
@@ -111,11 +118,11 @@ export function Feed({ navigation }: { navigation: any }) {
     const fetchFollowedUniversities = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/getuniversityfollowed`, {
-                params: { userId: user?.id }
+                params: { userId: user?.id },
             });
 
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string, image: string, id: string }) => university);
+                return response.data.map((university: { url: string; image: string; id: string }) => university);
             } else {
                 Alert.alert('Erro', 'Você não segue nenhuma universidade.');
                 return [];
@@ -127,22 +134,11 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     };
 
-    const extractImageFromDescription = (description: string) => {
-        const match = description.match(/<img[^>]+src="([^">]+)"/);
-        
-        if (match) {
-            const cleanedDescription = description.replace(/<img[^>]+>/g, '');
-            return { imageUrl: match[1], cleanedDescription };
-        } else {
-            return { imageUrl: '', cleanedDescription: description };
-        }
-    };
-
     const fetchAllUniversities = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/getalluniversity`);
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string, image: string, id: string }) => university);
+                return response.data.map((university: { url: string; image: string; id: string }) => university);
             } else {
                 Alert.alert('Erro', 'Nenhuma universidade encontrada.');
                 return [];
@@ -151,6 +147,17 @@ export function Feed({ navigation }: { navigation: any }) {
             console.error('Error fetching university URLs:', error);
             Alert.alert('Erro', 'Erro ao buscar URLs das universidades.');
             return [];
+        }
+    };
+
+    const extractImageFromDescription = (description: string) => {
+        const match = description.match(/<img[^>]+src="([^">]+)"/);
+
+        if (match) {
+            const cleanedDescription = description.replace(/<img[^>]+>/g, '');
+            return { imageUrl: match[1], cleanedDescription };
+        } else {
+            return { imageUrl: '', cleanedDescription: description };
         }
     };
 
@@ -238,8 +245,21 @@ export function Feed({ navigation }: { navigation: any }) {
     return (
         <>
             <Header />
-                
-                    {loading && <Text>Loading...</Text>}
+            <View style={styles.headerTabs}>
+                <Pressable
+                    style={[styles.tabButton, isFollowing ? styles.tabButtonActive : styles.tabButtonInactive]}
+                    onPress={() => setIsFollowing(true)}
+                >
+                    <Text style={isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Seguindo</Text>
+                </Pressable>
+                <View style={styles.separator} />
+                <Pressable
+                    style={[styles.tabButton, !isFollowing ? styles.tabButtonActive : styles.tabButtonInactive]}
+                    onPress={() => setIsFollowing(false)}
+                >
+                    <Text style={!isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Todas</Text>
+                </Pressable>
+            </View>
                     {news.length > 0 && (
                         <ScrollView>
                             <Container style={styles.container}>
