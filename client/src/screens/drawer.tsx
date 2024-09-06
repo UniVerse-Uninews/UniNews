@@ -22,15 +22,12 @@ interface DrawerProps {
 
 
 const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
-  // Create a ref for the Animated value
   const drawerTranslateX = React.useRef(new Animated.Value(Dimensions.get('window').width)).current;
 
-  // Get the width of the screen
   const screenWidth = Dimensions.get('window').width;
   const textInputRef = useRef<TextInput>(null);
 
 
-  // Define drawer width as a fraction of the screen width (e.g., 70% of the screen width)
   const drawerWidth = screenWidth * 0.85;
 
   
@@ -39,7 +36,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   
   React.useEffect(() => {
     Animated.timing(drawerTranslateX, {
-      toValue: isOpen ? screenWidth - drawerWidth : screenWidth, // Adjust based on screen width
+      toValue: isOpen ? screenWidth - drawerWidth : screenWidth, 
       duration: 400,
       useNativeDriver: true,
     }).start();
@@ -71,7 +68,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
             placeholderTextColor={'#8F8F8F'}
             value={textValue}
             onChangeText={setTextValue}
-            onBlur={() => setIsEditing(false)} // Switch back to button mode on blur
+            onBlur={() => setIsEditing(false)}
           />
         ) : (
           <TouchableOpacity style={styles.campo}  onPress={() => setIsEditing(true)}>

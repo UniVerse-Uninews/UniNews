@@ -18,7 +18,7 @@ export function Feed({ navigation }: { navigation: any }) {
     const { checkAuth } = useAuthCheck();
 
     const [isFollowing, setIsFollowing] = useState(true);
-    const [page, setPage] = useState(1); // Add page state
+    const [page, setPage] = useState(1); 
 
     useEffect(() => {
         checkAuth();

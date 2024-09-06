@@ -33,7 +33,7 @@
     app.get("/users/:userId", getUserProfileController);
     app.get('/getallusers', { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, getAllUsersController);
     app.delete("/deleteuser/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUser);
-    app.put("/users/:userId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUser);
+    app.put("/users/:userId", updateUser);
     app.get("/me", { preValidation: [app.verifyJwt] }, profile);
     app.patch("/token/refresh", refresh);
     app.post("/password-reset/request", requestPasswordResetHandler);
