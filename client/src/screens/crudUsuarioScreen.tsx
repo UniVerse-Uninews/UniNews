@@ -26,7 +26,7 @@ export function CrudUsuario() {
 
   const {
     users,
-    user,
+    userFields,
     setUser,
     fetchUsers,
     updateUserHandler,
@@ -68,26 +68,26 @@ export function CrudUsuario() {
                   style={styles.input}
                   placeholder="Nome de Usuário"
                   placeholderTextColor={'#8F8F8F'}
-                  value={user.name}
-                  onChangeText={(n) => setUser({ ...user, name: n })}
+                  value={userFields.name}
+                  onChangeText={(n) => setUser({ ...userFields, name: n })}
                 />
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="E-mail"
                   placeholderTextColor={'#8F8F8F'}
-                  value={user.email}
-                  onChangeText={(e) => setUser({ ...user, email: e })}
+                  value={userFields.email}
+                  onChangeText={(e) => setUser({ ...userFields, email: e })}
                 />
-                <InputSenhaSpecial user={user} setUser={setUser} />
+                <InputSenhaSpecial user={userFields} setUser={setUser} />
 
                 <TouchableOpacity
-                  onPress={() => setUser({ ...user, role: 'ADMIN' })}
+                  onPress={() => setUser({ ...userFields, role: 'ADMIN' })}
                 >
                   <View style={styles.radio}>
                     <RadioButton.Android
                       value="ADMIN"
-                      status={user.role === 'ADMIN' ? 'checked' : 'unchecked'}
-                      onPress={() => setUser({ ...user, role: 'ADMIN' })}
+                      status={userFields.role === 'ADMIN' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...userFields, role: 'ADMIN' })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />
@@ -96,13 +96,13 @@ export function CrudUsuario() {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  onPress={() => setUser({ ...user, role: 'USER' })}
+                  onPress={() => setUser({ ...userFields, role: 'USER' })}
                 >
                   <View style={styles.radio}>
                     <RadioButton.Android
                       value="USER"
-                      status={user.role === 'USER' ? 'checked' : 'unchecked'}
-                      onPress={() => setUser({ ...user, role: 'USER' })}
+                      status={userFields.role === 'USER' ? 'checked' : 'unchecked'}
+                      onPress={() => setUser({ ...userFields, role: 'USER' })}
                       uncheckedColor="#91C0E2"
                       color="#3C6294"
                     />
@@ -125,11 +125,11 @@ export function CrudUsuario() {
               <Button etiqueta="Ver Todos" handlePress={fetchUsers} />
               <Button
                 etiqueta="Alterar"
-                handlePress={() => updateUserHandler(user.id, user)}
+                handlePress={() => updateUserHandler(userFields.id, userFields)}
               />
               <Button
                 etiqueta="Apagar"
-                handlePress={() => deleteUserHandler(user.id)}
+                handlePress={() => deleteUserHandler(userFields.id)}
               />
               <Button
                 etiqueta="Limpar Campos"
