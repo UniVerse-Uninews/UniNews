@@ -16,9 +16,10 @@ export function Feed({ navigation }: { navigation: any }) {
     const [savedNewsIds, setSavedNewsIds] = useState<Set<string>>(new Set());
     const { user } = useAuth();
     const { checkAuth } = useAuthCheck();
-
     const [isFollowing, setIsFollowing] = useState(true);
     const [page, setPage] = useState(1); 
+    const [isEndReached, setIsEndReached] = useState(false);
+    const limit = 6;
 
     useEffect(() => {
         checkAuth();
@@ -32,98 +33,118 @@ export function Feed({ navigation }: { navigation: any }) {
         } else {
             fetchAllNews();
         }
-    }, [isFollowing, page]); // Add page to dependency array
+    }, [isFollowing, page]);
 
     const fetchFollowedUniversitiesNews = async () => {
+        if (loading || isEndReached) return;
+    
         try {
-            setLoading(true);
-
-            if (!user) {
-                Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
-                return;
+          setLoading(true);
+    
+          if (!user) {
+            Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
+            return;
+          }
+    
+          const followedUniversities = await fetchFollowedUniversities();
+    
+          if (followedUniversities.length > 0) {
+            const newsPromises = followedUniversities.map((university: any) =>
+              fetchNews(university.url, university.image, university.id)
+            );
+            const newsResults = await Promise.all(newsPromises);
+            const allNews = newsResults.flat();
+    
+            setNews((prevNews) => {
+              const existingUrls = new Set(prevNews.map((item) => item.link));
+              const newNews = allNews.filter((item) => !existingUrls.has(item.link));
+              return [...prevNews, ...newNews];
+            });
+    
+            if (allNews.length < limit) {
+              setIsEndReached(true);
             }
-
-            const followedUniversities = await fetchFollowedUniversities();
-
-            if (followedUniversities.length > 0) {
-                const newsPromises = followedUniversities.map((university: any) =>
-                    fetchNews(university.url, university.image, university.id)
-                );
-                const newsResults = await Promise.all(newsPromises);
-                const allNews = newsResults.flat();
-
-                // Combine with existing news and remove duplicates
-                setNews((prevNews) => {
-                    const existingUrls = new Set(prevNews.map((item) => item.link));
-                    const newNews = allNews.filter((item) => !existingUrls.has(item.link));
-                    return [...prevNews, ...newNews];
-                });
-            } else {
-                setNews([]);
-            }
+          } else {
+            setNews([]);
+          }
         } catch (error) {
-            console.error('Error fetching news:', error);
-            Alert.alert('Erro', 'Erro ao buscar notícias.');
+          console.error('Error fetching news:', error);
+          Alert.alert('Erro', 'Erro ao buscar notícias.');
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
+    
 
-    const fetchAllNews = async () => {
+      const fetchAllNews = async () => {
+        if (loading || isEndReached) return;
+    
         try {
-            setLoading(true);
-            const universities = await fetchAllUniversities();
-
-            if (universities.length > 0) {
-                const newsPromises = universities.map((university: any) =>
-                    fetchNews(university.url, university.image, university.id)
-                );
-                const newsResults = await Promise.all(newsPromises);
-                const allNews = newsResults.flat();
-
-                // Combine with existing news and remove duplicates
-                setNews((prevNews) => {
-                    const existingUrls = new Set(prevNews.map((item) => item.link));
-                    const newNews = allNews.filter((item) => !existingUrls.has(item.link));
-                    return [...prevNews, ...newNews];
-                });
-            } else {
-                setNews([]);
+          setLoading(true);
+    
+          const universities = await fetchAllUniversities(page, limit);
+    
+          if (universities.length > 0) {
+            const newsPromises = universities.map((university: any) =>
+              fetchNews(university.url, university.image, university.id)
+            );
+            const newsResults = await Promise.all(newsPromises);
+            const allNews = newsResults.flat();
+    
+            setNews((prevNews) => {
+              const existingUrls = new Set(prevNews.map((item) => item.link));
+              const newNews = allNews.filter((item) => !existingUrls.has(item.link));
+              return [...prevNews, ...newNews];
+            });
+    
+            if (allNews.length < limit) {
+              setIsEndReached(true); 
             }
+          } else {
+            setNews([]);
+          }
         } catch (error) {
-            console.error('Error fetching news:', error);
-            Alert.alert('Erro', 'Erro ao buscar notícias.');
+          console.error('Error fetching news:', error);
+          Alert.alert('Erro', 'Erro ao buscar notícias.');
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
 
-    const fetchNews = async (url: string, universityImage: string, universityId: string) => {
+      const fetchNews = async (url: string, universityImage: string, universityId: string) => {
         try {
-            const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-
-            if (response.data && response.data.items) {
-                return response.data.items.map((item: any) => {
-                    const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
-                    return {
-                        ...item,
-                        image: imageUrl || universityImage,
-                        description: cleanedDescription,
-                        link: item.link,
-                        universityId,
-                    };
-                });
-            } else {
-                console.error('Unexpected response structure or null data:', response.data);
-                Alert.alert('Erro', 'A resposta do servidor não é a esperada ou está vazia.');
-                return [];
-            }
-        } catch (error) {
-            console.error('Error fetching news:', error);
-            Alert.alert('Erro', 'Erro ao buscar notícias.');
+          const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`, {
+            params: { page, limit }, 
+          });
+    
+          if (response.data && response.data.items) {
+            return response.data.items.map((item: any) => {
+              const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
+              return {
+                ...item,
+                image: imageUrl || universityImage,
+                description: cleanedDescription,
+                link: item.link,
+                universityId,
+              };
+            });
+          } else {
+            console.error('Unexpected response structure or null data:', response.data);
+            Alert.alert('Erro', 'A resposta do servidor não é a esperada ou está vazia.');
             return [];
+          }
+        } catch (error) {
+          console.error('Error fetching news:', error);
+          Alert.alert('Erro', 'Erro ao buscar notícias.');
+          return [];
         }
-    };
+      };
+    
+      const handleLoadMore = () => {
+        if (!isEndReached && !loading) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      };
 
     const fetchFollowedUniversities = async () => {
         try {
@@ -144,13 +165,21 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     };
 
-    const fetchAllUniversities = async () => {
+    const fetchAllUniversities = async (page: number, limit: number = 6) => {
         try {
-            const response = await axios.get(`${BASE_URL}/getalluniversity`);
-            if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string; image: string; id: string }) => university);
+            const response = await axios.get(`${BASE_URL}/univesitypagination`, {
+                params: { page, limit },
+            });
+            console.log('response:', response.data);
+        
+            const universities = response.data.universities;
+    
+            if (universities && universities.length > 0) {
+                return universities.map((university: { url: string; image: string; id: string }) => university);
             } else {
-                Alert.alert('Erro', 'Nenhuma universidade encontrada.');
+                if (page === 1) {
+                    Alert.alert('Erro', 'Nenhuma universidade encontrada.');
+                }
                 return [];
             }
         } catch (error) {
@@ -159,11 +188,7 @@ export function Feed({ navigation }: { navigation: any }) {
             return [];
         }
     };
-
-    const handleLoadMore = () => {
-        setPage((prevPage) => prevPage + 1);
-    };
-
+    
 
     const extractImageFromDescription = (description: string) => {
         const match = description.match(/<img[^>]+src="([^">]+)"/);
@@ -274,14 +299,15 @@ export function Feed({ navigation }: { navigation: any }) {
             </View>
             {loading && <Text>Loading...</Text>}
             <ScrollView
-                onScroll={({ nativeEvent }) => {
-                    const isNearBottom = nativeEvent.contentOffset.y + nativeEvent.layoutMeasurement.height >= nativeEvent.contentSize.height - 50;
-                    if (isNearBottom && !loading) {
+                    onScroll={({ nativeEvent }) => {
+                    const isNearBottom =
+                        nativeEvent.contentOffset.y + nativeEvent.layoutMeasurement.height >= nativeEvent.contentSize.height - 50;
+                    if (isNearBottom) {
                         handleLoadMore();
                     }
-                }}
-                scrollEventThrottle={400}
-            >
+                    }}
+                    scrollEventThrottle={400}
+                >
                 <Container style={styles.container}>
                     {news.map((item, index) => (
                         <View key={item.link || index} style={styles.viewCard}>

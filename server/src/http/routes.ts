@@ -6,7 +6,7 @@
   import { deleteUser } from "./controllers/user/delete-user";
   import { updateUser } from "./controllers/user/update-user";
   import { registerUniversityController } from "./controllers/university/register-university";
-  import { getAllUniversityController } from "./controllers/university/get-all-university";
+  import { getAllUniversityController, getAllUniversityWithPaginationController } from "./controllers/university/get-all-university";
   import { getUniversityController } from "./controllers/university/get-university";
   import { deleteUniversityController } from "./controllers/university/delete-university";
   import { updateUniversityController } from "./controllers/university/update-university";
@@ -43,6 +43,7 @@
     // University routes
     app.post("/university", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, registerUniversityController);
     app.get("/getalluniversity", getAllUniversityController);
+    app.get("/univesitypagination", getAllUniversityWithPaginationController);
     app.get("/university/:id", getUniversityController);
     app.get('/getuniversityfollowed', getFollowedUniversitiesHandler);
     app.get<{ Params: { name: string } }>('/university/name/:name', getUniversityByNameController);

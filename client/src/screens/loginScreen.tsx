@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
-import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name, BackgroundInputText, ContainerAlter, NameAlter, BorderColorBlue, ContainerData, NameBlue } from '@theme/style';
+import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name, BackgroundInputText, ContainerAlter, NameAlter } from '@theme/style';
 import { useAuth } from '../context/authContext';
 import { REACT_APP_API_URL } from '@env';
 import axios from 'axios';
