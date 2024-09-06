@@ -4,6 +4,7 @@ import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
+import { Alert } from 'react-native';
 
 export function useNews() {
     const BASE_URL = REACT_APP_API_URL;
@@ -116,6 +117,49 @@ export function useNews() {
             console.error('Error removing news:', error);
         }
     };
+    const fetchAllUniversities = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/getalluniversity`);
+            if (response.data && response.data.length > 0) {
+                return response.data.map((university: { url: string; image: string; id: string }) => university);
+            } else {
+                Alert.alert('Erro', 'Nenhuma universidade encontrada.');
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching university URLs:', error);
+            Alert.alert('Erro', 'Erro ao buscar URLs das universidades.');
+            return [];
+        }
+    };
+    const fetchAllNews = async () => {
+        try {
+            setLoading(true);
+            const universities = await fetchAllUniversities();
+
+            if (universities.length > 0) {
+                const newsPromises = universities.map((university: any) =>
+                    fetchNews(university.url, university.image, university.id)
+                );
+                const newsResults = await Promise.all(newsPromises);
+                const allNews = newsResults.flat();
+
+                // Combine with existing news and remove duplicates
+                setNews((prevNews) => {
+                    const existingUrls = new Set(prevNews.map((item) => item.link));
+                    const newNews = allNews.filter((item) => !existingUrls.has(item.link));
+                    return [...prevNews, ...newNews];
+                });
+            } else {
+                setNews([]);
+            }
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            Alert.alert('Erro', 'Erro ao buscar notícias.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return {
         news,
@@ -124,5 +168,7 @@ export function useNews() {
         fetchNews,
         handleSaveNews,
         handleRemoveNews,
+        fetchAllUniversities,
+        fetchAllNews,
     };
 }
