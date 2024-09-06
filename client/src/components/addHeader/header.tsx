@@ -1,6 +1,6 @@
 import { styles } from './styleheader';
 import React from 'react';
-import { View, StatusBar,  SafeAreaView , Pressable} from 'react-native';
+import { View, StatusBar,  SafeAreaView , Pressable, Platform} from 'react-native';
 import { Container, NameBlue, Name, Line } from '../../theme/style';
 import ImageViewer from '../addImageViewer/ImageViewer';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +14,7 @@ export function Header() {
   const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/tcc-logo-quadrado-sem-fundo.png';
   return (
     <>
-    <StatusBar></StatusBar>
+    <StatusBar />
      <SafeAreaView style={styles.container2}>
       
      </SafeAreaView>
