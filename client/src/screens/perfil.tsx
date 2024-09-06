@@ -7,10 +7,10 @@ import { styles } from '../styles/stylePerfilUser';
 import { ContainerAlter, BorderColorBlue, Container, ContainerData, Name, NameBlue, NameAlter, BackgroundInput, BackgroundInputText } from '@theme/style';
 import { getUser } from '@services/api';
 import { User } from 'src/@types/interfaces';
-import { InputAlteraSenha, InputConfirmAlteraSenha } from '@components/addInput/Input';
 import { useCrud } from '../hooks/crudHooks';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
+import { InputAlteraSenha, InputConfirmAlteraSenha } from '@components/addInput/Input';
 
 export function Perfil ()  {
   const [modalVisible, setModalVisible] = useState(false);
@@ -21,15 +21,19 @@ export function Perfil ()  {
   const [userData, setUserData] = useState<User | null>(null);
   const [emailForReset, setEmailForReset] = useState('');
   
-  const { setUser} = useCrud();
+  const {
+    setUser,
+    updateUserHandler,
+    userFields
+  } = useCrud();
   const { user } = useAuth();
-  const { checkAuth, handleLogout } = useAuthCheck();
+  const { checkAuth, handleLogout, } = useAuthCheck();
 
   const http = REACT_APP_API_URL;
 
   const handleInputChange = (field: string, value: string) => {
-    setUser({ ...user, [field]: value });
-  };
+    setUser({ ...userFields, [field]: value });
+  }
 
   useEffect(() => {
     checkAuth();
@@ -103,51 +107,63 @@ export function Perfil ()  {
           </View>
           <View style={styles.box1}>
               <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                  Alert.alert('Modal has been closed.');
-                  setModalVisible(!modalVisible);
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.centeredView}>
+            <ContainerAlter style={styles.modalView}>
+              <NameAlter style={styles.modalText}>Nome: </NameAlter>
+              <View style={styles.containerInput}>
+                <BackgroundInput style={styles.inputArea}>
+                  <BackgroundInputText
+                    style={styles.input}
+                    placeholder="Nome"
+                    placeholderTextColor={'#8F8F8F'}
+                    value={userFields.name}  
+                    onChangeText={(text) => handleInputChange('name', text)}
+                  />
+                </BackgroundInput>
+              </View>
+
+              <NameAlter style={styles.modalText}>Email: </NameAlter>
+              <View style={styles.containerInput}>
+                <BackgroundInput style={styles.inputArea}>
+                  <BackgroundInputText
+                    style={styles.input}
+                    placeholder="E-mail"
+                    placeholderTextColor={'#8F8F8F'}
+                    value={userFields.email}
+                    onChangeText={(text) => handleInputChange('email', text)}
+                  />
+                </BackgroundInput>
+              </View>
+
+              <NameAlter style={styles.modalText}>Senha: </NameAlter>
+              <InputAlteraSenha
+                user={userFields}
+                setUser={setUser}
+                placeholder="Insira sua nova senha"
+              />
+
+              <NameAlter style={styles.modalText}>Confirme sua senha: </NameAlter>
+              <InputConfirmAlteraSenha
+                user={userFields}
+                setUser={setUser}
+                placeholder="Confirme sua nova senha"
+              />
+
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  updateUserHandler(user.id, userFields); 
+                  setModalVisible(false);
                 }}>
-                <View style={styles.centeredView}>
-                  <ContainerAlter style={styles.modalView}>
-                    <NameAlter style={styles.modalText}>Nome: </NameAlter>
-                    <View style={styles.containerInput}>
-                      <BackgroundInput style={styles.inputArea}>
-                        <BackgroundInputText
-                          style={styles.input}
-                          placeholder="Nome"
-                          placeholderTextColor={'#8F8F8F'}
-                          value={user.name}
-                          onChangeText={(text) => handleInputChange('name', text)}
-                        />
-                      </BackgroundInput>
-                    </View>
-                    <NameAlter style={styles.modalText}>Email: </NameAlter>
-                    <View style={styles.containerInput}>
-                      <BackgroundInput style={styles.inputArea}>
-                        <BackgroundInputText
-                          style={styles.input}
-                          placeholder="E-mail"
-                          placeholderTextColor={'#8F8F8F'}
-                          value={user.email}
-                          onChangeText={(text) => handleInputChange('email', text)}
-                        />
-                      </BackgroundInput>
-                    </View>
-                    <NameAlter style={styles.modalText}>Senha: </NameAlter>
-                    <InputAlteraSenha user={user} setUser={setUser} placeholder='Insira sua nova senha' />
-                    <NameAlter style={styles.modalText}>Confirme sua senha: </NameAlter>
-                    <InputConfirmAlteraSenha user={user} setUser={setUser} placeholder='Confirme sua nova senha' />
-                    <TouchableOpacity
-                      style={[styles.button, styles.buttonClose]}
-                      onPress={() => setModalVisible(!modalVisible)}>
-                      <NameAlter style={styles.textStyle}>Salvar Dados</NameAlter>
-                    </TouchableOpacity>
-                  </ContainerAlter>
-                </View>
-              </Modal>
+                <NameAlter style={styles.textStyle}>Salvar Dados</NameAlter>
+              </TouchableOpacity>
+            </ContainerAlter>
+          </View>
+        </Modal>
             <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)} >
               <Text style={styles.campotext1}>EDITAR INFORMAÇÕES</Text>
             </TouchableOpacity>
@@ -179,7 +195,6 @@ export function Perfil ()  {
         transparent={true}
         visible={showResetModal}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
           setShowResetModal(!showResetModal);
         }}>
         <View style={styles.centeredView}>
