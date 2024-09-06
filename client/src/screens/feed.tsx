@@ -36,44 +36,40 @@ export function Feed({ navigation }: { navigation: any }) {
     }, [isFollowing, page]);
 
     const fetchFollowedUniversitiesNews = async () => {
-        if (loading || isEndReached) return;
-    
         try {
-          setLoading(true);
+            setLoading(true);
     
-          if (!user) {
-            Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
-            return;
-          }
-    
-          const followedUniversities = await fetchFollowedUniversities();
-    
-          if (followedUniversities.length > 0) {
-            const newsPromises = followedUniversities.map((university: any) =>
-              fetchNews(university.url, university.image, university.id)
-            );
-            const newsResults = await Promise.all(newsPromises);
-            const allNews = newsResults.flat();
-    
-            setNews((prevNews) => {
-              const existingUrls = new Set(prevNews.map((item) => item.link));
-              const newNews = allNews.filter((item) => !existingUrls.has(item.link));
-              return [...prevNews, ...newNews];
-            });
-    
-            if (allNews.length < limit) {
-              setIsEndReached(true);
+            if (!user) {
+                Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
+                return;
             }
-          } else {
-            setNews([]);
-          }
+    
+            const followedUniversities = await fetchFollowedUniversities();
+    
+            if (followedUniversities.length > 0) {
+                const newsPromises = followedUniversities.map((university: any) =>
+                    fetchNews(university.url, university.image, university.id)
+                );
+                const newsResults = await Promise.all(newsPromises);
+                const allNews = newsResults.flat();
+    
+                setNews((prevNews) => {
+                    const existingUrls = new Set(prevNews.map((item) => item.link));
+                    const newNews = allNews.filter((item) => !existingUrls.has(item.link));
+                    return [...prevNews, ...newNews];
+                });
+    
+            } else {
+                setNews([]); 
+            }
         } catch (error) {
-          console.error('Error fetching news:', error);
-          Alert.alert('Erro', 'Erro ao buscar notícias.');
+            console.error('Error fetching news:', error);
+            Alert.alert('Erro', 'Erro ao buscar notícias.');
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
+    };
+    
     
 
       const fetchAllNews = async () => {
@@ -141,10 +137,10 @@ export function Feed({ navigation }: { navigation: any }) {
       };
     
       const handleLoadMore = () => {
-        if (!isEndReached && !loading) {
-          setPage((prevPage) => prevPage + 1);
+        if (!isEndReached && !loading && !isFollowing) {
+            setPage((prevPage) => prevPage + 1);
         }
-      };
+    };
 
     const fetchFollowedUniversities = async () => {
         try {
