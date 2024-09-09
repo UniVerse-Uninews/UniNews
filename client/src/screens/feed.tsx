@@ -205,6 +205,11 @@ export function Feed({ navigation }: { navigation: any }) {
             Alert.alert('Erro', 'Link da notícia está ausente.');
             return;
         }
+
+        if (savedNewsIds.has(news.link)) {
+            Alert.alert('Erro', 'Esta notícia já foi salva.');
+            return;
+        }
     
         const newsData = {
             link: news.link, 
@@ -232,6 +237,7 @@ export function Feed({ navigation }: { navigation: any }) {
     
             if (response.status === 200) {
                 Alert.alert('Sucesso', 'Notícia salva com sucesso.');
+                setSavedNewsIds((prevIds) => new Set([...prevIds, news.link]));
             } else {
                 console.error('Error saving news:', response.data);
                 Alert.alert('Erro', 'Erro ao salvar notícia.');
@@ -242,37 +248,44 @@ export function Feed({ navigation }: { navigation: any }) {
         }
     };
 
-    const handleRemoveNews = async (newsUrl: string) => {
+    const handleRemoveNews = async (news: any) => {
         if (!user) {
-          Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
-          return;
+            Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
+            return;
         }
-      
+    
         try {
-          const response = await fetch(`${BASE_URL}/remove-news`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              userId: user.id,
-              newsUrl: newsUrl.link,
-            }),
-            
-          });
-          console.log('response:', newsUrl);
-      
-          if (response.ok) {
-            Alert.alert('Sucesso', 'Notícia removida com sucesso.');
-          } else {
-            const errorData = await response.json();
-            Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
-          }
+            const response = await fetch(`${BASE_URL}/remove-news`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.id,
+                    newsUrl: news.link,  // Use 'news.link' aqui
+                }),
+            });
+    
+            console.log('response:', news.link);
+    
+            if (response.ok) {
+                Alert.alert('Sucesso', 'Notícia removida com sucesso.');
+    
+                setSavedNewsIds((prevIds) => {
+                    const updatedIds = new Set(prevIds);
+                    updatedIds.delete(news.link);
+                    return updatedIds;
+                });
+            } else {
+                const errorData = await response.json();
+                Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+            }
         } catch (error) {
-          console.error('Error removing news:', error);
-          Alert.alert('Erro', 'Erro ao remover notícia.');
+            console.error('Error removing news:', error);
+            Alert.alert('Erro', 'Erro ao remover notícia.');
         }
-      };
+    };
+    
       
     
       return (
@@ -327,16 +340,28 @@ export function Feed({ navigation }: { navigation: any }) {
                                         Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
                                     </Name>
                                     <Pressable onPress={() => handleSaveNews(item)}>
-                                        <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
-                                            {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
-                                        </Text>
+                                        <Pressable onPress={() => handleSaveNews(item)}>
+                                                <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
+                                                    {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
+                                                </Text>
+                                                    {savedNewsIds.has(item.link) && (
+                                                <Text style={{ color: 'red' }}>You have already saved this news.</Text>
+                                    )}
+                                </Pressable>
                                     </Pressable>
-                                    <Pressable onPress={() => handleRemoveNews(item)}>
-                                        <Image
-                                            source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
-                                            style={styles.saveIcon}
-                                        />
+                                    <Pressable onPress={() => savedNewsIds.has(item.link) ? handleRemoveNews(item.link) : handleSaveNews(item)}>
+                                                                        {savedNewsIds.has(item.link) && (
+                                            <>
+                                                <Pressable onPress={() => handleRemoveNews(item)}>
+                                                    <Image
+                                                        source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
+                                                        style={styles.saveIcon}
+                                                    />
+                                                </Pressable>
+                                            </>
+                                        )}
                                     </Pressable>
+
                                 </View>
                             </ContainerData>
                         </View>
