@@ -97,4 +97,27 @@ export class PrismaUniversityRepository implements UniversityRepository {
             return [];
         }
     }
+    async findAllPaginated(offset: number, limit: number): Promise<University[]> {
+        try {
+            console.log(`Fetching universities with offset: ${offset}, limit: ${limit}`);
+            const universities = await prisma.university.findMany({
+                skip: offset,
+                take: limit,
+                orderBy: {
+                    name: 'asc',
+                },
+            });
+            
+            if (universities.length === 0) {
+                console.log("No universities found");
+            }
+    
+            return universities;
+        } catch (error) {
+            console.error("Error occurred while paginating universities:", error);
+            return [];
+        }
+    }
+    
+    
 }

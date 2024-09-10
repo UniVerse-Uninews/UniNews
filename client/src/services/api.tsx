@@ -141,7 +141,7 @@ export const getUniversity = async (universityId: string) => {
   });
 };
 
-export const updateUniversity = async (universityId: string, universityData: any) => {
+export const updateUniversity = async (universityId: string, universityData: university) => {
   const token = await getToken();
   const updateUniversityUrl = `${http}/university/${universityId}`;
 

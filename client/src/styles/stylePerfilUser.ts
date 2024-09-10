@@ -179,7 +179,7 @@ buttonClose: {
 textStyle: {
   textAlign: 'center',
   fontFamily:'Teacher',
-  fontSize:responsiveFontSize(2.7),
+  fontSize:responsiveFontSize(2.5),
 },
 modalText: {
   marginVertical: responsiveWidth(1.5),

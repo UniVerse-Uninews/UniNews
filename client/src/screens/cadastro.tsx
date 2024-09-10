@@ -17,10 +17,10 @@ import { useCrud } from '../hooks/crudHooks';
 import { InputConfirmSenha, InputSenha } from '../components/addInput/Input';
 
 export function Cadastro({ navigation }: any) {
-  const { user, setUser, addUserHandler } = useCrud();
+  const { userFields, setUser, addUserHandler } = useCrud();
 
   const handleInputChange = (field: string, value: string) => {
-    setUser({ ...user, [field]: value });
+    setUser({ ...userFields, [field]: value });
   };
 
   return (
@@ -39,7 +39,7 @@ export function Cadastro({ navigation }: any) {
                   style={styles.input}
                   placeholder="Nome"
                   placeholderTextColor={'#8F8F8F'}
-                  value={user.name}
+                  value={userFields.name}
                   onChangeText={(text) => handleInputChange('name', text)}
                 />
               </BackgroundInput>
@@ -52,14 +52,14 @@ export function Cadastro({ navigation }: any) {
                   style={styles.input}
                   placeholder="E-mail"
                   placeholderTextColor={'#8F8F8F'}
-                  value={user.email}
+                  value={userFields.email}
                   onChangeText={(text) => handleInputChange('email', text)}
                 />
               </BackgroundInput>
             </View>
 
-            <InputSenha user={user} setUser={setUser} />
-            <InputConfirmSenha user={user} setUser={setUser} />
+            <InputSenha user={userFields} setUser={setUser} />
+            <InputConfirmSenha user={userFields} setUser={setUser} />
 
             <View style={styles.containerInputCadastro}>
               <ButtonSpecial
