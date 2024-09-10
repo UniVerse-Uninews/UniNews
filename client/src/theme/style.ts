@@ -4,7 +4,7 @@ export const Container = styled.View`
   color: ${(props) => props.theme.text};
 `;
 export const ContainerDrawer = styled.View`
-  background: ${(props) => props.theme.card};
+  background: ${(props) => props.theme.drawer};
 `;
 export const ContainerAlter = styled.View`
   background: ${(props) => props.theme.backgroundAlter};
@@ -26,6 +26,9 @@ export const NameAlter = styled.Text`
 `;
 export const NameBlue = styled.Text`
   color: ${(props) => props.theme.blue};
+`;
+export const NameBlueAlter = styled.Text`
+  color: ${(props) => props.theme.blueAlter};
 `;
 export const Textbox = styled.Text`
   color: ${(props) => props.theme.text2};

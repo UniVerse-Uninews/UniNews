@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Pressable, Text, Alert, Linking, Image } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Name, ImageCard, ContainerData, NameBlue } from '@theme/style';
+import { Container, Name, ImageCard, ContainerData, NameBlue, NameBlueAlter } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -38,7 +38,6 @@ export function Feed({ navigation }: { navigation: any }) {
     const fetchFollowedUniversitiesNews = async () => {
         try {
             setLoading(true);
-    
             if (!user) {
                 Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
                 return;
@@ -291,21 +290,21 @@ export function Feed({ navigation }: { navigation: any }) {
       return (
         <>
             <Header />
-            <View style={styles.headerTabs}>
+            <Container style={styles.headerTabs}>
                 <Pressable
                     style={[styles.tabButton, isFollowing ? styles.tabButtonActive : styles.tabButtonInactive]}
                     onPress={() => setIsFollowing(true)}
                 >
-                    <Text style={isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Seguindo</Text>
+                 <NameBlue style={isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Seguindo</NameBlue>
+                    
                 </Pressable>
-                <View style={styles.separator} />
                 <Pressable
                     style={[styles.tabButton, !isFollowing ? styles.tabButtonActive : styles.tabButtonInactive]}
                     onPress={() => setIsFollowing(false)}
                 >
-                    <Text style={!isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Todas</Text>
+                    <NameBlue style={!isFollowing ? styles.tabTextActive : styles.tabTextInactive}>Todas</NameBlue>
                 </Pressable>
-            </View>
+            </Container>
             {loading && <Text>Loading...</Text>}
             <ScrollView
                     onScroll={({ nativeEvent }) => {

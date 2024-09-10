@@ -3,6 +3,7 @@ export default {
   text: 'black',
   primary: '#000',
   blue: '#0571D3',
+  blueAlter: '#91C0E2',
   borderColorYellow: '#F3C63B',
   borderColorInput: '#4A92C7',
   btncrud: '#0571D3',
@@ -17,4 +18,5 @@ export default {
   backgroundData: '#f5f5f5',
   backgroundAlter: '#343434',
   textAlter: 'white',
+  drawer: '#FFFDF6',
 };
