@@ -68,32 +68,30 @@ export const styles = StyleSheet.create({
     tabTextActive: {
         fontSize: responsiveFontSize(2),
         fontFamily: 'RubikBold',
-        color: '#0072bc',
     },
     tabTextInactive: {
         fontSize: responsiveFontSize(2),
         fontFamily: 'RubikBold',
-        color: '#ccc',
+        opacity: 0.5,
     },
 
     tabButton: {
         padding: responsiveHeight(1),
         flex: 1,
         alignItems: 'center',
+        borderRadius: 10,
+        borderColor: '#f5b304',
+        borderWidth: 1,
     },
     tabButtonActive: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#0072bc',
+
     },
     tabButtonInactive: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#ccc',
     },
 
     headerTabs: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        backgroundColor: '#343434',
         alignItems: 'center',
     },
     
