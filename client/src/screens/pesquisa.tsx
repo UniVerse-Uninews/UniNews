@@ -2,16 +2,22 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
-import { Container } from '@theme/style';
+import { BackgroundInput, BackgroundInputText, Container, ContainerData, ImageCard, Name, NameBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import { View, Text, Image, ScrollView, Pressable, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, Image, ScrollView, Pressable, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Linking, SafeAreaView } from 'react-native';
 import { university } from '../@types/university';
-import { TextInput } from 'react-native-paper';
 import { NavigationContainer, DrawerActions, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 import Drawer from './drawer';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlatList } from 'react-native-gesture-handler';
+import debounce from 'lodash.debounce';
+import axios from 'axios';
+import { REACT_APP_API_URL } from '@env';
+import { format } from 'date-fns';
+import { useAuth } from 'src/context/authContext';
+import { useFocusEffect } from 'expo-router';
+
 
 
 const dir_lupa ='http://projetoscti.com.br/projetoscti27/uninews/img/lupa-icon-pesquisa.png';
@@ -21,7 +27,7 @@ const dir_seta_volta = 'http://projetoscti.com.br/projetoscti27/uninews/img/Arro
 
 
 //const Drawer = createDrawerNavigator();
-
+const BASE_URL = REACT_APP_API_URL;
 export interface SearchResults {
     title: string;
     content: string;
@@ -167,6 +173,8 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
     const onChangeText = (search: string) => {
         setText(search);
     };
+    const [savedNewsIds, setSavedNewsIds] = useState<Set<string>>(new Set());
+    const { user } = useAuth();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -174,74 +182,254 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
         setIsDrawerOpen(!isDrawerOpen);
     };
 
-    const {top}= useSafeAreaInsets();
-    const [searchQuery, setSearchQuery] = React.useState('');
-    const [searchResults, setSearchResults] = React.useState<SearchResults[]>([]);
-
-    const getSearchResults = async (text: string) => {
-        if(!text) return[];
-
-        const stocks = await fetch(`http://projetoscti.com.br/projetoscti27/uninews/api/noticias.php?search=${text}`);
-        return await stocks.json();
-    }
-    useEffect(() => {
-        async function fetchStocks() 
-        {
-            const results = await getSearchResults(searchQuery);
-            setSearchResults(results);
-        }
-        fetchStocks();
-    }, [searchQuery]);
+ 
     const preresult = ['homi mata muie'];
     const result = ['noticia1'];
     const history = ['historico'];
 
-    const handleSubmit = async(text:string ) => {
-        const stocks =await getSearchResults(text) as SearchResults[];
-        if(stocks && stocks?.length > 0) return navigation.navigate(`/${stocks[0].title}`);
+    const [universityName, setUniversityName] = useState('');
+    const [news, setNews] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
 
+    const fetchNews = async (url: string) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
+            return response.data.items;
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            Alert.alert('Erro', 'Erro ao buscar notícias.');
+            return [];
+        }
+    };
+
+    const fetchUniversityUrls = async (name: string) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/university/name/${encodeURIComponent(name)}`);
+            if (response.data && response.data.length > 0) {
+                return response.data.map((university: { url: string }) => university.url);
+            } else {
+                Alert.alert('Erro', 'Nenhuma universidade encontrada.');
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching university URLs:', error);
+            Alert.alert('Erro', 'Erro ao buscar URLs das universidades.');
+            return [];
+        }
+    };
+    const handleUniversityNameChange = debounce(async (name: string) => {
+        try {
+            if (!name.trim()) {
+                setNews([]);
+                return;
+            }
+            setLoading(true);
+    
+            // Obtenha as URLs das universidades com base no nome
+            const universityUrls = await fetchUniversityUrls(name);
+    
+            if (universityUrls.length > 0) {
+                // Busque as notícias usando as URLs das universidades
+                const newsPromises = universityUrls.map((url: string) => fetchNews(url));
+                const newsResults = await Promise.all(newsPromises);
+                const allNews = newsResults.flat();
+                setNews(allNews);
+            } else {
+                setNews([]);
+            }
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            Alert.alert('Erro', 'Erro ao buscar notícias.');
+        } finally {
+            setLoading(false);
+        }
+    }, 500);
+
+    const handleSaveNews = async (news: any) => {
+        if (!user) {
+            Alert.alert('Erro', 'Você precisa estar logado para salvar uma notícia.');
+            return;
+        }
+    
+        if (!news.link) {
+            console.error('News link is missing');
+            Alert.alert('Erro', 'Link da notícia está ausente.');
+            return;
+        }
+
+        if (savedNewsIds.has(news.link)) {
+            Alert.alert('Erro', 'Esta notícia já foi salva.');
+            return;
+        }
+    
+        const newsData = {
+            link: news.link, 
+            title: news.title || '',
+            description: news.description || '',
+            image: news.image || '',
+            author: news.author || '',
+            published: news.published || new Date(),
+            created: news.created || new Date(),
+            category: news.category || [],
+            enclosures: news.enclosures || [],
+            media: news.media || {}
+        };
+    
+        try {
+            console.log('Sending data:', {
+                userId: user.id,
+                news: newsData
+            });
+    
+            const response = await axios.post(`${BASE_URL}/save-news`, {
+                userId: user.id,
+                news: newsData
+            });
+    
+            if (response.status === 200) {
+                Alert.alert('Sucesso', 'Notícia salva com sucesso.');
+                setSavedNewsIds((prevIds) => new Set([...prevIds, news.link]));
+            } else {
+                console.error('Error saving news:', response.data);
+                Alert.alert('Erro', 'Erro ao salvar notícia.');
+            }
+        } catch (error) {
+            console.error('Error saving news:', error);
+            Alert.alert('Erro', 'Erro ao salvar notícia.');
+        }
+    };
+    const handleRemoveNews = async (news: any) => {
+        if (!user) {
+            Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`${BASE_URL}/remove-news`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.id,
+                    newsUrl: news.link,  // Use 'news.link' aqui
+                }),
+            });
+    
+            console.log('response:', news.link);
+    
+            if (response.ok) {
+                Alert.alert('Sucesso', 'Notícia removida com sucesso.');
+    
+                setSavedNewsIds((prevIds) => {
+                    const updatedIds = new Set(prevIds);
+                    updatedIds.delete(news.link);
+                    return updatedIds;
+                });
+            } else {
+                const errorData = await response.json();
+                Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+            }
+        } catch (error) {
+            console.error('Error removing news:', error);
+            Alert.alert('Erro', 'Erro ao remover notícia.');
+        }
+    };
+
+    const inputRef = useRef<TextInput>(null); // Cria uma referência para o TextInput
+
+
+    const handlePress = () => {
+        // Foca o TextInput quando TouchableOpacity é pressionado
+        if (inputRef.current) {
+            inputRef.current.focus(); // O método focus() deve estar disponível
+        }
+    };
+
+    
     return (
         <>
             <Header />
             <Container style={styles.container1}>
-                
+            
+                <NameBlue style={styles.title1}>EXPLORAR</NameBlue>
                 <View style={styles.container2}>
-                    <Pressable onPress={() => { }}>
-                        <Image source={{uri: dir_lupa}} style={styles.impesqui} />
+                <BackgroundInput style={styles.inputArea}>
                         <TextInput
-                            placeholder='pesquisar'
-                            onChangeText={(text)=> setSearchQuery(text)}
-                            autoFocus
-                            dense
-                            value={getText}
-                            style={styles.pesquisa}
-                            onSubmitEditing={async (e)=> {
-                                await handleSubmit(e.nativeEvent.text);
-                            }}
+                        ref={inputRef}
+                        placeholderTextColor={'#8F8F8F'}
+                        placeholder='pesquisar'
+                        onChangeText={(text)=>
+                        {
+                            setUniversityName(text);
+                            handleUniversityNameChange(text);}
+                        }
+                        autoFocus
+                        value={universityName}
+                        style={styles.pesquisa}
                         />
-                    </Pressable>
+                        <TouchableOpacity onPress={handlePress} style={styles.containerimpesqui}>
+                            <Image source={{uri: dir_lupa}} style={styles.impesqui} />
+                        </TouchableOpacity>
+                    </BackgroundInput>
                     <TouchableOpacity onPress={toggleDrawer} >
-                    <Image style={styles.filtro} source={{uri: dir_filtro}} />
+                        <View style={styles.contfiltro}>
+                        <Image style={styles.filtro} source={{uri: dir_filtro}} />
+                        </View>
                     </TouchableOpacity>
-                    <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
 
                 </View>
-                <TouchableWithoutFeedback style={{flex:1}} onPress={Keyboard.dismiss}>
-                    {
-                        searchQuery? <>
-                        {searchResults.length===0? <Text>Sem resultados para sua pesquisa</Text>
-                        :(
-                         <FlatList
-                         data={searchResults}
-                         keyExtractor={(item)=>item.title}
-                         renderItem={({item}) => (<Pressable
-                                                onPress={navigation.navigate(`/${item.title}`)}>
-                            <Text>{item.title}</Text></Pressable>)}
-                         />
-                        )}</>: <Text>Carregando...</Text>
-                    }
-                </TouchableWithoutFeedback>
-                <View style={styles.container3}>
+                
+                <ScrollView style={styles.container3}>
+                {news.map((item, index) => (
+
+                <View key={item.link || index} style={styles.viewCard}>
+                            <ContainerData style={styles.card}>
+                                {item.image ? (
+                                    <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+                                ) : (
+                                    <Name>Image not available</Name>
+                                )}
+                                <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
+                                    <NameBlue style={styles.title}>{item.title}</NameBlue>
+                                </Pressable>
+                                <View style={styles.data}>
+                                    <Name style={styles.text}>{item.description || ''}</Name>
+                                    <Pressable onPress={() => Linking.openURL(item.link)}>
+                                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
+                                            Read More
+                                        </Text>
+                                    </Pressable>
+                                    <Name style={styles.text}>
+                                        Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
+                                    </Name>
+                                    <Pressable onPress={() => handleSaveNews(item)}>
+                                        <Pressable onPress={() => handleSaveNews(item)}>
+                                                <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
+                                                    {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
+                                                </Text>
+                                                    {savedNewsIds.has(item.link) && (
+                                                <Text style={{ color: 'red' }}>You have already saved this news.</Text>
+                                    )}
+                                </Pressable>
+                                    </Pressable>
+                                    <Pressable onPress={() => savedNewsIds.has(item.link) ? handleRemoveNews(item.link) : handleSaveNews(item)}>
+                                                                        {savedNewsIds.has(item.link) && (
+                                            <>
+                                                <Pressable onPress={() => handleRemoveNews(item)}>
+                                                    <Image
+                                                        source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
+                                                        style={styles.saveIcon}
+                                                    />
+                                                </Pressable>
+                                            </>
+                                        )}
+                                    </Pressable>
+
+                                </View>
+                            </ContainerData>
+                        </View>
+                ))}
                 {/*{preresult.length > 0 && (
                     <View>
                         {preresult.map((name, index) => (
@@ -271,10 +459,15 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                         ))}
                     </ScrollView>
                 )}*/}
-                </View>
+                </ScrollView>
+                <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+
             </Container>
             <Footer />
+
         </>
+
     );
+
 }
-}
+

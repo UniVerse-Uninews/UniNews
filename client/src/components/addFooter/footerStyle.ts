@@ -25,5 +25,6 @@ export const styles = StyleSheet.create({
     line: {
         borderWidth: 1.3,
         width: '100%',
+        backgroundColor: '#000',
       },
 });

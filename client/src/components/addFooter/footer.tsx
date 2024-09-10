@@ -4,7 +4,7 @@ import {  useNavigation } from '@react-navigation/native';
 import {  StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack';
 import { styles } from './footerStyle';
-import { BorderColorBlue, FooterContainer } from '@theme/style';
+import { BorderColorBlue, FooterContainer, Line } from '@theme/style';
 import { useAuth } from 'src/context/authContext';
 import { useAuthCheck } from 'src/context/authNavigation';
 
@@ -35,7 +35,7 @@ export function Footer() {
     return (
         
             <>
-            <BorderColorBlue style={styles.line} />
+            <Line style={styles.line} />
             <FooterContainer style={styles.container}>
                 <Pressable 
                     style={buttonStyle}

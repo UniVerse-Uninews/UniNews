@@ -4,7 +4,7 @@ export const Container = styled.View`
   color: ${(props) => props.theme.text};
 `;
 export const ContainerDrawer = styled.View`
-  background: ${(props) => props.theme.card};
+  background: ${(props) => props.theme.drawer};
 `;
 export const ContainerAlter = styled.View`
   background: ${(props) => props.theme.backgroundAlter};

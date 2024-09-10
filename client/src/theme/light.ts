@@ -17,4 +17,5 @@ export default {
   backgroundData: '#f5f5f5',
   backgroundAlter: '#343434',
   textAlter: 'white',
+  drawer: '#FFFDF6',
 };

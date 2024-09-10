@@ -38,7 +38,6 @@ export function Feed({ navigation }: { navigation: any }) {
     const fetchFollowedUniversitiesNews = async () => {
         try {
             setLoading(true);
-    
             if (!user) {
                 Alert.alert('Erro', 'Você precisa estar logado para ver notícias.');
                 return;
