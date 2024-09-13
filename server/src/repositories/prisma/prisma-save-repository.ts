@@ -142,23 +142,23 @@ export async function getSavedNewsByUserId(userId: string) {
 
 export async function removeNewsFromDatabase(userId: string, newsUrl: string) {
   try {
-    console.log(`Removing news for userId: ${userId} and newsUrl: ${newsUrl}`);
+      console.log(`Removing news for userId: ${userId} and newsUrl: ${newsUrl}`);
 
-    const result = await prisma.savedNews.deleteMany({
-      where: {
-        userId: userId,
-        newsUrl: newsUrl,
-      },
-    });
+      const result = await prisma.savedNews.deleteMany({
+          where: {
+              userId: userId,
+              newsUrl: newsUrl,
+          },
+      });
 
-    if (result.count > 0) {
-      console.log('Notícia removida com sucesso.');
-    } else {
-      console.log('Nenhuma notícia encontrada para remover.');
-    }
+      if (result.count > 0) {
+          console.log('Notícia removida com sucesso.');
+      } else {
+          console.log('Nenhuma notícia encontrada para remover.');
+      }
   } catch (error) {
-    console.error('Erro ao remover notícia:', error);
-    throw new Error('Erro ao remover notícia');
+      console.error('Erro ao remover notícia:', error);
+      throw new Error('Erro ao remover notícia');
   }
 }
 

@@ -125,22 +125,23 @@ export async function getSavedNewsByUserIdHandler(req: FastifyRequest<{ Querystr
 export const removeNewsHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   const { userId, newsUrl } = request.body as { userId: string; newsUrl: string };
 
+
   if (typeof newsUrl !== 'string') {
-    return reply.status(400).send({ error: 'newsUrl must be a string' });
+      return reply.status(400).send({ error: 'newsUrl must be a string' });
   }
 
   if (!userId || !newsUrl) {
-    return reply.status(400).send({ error: 'Missing required fields' });
+      return reply.status(400).send({ error: 'Missing required fields' });
   }
 
   try {
-    await removeNewsFromDatabase(userId, newsUrl);
-    return reply.status(200).send({ message: 'News removed successfully' });
+      await removeNewsFromDatabase(userId, newsUrl);
+      return reply.status(200).send({ message: 'News removed successfully' });
   } catch (error) {
-    console.error('Error removing news:', error);
-    return reply.status(500).send({ error: 'Error removing news' });
+      console.error('Error removing news:', error);
+      return reply.status(500).send({ error: 'Error removing news' });
   }
-};
+}
 
 export const unfollowUniversityHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   const { userId, universityId } = request.body as { userId: string; universityId: string };

@@ -144,7 +144,6 @@ export function useNews() {
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
 
-                // Combine with existing news and remove duplicates
                 setNews((prevNews) => {
                     const existingUrls = new Set(prevNews.map((item) => item.link));
                     const newNews = allNews.filter((item) => !existingUrls.has(item.link));

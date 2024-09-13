@@ -56,9 +56,8 @@ export const styles = StyleSheet.create({
     saveIcon: {
         width: responsiveWidth(8),
         height: responsiveHeight(4),
-        position: 'absolute',
-        right: responsiveWidth(2),
-        bottom: responsiveHeight(1),
+        top: responsiveHeight(1),
+        alignSelf: 'flex-start',
     },
 
     tabText: {  
@@ -100,4 +99,23 @@ export const styles = StyleSheet.create({
         backgroundColor: '#ccc',
         height: '100%',
     },
+
+    profileImageContainer: {
+        position: 'absolute',
+        right: responsiveWidth(2), 
+        top: responsiveHeight(2),  
+        width: responsiveWidth(10), 
+        height: responsiveHeight(5), 
+        overflow: 'hidden',
+      },
+      
+      profileImage: {
+        resizeMode: 'cover',
+        width: '100%',
+        height: '100%',
+        },
+
+      textContainer: {
+        paddingRight: responsiveWidth(15), 
+      },
 });

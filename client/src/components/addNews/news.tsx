@@ -1,85 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, Linking, Pressable, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Pressable, Text, Image, Linking } from 'react-native';
 import { format } from 'date-fns';
-import { styles } from './newsStyle';
-import { BorderColorBlue, Name } from '@theme/style';
-import { fetchNewsByUniversity } from '@services/api';
-import { temp_news } from '../../@types/temp_news';
+import { Container, Name, ImageCard, ContainerData, NameBlue } from '@theme/style';
+import { styles } from '@styles/styleFeed';
+import { NewsCardProps } from 'src/@types/interfaces';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from 'src/@types/navigation-params';
 
-const dirIconNoSave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
-const dirIconSave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
-
-interface NewsProps {
-  universityId: string;
-  universityImage: string; 
-}
-
-export function News({ universityId, universityImage }: NewsProps) {
-  const [news, setNews] = useState<temp_news[]>([]);
-  const [iconSaved, setIconSaved] = useState<{ [key: string]: boolean }>({});
-
-  useEffect(() => {
-    async function getNews() {
-      try {
-        const newsItems = await fetchNewsByUniversity(universityId);
-        setNews(newsItems);
-      } catch (error) {
-        console.error('Error fetching news:', error);
-      }
-    }
-
-    getNews();
-  }, [universityId]);
-
-  const handlePress = (newsId: string) => {
-    setIconSaved(prevState => ({ ...prevState, [newsId]: !prevState[newsId] }));
-  };
-
-  const handlePressablePress = (url?: string) => {
-    if (url && typeof url === 'string') {
-      Linking.openURL(url).catch(err => console.error('Failed to open URL:', err));
-    } else {
-      console.warn('URL is invalid:', url);
-    }
-  };
+const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
+  const navigation = useNavigation<NavigationProp>();
 
   return (
-    <ScrollView>
-      {news.length > 0 ? (
-        news.map((item) => (
-          <View key={item.id} style={styles.card}>
-            <BorderColorBlue>
-              {item.image ? (
-                <Image source={{ uri: item.image }} style={styles.imageCard} />
-              ) : (
-                <Image source={{ uri: universityImage }} style={styles.imageCard} />
-              )}
-              <View style={styles.containerIcon}>
-                <TouchableOpacity onPress={() => handlePress(item.id)}>
+    <Container style={styles.container}>
+      {news.map((item) => (
+        <View key={item.link} style={styles.viewCard}>
+          <ContainerData style={styles.card}>
+            {item.image ? (
+              <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+            ) : (
+              <Name>Image not available</Name>
+            )}
+
+            <Pressable onPress={() => {}}>
+              <NameBlue style={styles.title}>{item.title}</NameBlue>
+            </Pressable>
+
+            <View style={styles.data}>
+              <Name style={styles.text}>{item.description || ''}</Name>
+
+              <Pressable onPress={() => Linking.openURL(item.link)}>
+                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>Read More</Text>
+              </Pressable>
+
+              <Name style={styles.text}>
+                Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
+              </Name>
+
+
+              <Pressable
+                onPress={() => savedNewsIds.has(item.link) ? handleRemoveNews(item.link) : handleSaveNews(item)}
+              >
+                <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
+                  {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
+                </Text>
+              </Pressable>
+
+              {savedNewsIds.has(item.link) && (
+                <Pressable onPress={() => handleRemoveNews(item.link)}>
                   <Image
-                    source={{ uri: iconSaved[item.id] ? dirIconSave : dirIconNoSave }}
-                    style={styles.icon}
+                    source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
+                    style={styles.saveIcon}
                   />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.data}>
-                <Name style={styles.title}>{item.title}</Name>
-                <Name style={styles.text}>{item.description}</Name>
-                <Pressable onPress={() => handlePressablePress(item.url)}>
-                  <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                    Read More
-                  </Text>
                 </Pressable>
-                <Name style={styles.text}>
-                    Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
-                  </Name>
-              </View>
-            </BorderColorBlue>
-          </View>
-        ))
-      ) : (
-        <Text>No news available</Text>
-      )}
-    </ScrollView>
+              )}
+               <Pressable
+              style={styles.profileImageContainer}
+              onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}
+            >
+              <Image
+                source={{ uri: 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logout.png' }} 
+                style={styles.profileImage}
+              />
+              </Pressable>
+            </View>
+          </ContainerData>
+        </View>
+      ))}
+    </Container>
   );
-}
+};
+
+export default NewsCard;
