@@ -89,12 +89,12 @@ export function useNews() {
         }
     };
 
-    const handleRemoveNews = async (newsItem: any) => {
+    const handleRemoveNews = async (news: any) => {
         if (!user) {
-            console.error('User not logged in.');
+            Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
             return;
         }
-
+    
         try {
             const response = await fetch(`${BASE_URL}/remove-news`, {
                 method: 'DELETE',
@@ -103,20 +103,33 @@ export function useNews() {
                 },
                 body: JSON.stringify({
                     userId: user.id,
-                    newsUrl: newsItem.link,
+                    newsUrl: news.link,
                 }),
             });
-
+    
+            const responseBody = await response.text();
+    
             if (response.ok) {
-                console.log('News removed successfully.');
+                Alert.alert('Sucesso', 'Notícia removida com sucesso.');
+                setSavedNewsIds((prevIds) => {
+                    const updatedIds = new Set(prevIds);
+                    updatedIds.delete(news.link);
+                    return updatedIds;
+                });
             } else {
-                const errorData = await response.json();
-                console.error('Error removing news:', errorData.error);
+                try {
+                    const errorData = JSON.parse(responseBody);
+                    Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+                } catch (parseError) {
+                    Alert.alert('Erro', 'Erro ao remover notícia. Resposta da API não é JSON.');
+                }
             }
         } catch (error) {
             console.error('Error removing news:', error);
+            Alert.alert('Erro', 'Erro ao remover notícia.');
         }
     };
+    
     const fetchAllUniversities = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/getalluniversity`);

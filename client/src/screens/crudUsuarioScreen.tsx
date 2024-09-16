@@ -17,7 +17,7 @@ import {
   BackgroundContainerInput,
 } from '../theme/style';
 import { Header } from '../components/addHeader/header';
-import { InputSenhaSpecial } from '../components/addInput/Input';
+import { InputSenhaSpecial, InputSenhaSpecialAdmin } from '../components/addInput/Input';
 import { User } from 'src/@types/interfaces';
 
 
@@ -78,7 +78,7 @@ export function CrudUsuario() {
                   value={userFields.email}
                   onChangeText={(e) => setUser({ ...userFields, email: e })}
                 />
-                <InputSenhaSpecial user={userFields} setUser={setUser} />
+                <InputSenhaSpecialAdmin user={userFields} setUser={setUser} />
 
                 <TouchableOpacity
                   onPress={() => setUser({ ...userFields, role: 'ADMIN' })}
