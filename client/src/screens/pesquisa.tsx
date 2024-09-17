@@ -233,16 +233,16 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
             return [];
         }
     };
-    const handleUniversityNameChange = debounce(async (name: string) => {
+    const handleSearchClick = async () => {
         try {
-            if (!name.trim()) {
+            if (!universityName.trim()) {
                 setNews([]);
                 return;
             }
             setLoading(true);
-    
-            const universityUrls = await fetchUniversityUrls(name);
-    
+
+            const universityUrls = await fetchUniversityUrls(universityName);
+
             if (universityUrls.length > 0) {
                 const newsPromises = universityUrls.map((url: string) => fetchNews(url));
                 const newsResults = await Promise.all(newsPromises);
@@ -257,7 +257,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
         } finally {
             setLoading(false);
         }
-    }, 500);
+    };
 
     const handleSaveNews = async (news: any) => {
         if (!user) {
@@ -382,23 +382,18 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                 <NameBlue style={styles.title1}>EXPLORAR</NameBlue>
                 <View style={styles.container2}>
                 <BackgroundInput style={styles.inputArea}>
-                        <TextInput
-                        ref={inputRef}
-                        placeholderTextColor={'#8F8F8F'}
-                        placeholder='pesquisar'
-                        onChangeText={(text)=>
-                        {
-                            setUniversityName(text);
-                            handleUniversityNameChange(text);}
-                        }
-                        autoFocus
-                        value={universityName}
-                        style={styles.pesquisa}
-                        />
-                        <TouchableOpacity onPress={handlePress} style={styles.containerimpesqui}>
-                            <Image source={{uri: dir_lupa}} style={styles.impesqui} />
-                        </TouchableOpacity>
-                    </BackgroundInput>
+                <TextInput
+                    ref={inputRef}
+                    placeholderTextColor={'#8F8F8F'}
+                    placeholder='Pesquisar'
+                    onChangeText={setUniversityName}
+                    value={universityName}
+                    style={styles.pesquisa}
+                />
+                <TouchableOpacity onPress={handleSearchClick} style={styles.containerimpesqui}>
+                    <Image source={{ uri: dir_lupa }} style={styles.impesqui} />
+                </TouchableOpacity>
+            </BackgroundInput>
                     <TouchableOpacity onPress={toggleDrawer} >
                         <View style={styles.contfiltro}>
                         <Image style={styles.filtro} source={{uri: dir_filtro}} />
