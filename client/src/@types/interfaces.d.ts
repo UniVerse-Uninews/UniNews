@@ -31,3 +31,20 @@ export interface LoginResponse {
     role: string;
     id: string;
 }
+
+export interface NewsItem {
+    link: string;
+    image?: string;
+    title: string;
+    description?: string;
+    published?: string;
+    universityId: string;
+  }
+
+export interface NewsCardProps {
+    news: NewsItem[];
+    savedNewsIds: Set<string>;
+    handleSaveNews: (item: NewsItem) => void;
+    handleRemoveNews: (newsUrl: string) => void;
+  }
+    

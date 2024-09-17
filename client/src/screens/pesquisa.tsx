@@ -17,6 +17,7 @@ import { REACT_APP_API_URL } from '@env';
 import { format } from 'date-fns';
 import { useAuth } from 'src/context/authContext';
 import { useFocusEffect } from 'expo-router';
+import NewsCard from '@components/addNews/news';
 
 
 
@@ -194,13 +195,28 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
     const fetchNews = async (url: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
-            return response.data.items;
-        } catch (error) {
-            console.error('Error fetching news:', error);
-            Alert.alert('Erro', 'Erro ao buscar notícias.');
+            if (response.data && response.data.items) {
+            return response.data.items.map((item: any) => {
+              const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
+              return {
+                ...item,
+                image: imageUrl,
+                description: cleanedDescription,
+                link: item.link,
+                // universityId,
+              };
+            });
+          } else {
+            console.error('Unexpected response structure or null data:', response.data);
+            Alert.alert('Erro', 'A resposta do servidor não é a esperada ou está vazia.');
             return [];
+          }
+        } catch (error) {
+          console.error('Error fetching news:', error);
+          Alert.alert('Erro', 'Erro ao buscar notícias.');
+          return [];
         }
-    };
+      };
 
     const fetchUniversityUrls = async (name: string) => {
         try {
@@ -217,19 +233,17 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
             return [];
         }
     };
-    const handleUniversityNameChange = debounce(async (name: string) => {
+    const handleSearchClick = async () => {
         try {
-            if (!name.trim()) {
+            if (!universityName.trim()) {
                 setNews([]);
                 return;
             }
             setLoading(true);
-    
-            // Obtenha as URLs das universidades com base no nome
-            const universityUrls = await fetchUniversityUrls(name);
-    
+
+            const universityUrls = await fetchUniversityUrls(universityName);
+
             if (universityUrls.length > 0) {
-                // Busque as notícias usando as URLs das universidades
                 const newsPromises = universityUrls.map((url: string) => fetchNews(url));
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
@@ -243,7 +257,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
         } finally {
             setLoading(false);
         }
-    }, 500);
+    };
 
     const handleSaveNews = async (news: any) => {
         if (!user) {
@@ -262,7 +276,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
             return;
         }
     
-        const newsData = {
+         const newsData = {
             link: news.link, 
             title: news.title || '',
             description: news.description || '',
@@ -298,6 +312,7 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
             Alert.alert('Erro', 'Erro ao salvar notícia.');
         }
     };
+
     const handleRemoveNews = async (news: any) => {
         if (!user) {
             Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
@@ -312,29 +327,41 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                 },
                 body: JSON.stringify({
                     userId: user.id,
-                    newsUrl: news.link,  // Use 'news.link' aqui
+                    newsUrl: news.link,
                 }),
             });
     
-            console.log('response:', news.link);
+            const responseBody = await response.text();
     
             if (response.ok) {
                 Alert.alert('Sucesso', 'Notícia removida com sucesso.');
-    
                 setSavedNewsIds((prevIds) => {
                     const updatedIds = new Set(prevIds);
                     updatedIds.delete(news.link);
                     return updatedIds;
                 });
             } else {
-                const errorData = await response.json();
-                Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+                try {
+                    const errorData = JSON.parse(responseBody);
+                    Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+                } catch (parseError) {
+                    Alert.alert('Erro', 'Erro ao remover notícia. Resposta da API não é JSON.');
+                }
             }
         } catch (error) {
             console.error('Error removing news:', error);
             Alert.alert('Erro', 'Erro ao remover notícia.');
         }
     };
+    
+
+    const extractImageFromDescription = (description: string) => {
+        const match = description.match(/<img[^>]+src="([^">]+)"/);
+        
+        const cleanedDescription = description.replace(/<\/?[^>]+(>|$)/g, '');
+      
+        return { imageUrl: match ? match[1] : '', cleanedDescription };
+      };
 
     const inputRef = useRef<TextInput>(null); // Cria uma referência para o TextInput
 
@@ -355,23 +382,18 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                 <NameBlue style={styles.title1}>EXPLORAR</NameBlue>
                 <View style={styles.container2}>
                 <BackgroundInput style={styles.inputArea}>
-                        <TextInput
-                        ref={inputRef}
-                        placeholderTextColor={'#8F8F8F'}
-                        placeholder='pesquisar'
-                        onChangeText={(text)=>
-                        {
-                            setUniversityName(text);
-                            handleUniversityNameChange(text);}
-                        }
-                        autoFocus
-                        value={universityName}
-                        style={styles.pesquisa}
-                        />
-                        <TouchableOpacity onPress={handlePress} style={styles.containerimpesqui}>
-                            <Image source={{uri: dir_lupa}} style={styles.impesqui} />
-                        </TouchableOpacity>
-                    </BackgroundInput>
+                <TextInput
+                    ref={inputRef}
+                    placeholderTextColor={'#8F8F8F'}
+                    placeholder='Pesquisar'
+                    onChangeText={setUniversityName}
+                    value={universityName}
+                    style={styles.pesquisa}
+                />
+                <TouchableOpacity onPress={handleSearchClick} style={styles.containerimpesqui}>
+                    <Image source={{ uri: dir_lupa }} style={styles.impesqui} />
+                </TouchableOpacity>
+            </BackgroundInput>
                     <TouchableOpacity onPress={toggleDrawer} >
                         <View style={styles.contfiltro}>
                         <Image style={styles.filtro} source={{uri: dir_filtro}} />
@@ -381,55 +403,9 @@ export function Pesquisar({ navigation }: { navigation: any; university: univers
                 </View>
                 
                 <ScrollView style={styles.container3}>
-                {news.map((item, index) => (
-
-                <View key={item.link || index} style={styles.viewCard}>
-                            <ContainerData style={styles.card}>
-                                {item.image ? (
-                                    <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
-                                ) : (
-                                    <Name>Image not available</Name>
-                                )}
-                                <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
-                                    <NameBlue style={styles.title}>{item.title}</NameBlue>
-                                </Pressable>
-                                <View style={styles.data}>
-                                    <Name style={styles.text}>{item.description || ''}</Name>
-                                    <Pressable onPress={() => Linking.openURL(item.link)}>
-                                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                                            Read More
-                                        </Text>
-                                    </Pressable>
-                                    <Name style={styles.text}>
-                                        Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
-                                    </Name>
-                                    <Pressable onPress={() => handleSaveNews(item)}>
-                                        <Pressable onPress={() => handleSaveNews(item)}>
-                                                <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
-                                                    {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
-                                                </Text>
-                                                    {savedNewsIds.has(item.link) && (
-                                                <Text style={{ color: 'red' }}>You have already saved this news.</Text>
-                                    )}
-                                </Pressable>
-                                    </Pressable>
-                                    <Pressable onPress={() => savedNewsIds.has(item.link) ? handleRemoveNews(item.link) : handleSaveNews(item)}>
-                                                                        {savedNewsIds.has(item.link) && (
-                                            <>
-                                                <Pressable onPress={() => handleRemoveNews(item)}>
-                                                    <Image
-                                                        source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
-                                                        style={styles.saveIcon}
-                                                    />
-                                                </Pressable>
-                                            </>
-                                        )}
-                                    </Pressable>
-
-                                </View>
-                            </ContainerData>
-                        </View>
-                ))}
+                <NewsCard news={news} savedNewsIds={savedNewsIds} 
+                    handleSaveNews={handleSaveNews}
+                    handleRemoveNews={(link) => handleRemoveNews({ link })} />
                 {/*{preresult.length > 0 && (
                     <View>
                         {preresult.map((name, index) => (

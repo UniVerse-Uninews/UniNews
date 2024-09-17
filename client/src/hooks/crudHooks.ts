@@ -82,14 +82,14 @@ export const useCrud = () => {
         throw new Error('As senhas não coincidem.');
       }
 
-      await addUser({ ...userFields, role: 'USER' });
+      await addUser({ ...userFields  });
       setUser({
         id: '',
         name: '',
         email: '',
         passwordHash: '',
         confirmPassword: '',
-        role: 'USER',
+        role: '',
       });
     } catch (error) {
       console.error('Erro ao adicionar usuário:', error);

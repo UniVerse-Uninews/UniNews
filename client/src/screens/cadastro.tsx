@@ -3,6 +3,7 @@ import React from 'react';
 import {
   View,
   Text,
+  Alert,
 } from 'react-native';
 import { BigHeader } from '../components/addBigHeader/bigHeader';
 import {
@@ -21,6 +22,22 @@ export function Cadastro({ navigation }: any) {
 
   const handleInputChange = (field: string, value: string) => {
     setUser({ ...userFields, [field]: value });
+  };
+
+  const handleRegister = async () => {
+    try {
+      await addUserHandler();
+
+      Alert.alert('Sucesso', 'Cadastro realizado com sucesso!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('Login'),
+        },
+      ]);
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error);
+      Alert.alert('Erro', 'Não foi possível realizar o cadastro.');
+    }
   };
 
   return (
@@ -64,7 +81,7 @@ export function Cadastro({ navigation }: any) {
             <View style={styles.containerInputCadastro}>
               <ButtonSpecial
                 etiqueta="Cadastrar"
-                handlePress={addUserHandler}
+                handlePress={handleRegister}
               />
             </View>
           </View>

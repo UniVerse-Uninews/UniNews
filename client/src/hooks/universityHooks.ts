@@ -59,7 +59,7 @@ export const useUniversityCrud = () => {
     }
   };
 
-  const updateUniversityHandler = async (universityId: string, universityData: Partial<university>) => {
+  const updateUniversityHandler = async (universityId: string, universityData: any) => {
     try {
       await updateUniversity(universityId, universityData);
       fetchUniversities();

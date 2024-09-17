@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Pressable, Text, Alert, Linking, Image } from 'react-native';
+import { View, ScrollView, Pressable, Text, Alert } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, Name, ImageCard, ContainerData, NameBlue, NameBlueAlter } from '@theme/style';
+import { Container, NameBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import axios from 'axios';
-import { format } from 'date-fns';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { REACT_APP_API_URL } from '@env';
+import NewsCard from '@components/addNews/news';
 
 export function Feed({ navigation }: { navigation: any }) {
     const [news, setNews] = useState<any[]>([]);
@@ -210,7 +210,7 @@ export function Feed({ navigation }: { navigation: any }) {
             return;
         }
     
-        const newsData = {
+         const newsData = {
             link: news.link, 
             title: news.title || '',
             description: news.description || '',
@@ -261,31 +261,32 @@ export function Feed({ navigation }: { navigation: any }) {
                 },
                 body: JSON.stringify({
                     userId: user.id,
-                    newsUrl: news.link,  // Use 'news.link' aqui
+                    newsUrl: news.link,
                 }),
             });
     
-            console.log('response:', news.link);
+            const responseBody = await response.text();
     
             if (response.ok) {
                 Alert.alert('Sucesso', 'Notícia removida com sucesso.');
-    
                 setSavedNewsIds((prevIds) => {
                     const updatedIds = new Set(prevIds);
                     updatedIds.delete(news.link);
                     return updatedIds;
                 });
             } else {
-                const errorData = await response.json();
-                Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+                try {
+                    const errorData = JSON.parse(responseBody);
+                    Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+                } catch (parseError) {
+                    Alert.alert('Erro', 'Erro ao remover notícia. Resposta da API não é JSON.');
+                }
             }
         } catch (error) {
             console.error('Error removing news:', error);
             Alert.alert('Erro', 'Erro ao remover notícia.');
         }
     };
-    
-      
     
       return (
         <>
@@ -316,56 +317,12 @@ export function Feed({ navigation }: { navigation: any }) {
                     }}
                     scrollEventThrottle={400}
                 >
-                <Container style={styles.container}>
-                    {news.map((item, index) => (
-                        <View key={item.link || index} style={styles.viewCard}>
-                            <ContainerData style={styles.card}>
-                                {item.image ? (
-                                    <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
-                                ) : (
-                                    <Name>Image not available</Name>
-                                )}
-                                <Pressable onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}>
-                                    <NameBlue style={styles.title}>{item.title}</NameBlue>
-                                </Pressable>
-                                <View style={styles.data}>
-                                    <Name style={styles.text}>{item.description || ''}</Name>
-                                    <Pressable onPress={() => Linking.openURL(item.link)}>
-                                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                                            Read More
-                                        </Text>
-                                    </Pressable>
-                                    <Name style={styles.text}>
-                                        Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : ''}
-                                    </Name>
-                                    <Pressable onPress={() => handleSaveNews(item)}>
-                                        <Pressable onPress={() => handleSaveNews(item)}>
-                                                <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
-                                                    {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
-                                                </Text>
-                                                    {savedNewsIds.has(item.link) && (
-                                                <Text style={{ color: 'red' }}>You have already saved this news.</Text>
-                                    )}
-                                </Pressable>
-                                    </Pressable>
-                                    <Pressable onPress={() => savedNewsIds.has(item.link) ? handleRemoveNews(item.link) : handleSaveNews(item)}>
-                                                                        {savedNewsIds.has(item.link) && (
-                                            <>
-                                                <Pressable onPress={() => handleRemoveNews(item)}>
-                                                    <Image
-                                                        source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
-                                                        style={styles.saveIcon}
-                                                    />
-                                                </Pressable>
-                                            </>
-                                        )}
-                                    </Pressable>
-
-                                </View>
-                            </ContainerData>
-                        </View>
-                    ))}
-                </Container>
+                <NewsCard
+                    news={news} 
+                    savedNewsIds={savedNewsIds} 
+                    handleSaveNews={handleSaveNews}
+                    handleRemoveNews={(link) => handleRemoveNews({ link })}
+                    />
             </ScrollView>
             <Footer />
         </>

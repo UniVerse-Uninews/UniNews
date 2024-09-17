@@ -88,6 +88,30 @@ export function InputSenhaSpecial({ user, setUser }: any) {
     />
   );
 }
+
+export function InputSenhaSpecialAdmin({ user, setUser }: any) {
+  return (
+    <>
+    <BackgroundInputText
+      style={styles.inputSpecial}
+      placeholder="Senha"
+      placeholderTextColor={'#8F8F8F'}
+      value={user.passwordHash}
+      onChangeText={(s) => setUser({ ...user, passwordHash: s })}
+      secureTextEntry={true} 
+    />
+
+    <BackgroundInputText
+        style={styles.inputSpecial}
+        placeholder="Confirmar Senha"
+        placeholderTextColor={'#8F8F8F'}
+        value={user.confirmPassword}
+        onChangeText={(s) => setUser({ ...user, confirmPassword: s })}
+        secureTextEntry={true} 
+      />
+    </>
+  );
+}
 export function InputAlteraSenha({ user, setUser }: any) {
   const eye = 'http://projetoscti.com.br/projetoscti27/uninews/img/eye.png';
   const eyeOff ='http://projetoscti.com.br/projetoscti27/uninews/img/eyeOff.png';

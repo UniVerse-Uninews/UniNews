@@ -6,7 +6,7 @@ import { university } from 'src/@types/university';
 import { LoginResponse } from 'src/@types/interfaces';
 
 const http = REACT_APP_API_URL;
-console.log(http);
+console.log('API URL:', http);
 
 
 const getToken = async () => {
