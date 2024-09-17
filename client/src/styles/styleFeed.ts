@@ -76,11 +76,12 @@ export const styles = StyleSheet.create({
 
     tabButton: {
         padding: responsiveHeight(1),
-        flex: 1,
         alignItems: 'center',
         borderRadius: 10,
         borderColor: '#f5b304',
         borderWidth: 1,
+        marginVertical: responsiveHeight(1),
+        width: responsiveWidth(30),
     },
     tabButtonActive: {
 
