@@ -14,7 +14,6 @@
   import { refresh } from "./controllers/user/refresh";
   import { verifyUserRole } from "./middleware/verify-user-role";
   import { verifyJwt } from "./middleware/verify-jwt";
-  import { createNews } from "./controllers/news/temp-news";
   import { getNpmData, getNpmDataWithoutLimit } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
   import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler, unfollowUniversityHandler, getFollowedUniversitiesHandler  } from "./controllers/save/save";
@@ -52,7 +51,6 @@
     app.delete("/unfollowuniversity", unfollowUniversityHandler);
 
     // News routes
-    app.post('/news', createNews);
     app.get('/npm/:text', getNpmData);
     app.get('/npm/university/:text', getNpmDataWithoutLimit);
     app.get('/news/:url', getNewsByUrlHandler);
