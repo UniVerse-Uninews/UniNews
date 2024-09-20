@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import {
     responsiveFontSize,
-  responsiveHeight,
-  responsiveWidth,
+    responsiveHeight,
+    responsiveWidth,
 } from 'react-native-responsive-dimensions';
 
 export const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     textInput: {
         borderColor: '#ccc',
         borderWidth: 1,
-        padding: responsiveHeight(1),  
+        padding: responsiveHeight(1),
         borderRadius: 5,
         marginVertical: responsiveHeight(2),
     },
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
 
-    tabText: {  
+    tabText: {
         fontSize: responsiveFontSize(2),
         fontFamily: 'RubikBold',
     },
@@ -94,29 +94,34 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
     },
-    
+
     separator: {
         width: 1,
         backgroundColor: '#ccc',
         height: '100%',
     },
-
+    iconContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     profileImageContainer: {
-        position: 'absolute',
-        right: responsiveWidth(2), 
-        top: responsiveHeight(2),  
-        width: responsiveWidth(10), 
-        height: responsiveHeight(5), 
+        position: 'relative',
+        right: responsiveWidth(2),
+        top: responsiveHeight(2),
+        width: responsiveWidth(10),
+        height: responsiveHeight(5),
         overflow: 'hidden',
-      },
-      
-      profileImage: {
+        marginBottom: responsiveHeight(2.7),
+    },
+
+    profileImage: {
         resizeMode: 'cover',
         width: '100%',
         height: '100%',
-        },
+    },
 
-      textContainer: {
-        paddingRight: responsiveWidth(15), 
-      },
+    textContainer: {
+        paddingRight: responsiveWidth(15),
+    },
 });

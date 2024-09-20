@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Modal, Image, Pressable } from 'react-native';
 import { Header } from '../components/addHeader/header';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
@@ -21,6 +21,8 @@ export function Perfil ()  {
   const [userData, setUserData] = useState<User | null>(null);
   const [emailForReset, setEmailForReset] = useState('');
   
+  const dirSetaVoltar = 'http://projetoscti.com.br/projetoscti27/uninews/img/Arrow.png'
+
   const {
     setUser,
     updateUserHandler,
@@ -113,6 +115,12 @@ export function Perfil ()  {
           onRequestClose={() => setModalVisible(false)}>
           <View style={styles.centeredView}>
             <ContainerAlter style={styles.modalView}>
+            <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(false);
+                }}>
+            <Image source={{ uri: dirSetaVoltar }} style={styles.icon1} />
+            </TouchableOpacity>
               <NameAlter style={styles.modalText}>Nome: </NameAlter>
               <View style={styles.containerInput}>
                 <BackgroundInput style={styles.inputArea}>
@@ -138,20 +146,9 @@ export function Perfil ()  {
                   />
                 </BackgroundInput>
               </View>
-
-              <NameAlter style={styles.modalText}>Senha: </NameAlter>
-              <InputAlteraSenha
-                user={userFields}
-                setUser={setUser}
-                placeholder="Insira sua nova senha"
-              />
-
-              <NameAlter style={styles.modalText}>Confirme sua senha: </NameAlter>
-              <InputConfirmAlteraSenha
-                user={userFields}
-                setUser={setUser}
-                placeholder="Confirme sua nova senha"
-              />
+              <TouchableOpacity onPress={() => { setModalVisible(false); setShowResetModal(true); }} style={[styles.button, styles.buttonClose]}>
+                <NameAlter style={styles.textStyle}>REDEFINIR SENHA</NameAlter>
+              </TouchableOpacity>
 
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
@@ -183,9 +180,7 @@ export function Perfil ()  {
             <Name>Universidades</Name>
           </ContainerData>
         </View>
-        <TouchableOpacity onPress={() => setShowResetModal(true)} style={styles.button}>
-          <Text style={styles.textButton}>REDIFINIR SENHA</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.textButton}>LOGOUT</Text>
         </TouchableOpacity>
@@ -197,8 +192,19 @@ export function Perfil ()  {
         onRequestClose={() => {
           setShowResetModal(!showResetModal);
         }}>
+          
         <View style={styles.centeredView}>
           <ContainerAlter style={styles.modalView}>
+            <View style={styles.container1}>
+          <TouchableOpacity
+                onPress={() => {
+                  setShowResetModal(false);
+                  setModalVisible(true);
+                }}>
+            <Image source={{ uri: dirSetaVoltar }} style={styles.icon1} />
+            </TouchableOpacity>
+            </View> 
+          <View style={styles.container2}>
             <NameAlter style={styles.modalText}>Email para redefinir senha:</NameAlter>
             <View style={styles.containerInput}>
               <BackgroundInput style={styles.inputArea}>
@@ -255,12 +261,17 @@ export function Perfil ()  {
               </BackgroundInput>
             </View>
             <TouchableOpacity
-              style={[styles.button, styles.buttonClose]}
-              onPress={handleResetPassword}>
-              <NameAlter style={styles.textStyle}>Redefinir Senha</NameAlter>
-            </TouchableOpacity>
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  handleResetPassword();
+                  setModalVisible(false);
+                }}>
+                <NameAlter style={styles.textStyle}>Salvar Dados</NameAlter>
+              </TouchableOpacity>
+              </View>
           </ContainerAlter>
         </View>
+        
       </Modal>
     </>
   );

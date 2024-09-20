@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, Pressable, Linking } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, Pressable, Linking, Image, Alert } from 'react-native';
 import { Header } from '@components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
 import { styles } from '../styles/styleFeed';
@@ -9,16 +9,23 @@ import axios from 'axios';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { REACT_APP_API_URL } from '@env';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from 'src/@types/navigation-params';
 
 
 export function LerNoticia() {
     const BASE_URL = REACT_APP_API_URL;
     const { user } = useAuth();
     const { checkAuth } = useAuthCheck();
+
+    const navigation = useNavigation<NavigationProp>();
     
     const [savedNews, setSavedNews] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [savedNewsIds, setSavedNewsIds] = useState<Set<string>>(new Set());
+
+    const dir_save = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
+    const dir_unsave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
 
     useEffect(() => {
         checkAuth();
@@ -67,6 +74,46 @@ export function LerNoticia() {
             setSavedNewsIds((prev) => new Set(prev).add(newsItem.id));
         }
     };
+    const handleRemoveNews = async (news: any) => {
+        if (!user) {
+            Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`${BASE_URL}/remove-news`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.id,
+                    newsUrl: news.link,
+                }),
+            });
+    
+            const responseBody = await response.text();
+    
+            if (response.ok) {
+                Alert.alert('Sucesso', 'Notícia removida com sucesso.');
+                setSavedNewsIds((prevIds) => {
+                    const updatedIds = new Set(prevIds);
+                    updatedIds.delete(news.link);
+                    return updatedIds;
+                });
+            } else {
+                try {
+                    const errorData = JSON.parse(responseBody);
+                    Alert.alert('Erro', errorData.error || 'Erro ao remover notícia.');
+                } catch (parseError) {
+                    Alert.alert('Erro', 'Erro ao remover notícia. Resposta da API não é JSON.');
+                }
+            }
+        } catch (error) {
+            console.error('Error removing news:', error);
+            Alert.alert('Erro', 'Erro ao remover notícia.');
+        }
+    };
 
     if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
 
@@ -80,6 +127,7 @@ export function LerNoticia() {
                             const noticia = item.news; 
 
                             return (
+                                <Pressable onPress={() => Linking.openURL(noticia.link)}>
                                 <View key={item.id} style={styles.viewCard}>
                                     <ContainerData style={styles.card}>
                                         {noticia.image ? (
@@ -87,27 +135,38 @@ export function LerNoticia() {
                                         ) : (
                                             <Name>Image not available</Name>
                                         )}
-                                        <Pressable onPress={() => {}}>
                                             <NameBlue style={styles.title}>{noticia.title}</NameBlue>
-                                        </Pressable>
                                         <View style={styles.data}>
                                             <Name style={styles.text}>{noticia.description || ''}</Name>
-                                            <Pressable onPress={() => Linking.openURL(noticia.link)}>
-                                                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                                                    Read More
-                                                </Text>
-                                            </Pressable>
+                                            
                                             <Name style={styles.text}>
                                                 Published on: {noticia.published ? format(new Date(noticia.published), 'dd/MM/yyyy HH:mm') : ''}
                                             </Name>
-                                            <Pressable onPress={() => handleSaveNews(item)}>
-                                                <Text style={{ color: savedNewsIds.has(item.id) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
-                                                    {savedNewsIds.has(item.id) ? 'Saved' : 'Save News'}
-                                                </Text>
+                                            <View style={styles.iconContainer}>
+
+                                            <Pressable
+                                                onPress={() => handleRemoveNews(item.link)}
+                                            >
+                                                <Image
+                                                source={{ uri: dir_unsave }}
+                                                style={styles.saveIcon}
+                                                />
                                             </Pressable>
+
+                                            <Pressable
+                                            style={styles.profileImageContainer}
+                                            onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}
+                                            >
+                                            <Image
+                                                source={{ uri: 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logout.png' }} 
+                                                style={styles.profileImage}
+                                            />
+                                            </Pressable>
+                                            </View>
                                         </View>
                                     </ContainerData>
                                 </View>
+                                </Pressable>
                             );
                         })
                     ) : (
