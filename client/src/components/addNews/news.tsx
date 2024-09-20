@@ -8,11 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from 'src/@types/navigation-params';
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
-  const navigation = useNavigation<NavigationProp>();
+const navigation = useNavigation<NavigationProp>();
+const dir_save = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
+const dir_unsave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
 
   return (
-    <Container style={styles.container}>
+    
+    <Container style={styles.container} >
       {news.map((item) => (
+        <Pressable onPress={() => Linking.openURL(item.link)}>
         <View key={item.link} style={styles.viewCard}>
           <ContainerData style={styles.card}>
             {item.image ? (
@@ -21,38 +25,29 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
               <Name>Image not available</Name>
             )}
 
-            <Pressable onPress={() => {}}>
+            
               <NameBlue style={styles.title}>{item.title}</NameBlue>
-            </Pressable>
+            
 
             <View style={styles.data}>
               <Name style={styles.text}>{item.description || ''}</Name>
 
-              <Pressable onPress={() => Linking.openURL(item.link)}>
-                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>Read More</Text>
-              </Pressable>
+              
 
               <Name style={styles.text}>
                 Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
               </Name>
 
-
+             <View style={styles.iconContainer}>
               <Pressable
                 onPress={() => savedNewsIds.has(item.link) ? handleRemoveNews(item.link) : handleSaveNews(item)}
               >
-                <Text style={{ color: savedNewsIds.has(item.link) ? 'green' : 'blue', textDecorationLine: 'underline' }}>
-                  {savedNewsIds.has(item.link) ? 'Saved' : 'Save News'}
-                </Text>
+                <Image
+                  source={{ uri: savedNewsIds.has(item.link) ? dir_unsave : dir_save }}
+                  style={styles.saveIcon}
+                />
               </Pressable>
 
-              {savedNewsIds.has(item.link) && (
-                <Pressable onPress={() => handleRemoveNews(item.link)}>
-                  <Image
-                    source={{ uri: 'https://img.icons8.com/ios/452/delete-sign.png' }}
-                    style={styles.saveIcon}
-                  />
-                </Pressable>
-              )}
                <Pressable
               style={styles.profileImageContainer}
               onPress={() => navigation.navigate('PerfilUniversidade', { universityId: item.universityId })}
@@ -62,9 +57,11 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                 style={styles.profileImage}
               />
               </Pressable>
+              </View>
             </View>
           </ContainerData>
         </View>
+        </Pressable>
       ))}
     </Container>
   );

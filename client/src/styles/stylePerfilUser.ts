@@ -8,6 +8,17 @@ container: {
     paddingTop:responsiveHeight(2),
     flexDirection: 'column',
   },
+  container1: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    height: '5%',
+    
+  },
+  container2: {
+    alignItems: 'center',
+    
+  },
   menuButton: {
 
     marginLeft:'80%'
@@ -113,6 +124,11 @@ icon:{
     height:responsiveHeight(2),
     marginTop:'50%',
 },
+icon1:{
+    width:responsiveWidth(5),
+    height:responsiveHeight(2),
+    justifyContent:'flex-start',
+},
 containerData:{
   margin:'3%',
   borderColor:'#FFc250',
@@ -161,7 +177,6 @@ modalView: {
   margin: responsiveHeight(5),
   borderRadius: responsiveWidth(5),
   padding: responsiveHeight(5),
-  alignItems: 'center',
   shadowColor: '#000',
   shadowOffset: {
     width: 0,

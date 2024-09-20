@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Pressable, Image } from 'react-native';
-import {  useNavigation } from '@react-navigation/native';
+import {  useNavigation, useRoute } from '@react-navigation/native';
 import {  StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack';
 import { styles } from './footerStyle';
@@ -11,8 +11,12 @@ import { useAuthCheck } from 'src/context/authNavigation';
 
 
 const dirIconHouse = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_casa_cheio.png';
+const dirIconNotHouse = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_casa_vazio.png';
+const dirIconSearch = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_cheio.png';
 const dirIconGlass = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_lupa_vazio.png';
+const dirIconUnsaved = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
 const dirIconSaved = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
+const dirIconProfileFull = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_cheio.png';
 const dirIconProfile = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_perfil_vazio.png';
 const dirIconCrudUniversidade = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_uni.png'; 
 const dirIconCrudUsuario = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_btn_edit_user.png'; 
@@ -21,9 +25,10 @@ type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
 export function Footer() {
     const navigation = useNavigation<FooterNavigationProp>();
+    const route = useRoute();
+    const currentRoute = route.name;
     const { user } = useAuth();
     const { checkAuth } = useAuthCheck();
-  
     
     useEffect(() => {
         checkAuth();
@@ -41,7 +46,7 @@ export function Footer() {
                     style={buttonStyle}
                     onPress={() => navigation.navigate(user ? 'Feed' : 'Login')}
                 >
-                    <Image source={{ uri: dirIconHouse }} style={styles.icon} />
+                    <Image source={{ uri: currentRoute === 'Feed'? dirIconHouse: dirIconNotHouse }} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={buttonStyle}
@@ -49,19 +54,20 @@ export function Footer() {
                         {navigation}
                         )}
                 >
-                    <Image source={{ uri: dirIconGlass }} style={styles.icon} />
+                    <Image source={{ uri: currentRoute === 'Pesquisar'? dirIconSearch : dirIconGlass }} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={buttonStyle}
                     onPress={() => navigation.navigate('LerNoticia')}
+                    
                 >
-                    <Image source={{ uri: dirIconSaved }} style={styles.icon} />
+                    <Image source={{ uri: currentRoute==='LerNoticia'? dirIconUnsaved:dirIconSaved }} style={styles.icon} />
                 </Pressable>
                 <Pressable 
                     style={buttonStyle}
                     onPress={() => navigation.navigate('Perfil')}
                 >
-                    <Image source={{ uri: dirIconProfile }} style={styles.icon} />
+                    <Image source={{ uri: currentRoute==='Perfil'? dirIconProfileFull:dirIconProfile }} style={styles.icon} />
                 </Pressable>
 
                 {isAdmin && (
@@ -84,3 +90,4 @@ export function Footer() {
         </>
     );
 }
+
