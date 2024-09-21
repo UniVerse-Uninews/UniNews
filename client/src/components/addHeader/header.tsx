@@ -6,6 +6,8 @@ import ImageViewer from '../addImageViewer/ImageViewer';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack';
+import GlobalStyles from '../../styles/globalStyle';
+
 
 type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -15,9 +17,8 @@ export function Header() {
   return (
     <>
     <StatusBar />
-     <SafeAreaView style={styles.container2}>
+     <SafeAreaView style={[styles.container2, GlobalStyles.droidSafeArea]}/>
       
-     </SafeAreaView>
      
                    
     <Container style={styles.container}>
