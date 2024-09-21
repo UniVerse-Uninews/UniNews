@@ -24,9 +24,7 @@ jobs:
         working-directory: ./server  # Specify the server directory
         run: npm run build  # Replace with your build script if applicable
 
-      - name: 🏗️ Run Server
-        working-directory: ./server  
-        run: npm run start  # Replace with your start script if applicable
+       # Replace with your start script if applicable
 
       # Step to set up environment variables for the server
       - name: Set up environment variables
@@ -38,6 +36,11 @@ jobs:
              && echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env \
              && echo "PORT=${{ secrets.PORT }}" >> ./server/.env
 
+      # Step to run the server
+      - name: 🏗️ Run Server
+        working-directory: ./server  
+        run: npm run start  
+
       # Step to deploy the server to FTP
       - name: 🚀 Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
@@ -47,3 +50,4 @@ jobs:
           password: ${{ secrets.password }}
           local-dir: ./server/build/  # Directory to upload to the FTP server
           server-dir: /uninews/  # Path on the FTP server
+      
