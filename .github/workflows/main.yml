@@ -37,9 +37,7 @@ jobs:
              && echo "PORT=${{ secrets.PORT }}" >> ./server/.env
 
       # Step to run the server
-      - name: 🏗️ Run Server
-        working-directory: ./server  
-        run: npm run start  
+      
 
       # Step to deploy the server to FTP
       - name: 🚀 Deploy to FTP
@@ -49,5 +47,8 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
           local-dir: ./server/build/  # Directory to upload to the FTP server
-          server-dir: /uninews/  # Path on the FTP server
-      
+          server-dir: /uninews/ # Path on the FTP server
+           
+      - name: 🏗️ Run Server
+        working-directory: ./server  
+        run: npm run start  
