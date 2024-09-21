@@ -48,7 +48,3 @@ jobs:
           password: ${{ secrets.password }}
           local-dir: ./server/build/  # Directory to upload to the FTP server
           server-dir: /uninews/ # Path on the FTP server
-           
-      - name: 🏗️ Run Server
-        working-directory: ./server  
-        run: npm run start  
