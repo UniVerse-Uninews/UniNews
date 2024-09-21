@@ -16,7 +16,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
 
   return (
     <Container style={styles.container}>
-      {news.map((item) => (
+      {news.map((item: any) => (
         <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
           <View style={styles.viewCard}>
             <ContainerData style={styles.card}>

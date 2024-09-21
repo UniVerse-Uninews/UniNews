@@ -93,6 +93,7 @@ export function Login({ navigation }: any) {
               value={username}
               onChangeText={setUsername}
               placeholderTextColor={'#8F8F8F'}
+              autoCapitalize='none'
             />
           </BackgroundInput>
         </View>

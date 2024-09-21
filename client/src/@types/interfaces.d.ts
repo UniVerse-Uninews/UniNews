@@ -42,7 +42,7 @@ export interface NewsItem {
   }
 
 export interface NewsCardProps {
-    news: NewsItem[];
+    news: any;
     savedNewsIds: Set<string>;
     handleSaveNews: (item: NewsItem) => void;
     handleRemoveNews: (newsUrl: string) => void;
