@@ -121,12 +121,14 @@ export function LerNoticia() {
         <>
             <Header />
             <Container style={styles.container}>
+                <NameBlue style={styles.title1}>Notícias Salvas</NameBlue>
                 <ScrollView>
                     {savedNews.length > 0 ? (
                         savedNews.map((item: any) => {
                             const noticia = item.news; 
 
                             return (
+                                
                                 <Pressable onPress={() => Linking.openURL(noticia.link)}>
                                 <View key={item.id} style={styles.viewCard}>
                                     <ContainerData style={styles.card}>

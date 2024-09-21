@@ -45,6 +45,13 @@ export const styles = StyleSheet.create({
         fontFamily: 'RubikBold',
         marginBottom: responsiveHeight(1),
     },
+    title1: {
+        fontSize: responsiveFontSize(4.5),
+        fontFamily: 'Teacher',
+        marginVertical: responsiveHeight(1.5),
+        marginBottom: responsiveHeight(2),
+        marginLeft: responsiveWidth(2),
+    },
     data: {
         marginBottom: responsiveHeight(2),
     },
@@ -82,6 +89,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         marginVertical: responsiveHeight(1),
         width: responsiveWidth(30),
+        marginTop: responsiveHeight(2),
     },
     tabButtonActive: {
 
@@ -93,6 +101,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
+        
     },
 
     separator: {
