@@ -162,7 +162,7 @@ export function Perfil ()  {
           </View>
         </Modal>
             <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)} >
-              <Text style={styles.campotext1}>EDITAR INFORMAÇÕES</Text>
+              <Text style={styles.campotext1}>EDITAR </Text><Text style={styles.campotext1}>DADOS</Text>
             </TouchableOpacity>
           </View>
         </ContainerData>

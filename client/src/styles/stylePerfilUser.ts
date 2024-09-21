@@ -112,11 +112,9 @@ campotext:{
     marginLeft:'15%',
 },
 campotext1:{
-  margin:'3%',
+  marginVertical:'3%',
   fontSize:responsiveFontSize(2.7),
   fontFamily:'Teacher',
-  marginRight:'7%',
-  marginLeft:'15%',
   color:'#000',
 },
 icon:{
@@ -161,7 +159,7 @@ button:{
   width:responsiveWidth(40),
   justifyContent:'center',
   alignItems:'center',
-  
+  flexDirection: 'row',
 },
 textButton:{
   fontSize:responsiveFontSize(2.7),
@@ -224,5 +222,6 @@ inputArea: {
   borderColor: '#F2A20C',
   flexDirection: 'row',
 },
+
 }
 );
