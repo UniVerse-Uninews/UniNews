@@ -31,55 +31,45 @@ export function LerNoticia() {
         checkAuth();
     }, [checkAuth]);
 
-    useEffect(() => {
+    const fetchSavedNews = async () => {
         if (!user) {
             console.error('User ID is not available');
             setLoading(false);
             return;
         }
 
-        const fetchSavedNews = async () => {
-            try {
-                const response = await axios.get(`${BASE_URL}/saved-news`, {
-                    params: { userId: user.id }
-                });
+        try {
+            const response = await axios.get(`${BASE_URL}/saved-news`, {
+                params: { userId: user.id }
+            });
 
-                const data = response.data.savedNews;
-                if (Array.isArray(data)) {
-                    setSavedNews(data);
-                    const ids = new Set(data.map((item: any) => item.id));
-                    setSavedNewsIds(ids);
-                } else {
-                    console.error('Fetched saved news is not an array:', data);
-                    setSavedNews([]);
-                }
-            } catch (error) {
-                console.error('Error fetching saved news:', error);
-            } finally {
-                setLoading(false);
+            const data = response.data.savedNews;
+            if (Array.isArray(data)) {
+                setSavedNews(data);
+                const ids = new Set(data.map((item: any) => item.id));
+                setSavedNewsIds(ids);
+            } else {
+                console.error('Fetched saved news is not an array:', data);
+                setSavedNews([]);
             }
-        };
+        } catch (error) {
+            console.error('Error fetching saved news:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchSavedNews();
     }, [user, BASE_URL]);
 
-    const handleSaveNews = async (newsItem: any) => {
-        if (savedNewsIds.has(newsItem.id)) {
-            setSavedNewsIds((prev) => {
-                const updated = new Set(prev);
-                updated.delete(newsItem.id);
-                return updated;
-            });
-        } else {
-            setSavedNewsIds((prev) => new Set(prev).add(newsItem.id));
-        }
-    };
-    const handleRemoveNews = async (news: any) => {
+    const handleRemoveNews = async (newsUrl: string) => {
         if (!user) {
             Alert.alert('Erro', 'Você precisa estar logado para remover uma notícia.');
             return;
         }
-    
+        console.log('newsUrl:', newsUrl);
+
         try {
             const response = await fetch(`${BASE_URL}/remove-news`, {
                 method: 'DELETE',
@@ -88,19 +78,21 @@ export function LerNoticia() {
                 },
                 body: JSON.stringify({
                     userId: user.id,
-                    newsUrl: news.link,
+                    newsUrl,
                 }),
             });
-    
+
             const responseBody = await response.text();
-    
+
             if (response.ok) {
                 Alert.alert('Sucesso', 'Notícia removida com sucesso.');
                 setSavedNewsIds((prevIds) => {
                     const updatedIds = new Set(prevIds);
-                    updatedIds.delete(news.link);
+                    updatedIds.delete(newsUrl);
+
                     return updatedIds;
                 });
+                fetchSavedNews();
             } else {
                 try {
                     const errorData = JSON.parse(responseBody);
@@ -147,7 +139,7 @@ export function LerNoticia() {
                                             <View style={styles.iconContainer}>
 
                                             <Pressable
-                                                onPress={() => handleRemoveNews(item.link)}
+                                                onPress={() => handleRemoveNews(noticia.link)}
                                             >
                                                 <Image
                                                 source={{ uri: dir_unsave }}

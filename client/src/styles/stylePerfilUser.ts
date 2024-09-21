@@ -156,10 +156,11 @@ aliner:{
 button:{
   backgroundColor:'#FFc250',
   borderRadius:responsiveWidth(7),
-  width:responsiveWidth(40),
+  width:responsiveWidth(45),
   justifyContent:'center',
   alignItems:'center',
   flexDirection: 'row',
+  
 },
 textButton:{
   fontSize:responsiveFontSize(2.7),

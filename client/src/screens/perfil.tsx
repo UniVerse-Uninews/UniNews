@@ -10,7 +10,6 @@ import { User } from 'src/@types/interfaces';
 import { useCrud } from '../hooks/crudHooks';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
-import { InputAlteraSenha, InputConfirmAlteraSenha } from '@components/addInput/Input';
 
 export function Perfil ()  {
   const [modalVisible, setModalVisible] = useState(false);
