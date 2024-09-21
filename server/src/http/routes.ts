@@ -16,7 +16,7 @@
   import { verifyJwt } from "./middleware/verify-jwt";
   import { getNpmData, getNpmDataWithoutLimit } from "./controllers/news/temp-npm";
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
-  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler, unfollowUniversityHandler, getFollowedUniversitiesHandler  } from "./controllers/save/save";
+  import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler, unfollowUniversityHandler, getFollowedUniversitiesHandler, checkIfUserFollowsUniversity  } from "./controllers/save/save";
   import { requestPasswordResetHandler, resetPasswordHandler } from "./controllers/user/update-password";
 
   declare module "fastify" {
@@ -60,5 +60,6 @@
     app.post('/save-news', saveNewsHandler);
     app.get('/saved-news', getSavedNewsByUserIdHandler);
     app.delete('/remove-news', removeNewsHandler)
+    app.get('/user/:userId/university/:universityId/follow-status', checkIfUserFollowsUniversity);
     
   }

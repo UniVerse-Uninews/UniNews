@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { followUniversity, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId, removeNewsFromDatabase, unfollowUniversity, getFollowedUniversitiesByUser  } from '../../../repositories/prisma/prisma-save-repository';
+import { followUniversity, findNewsByUrl, saveNewsToDatabase, getSavedNewsByUser, getSavedNewsByUserId, removeNewsFromDatabase, unfollowUniversity, getFollowedUniversitiesByUser, isUserFollowingUniversity  } from '../../../repositories/prisma/prisma-save-repository';
 
 interface GetSavedNewsQuery {
   userId: string;
@@ -154,4 +154,16 @@ export const unfollowUniversityHandler = async (request: FastifyRequest, reply: 
     return reply.status(500).send({ error: 'Unable to unfollow university' });
   }
 };
+
+export async function checkIfUserFollowsUniversity(req: FastifyRequest, res: FastifyReply) {
+  const { userId, universityId } = req.params as { userId: string; universityId: string };
+
+  try {
+      const isFollowing = await isUserFollowingUniversity(userId, universityId);
+      return res.send({ isFollowing });
+  } catch (error) {
+      console.error('Error checking follow status:', error);
+      return res.status(500).send({ error: 'Internal Server Error' });
+  }
+}
 

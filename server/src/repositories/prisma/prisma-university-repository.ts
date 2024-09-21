@@ -118,6 +118,4 @@ export class PrismaUniversityRepository implements UniversityRepository {
             return [];
         }
     }
-    
-    
 }

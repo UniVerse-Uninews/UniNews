@@ -1,22 +1,16 @@
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
-import { BackgroundInput, BackgroundInputText, Container, ContainerData, ImageCard, Name, NameBlue } from '@theme/style';
+import { BackgroundInput, Container, NameBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
-import { View, Text, TextInput, Image, ScrollView, Pressable, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Linking, SafeAreaView } from 'react-native';
-import { university } from '../@types/university';
-import { NavigationContainer, DrawerActions, useNavigation } from '@react-navigation/native';
-import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
+import { View, Text, TextInput, Image, ScrollView, Pressable, Animated, TouchableOpacity, Alert } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
+import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 import Drawer from './drawer';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FlatList } from 'react-native-gesture-handler';
-import debounce from 'lodash.debounce';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
-import { format } from 'date-fns';
 import { useAuth } from 'src/context/authContext';
-import { useFocusEffect } from 'expo-router';
 import NewsCard from '@components/addNews/news';
 
 
@@ -27,7 +21,6 @@ const dir_seta_filtro = 'http://projetoscti.com.br/projetoscti27/uninews/img/ico
 const dir_seta_volta = 'http://projetoscti.com.br/projetoscti27/uninews/img/Arrow.png';
 
 
-//const Drawer = createDrawerNavigator();
 const BASE_URL = REACT_APP_API_URL;
 export interface SearchResults {
     title: string;
@@ -158,16 +151,7 @@ function CustomDrawer(props: DrawerContentComponentProps) {
 function Teste() {
     return <View />;
 }
-/*
-function FilterDrawer() {
-    return (
-        <NavigationContainer>
-            <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
-                <Drawer.Screen name="Teste" component={Teste} />
-            </Drawer.Navigator>
-        </NavigationContainer>
-    );
-}*/
+
 
 export function Pesquisar({ navigation }: { navigation: any; }) {
     const [getText, setText] = useState('');
@@ -406,35 +390,6 @@ export function Pesquisar({ navigation }: { navigation: any; }) {
                 <NewsCard news={news} savedNewsIds={savedNewsIds} 
                     handleSaveNews={handleSaveNews}
                     handleRemoveNews={(link) => handleRemoveNews({ link })} />
-                {/*{preresult.length > 0 && (
-                    <View>
-                        {preresult.map((name, index) => (
-                            <React.Fragment key={index}>
-                                <Text onPress={() => { setText(name) }}>{name}</Text>
-                                <View />
-                            </React.Fragment>
-                        ))}
-                    </View>
-                )}
-
-                {history.length > 0 && (
-                    <View>
-                        {history.map((name, index) => (
-                            <React.Fragment key={index}>
-                                <Text onPress={() => { setText(name) }}>{name}</Text>
-                                <View />
-                            </React.Fragment>
-                        ))}
-                    </View>
-                )}
-
-                {result.length > 0 && (
-                    <ScrollView>
-                        {result.map((item, index) => (
-                            <Text key={index}>Notícias aparecerão aqui</Text>
-                        ))}
-                    </ScrollView>
-                )}*/}
                 </ScrollView>
                 <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
 
