@@ -169,7 +169,7 @@ function FilterDrawer() {
     );
 }*/
 
-export function Pesquisar({ navigation }: { navigation: any; university: university }) {
+export function Pesquisar({ navigation }: { navigation: any; }) {
     const [getText, setText] = useState('');
     const onChangeText = (search: string) => {
         setText(search);
