@@ -24,6 +24,10 @@ jobs:
         working-directory: ./server  # Specify the server directory
         run: npm run build  # Replace with your build script if applicable
 
+      - name: 🏗️ Run Server
+        working-directory: ./server  
+        run: npm run start  # Replace with your start script if applicable
+
       # Step to set up environment variables for the server
       - name: Set up environment variables
         env:
