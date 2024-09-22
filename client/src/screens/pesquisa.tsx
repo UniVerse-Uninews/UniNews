@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, ScrollView, TouchableOpacity, Text, Alert } from 'react-native';
+import { View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
 import { BackgroundInput, Container, NameBlue } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import Drawer from './drawer';
 import NewsCard from '@components/addNews/news';
-import useNewsSearch from '@hooks/useSearch'; // Corrija o caminho conforme necessário
+import useNewsSearch from '@hooks/useSearch'; 
 import { useSavedNews } from '@hooks/useSavedNews';
 
 const dir_lupa = 'http://projetoscti.com.br/projetoscti27/uninews/img/lupa-icon-pesquisa.png';

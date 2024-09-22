@@ -15,7 +15,7 @@ export function LerNoticia() {
 
     useEffect(() => {
         const init = async () => {
-            await checkAuth();
+            checkAuth();
         };
         init();
     }, [checkAuth, fetchSavedNews]);

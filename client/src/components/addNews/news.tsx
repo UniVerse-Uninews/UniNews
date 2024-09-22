@@ -12,8 +12,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
   const dir_save = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
   const dir_unsave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
 
-  console.log('News:', news);
-
   return (
     <Container style={styles.container}>
       {news.map((item: any) => (

@@ -18,6 +18,7 @@
   import { getUniversityByNameController } from "./controllers/university/get-university-by-name";
   import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler, unfollowUniversityHandler, getFollowedUniversitiesHandler, checkIfUserFollowsUniversity  } from "./controllers/save/save";
   import { requestPasswordResetHandler, resetPasswordHandler } from "./controllers/user/update-password";
+  import { getUniversitiesByLocationHandler } from "./controllers/university/get-university-location";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -46,6 +47,7 @@
     app.get("/university/:id", getUniversityController);
     app.get('/getuniversityfollowed', getFollowedUniversitiesHandler);
     app.get<{ Params: { name: string } }>('/university/name/:name', getUniversityByNameController);
+    app.get('/universities/location', getUniversitiesByLocationHandler);
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
     app.delete("/unfollowuniversity", unfollowUniversityHandler);
