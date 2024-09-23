@@ -5,6 +5,7 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
+      fontFamily: 'Teachers Students',
     
       
     },
@@ -12,8 +13,8 @@ export const styles = StyleSheet.create({
         color:'#ffff',
         alignContent:'center',
         justifyContent:'center',
-        textAlign:'center',
-        paddingVertical: '3%',
+        paddingVertical: '6%',
+        paddingLeft:'6%',
         fontSize:24
     },
     perfil:{
@@ -32,6 +33,23 @@ export const styles = StyleSheet.create({
         borderRadius:50,
         marginRight:'5%'
     },
+    subtitulo1:{
+       flex:1,
+       textAlign:'center'
+    },
+    subtitulo:{
+        textAlign:'center',
+        padding:'10%'
+    },
+    titulo:{
+        flexDirection:'row',
+        alignItems:'center',
+        padding:10, 
+    },
+    Logo:{
+        width:150,
+        height:122
+    }
    
 
    
