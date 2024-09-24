@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 import { styles } from '../styles/styleCrudUniversidade';
 import { useUniversityCrud } from '../hooks/universityHooks';
 import {
@@ -16,6 +16,7 @@ import { Table } from '../components/addTableUniversity/TableUniversity';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
+import { Button } from '../components/addButton/Button';
 
 export function CrudUniversidade() {
   const [isChecked, setChecked] = useState(false);
@@ -108,19 +109,19 @@ export function CrudUniversidade() {
               </BackgroundContainerInput>
             </View>
             <View style={styles.containerButton}>
-              <Button title="Cadastrar" onPress={addUniversityHandler} />
-              <Button title="Ver Todos" onPress={fetchUniversities} />
+              <Button etiqueta="Cadastrar" handlePress={addUniversityHandler} />
+              <Button etiqueta="Ver Todos" handlePress={fetchUniversities} />
               <Button
-                title="Alterar"
-                onPress={() => updateUniversityHandler(university.id, university)}
+                etiqueta="Alterar"
+                handlePress={() => updateUniversityHandler(university.id, university)}
               />
               <Button
-                title="Apagar"
-                onPress={() => deleteUniversityHandler(university.id)}
+                etiqueta="Apagar"
+                handlePress={() => deleteUniversityHandler(university.id)}
               />
               <Button
-                title="Limpar Campos"
-                onPress={clearFields}
+                etiqueta="Limpar Campos"
+                handlePress={clearFields}
               />
             </View>
           </View>

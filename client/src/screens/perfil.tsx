@@ -84,7 +84,8 @@ export function Perfil ()  {
     <>
       <Header />
       <Container style={styles.container}>
-        <BorderColorBlue style={styles.perfil}></BorderColorBlue>
+        <BorderColorBlue style={styles.perfil}>
+        </BorderColorBlue>
         <ContainerData style={styles.containerNick}>
           <Name style={styles.nick}>{userData?.name}</Name>
         </ContainerData>
