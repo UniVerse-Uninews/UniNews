@@ -187,3 +187,16 @@ export const getFollowedUniversitiesByUser = async (userId: string) => {
     throw new Error('Erro ao buscar universidades seguidas pelo usuário.');
   }
 };
+
+export async function isUserFollowingUniversity(userId: string, universityId: string): Promise<boolean> {
+  const follow = await prisma.follow.findUnique({
+      where: {
+          userId_universityId: {
+              userId,
+              universityId,
+          },
+      },
+  });
+
+  return !!follow;
+}

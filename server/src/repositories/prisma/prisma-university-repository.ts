@@ -118,6 +118,29 @@ export class PrismaUniversityRepository implements UniversityRepository {
             return [];
         }
     }
+
+    }
     
-    
-}
+    export const getUniversitiesByLocation = async (location: string) => {
+        try {
+            return await prisma.university.findMany({
+                where: { location: location },
+            });
+        } catch (error) {
+            console.error(`Error fetching universities for location ${location} from database:`, error);
+            throw new Error('Error fetching universities');
+        }
+    };
+
+    export async function getAllLocations() {
+        const locations = await prisma.university.findMany({
+          select: {
+            location: true,
+          },
+          distinct: ['location'],
+        });
+      
+        const countries = [...new Set(locations.map((loc) => loc.location))];
+        
+        return { countries };
+      }
