@@ -12,4 +12,5 @@ export type RootStackParamList = {
     CrudUniversidade: undefined;
     LerNoticia: undefined;
     teste: undefined;
+    Sobre: undefined;
 };
