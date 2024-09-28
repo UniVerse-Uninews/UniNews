@@ -27,6 +27,9 @@ export const NameAlter = styled.Text`
 export const NameBlue = styled.Text`
   color: ${(props) => props.theme.blue};
 `;
+export const NameBlueDark = styled.Text`
+  color: ${(props) => props.theme.bluedark};
+`;
 export const NameBlueAlter = styled.Text`
   color: ${(props) => props.theme.blueAlter};
 `;
