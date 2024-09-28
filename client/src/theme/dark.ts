@@ -18,4 +18,5 @@ export default {
   backgroundAlter: '#FFFDF6',
   textAlter: 'black',
   drawer: '#414141',
+  bluedark: '#0571D3'
 };
