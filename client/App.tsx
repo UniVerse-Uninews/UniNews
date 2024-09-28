@@ -17,6 +17,7 @@ import { Perfil } from './src/screens/perfil';
 import { FontLoader }  from './src/components/fontLoader/fontLoader';
 import { AuthProvider } from './src/context/authContext';
 import { RootStackParamList } from './src/@types/rootstack';
+import { Sobre } from './src/screens/sobre';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -31,8 +32,8 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Login">
             <Stack.Screen
-              name="Temas"
-              component={Temas}
+              name="Sobre"
+              component={Sobre}
               options={{ headerShown: false }}
             />
             <Stack.Screen
