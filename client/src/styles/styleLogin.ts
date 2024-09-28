@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     borderWidth:responsiveScreenHeight(0.1),
     padding: responsiveScreenHeight(1),
     borderRadius: responsiveScreenHeight(2),
-    borderColor: '#F2A20C',
+    borderColor: '#3C6294',
 
   },
   campo: {
