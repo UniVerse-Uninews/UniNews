@@ -6,15 +6,18 @@ import { styles } from '@styles/styleFeed';
 import { NewsCardProps } from 'src/@types/interfaces';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from 'src/@types/navigation-params';
+import { useUniversityFollow } from '@hooks/useUniversityFollow';
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
   const navigation = useNavigation<NavigationProp>();
   const dir_save = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
   const dir_unsave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
+  const dir_mais = 'http://projetoscti.com.br/projetoscti27/uninews/img/maiszinho.png';
 
   return (
     <Container style={styles.container}>
       {news.map((item: any) => (
+        
         <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
           <View style={styles.viewCard}>
             <ContainerData style={styles.card}>
@@ -23,17 +26,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
               ) : (
                 <Name>Image not available</Name>
               )}
-
-              <NameBlue style={styles.title}>{item.title}</NameBlue>
-
-              <View style={styles.data}>
-                <Name style={styles.text}>{item.description || ''}</Name>
-
-                <Name style={styles.text}>
-                  Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
-                </Name>
-
-                <View style={styles.iconContainer}>
+              <View style={styles.iconContainer}>
                   <Pressable
                     onPress={() =>
                       savedNewsIds.has(item.link)
@@ -46,7 +39,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                       style={styles.saveIcon}
                     />
                   </Pressable>
-
+                  <View style={styles.iconContainerUni}>
                   <Pressable
                     style={styles.profileImageContainer}
                     onPress={() => {
@@ -59,11 +52,29 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                     }}
                   >
                     <Image
-                      source={{ uri: 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_logout.png' }}
+                      source={{ uri: item.image }}
                       style={styles.profileImage}
                     />
                   </Pressable>
+                  <Pressable style={styles.profileImageContainer} >
+                    <Image
+                      source={{ uri: dir_mais }}
+                      style={styles.profileImageMais}
+                    />
+                  </Pressable>
+                  </View>
                 </View>
+
+              <Name style={styles.title}>{item.title}</Name>
+
+              <View style={styles.data}>
+                <Name style={styles.text}>{item.description || ''}</Name>
+
+                <Name style={styles.text}>
+                  Published on: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
+                </Name>
+
+                
               </View>
             </ContainerData>
           </View>

@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
         padding: responsiveHeight(1.5),
         borderWidth: 1,
         borderRadius: 10,
+        
     },
     imageCard: {
         width: '100%',
@@ -62,9 +63,9 @@ export const styles = StyleSheet.create({
 
     saveIcon: {
         width: responsiveWidth(8),
-        height: responsiveHeight(4),
-        top: responsiveHeight(1),
-        alignSelf: 'flex-start',
+        height: responsiveHeight(3),
+        alignItems: 'flex-start',
+        resizeMode: 'contain',
     },
 
     tabText: {
@@ -112,25 +113,36 @@ export const styles = StyleSheet.create({
     iconContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
     },
     profileImageContainer: {
         position: 'relative',
         right: responsiveWidth(2),
-        top: responsiveHeight(2),
-        width: responsiveWidth(10),
-        height: responsiveHeight(5),
+        width: responsiveWidth(13),
+        height: responsiveHeight(4),
         overflow: 'hidden',
         marginBottom: responsiveHeight(2.7),
+        justifyContent: 'center',
     },
 
     profileImage: {
-        resizeMode: 'cover',
+        resizeMode: 'stretch',
         width: '100%',
         height: '100%',
+    },
+    profileImageMais: {
+        resizeMode: 'contain',
+        width: '80%',
+        height: '80%',
     },
 
     textContainer: {
         paddingRight: responsiveWidth(15),
     },
+    iconContainerUni: {
+        flexDirection: 'row',
+        width: '20%',
+        display: 'flex',
+        justifyContent: 'space-between',
+
+        },
 });
