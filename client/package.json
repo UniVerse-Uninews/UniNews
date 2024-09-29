@@ -24,12 +24,13 @@
     "client": "file:",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
-    "expo": "~51.0.31",
+    "expo": "~51.0.34",
     "expo-app-loading": "^2.1.1",
     "expo-checkbox": "~3.0.0",
     "expo-font": "~12.0.9",
     "expo-router": "^3.5.23",
     "expo-status-bar": "~1.12.1",
+    "expo-system-ui": "^3.0.7",
     "lodash.debounce": "^4.0.8",
     "material-icons": "^1.13.12",
     "navigation": "^6.2.0",
@@ -56,8 +57,11 @@
     "react-native-web": "~0.19.6",
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.13.0",
+    "sharp": "^0.33.5",
     "shortid": "^2.2.16",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "expo-splash-screen": "~0.27.6",
+    "expo-modules-core": "~1.12.24"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",

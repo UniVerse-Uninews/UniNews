@@ -1,41 +1,40 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// Arquivo de build de nível superior onde você pode adicionar opções de configuração comuns a todos os subprojetos/módulos.
 
 buildscript {
     ext {
+        // Definindo versões padrão caso as propriedades não sejam encontradas
         buildToolsVersion = findProperty('android.buildToolsVersion') ?: '34.0.0'
         minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '23')
         compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '34')
         targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '34')
         kotlinVersion = findProperty('android.kotlinVersion') ?: '1.9.23'
-
-        ndkVersion = "26.1.10909125"
+        ndkVersion = "26.1.10909125" // Versão do NDK
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
+        // Definindo dependências para o build do Android e Kotlin
         classpath('com.android.tools.build:gradle')
         classpath('com.facebook.react:react-native-gradle-plugin')
         classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
     }
 }
 
-apply plugin: "com.facebook.react.rootproject"
+apply plugin: "com.facebook.react.rootproject" // Aplicando o plugin do React Native
 
 allprojects {
     repositories {
+        mavenLocal() // Usando pacotes locais se necessário
+        
         maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url(new File(['node', '--print', "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), '../android'))
-        }
-        maven {
-            // Android JSC is installed from npm
-            url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
+            // Definindo o repositório correto para as dependências do React Native
+            url("$rootDir/../node_modules/react-native/android")
         }
 
-        google()
-        mavenCentral()
-        maven { url 'https://www.jitpack.io' }
+        google() // Repositório do Google
+        mavenCentral() // Repositório Maven Central
+        maven { url 'https://www.jitpack.io' } // Repositório Jitpack, se necessário
     }
 }
