@@ -16,9 +16,9 @@ buildscript {
     }
     dependencies {
         // Definindo dependências para o build do Android e Kotlin
-        classpath('com.android.tools.build:gradle')
+        classpath ('com.android.tools.build:gradle:$gradleVersion')
+        classpath ('org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion')
         classpath('com.facebook.react:react-native-gradle-plugin')
-        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
     }
 }
 

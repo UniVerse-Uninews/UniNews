@@ -2,6 +2,8 @@ package com.anonymous.client
 
 import android.os.Build
 import android.os.Bundle
+import com.anonymous.client.R
+
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
