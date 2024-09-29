@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/imagens/tcc-logo-quadrado-sem-fundo.png",
         "backgroundColor": "#343434"
       },
       "softwareKeyboardLayoutMode": "pan",
