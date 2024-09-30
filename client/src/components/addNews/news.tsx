@@ -10,9 +10,9 @@ import { useUniversityFollow } from '@hooks/useUniversityFollow';
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
   const navigation = useNavigation<NavigationProp>();
-  const dir_save = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_vazio.png';
-  const dir_unsave = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_salvos_cheio.png';
-  const dir_mais = 'http://projetoscti.com.br/projetoscti27/uninews/img/maiszinho.png';
+  const dir_save = require('../../../assets/imagens/icon_salvos_cheio.png');
+  const dir_unsave = require('../../../assets/imagens/icon_salvos_cheio.png');
+  const dir_mais = require('../../../assets/imagens/add_button.png');
 
   return (
     <Container style={styles.container}>
@@ -22,7 +22,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
           <View style={styles.viewCard}>
             <ContainerData style={styles.card}>
               {item.image ? (
-                <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+                <ImageCard source={ item.image } style={styles.imageCard} />
               ) : (
                 <Name>Image not available</Name>
               )}
@@ -35,7 +35,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                     }
                   >
                     <Image
-                      source={{ uri: savedNewsIds.has(item.link) ? dir_unsave : dir_save }}
+                      source={ savedNewsIds.has(item.link) ? dir_unsave : dir_save }
                       style={styles.saveIcon}
                     />
                   </Pressable>
@@ -52,13 +52,13 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                     }}
                   >
                     <Image
-                      source={{ uri: item.image }}
+                      source={ item.image }
                       style={styles.profileImage}
                     />
                   </Pressable>
                   <Pressable style={styles.profileImageContainer} >
                     <Image
-                      source={{ uri: dir_mais }}
+                      source={ dir_mais }
                       style={styles.profileImageMais}
                     />
                   </Pressable>

@@ -9,8 +9,8 @@ import NewsCard from '@components/addNews/news';
 import useNewsSearch from '@hooks/useSearch'; 
 import { useSavedNews } from '@hooks/useSavedNews';
 
-const dir_lupa = 'http://projetoscti.com.br/projetoscti27/uninews/img/lupa-icon-pesquisa.png';
-const dir_filtro = 'http://projetoscti.com.br/projetoscti27/uninews/img/icon_filtro.png';
+const dir_lupa = require('@assets/imagens/lupa-icon-pesquisa.png');
+const dir_filtro = require('@assets/imagens/icon_filtro.png');
 
 export function Pesquisar({ navigation }: { navigation: any }) {
     const {
@@ -48,12 +48,12 @@ export function Pesquisar({ navigation }: { navigation: any }) {
                             style={styles.pesquisa}
                         />
                         <TouchableOpacity onPress={handleSearchClick} style={styles.containerimpesqui}>
-                            <Image source={{ uri: dir_lupa }} style={styles.impesqui} />
+                            <Image source={ dir_lupa } style={styles.impesqui} />
                         </TouchableOpacity>
                     </BackgroundInput>
                     <TouchableOpacity onPress={toggleDrawer}>
                         <View style={styles.contfiltro}>
-                            <Image style={styles.filtro} source={{ uri: dir_filtro }} />
+                            <Image style={styles.filtro} source={ dir_filtro } />
                         </View>
                     </TouchableOpacity>
                 </View>
