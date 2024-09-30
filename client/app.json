@@ -35,8 +35,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "4cf88b70-2549-4660-ba7e-82d9dc7d0ed8"
+        "projectId": "0d3dde75-6c72-4c71-ad4d-432ed5e5533a"
       }
-    }
+    },
+    "owner": "euroszhyr"
   }
 }
