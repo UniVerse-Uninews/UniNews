@@ -75,7 +75,7 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
                             </Pressable>
                         </View>
                         <View style={styles.image}>
-                            <Image source={ universityData.image } style={styles.image1} />
+                            <Image source={ {uri: universityData.image} } style={styles.image1} />
                         </View>
                     </View>
                     <View style={stylefeed.container}>
