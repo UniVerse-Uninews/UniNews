@@ -23,7 +23,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
   const screenWidth = Dimensions.get('window').width;
   const textInputRef = useRef<TextInput>(null);
   
-  const dirSeta= 'http://projetoscti.com.br/projetoscti27/uninews/img/Arrow.png'; 
+  const dirSeta= require('../../assets/imagens/Arrow.png'); 
 
   const Icon= require('../../assets/imagens/icon_editar_vazio.png');
 
@@ -60,7 +60,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
       
       <ContainerDrawer style={styles.container}>
       <TouchableOpacity onPress={toggleDrawer}>
-        <Image source={{uri:dirSeta}} style={styles.img}/>
+        <Image source={dirSeta} style={styles.img}/>
       </TouchableOpacity>
 
 

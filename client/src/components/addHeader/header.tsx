@@ -13,7 +13,7 @@ type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
 export function Header() {
   const navigation = useNavigation<FooterNavigationProp>();
-  const dirImagem = 'http://projetoscti.com.br/projetoscti27/uninews/img/tcc-logo-quadrado-sem-fundo.png';
+  const dirImagem = require('../../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
   return (
     <>
     <StatusBar />
@@ -26,7 +26,7 @@ export function Header() {
                 >  
       <View style={styles.cabecalho}>
         <View>
-          <ImageViewer diretorio={{uri: dirImagem}} />
+          <ImageViewer diretorio={dirImagem} />
         </View>
         <NameBlue style={[styles.nameLogo]}>UNI</NameBlue>
         <Name style={[styles.nameLogoSecondary]}>NEWS</Name>

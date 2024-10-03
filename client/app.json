@@ -12,7 +12,7 @@
       "backgroundColor": "#343434"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/imagens/*"
     ],
     "ios": {
       "supportsTablet": true,
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/imagens/tcc-logo-quadrado-sem-fundo.png",
         "backgroundColor": "#343434"
       },
       "softwareKeyboardLayoutMode": "pan",
@@ -32,6 +32,12 @@
     "plugins": [
       "@react-native-google-signin/google-signin",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0d3dde75-6c72-4c71-ad4d-432ed5e5533a"
+      }
+    },
+    "owner": "euroszhyr"
   }
 }

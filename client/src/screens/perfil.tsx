@@ -20,7 +20,7 @@ export function Perfil ()  {
   const [userData, setUserData] = useState<User | null>(null);
   const [emailForReset, setEmailForReset] = useState('');
   
-  const dirSetaVoltar = 'http://projetoscti.com.br/projetoscti27/uninews/img/Arrow.png'
+  const dirSetaVoltar = require('../../assets/imagens/Arrow.png');
 
   const {
     setUser,
@@ -119,7 +119,7 @@ export function Perfil ()  {
                 onPress={() => {
                   setModalVisible(false);
                 }}>
-            <Image source={{ uri: dirSetaVoltar }} style={styles.icon1} />
+            <Image source={ dirSetaVoltar } style={styles.icon1} />
             </TouchableOpacity>
               <NameAlter style={styles.modalText}>Nome: </NameAlter>
               <View style={styles.containerInput}>
@@ -201,7 +201,7 @@ export function Perfil ()  {
                   setShowResetModal(false);
                   setModalVisible(true);
                 }}>
-            <Image source={{ uri: dirSetaVoltar }} style={styles.icon1} />
+            <Image source={dirSetaVoltar } style={styles.icon1} />
             </TouchableOpacity>
             </View> 
           <View style={styles.container2}>
