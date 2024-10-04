@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
+import { university } from '../@types/university';
 
 interface Location {
   key: string;
   value: string;
 }
 
-interface University {
-  key: string;
-  value: string;
-}
+
 
 export const useLocations = () => {
   const [countries, setCountries] = useState<Location[]>([]);
   const [states, setStates] = useState<Location[]>([]);
-  const [universities, setUniversities] = useState<University[]>([]);
+  const [universities, setUniversities] = useState<university[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +35,7 @@ export const useLocations = () => {
   const fetchStates = async (country: string) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${REACT_APP_API_URL}getstates?country=${country}`);
+      const response = await axios.get(`${REACT_APP_API_URL}/getstates?country=${country}`);
       const statesData = response.data.states.map((state: string, index: number) => ({
         key: index.toString(),
         value: state,

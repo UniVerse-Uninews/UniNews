@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Animated, View, TouchableOpacity, Dimensions, TextInput, Image, ActivityIndicator, Text } from 'react-native';
+import { Animated, View, TouchableOpacity, Dimensions,  Image, ActivityIndicator, Text } from 'react-native';
 import { ContainerDrawer, Name } from '../theme/style';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { styles } from '@styles/styleDrawer';
-import { useLocations } from '../hooks/useUniversityLocation'; // Importe o hook customizado
+import { useLocations } from '../hooks/useUniversityLocation'
 
 // Define the props interface for the Drawer component
 interface DrawerProps {
@@ -58,34 +58,45 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer }) => {
               <Text>{error}</Text>
             ) : (
               <SelectList
-                setSelected={(val: any) => handleCountrySelect(val)}
-                data={countries} 
-                save="value"
-                boxStyles={styles.inputArea}
-                dropdownStyles={styles.inputDropdown}
-                dropdownTextStyles={{ color: '#000' }}
-              />
+              setSelected={(val: any) => handleCountrySelect(val)}
+              data={countries.map(country => ({
+                key: country.key,
+                value: country.value, // Exibindo apenas o valor
+              }))}
+              save="value"
+              boxStyles={styles.inputArea}
+              dropdownStyles={styles.inputDropdown}
+              dropdownTextStyles={{ color: '#000' }}
+            />
             )}
 
             <Name style={styles.titulo}>Estado</Name>
-            <SelectList
-              setSelected={(val: any) => handleStateSelect(val)} 
-              data={states} 
-              save="value"
-              boxStyles={styles.inputArea}
-              dropdownStyles={styles.inputDropdown}
-              dropdownTextStyles={{ color: '#000' }}
-            />
+                  <SelectList
+        setSelected={(val: any) => handleStateSelect(val)}
+        data={states.map(state => ({
+          key: state.key,
+          value: state.value, // Exibindo apenas o valor
+        }))}
+        save="value"
+        boxStyles={styles.inputArea}
+        dropdownStyles={styles.inputDropdown}
+        dropdownTextStyles={{ color: '#000' }}
+      />
+
 
             <Name style={styles.titulo}>Universidade</Name>
-            <SelectList
-              setSelected={(val: any) => {}}
-              data={universities} 
-              save="value"
-              boxStyles={styles.inputArea}
-              dropdownStyles={styles.inputDropdown}
-              dropdownTextStyles={{ color: '#000' }}
-            />
+                  <SelectList
+        setSelected={(val: any) => {}}
+        data={universities.map(university => ({
+          key: university.id, // Use um campo único, como o id
+          value: university.name // Exiba o nome ou outra propriedade textual
+        }))}
+        save="value"
+        boxStyles={styles.inputArea}
+        dropdownStyles={styles.inputDropdown}
+        dropdownTextStyles={{ color: '#000' }}
+      />
+
           </View>
         </ContainerDrawer>
       </Animated.View>
