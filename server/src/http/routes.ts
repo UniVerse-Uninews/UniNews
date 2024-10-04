@@ -19,6 +19,8 @@
   import { followUniversityHandler, saveNewsHandler,  getNewsByUrlHandler, getSavedNewsByUserIdHandler, removeNewsHandler, unfollowUniversityHandler, getFollowedUniversitiesHandler, checkIfUserFollowsUniversity  } from "./controllers/save/save";
   import { requestPasswordResetHandler, resetPasswordHandler } from "./controllers/user/update-password";
   import { getUniversitiesByLocationHandler } from "./controllers/university/get-university-location";
+  import { getAllLocationsHandler } from "./controllers/university/get-all-locations";
+  import { getStatesByCountryHandler, getUniversitiesByStateHandler } from "./controllers/university/get-university-name-location";
 
   declare module "fastify" {
     interface FastifyInstance {
@@ -51,6 +53,10 @@
     app.delete("/deleteuniversity/:id", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, deleteUniversityController);
     app.put("/university/:universityId", { preValidation: [app.verifyJwt, verifyUserRole('ADMIN')] }, updateUniversityController);
     app.delete("/unfollowuniversity", unfollowUniversityHandler);
+    app.get('/getalllocations', getAllLocationsHandler);
+    app.get('/getstates', getStatesByCountryHandler);
+    app.get('/getuniversities', getUniversitiesByStateHandler);
+
 
     // News routes
     app.get('/npm/:text', getNpmData);

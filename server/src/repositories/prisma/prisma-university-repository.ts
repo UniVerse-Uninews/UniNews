@@ -144,3 +144,29 @@ export class PrismaUniversityRepository implements UniversityRepository {
         
         return { countries };
       }
+
+      export async function getStatesByCountry(country: string) {
+        try {
+          const states = await prisma.university.findMany({
+            where: { location: country },
+            select: { location: true },
+            distinct: ['location'], // Retorna estados únicos
+          });
+          return states.map(state => state.location); // Retorna apenas os estados
+        } catch (error) {
+          console.error(`Erro ao buscar estados para o país ${country}:`, error);
+          throw new Error('Erro ao buscar estados');
+        }
+      }
+      
+      // Função para obter universidades com base no estado
+      export async function getUniversitiesByState(state: string) {
+        try {
+          return await prisma.university.findMany({
+            where: { location: state },
+          });
+        } catch (error) {
+          console.error(`Erro ao buscar universidades para o estado ${state}:`, error);
+          throw new Error('Erro ao buscar universidades');
+        }
+      }
