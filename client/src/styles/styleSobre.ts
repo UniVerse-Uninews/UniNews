@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     sobre:{
         alignContent:'center',
         justifyContent:'center',
-        paddingVertical: '6%',
+        paddingTop:'6%',
         paddingLeft:'6%',
         fontSize:40,
         fontFamily: 'Teacher',
@@ -23,12 +23,13 @@ export const styles = StyleSheet.create({
         textAlign:'center',
         alignItems:'center',
         marginBottom:'7%',
-        borderWidth:1,
+        borderWidth:2,
         margin:'4%',
         padding:'3%',
         paddingLeft:'5%',
         borderRadius:12,
-        borderColor:'#0571D3'
+        borderColor:'#0571D3',
+       
         
     },
     foto:{
@@ -37,7 +38,9 @@ export const styles = StyleSheet.create({
         width:80,
         borderRadius:50,
         marginRight:'5%',
-        marginLeft:'4%'
+        marginLeft:'4%',
+        alignItems:'center',
+
     },
     foto1:{
         //backgroundColor:'blue',
@@ -49,7 +52,8 @@ export const styles = StyleSheet.create({
     },
     subtitulo1:{
        flex:1,
-       textAlign:'center'
+       textAlign:'justify',
+
     },
     subtitulo:{
         textAlign:'center',
@@ -63,7 +67,8 @@ export const styles = StyleSheet.create({
     titulo1:{
         alignContent:'center',
         justifyContent:'center',
-        paddingVertical: '6%',
+        paddingTop:'6%',
+        paddingBottom:'1%',
         paddingLeft:'11%',
         fontSize:40,
         fontFamily: 'Teacher',
@@ -77,6 +82,22 @@ export const styles = StyleSheet.create({
         //backgroundColor:'red',
         alignItems:'center'
        
+    },
+    fotinha:{
+        width:'100%',
+        height:'100%',
+        resizeMode: 'cover',
+        borderRadius:50,
+        
+    },
+    textos:{
+        flexDirection:'column',
+        width:'55%',  
+    },
+
+    texto1:{
+        fontSize:15,
+        
     }
    
 
