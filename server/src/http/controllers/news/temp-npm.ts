@@ -22,44 +22,47 @@ export const getNpmData = async (request: FastifyRequest<{ Params: { text: strin
 export const getNpmDataWithoutLimit = async (
     request: FastifyRequest<{ Params: { text: string } }>,
     reply: FastifyReply
-  ): Promise<void> => {
+): Promise<void> => {
     try {
-      const rssUrl = request.params.text;
-  
-      const rss = await parse(rssUrl);
-  
-      const universityRepository = new PrismaUniversityRepository();
-      const allUniversities = await universityRepository.findAll();
-  
-      // Função para associar o ID da universidade às notícias
-    const associateUniversity = (newsItem: any): any => {
-    console.log('Processing news item:', newsItem);  // Log da notícia atual
-    let matchedUniversityId = null;
+        const rssUrl = request.params.text;
 
-    allUniversities.forEach((university) => {
-        console.log(`Checking university: ${university.name}`);  // Log da universidade sendo verificada
-        const titleMatch = newsItem.title.includes(university.name);
-        const descriptionMatch = newsItem.description.includes(university.name);
-        
-        if (titleMatch || descriptionMatch) {
-            console.log(`Match found! University ID: ${university.id}`);  // Log quando há uma correspondência
-            matchedUniversityId = university.id;
-        }
-    });
+        const rss = await parse(rssUrl);
 
-    if (matchedUniversityId) {
-        return { ...newsItem, universityId: matchedUniversityId };
-    } else {
-        console.log('Erro: universityId não encontrado para esta notícia.', newsItem); // Log de erro se não houver correspondência
-        return newsItem; // Retorna o item de notícia sem o ID da universidade
+        const universityRepository = new PrismaUniversityRepository();
+        const allUniversities = await universityRepository.findAll();
+
+        // Função para associar o ID da universidade às notícias
+        const associateUniversity = (newsItem: any): any => {
+            console.log('Processing news item:', newsItem);  // Log da notícia atual
+            let matchedUniversityId: string | null = null;
+
+            allUniversities.forEach((university) => {
+                console.log(`Checking university: ${university.name}`);  // Log da universidade sendo verificada
+                
+                // Normalizando para facilitar a comparação
+                const universityName = university.name.toLowerCase();
+                const titleMatch = newsItem.title.toLowerCase().includes(universityName);
+                const descriptionMatch = newsItem.description.toLowerCase().includes(universityName);
+                
+                if (titleMatch || descriptionMatch) {
+                    console.log(`Match found! University ID: ${university.id}`);  // Log quando há uma correspondência
+                    matchedUniversityId = university.id;
+                }
+            });
+
+            if (matchedUniversityId) {
+                return { ...newsItem, universityId: matchedUniversityId };
+            } else {
+                console.log('Erro: universityId não encontrado para esta notícia.', newsItem); // Log de erro se não houver correspondência
+                return newsItem; // Retorna o item de notícia sem o ID da universidade
+            }
+        };
+
+        // Associa o ID da universidade às notícias, se houver correspondência
+        const newsWithUniversities = rss.items.map(associateUniversity);
+
+        reply.send({ items: newsWithUniversities, total: rss.items.length });
+    } catch (e: any) {
+        reply.status(500).send({ error: "Error parsing RSS feed: " + e.message });
     }
 };
-  
-      // Associa o ID da universidade às notícias, se houver correspondência
-      const newsWithUniversities = rss.items.map(associateUniversity);
-  
-      reply.send({ items: newsWithUniversities, total: rss.items.length });
-    } catch (e: any) {
-      reply.status(500).send({ error: "Error parsing RSS feed: " + e.message });
-    }
-  };
