@@ -31,12 +31,29 @@ export const getNpmDataWithoutLimit = async (
       const universityRepository = new PrismaUniversityRepository();
       const allUniversities = await universityRepository.findAll();
   
-      const associateUniversity = (newsItem: any) => {
-        const matchedUniversity = allUniversities.find((university) =>
-          newsItem.title.includes(university.name) || newsItem.description.includes(university.name)
-        );
-        return matchedUniversity ? { ...newsItem, universityId: matchedUniversity.id } : newsItem;
-      };
+      // Função para associar o ID da universidade às notícias
+    const associateUniversity = (newsItem: any): any => {
+    console.log('Processing news item:', newsItem);  // Log da notícia atual
+    let matchedUniversityId = null;
+
+    allUniversities.forEach((university) => {
+        console.log(`Checking university: ${university.name}`);  // Log da universidade sendo verificada
+        const titleMatch = newsItem.title.includes(university.name);
+        const descriptionMatch = newsItem.description.includes(university.name);
+        
+        if (titleMatch || descriptionMatch) {
+            console.log(`Match found! University ID: ${university.id}`);  // Log quando há uma correspondência
+            matchedUniversityId = university.id;
+        }
+    });
+
+    if (matchedUniversityId) {
+        return { ...newsItem, universityId: matchedUniversityId };
+    } else {
+        console.log('Erro: universityId não encontrado para esta notícia.', newsItem); // Log de erro se não houver correspondência
+        return newsItem; // Retorna o item de notícia sem o ID da universidade
+    }
+};
   
       // Associa o ID da universidade às notícias, se houver correspondência
       const newsWithUniversities = rss.items.map(associateUniversity);
