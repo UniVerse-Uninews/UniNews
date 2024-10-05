@@ -9,8 +9,8 @@ import NewsCard from '@components/addNews/news';
 import useNewsSearch from '@hooks/useSearch'; 
 import { useSavedNews } from '@hooks/useSavedNews';
 
-const dir_lupa = require('@assets/imagens/lupa-icon-pesquisa.png');
-const dir_filtro = require('@assets/imagens/icon_filtro.png');
+const dir_lupa = require('../../assets/imagens/lupa-icon-pesquisa.png');
+const dir_filtro = require('../../assets/imagens/icon_filtro.png');
 
 export function Pesquisar({ navigation }: { navigation: any }) {
     const {
@@ -24,12 +24,15 @@ export function Pesquisar({ navigation }: { navigation: any }) {
     const [savedNewsIds, setSavedNewsIds] = useState(new Set<string>());
 
     const { handleSaveNews, handleRemoveNews } = useSavedNews();
-    
-
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
+    };
+
+    const handleAutoSearch = (searchTerm: string) => {
+        onChangeText(searchTerm); 
+        handleSearchClick(); 
     };
 
     return (
@@ -48,24 +51,24 @@ export function Pesquisar({ navigation }: { navigation: any }) {
                             style={styles.pesquisa}
                         />
                         <TouchableOpacity onPress={handleSearchClick} style={styles.containerimpesqui}>
-                            <Image source={ dir_lupa } style={styles.impesqui} />
+                            <Image source={dir_lupa} style={styles.impesqui} />
                         </TouchableOpacity>
                     </BackgroundInput>
                     <TouchableOpacity onPress={toggleDrawer}>
                         <View style={styles.contfiltro}>
-                            <Image style={styles.filtro} source={ dir_filtro } />
+                            <Image style={styles.filtro} source={dir_filtro} />
                         </View>
                     </TouchableOpacity>
                 </View>
                 <ScrollView style={styles.container3}>
-                        <NewsCard
-                    news={news}
-                    savedNewsIds={savedNewsIds}
-                    handleSaveNews={handleSaveNews}
-                    handleRemoveNews={(link) => handleRemoveNews(link)}
+                    <NewsCard
+                        news={news}
+                        savedNewsIds={savedNewsIds}
+                        handleSaveNews={handleSaveNews}
+                        handleRemoveNews={(link) => handleRemoveNews(link)}
                     />
                 </ScrollView>
-                <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+                <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} onSearch={handleAutoSearch} />
             </Container>
             <Footer />
         </>

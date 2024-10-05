@@ -48,6 +48,7 @@ const useNewsSearch = () => {
     const fetchUniversityUrls = async (name: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/university/name/${encodeURIComponent(name)}`);
+            console.log('Response:', response.data);
             if (response.data && response.data.length > 0) {
                 return response.data.map((university: { url: string }) => university.url);
             } else {
@@ -56,6 +57,7 @@ const useNewsSearch = () => {
             }
         } catch (error) {
             console.error('Error fetching university URLs:', error);
+
             Alert.alert('Erro', 'Erro ao buscar URLs das universidades.');
             return [];
         }
