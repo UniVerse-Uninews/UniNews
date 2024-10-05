@@ -24,16 +24,15 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer, onSearch }) => {
   const handleCountrySelect = (country: string) => {
     setSelectedCountry(country);
     fetchStates(country);
-    onSearch(country);
   };
 
   const handleStateSelect = (state: string) => {
     setSelectedState(state);
     if (state) {
       fetchUniversities(state); 
-      onSearch(state); 
     }
   };
+  
   const handleUniversitySelect = (universityKey: string) => {
     console.log('Chave da universidade selecionada:', universityKey);
     const selectedUniversity = universities.find(university => university.key === universityKey);
