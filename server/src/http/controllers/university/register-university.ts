@@ -15,11 +15,12 @@ const registerUniversitySchema = z.object({
   url: z.string(),
   location: z.string(),
   description: z.string(),
-  image : z.string()
+  image : z.string(),
+  miniature: z.string()
 });
 
 export async function registerUniversityController(request: FastifyRequest, reply: FastifyReply) {
-  const { name, url, location, description, image } = registerUniversitySchema.parse(request.body);
+  const { name, url, location, description, image, miniature } = registerUniversitySchema.parse(request.body);
 
   const registerUseCase = makeRegisterUseCase();
 
@@ -29,7 +30,8 @@ export async function registerUniversityController(request: FastifyRequest, repl
       url,
       location,
       description,
-      image
+      image,
+      miniature
     });
 
     reply.send({ message: "University registered successfully" });

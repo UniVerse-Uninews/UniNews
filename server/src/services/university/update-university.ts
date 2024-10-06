@@ -9,6 +9,7 @@ interface UpdateUniversityUseCaseRequest {
     description?: string;
     url?: string;
     image?: string;
+    miniature?: string;
 }
 
 interface UpdateUniversityUseCaseResponse {
@@ -25,6 +26,7 @@ export class UpdateUniversityUseCase {
         description,
         url,
         image,
+        miniature
     }: UpdateUniversityUseCaseRequest): Promise<UpdateUniversityUseCaseResponse> {
         const university = await this.universityRepository.findById(universityId);
         if (!university) {
@@ -37,6 +39,7 @@ export class UpdateUniversityUseCase {
         if (description) dataToUpdate.description = description;
         if (url) dataToUpdate.url = url;
         if (image) dataToUpdate.image = image;
+        if (miniature) dataToUpdate.miniature = miniature;
 
         const updatedUniversity = await this.universityRepository.updateUniversity(universityId, dataToUpdate);
 

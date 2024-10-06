@@ -53,6 +53,7 @@ export function CrudUniversidade() {
       url: '',
       description: '',
       image: '',
+      miniature: ''
     });
   };
 
@@ -105,6 +106,15 @@ export function CrudUniversidade() {
                 placeholderTextColor={'#8F8F8F'}
                 value={university.image}
                 onChangeText={(e) => setUniversity({ ...university, image: e })}
+              />
+
+          <Name>Miniatura</Name>
+              <BackgroundInputText
+                style={styles.input}
+                placeholder="Imagem"
+                placeholderTextColor={'#8F8F8F'}
+                value={university.image}
+                onChangeText={(e) => setUniversity({ ...university, miniature: e })}
               />
               </BackgroundContainerInput>
             </View>

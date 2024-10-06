@@ -1,5 +1,5 @@
 
-import { Text, View, Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import React from 'react';
 import { Header } from '../components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
@@ -8,8 +8,6 @@ import {
   Container,
   NameBlue,
   NameBlueDark,
-  Textbox,
-  Subbox,
   Perfil
 } from '../theme/style';
 import { styles } from '../styles/styleSobre';
@@ -23,7 +21,6 @@ const Pedro= require('../../assets/imagens/imgPedro.jpeg');
 const Gustavo= require('../../assets/imagens/imgGustavo.jpeg');
 const Analara= require('../../assets/imagens/imgAnaLara.jpg');
 */}
-
 
 
 export  function Sobre() {
