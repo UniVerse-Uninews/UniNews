@@ -48,7 +48,9 @@ export function Feed({ navigation }: { navigation: any }) {
             </Container>
             
             {loading && <Text>Carregando...</Text>}
-
+            <Container style={styles.contLine}>
+                <View style={styles.line}/>
+            </Container>
             <ScrollView
                 onScroll={({ nativeEvent }) => {
                     const isNearBottom =

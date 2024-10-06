@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1.3,
     marginTop: '1%',
     width: '100%',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   nameLogo: {
     marginLeft: '1.5%',

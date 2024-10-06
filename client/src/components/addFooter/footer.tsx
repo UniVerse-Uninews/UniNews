@@ -4,7 +4,7 @@ import {  useNavigation, useRoute } from '@react-navigation/native';
 import {  StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack';
 import { styles } from './footerStyle';
-import { BorderColorBlue, FooterContainer, Line } from '@theme/style';
+import { BorderColorBlue, ContainerCabecalho, FooterContainer, Line } from '@theme/style';
 import { useAuth } from 'src/context/authContext';
 import { useAuthCheck } from 'src/context/authNavigation';
 
@@ -40,8 +40,9 @@ export function Footer() {
     return (
         
             <>
+            <ContainerCabecalho>
             <Line style={styles.line} />
-            <FooterContainer style={styles.container}>
+            <ContainerCabecalho style={styles.container}>
                 <Pressable 
                     style={buttonStyle}
                     onPress={() => navigation.navigate(user ? 'Feed' : 'Login')}
@@ -86,7 +87,8 @@ export function Footer() {
                         </Pressable>
                     </>
                 )}
-            </FooterContainer>
+            </ContainerCabecalho>
+            </ContainerCabecalho>
         </>
     );
 }

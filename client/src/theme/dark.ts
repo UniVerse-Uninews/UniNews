@@ -1,3 +1,5 @@
+import { ContainerCabecalho } from './style';
+
 export default {
   background: '#343434', 
   text: 'white',
@@ -19,5 +21,7 @@ export default {
   textAlter: 'black',
   drawer: '#414141',
   bluedark: '#0571D3',
-  perfil:'#434343'
+  perfil:'#434343',
+  backgroundCabecalho: '#434343',
+  line: '#434343',	
 };

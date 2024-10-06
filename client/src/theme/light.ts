@@ -20,5 +20,7 @@ export default {
   textAlter: 'white',
   drawer: '#FFFDF6',
   bluedark: '#3C6294',
-  perfil:'#ffffff'
+  perfil:'#ffffff',
+  backgroundCabecalho: '#ffffff',
+  line: '#3C6294',
 };

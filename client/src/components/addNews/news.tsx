@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Pressable, Image, Linking, Alert } from 'react-native';
 import { format } from 'date-fns';
-import { Container, Name, ImageCard, ContainerData } from '@theme/style';
+import { Container, Name, ImageCard, ContainerData, ContainerCabecalho, NameBlue, BorderColorBackground, BorderColorButton } from '@theme/style';
 import { styles } from '@styles/styleFeed';
 import { NewsCardProps } from 'src/@types/interfaces';
 import { useNavigation } from '@react-navigation/native';
@@ -10,11 +10,13 @@ import { getUniversity } from '@services/api';
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
   const navigation = useNavigation<NavigationProp>();
-  const dir_save = require('../../../assets/imagens/icon_salvos_vazio.png');
-  const dir_unsave = require('../../../assets/imagens/icon_salvos_cheio.png');
-  const dir_mais = require('../../../assets/imagens/add_button.png');
+  const dir_save = require('../../../assets/imagens/bookmark_border.png');
+  const dir_unsave = require('../../../assets/imagens/bookmark.png');
+  const dir_follow = require('../../../assets/imagens/control_point.png');
+  const dir_unfollow = require('../../../assets/imagens/dangerous.png');
 
   const [universityNames, setUniversityNames] = useState<{ [key: string]: string }>({});
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     const fetchAllUniversityNames = async () => {
@@ -44,9 +46,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
       {news.map((item: any) => (
         <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
           <View style={styles.viewCard}>
-            <ContainerData style={styles.card}>
+            <ContainerCabecalho style={styles.card}>
               {item.image ? (
-                <ImageCard source={{ uri: item.image }} style={styles.imageCard} />
+                <Image source={{ uri: item.image }} style={styles.imageCard} />
               ) : (
                 <Name>Image not available</Name>
               )}
@@ -67,7 +69,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
 
                 <View style={styles.iconContainerUni}>
                   {item.universityId && universityNames[item.universityId] ? (
-                    <Pressable
+
+                    <BorderColorButton
+                    style={styles.profileNameContainer}
                       onPress={() => {
                         if (item.universityId) {
                           navigation.navigate('PerfilUniversidade', { universityId: item.universityId });
@@ -76,17 +80,21 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                         }
                       }}
                     >
-                      <Name style={styles.textUni}>{universityNames[item.universityId]}</Name>
-                    </Pressable>
+                      <Name numberOfLines={2} style={styles.textUni}>{universityNames[item.universityId]}</Name>
+                    </BorderColorButton>
                   ) : (
-                    <Name style={styles.textUni}>Universidade não disponível</Name>
+                    <Name numberOfLines={2} style={styles.textUni}>Universidade não disponível</Name>
                   )}
 
-                  <Pressable style={styles.profileImageContainer}>
+                  <Pressable style={styles.profileImageContainer} onPress={() => 
+                    isFollowing ? setIsFollowing(false) : setIsFollowing(true)
+                  }>
+                    <View style={styles.contImgMais}>
                     <Image
-                      source={dir_mais}
+                      source={ isFollowing ? dir_unfollow : dir_follow}
                       style={styles.profileImageMais}
                     />
+                    </View>
                   </Pressable>
                 </View>
               </View>
@@ -99,7 +107,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                   Publicado em: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
                 </Name>
               </View>
-            </ContainerData>
+            </ContainerCabecalho>
           </View>
         </Pressable>
       ))}
