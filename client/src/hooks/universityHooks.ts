@@ -16,7 +16,8 @@ export const useUniversityCrud = () => {
     location: '',
     url: '',
     description : '',
-    image : ''
+    image : '',
+    miniature : ''
   });
 
   const fetchUniversities = async () => {
@@ -51,7 +52,8 @@ export const useUniversityCrud = () => {
         location: '',
         url: '',
         description : '',
-        image : ''
+        image : '',
+        miniature : ''
       });
       fetchUniversities();
     } catch (error) {

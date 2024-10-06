@@ -49,7 +49,7 @@ export const useNews = (isFollowing: boolean) => {
 
             if (followedUniversities.length > 0) {
                 const newsPromises = followedUniversities.map((university: any) =>
-                    fetchNewsFromUniversity(university.url, university.image, university.id)
+                    fetchNewsFromUniversity(university.url, university.image, university.id, university.miniature) // Passando miniature
                 );
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
@@ -59,7 +59,6 @@ export const useNews = (isFollowing: boolean) => {
                     const newNews = allNews.filter((item) => !existingUrls.has(item.link));
                     return page === 1 ? newNews : [...prevNews, ...newNews];
                 });
-
             } else {
                 setNews([]);
             }
@@ -81,7 +80,7 @@ export const useNews = (isFollowing: boolean) => {
 
             if (universities.length > 0) {
                 const newsPromises = universities.map((university: any) =>
-                    fetchNewsFromUniversity(university.url, university.image, university.id)
+                    fetchNewsFromUniversity(university.url, university.image, university.id, university.miniature) // Passando miniature
                 );
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
@@ -106,7 +105,7 @@ export const useNews = (isFollowing: boolean) => {
         }
     };
 
-    const fetchNewsFromUniversity = async (url: string, universityImage: string, universityId: string) => {
+    const fetchNewsFromUniversity = async (url: string, universityImage: string, universityId: string, universityMiniature: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`, {
                 params: { page, limit },
@@ -122,6 +121,7 @@ export const useNews = (isFollowing: boolean) => {
                         title: he.decode(item.title || ''), 
                         link: item.link,
                         universityId,
+                        universityMiniature, // Incluindo miniature aqui
                     };
                 });
             } else {
@@ -143,7 +143,7 @@ export const useNews = (isFollowing: boolean) => {
             });
 
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string; image: string; id: string }) => university);
+                return response.data.map((university: { url: string; image: string; id: string, miniature: string }) => university); // Incluindo miniature na estrutura
             } else {
                 return [];
             }
@@ -162,7 +162,7 @@ export const useNews = (isFollowing: boolean) => {
             const universities = response.data.universities;
 
             if (universities && universities.length > 0) {
-                return universities.map((university: { url: string; image: string; id: string }) => university);
+                return universities.map((university: { url: string; image: string; id: string, miniature: string }) => university); // Incluindo miniature na estrutura
             } else {
                 if (page === 1) {
                     Alert.alert('Erro', 'Nenhuma universidade encontrada.');
@@ -194,7 +194,18 @@ export const useNews = (isFollowing: boolean) => {
         }
 
         try {
-            const newsData = { link: news.link, title: news.title || '', description: news.description || '', image: news.image || '', author: news.author || '', published: news.published || new Date(), created: news.created || new Date(), category: news.category || [], enclosures: news.enclosures || [], media: news.media || {} };
+            const newsData = {
+                link: news.link,
+                title: news.title || '',
+                description: news.description || '',
+                image: news.image || '',
+                author: news.author || '',
+                published: news.published || new Date(),
+                created: news.created || new Date(),
+                category: news.category || [],
+                enclosures: news.enclosures || [],
+                media: news.media || {},
+            };
 
             const response = await axios.post(`${BASE_URL}/save-news`, { userId: user.id, news: newsData });
 
@@ -233,13 +244,13 @@ export const useNews = (isFollowing: boolean) => {
         }
     };
 
-    return { 
-        news, 
-        loading, 
-        savedNewsIds, 
-        handleSaveNews, 
-        handleRemoveNews, 
+    return {
+        news,
+        loading,
+        savedNewsIds,
+        handleSaveNews,
+        handleRemoveNews,
         handleLoadMore: () => !isEndReached && !loading && !isFollowing && setPage((prev) => prev + 1),
-        fetchFollowedUniversities 
+        fetchFollowedUniversities,
     };
 };

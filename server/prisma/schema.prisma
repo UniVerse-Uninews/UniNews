@@ -19,18 +19,17 @@ enum Role {
 }
 
 model User {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime    @default(now()) @map("created_at")
-  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at")
-  name         String
-  email        String      @unique
-  passwordHash String
-  role         Role        @default(USER)
-  desactivated Boolean     @default(false)
-  follows      Follow[]
-  savedNews    SavedNews[]
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
+  name          String
+  email         String          @unique
+  passwordHash  String
+  role          Role            @default(USER)
+  desactivated  Boolean         @default(false)
+  follows       Follow[]
+  savedNews     SavedNews[]
   PasswordReset PasswordReset[]
-
 
   @@map("users")
 }
@@ -44,30 +43,29 @@ model University {
   url         String   @unique
   description String
   image       String
+  miniature   String?
   follows     Follow[]
 
   @@map("universities")
 }
 
 model News {
-  link         String       @id @map("_id")
-  createdAt    DateTime     @default(now()) @map("created_at")
-  updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at")
-  title        String
-  description  String
-  image        String
-  author       String
-  published    DateTime
-  created      DateTime
-  category     String[]
-  enclosures   Json?
-  media        Json?
-  savedBy      SavedNews[]  
+  link        String      @id @map("_id")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at")
+  title       String
+  description String
+  image       String
+  author      String
+  published   DateTime
+  created     DateTime
+  category    String[]
+  enclosures  Json?
+  media       Json?
+  savedBy     SavedNews[]
 
   @@map("news")
 }
-
-
 
 model Follow {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
@@ -82,14 +80,14 @@ model Follow {
 }
 
 model SavedNews {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId  String   @db.ObjectId
-  newsUrl String   
-  user    User     @relation(fields: [userId], references: [id])
-  news    News     @relation(fields: [newsUrl], references: [link]) 
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String @db.ObjectId
+  newsUrl String
+  user    User   @relation(fields: [userId], references: [id])
+  news    News   @relation(fields: [newsUrl], references: [link])
 
-  @@map("saved_news")
   @@unique([userId, newsUrl])
+  @@map("saved_news")
 }
 
 model PasswordReset {

@@ -75,8 +75,11 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
                             </Pressable>
                         </View>
                         <View style={styles.image}>
-                            <Image source={ {uri: universityData.image} } style={styles.image1} />
-                        </View>
+                        <Image 
+                            source={{ uri: universityData.miniature }} 
+                            style={styles.image1} 
+                        />
+                    </View>
                     </View>
                     <View style={stylefeed.container}>
                         <Text style={stylefeed.title}>Notícias</Text>
