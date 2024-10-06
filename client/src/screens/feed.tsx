@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ScrollView, Pressable, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, Pressable, Text, View, Alert } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
 import { Container, NameBlue } from '@theme/style';
@@ -8,8 +8,22 @@ import NewsCard from '@components/addNews/news';
 import { useNews } from '../hooks/saveHooks';
 
 export function Feed({ navigation }: { navigation: any }) {
-    const [isFollowing, setIsFollowing] = useState(true);
-    const { news, loading, savedNewsIds, handleSaveNews, handleRemoveNews, handleLoadMore } = useNews(isFollowing);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const { news, loading, savedNewsIds, handleSaveNews, handleRemoveNews, handleLoadMore, fetchFollowedUniversities } = useNews(isFollowing);
+
+    useEffect(() => {
+        const checkFollowedUniversities = async () => {
+            const followedUniversities = await fetchFollowedUniversities();
+            if (followedUniversities.length === 0 && isFollowing) {
+                Alert.alert('Aviso', 'Você não segue nenhuma universidade. Redirecionando para "Todas".');
+                setIsFollowing(false); 
+            }
+        };
+
+        if (isFollowing) {
+            checkFollowedUniversities();
+        }
+    }, [isFollowing]);
 
     const toggleTab = (following: boolean) => {
         setIsFollowing(following);

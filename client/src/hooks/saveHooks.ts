@@ -145,12 +145,10 @@ export const useNews = (isFollowing: boolean) => {
             if (response.data && response.data.length > 0) {
                 return response.data.map((university: { url: string; image: string; id: string }) => university);
             } else {
-                Alert.alert('Erro', 'Você não segue nenhuma universidade.');
                 return [];
             }
         } catch (error) {
             console.error('Error fetching followed universities:', error);
-            Alert.alert('Erro', 'Erro ao buscar universidades seguidas.');
             return [];
         }
     };
@@ -241,6 +239,7 @@ export const useNews = (isFollowing: boolean) => {
         savedNewsIds, 
         handleSaveNews, 
         handleRemoveNews, 
-        handleLoadMore: () => !isEndReached && !loading && !isFollowing && setPage((prev) => prev + 1) 
+        handleLoadMore: () => !isEndReached && !loading && !isFollowing && setPage((prev) => prev + 1),
+        fetchFollowedUniversities 
     };
 };
