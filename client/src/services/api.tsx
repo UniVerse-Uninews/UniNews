@@ -130,9 +130,6 @@ export const getUniversity = async (universityId: string) => {
   const token = await getToken();
   const getUniversityUrl = `${http}/university/${universityId}`;
 
-  console.log('Fetching university from:', getUniversityUrl);
-  console.log('Using token:', token);
-
   try {
     const response = await axios.get(getUniversityUrl, {
       headers: {
@@ -140,13 +137,10 @@ export const getUniversity = async (universityId: string) => {
       },
     });
 
-    // Log a resposta da API
-    console.log('University response:', response.data);
-
-    return response.data; // Verifique se isso está retornando o objeto que você espera
+    return response.data;
   } catch (error) {
-    console.error('Error fetching university:', error); // Log de erro
-    return null; // Retorna nulo em caso de erro
+    console.error('Error fetching university:', error); 
+    return null; 
   }
 };
 

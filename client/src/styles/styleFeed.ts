@@ -143,6 +143,12 @@ export const styles = StyleSheet.create({
         width: '20%',
         display: 'flex',
         justifyContent: 'space-between',
-
         },
+
+     textUni: {
+        fontSize: responsiveFontSize(1.6),
+        marginBottom: responsiveHeight(0.7),
+        fontFamily: 'RubikBold',
+        color: '#f5b304',
+    },   
 });

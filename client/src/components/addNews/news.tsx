@@ -24,7 +24,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
       const names = await Promise.all(
         uniqueUniversityIds.map(async (id) => {
           const university = await getUniversity(String(id));
-          console.log('Fetched university:', university); // Log para verificar o retorno
           return { id, name: university?.university?.name || 'Nome não disponível' };
         })
       );
@@ -77,10 +76,10 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                         }
                       }}
                     >
-                      <Name style={styles.text}>{universityNames[item.universityId]}</Name>
+                      <Name style={styles.textUni}>{universityNames[item.universityId]}</Name>
                     </Pressable>
                   ) : (
-                    <Name style={styles.text}>Universidade não disponível</Name>
+                    <Name style={styles.textUni}>Universidade não disponível</Name>
                   )}
 
                   <Pressable style={styles.profileImageContainer}>
