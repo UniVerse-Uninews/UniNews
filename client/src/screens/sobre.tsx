@@ -11,6 +11,7 @@ import {
   Perfil
 } from '../theme/style';
 import { styles } from '../styles/styleSobre';
+{/*
 const dirImagem = require('../../assets/imagens/tcc-logo-quadrado-sem-fundo.png');
 const Arthur= require('../../assets/imagens/imgArthur.jpeg');
 const Miguel= require('../../assets/imagens/imgMiguel.jpeg');
@@ -19,6 +20,7 @@ const Carol= require('../../assets/imagens/imgCarol.jpeg');
 const Pedro= require('../../assets/imagens/imgPedro.jpeg');
 const Gustavo= require('../../assets/imagens/imgGustavo.jpeg');
 const Analara= require('../../assets/imagens/imgAnaLara.jpg');
+*/}
 
 
 export  function Sobre() {
@@ -31,7 +33,7 @@ export  function Sobre() {
             <NameBlueDark style={styles.sobre}>Sobre Nós</NameBlueDark>
             <NameBlue style={styles.titulo1}>UNINEWS</NameBlue>
             <View style={styles.titulo}>
-              <Image style={styles.Logo} source={dirImagem} />
+              {/*<Image style={styles.Logo} source={dirImagem} />*/}
               <View style={styles.textos}>
                 <Name style={styles.subtitulo1} >Este projeto trata-se de um veiculador mobile de notícias e pesquisas universitárias. </Name>
                 <Name style={styles.subtitulo1}>O principal intuito desta plataforma é não apenas facilitar o acesso a informações 
@@ -44,7 +46,7 @@ export  function Sobre() {
             <NameBlueDark style={styles.sobre}>Quem Somos</NameBlueDark>
             <NameBlue style={styles.titulo1}>UNIVERSE</NameBlue>
             <View style={styles.titulo}>
-              <Image style={styles.Logo} source={dirImagem} />
+              {/*<Image style={styles.Logo} source={dirImagem} />*/}
 
               <View style={styles.textos}>
                 <Name style={styles.subtitulo1} >A empresa surgiu em março de 2024, a partir do desenvolvimento de um projeto de TCC. 
@@ -60,7 +62,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Arthur} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Arthur} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -72,7 +74,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Miguel} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Miguel} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -84,7 +86,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Ryandro} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Ryandro} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -96,7 +98,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Analara} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Analara} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -108,7 +110,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Carol} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Carol} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -120,7 +122,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Gustavo} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Gustavo} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -132,7 +134,7 @@ export  function Sobre() {
             <Perfil style={styles.perfil}>
                 <View style={styles.foto1}>
                   <View style={styles.foto}>
-                    <Image style={styles.fotinha} source={Pedro} resizeMode="cover" />
+                    {/*<Image style={styles.fotinha} source={Pedro} resizeMode="cover" />*/}
                   </View>
                 </View>
                 <View  style={styles.texto}>
@@ -148,3 +150,4 @@ export  function Sobre() {
     </>
   );
 }
+

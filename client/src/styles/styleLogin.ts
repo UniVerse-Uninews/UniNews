@@ -26,7 +26,18 @@ export const styles = StyleSheet.create({
     padding: responsiveScreenHeight(1),
     borderRadius: responsiveScreenHeight(2),
     borderColor: '#3C6294',
+    flexDirection: 'row',
+    width: '95%',
 
+  },
+inputSenha: {
+    height: '100%',
+    fontFamily: 'RubikNormal',
+    width: '85%',
+    marginTop: '1.5%',
+    borderColor: '#F2A20C',
+    color: '#000',
+    marginLeft: responsiveScreenHeight(1),
   },
   campo: {
     width: '90%',
@@ -64,6 +75,19 @@ export const styles = StyleSheet.create({
     fontSize: responsiveScreenFontSize(2),
     
   },
+  containerIcon: {
+    width: '15%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    width: '32%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  
   boxbutton: {
     flexDirection: 'row',
     justifyContent: 'center',
