@@ -9,7 +9,8 @@ export async function updateUniversityController(request: FastifyRequest, reply:
     location: z.string().optional(),
     url: z.string().optional(),
     description: z.string().optional(),
-    image : z.string().optional()
+    image : z.string().optional(),
+    miniature: z.string().optional()
   });
 
   const updateUniversityParamsSchema = z.object({
@@ -17,11 +18,11 @@ export async function updateUniversityController(request: FastifyRequest, reply:
   });
 
   try {
-    const { name, location, url, description, image} = updateUniversityBodySchema.parse(request.body);
+    const { name, location, url, description, image, miniature} = updateUniversityBodySchema.parse(request.body);
     const { universityId } = updateUniversityParamsSchema.parse(request.params);
 
     const updateUseCase = makeUpdateUniversityUseCase();
-    const result = await updateUseCase.execute({ universityId, name, location, url, description, image});
+    const result = await updateUseCase.execute({ universityId, name, location, url, description, image, miniature});
 
     reply.status(200).send({ university: result.university });
   } catch (error) {

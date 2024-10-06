@@ -6,7 +6,7 @@ import { university } from 'src/@types/university';
 import { LoginResponse } from 'src/@types/interfaces';
 
 const http = REACT_APP_API_URL;
-console.log('API URL:', http);
+console.log('API URL:',http);
 
 const getToken = async () => {
   return await AsyncStorage.getItem('token');
@@ -130,15 +130,20 @@ export const getUniversity = async (universityId: string) => {
   const token = await getToken();
   const getUniversityUrl = `${http}/university/${universityId}`;
 
-  console.log('Fetching university from:', getUniversityUrl);
-  console.log('Using token:', token);
+  try {
+    const response = await axios.get(getUniversityUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  return axios.get(getUniversityUrl, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching university:', error); 
+    return null; 
+  }
 };
+
 
 export const updateUniversity = async (universityId: string, universityData: university) => {
   const token = await getToken();
