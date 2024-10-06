@@ -7,6 +7,7 @@ import {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: '3%',
     alignItems: 'center',
   },
   title: {
@@ -39,8 +40,9 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: '100%',
-    fontFamily: 'RubikMedium',
+    fontFamily: 'RubikNormal',
     width: '80%',
+    marginTop: '1.75%',
     borderColor: '#F2A20C',
     color: '#000',
   },  

@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
     height: '100%',
     fontFamily: 'RubikNormal',
     width: '80%',
+    marginTop: '1.75%',
     borderColor: '#F2A20C',
     color: '#000',
   },

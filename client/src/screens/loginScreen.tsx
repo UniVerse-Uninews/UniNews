@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Modal,
+  Image,
 } from 'react-native';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
@@ -18,8 +19,12 @@ import { styles as modal } from '../styles/stylePerfilUser';
 
 export function Login({ navigation }: any) {
 
+  const eye = require('../../assets/imagens/eye.png');
+  const eyeOff = require('../../assets/imagens/eyeOff.png');
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const	[passHide, setPassHide] = useState(true);
   const [loginError, setLoginError] = useState('');
   const { login } = useAuth();
   const [showResetModal, setShowResetModal] = useState(false);
@@ -101,12 +106,23 @@ export function Login({ navigation }: any) {
           <Name style={styles.campotext}>Senha</Name>
           <BackgroundInput style={styles.input}>
             <TextInput
-              placeholder="  Senha"
+              placeholder="Senha"
               value={password}
-              onChangeText={setPassword}
-              secureTextEntry={true}
+              secureTextEntry={passHide}
+              onChangeText={(texto)=>setPassword(texto)}
               placeholderTextColor={'#8F8F8F'}
+              style={styles.inputSenha}
             />
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={() => setPassHide(!passHide)}
+            >
+              {passHide ? (
+                <Image source={eye} style={styles.icon} />
+              ) : (
+                <Image source={eyeOff} style={styles.icon} />
+              )}
+            </TouchableOpacity>
           </BackgroundInput>
         </BackgroundContainerInput>
         {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
