@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Alert, TextInput } from 'react-native';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
+import he from 'he';
 
 const BASE_URL = REACT_APP_API_URL;
 
@@ -18,7 +19,7 @@ const useNewsSearch = () => {
         return { imageUrl: match ? match[1] : '', cleanedDescription };
     };
 
-    const fetchNews = async (url: string, universityId: string) => {
+    const fetchNews = async (url: string, universityId: string, universityImage: string) => {
         try {
             const response = await axios.get(`${BASE_URL}/npm/${encodeURIComponent(url)}`);
             if (response.data && response.data.items) {
@@ -26,8 +27,9 @@ const useNewsSearch = () => {
                     const { imageUrl, cleanedDescription } = extractImageFromDescription(item.description);
                     return {
                         ...item,
-                        image: imageUrl,
-                        description: cleanedDescription,
+                        image: imageUrl || universityImage,
+                        description: he.decode(cleanedDescription),
+                        title: he.decode(item.title || ''), 
                         link: item.link,
                         universityId: universityId,
                     };
@@ -48,7 +50,11 @@ const useNewsSearch = () => {
         try {
             const response = await axios.get(`${BASE_URL}/university/name/${name}`);
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string, id: string }) => ({ url: university.url, id: university.id }));
+                return response.data.map((university: { url: string; id: string; image: string }) => ({
+                    url: university.url,
+                    id: university.id,
+                    image: university.image,
+                }));
             } else {
                 Alert.alert('Erro', 'Nenhuma universidade encontrada.');
                 return [];
@@ -71,7 +77,7 @@ const useNewsSearch = () => {
             const universityData = await fetchUniversityUrls(text);
 
             if (universityData.length > 0) {
-                const newsPromises = universityData.map(({ url, id }: any) => fetchNews(url, id));
+                const newsPromises = universityData.map(({ url, id, image }: any) => fetchNews(url, id, image));
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
                 setNews(allNews);

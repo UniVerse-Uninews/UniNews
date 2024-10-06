@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Alert } from 'react-native';
 import { REACT_APP_API_URL } from '@env';
 import { useAuth } from '../context/authContext';
+import he from 'he';
 
 export const useNews = (isFollowing: boolean) => {
     const [news, setNews] = useState<any[]>([]);
@@ -15,11 +16,10 @@ export const useNews = (isFollowing: boolean) => {
 
     const BASE_URL = REACT_APP_API_URL;
 
-    // Sempre que `isFollowing` ou `page` mudar, faz nova requisição de notícias
     useEffect(() => {
-        setPage(1); // Resetando a página ao mudar entre Seguindo/Todas
-        setNews([]); // Limpa as notícias antes de fazer nova requisição
-        setIsEndReached(false); // Reseta a flag para carregar mais notícias
+        setPage(1);
+        setNews([]);
+        setIsEndReached(false);
         fetchNews();
     }, [isFollowing]);
 
@@ -118,7 +118,8 @@ export const useNews = (isFollowing: boolean) => {
                     return {
                         ...item,
                         image: imageUrl || universityImage,
-                        description: cleanedDescription,
+                        description: he.decode(cleanedDescription),
+                        title: he.decode(item.title || ''), 
                         link: item.link,
                         universityId,
                     };

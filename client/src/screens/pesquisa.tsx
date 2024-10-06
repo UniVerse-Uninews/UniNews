@@ -8,7 +8,6 @@ import Drawer from './drawer';
 import NewsCard from '@components/addNews/news';
 import useNewsSearch from '@hooks/useSearch'; 
 import { useSavedNews } from '@hooks/useSavedNews';
-import NewsCardSearch from '@components/addNewsSearch/newsSearch';
 
 const dir_lupa = require('../../assets/imagens/lupa-icon-pesquisa.png');
 const dir_filtro = require('../../assets/imagens/icon_filtro.png');
