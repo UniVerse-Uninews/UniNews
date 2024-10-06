@@ -60,7 +60,7 @@ export function Pesquisar({ navigation }: { navigation: any }) {
             </TouchableOpacity>
           </View>
           <ScrollView style={styles.container3}>
-            <NewsCardSearch
+            <NewsCard
               news={news}
               savedNewsIds={savedNewsIds}
               handleSaveNews={handleSaveNews}

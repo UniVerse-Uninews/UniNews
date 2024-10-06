@@ -15,10 +15,19 @@ export const useNews = (isFollowing: boolean) => {
 
     const BASE_URL = REACT_APP_API_URL;
 
-    // Carrega as notícias ao montar o componente
+    // Sempre que `isFollowing` ou `page` mudar, faz nova requisição de notícias
     useEffect(() => {
+        setPage(1); // Resetando a página ao mudar entre Seguindo/Todas
+        setNews([]); // Limpa as notícias antes de fazer nova requisição
+        setIsEndReached(false); // Reseta a flag para carregar mais notícias
         fetchNews();
-    }, [isFollowing, page]);
+    }, [isFollowing]);
+
+    useEffect(() => {
+        if (page > 1) {
+            fetchNews();
+        }
+    }, [page]);
 
     const fetchNews = async () => {
         if (isFollowing) {
@@ -48,7 +57,7 @@ export const useNews = (isFollowing: boolean) => {
                 setNews((prevNews) => {
                     const existingUrls = new Set(prevNews.map((item) => item.link));
                     const newNews = allNews.filter((item) => !existingUrls.has(item.link));
-                    return [...prevNews, ...newNews];
+                    return page === 1 ? newNews : [...prevNews, ...newNews];
                 });
 
             } else {
@@ -80,7 +89,7 @@ export const useNews = (isFollowing: boolean) => {
                 setNews((prevNews) => {
                     const existingUrls = new Set(prevNews.map((item) => item.link));
                     const newNews = allNews.filter((item) => !existingUrls.has(item.link));
-                    return [...prevNews, ...newNews];
+                    return page === 1 ? newNews : [...prevNews, ...newNews];
                 });
 
                 if (allNews.length < limit) {
@@ -225,5 +234,12 @@ export const useNews = (isFollowing: boolean) => {
         }
     };
 
-    return { news, loading, savedNewsIds, handleSaveNews, handleRemoveNews, handleLoadMore: () => !isEndReached && !loading && !isFollowing && setPage((prev) => prev + 1) };
+    return { 
+        news, 
+        loading, 
+        savedNewsIds, 
+        handleSaveNews, 
+        handleRemoveNews, 
+        handleLoadMore: () => !isEndReached && !loading && !isFollowing && setPage((prev) => prev + 1) 
+    };
 };
