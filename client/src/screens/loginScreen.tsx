@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   TextInput,
@@ -9,6 +9,7 @@ import {
   Modal,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser } from '../services/api';
 import { styles } from '../styles/styleLogin';
 import { BackgroundContainerInput, BackgroundInput, BorderColorButton, Container, Name, BackgroundInputText, ContainerAlter, NameAlter } from '@theme/style';
@@ -16,6 +17,8 @@ import { useAuth } from '../context/authContext';
 import { REACT_APP_API_URL } from '@env';
 import axios from 'axios';
 import { styles as modal } from '../styles/stylePerfilUser';
+
+import { decodeToken } from '@hooks/decodeToken';
 
 export function Login({ navigation }: any) {
   const dirSetaVoltar = require('../../assets/imagens/Arrow.png');
@@ -36,22 +39,40 @@ export function Login({ navigation }: any) {
   const [token, setToken] = useState('');
   const http = REACT_APP_API_URL;
 
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const token = await AsyncStorage.getItem('token'); 
+
+      if (token) {
+        const decodedToken = decodeToken(token);
+
+        if (decodedToken && 'role' in decodedToken && 'id' in decodedToken) {
+          login({ token, role: (decodedToken as any).role, id: (decodedToken as any).id }); 
+        }
+        navigation.navigate('Feed'); 
+      }
+    };
+
+    checkLoginStatus(); 
+  }, []);
+
   const handleLogin = async () => {
     try {
       const { token, role, id } = await loginUser(username, password);
       console.log('Login successful:', { token, role, id });
-
-      login({ token, role, id });
-
+  
+      const userInfo = { token, role, id };
+  
+      login(userInfo); 
+  
       navigation.navigate('Feed');
     } catch (error) {
       console.error('Login error:', error);
-      Alert.alert('Erro de autenticação',
-        'Erro ao fazer login. Verifique suas credenciais.',
-        [{ text: 'OK' }]);
+      Alert.alert('Erro de autenticação', 'Erro ao fazer login. Verifique suas credenciais.', [{ text: 'OK' }]);
       setLoginError('Erro ao fazer login. Verifique suas credenciais.');
     }
   };
+  
 
   const handleResetPasswordRequest = async () => {
     try {
