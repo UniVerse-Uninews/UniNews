@@ -1,3 +1,4 @@
+import { Line } from '@theme/style';
 import { StyleSheet } from 'react-native';
 import {
     responsiveFontSize,
@@ -9,6 +10,20 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: responsiveFontSize(2),
+    },
+    contLine: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: responsiveHeight(0.5),
+        paddingBottom: responsiveHeight(1),
+    },
+    line: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1.3,
+        width: '90%',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderColor: '#0571D3',
     },
     box: {
         flexDirection: 'row',
@@ -39,7 +54,8 @@ export const styles = StyleSheet.create({
         borderRadius: responsiveWidth(2),
         marginBottom: responsiveHeight(2),
         borderWidth: responsiveWidth(0.3),
-        resizeMode: 'stretch'
+        resizeMode: 'stretch',
+        borderColor: '#000000',
     },
     title: {
         fontSize: responsiveFontSize(2.5),
@@ -73,11 +89,11 @@ export const styles = StyleSheet.create({
         fontFamily: 'RubikBold',
     },
     tabTextActive: {
-        fontSize: responsiveFontSize(2),
+        fontSize: responsiveFontSize(1.5),
         fontFamily: 'RubikBold',
     },
     tabTextInactive: {
-        fontSize: responsiveFontSize(2),
+        fontSize: responsiveFontSize(1.5),
         fontFamily: 'RubikBold',
         opacity: 0.5,
     },
@@ -89,9 +105,12 @@ export const styles = StyleSheet.create({
         borderColor: '#f5b304',
         borderWidth: 1,
         marginVertical: responsiveHeight(1),
-        width: responsiveWidth(30),
+        width: responsiveWidth(22),
         marginTop: responsiveHeight(2),
+
+
     },
+
     tabButtonActive: {
 
     },
@@ -123,16 +142,29 @@ export const styles = StyleSheet.create({
         marginBottom: responsiveHeight(2.7),
         justifyContent: 'center',
     },
+    profileNameContainer: {	
+        justifyContent: 'center',  
+        alignItems: 'center', 
+        height: responsiveHeight(3),
+        borderWidth: 1,
+        borderRadius: 10,
 
+        width: '90%',
+        marginTop: responsiveHeight(0.5),
+    },
     profileImage: {
         resizeMode: 'stretch',
         width: '100%',
         height: '100%',
     },
+    contImgMais: {
+        alignItems: 'flex-end',
+        width: '100%',
+    },
     profileImageMais: {
         resizeMode: 'contain',
-        width: '80%',
-        height: '80%',
+        width: '90%',
+        height: '90%',
     },
 
     textContainer: {
@@ -140,15 +172,14 @@ export const styles = StyleSheet.create({
     },
     iconContainerUni: {
         flexDirection: 'row',
-        width: '20%',
+        width: '35%',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         },
 
      textUni: {
         fontSize: responsiveFontSize(1.6),
         marginBottom: responsiveHeight(0.7),
         fontFamily: 'RubikBold',
-        color: '#f5b304',
     },   
 });

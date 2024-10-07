@@ -1,7 +1,7 @@
 import { styles } from './styleheader';
 import React from 'react';
 import { View, StatusBar,  SafeAreaView , Pressable, Platform} from 'react-native';
-import { Container, NameBlue, Name, Line } from '../../theme/style';
+import { Container, NameBlue, Name, Line, ContainerCabecalho } from '../../theme/style';
 import ImageViewer from '../addImageViewer/ImageViewer';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -21,7 +21,7 @@ export function Header() {
       
      
                    
-    <Container style={styles.container}>
+    <ContainerCabecalho style={styles.container}>
       <Pressable  onPress={() => navigation.navigate('Feed')}
                 >  
       <View style={styles.cabecalho}>
@@ -33,7 +33,7 @@ export function Header() {
       </View>
       </Pressable>
       <Line style={styles.line} />
-    </Container>
+    </ContainerCabecalho>
     </>
   );
 }

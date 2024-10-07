@@ -18,10 +18,12 @@ import axios from 'axios';
 import { styles as modal } from '../styles/stylePerfilUser';
 
 export function Login({ navigation }: any) {
+  const dirSetaVoltar = require('../../assets/imagens/Arrow.png');
 
   const eye = require('../../assets/imagens/eye.png');
   const eyeOff = require('../../assets/imagens/eyeOff.png');
 
+  const [modalVisible, setModalVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const	[passHide, setPassHide] = useState(true);
@@ -175,6 +177,15 @@ export function Login({ navigation }: any) {
         }}>
         <View style={modal.centeredView}>
           <ContainerAlter style={modal.modalView}>
+          <View style={styles.container1}>
+            <TouchableOpacity
+                onPress={() => {
+                  setShowResetModal(false);
+                  setModalVisible(true);
+                }}>
+            <Image source={dirSetaVoltar } style={styles.icon1} />
+            </TouchableOpacity>
+            </View> 
             <NameAlter style={modal.modalText}>Email para redefinir senha:</NameAlter>
             <View style={modal.containerInput}>
               <BackgroundInput style={modal.inputArea}>

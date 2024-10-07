@@ -1,13 +1,27 @@
 import { StyleSheet } from 'react-native';
 import {
+  responsiveHeight,
   responsiveScreenFontSize,
   responsiveScreenHeight,
+  responsiveWidth,
 } from 'react-native-responsive-dimensions';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  container1: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    height: '5%',
+    
+  },
+  icon1:{
+      width:responsiveWidth(5),
+      height:responsiveHeight(2),
+      justifyContent:'flex-start',
   },
   box: {
     borderWidth: responsiveScreenHeight(0.2),

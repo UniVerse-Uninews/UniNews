@@ -20,6 +20,8 @@ export function Perfil ()  {
   const [userData, setUserData] = useState<User | null>(null);
   const [emailForReset, setEmailForReset] = useState('');
   
+
+  const dirPerfil = require('../../assets/imagens/icon_perfil_vazio.png');
   const dirSetaVoltar = require('../../assets/imagens/Arrow.png');
 
   const {
@@ -84,19 +86,12 @@ export function Perfil ()  {
     <>
       <Header />
       <Container style={styles.container}>
-        <BorderColorBlue style={styles.perfil}>
-        </BorderColorBlue>
+        <View style={styles.perfil}>
+          <Image source={dirPerfil} style={styles.contain} />
+        </View>
         <ContainerData style={styles.containerNick}>
           <Name style={styles.nick}>{userData?.name}</Name>
         </ContainerData>
-        <View style={styles.box}>
-          <View style={styles.seg}>
-            <Name>Seguidores</Name>
-          </View>
-          <View style={styles.seg}>
-            <Name>Publicações</Name>
-          </View>
-        </View>
         <View style={styles.viewTitle}>
           <NameBlue style={styles.title}>DADOS PESSOAIS</NameBlue>
         </View>
@@ -166,20 +161,6 @@ export function Perfil ()  {
             </TouchableOpacity>
           </View>
         </ContainerData>
-        <View style={styles.viewTitle}>
-          <NameBlue style={styles.title}>CONFIGURAÇÕES</NameBlue>
-        </View>
-        <View style={styles.viewSubTitle}>
-          <Text style={styles.subTitle}>FEED</Text>
-        </View>
-        <View style={styles.aliner}>
-          <ContainerData style={styles.containerDataFeed}>
-            <Name>Notícias</Name>
-          </ContainerData>
-          <ContainerData style={styles.containerDataFeed}>
-            <Name>Universidades</Name>
-          </ContainerData>
-        </View>
         
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.textButton}>LOGOUT</Text>
@@ -196,7 +177,7 @@ export function Perfil ()  {
         <View style={styles.centeredView}>
           <ContainerAlter style={styles.modalView}>
             <View style={styles.container1}>
-          <TouchableOpacity
+            <TouchableOpacity
                 onPress={() => {
                   setShowResetModal(false);
                   setModalVisible(true);
@@ -204,7 +185,7 @@ export function Perfil ()  {
             <Image source={dirSetaVoltar } style={styles.icon1} />
             </TouchableOpacity>
             </View> 
-          <View style={styles.container2}>
+          <View style={styles.containerInput}>
             <NameAlter style={styles.modalText}>Email para redefinir senha:</NameAlter>
             <View style={styles.containerInput}>
               <BackgroundInput style={styles.inputArea}>

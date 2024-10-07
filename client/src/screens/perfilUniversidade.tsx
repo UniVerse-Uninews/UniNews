@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ScrollView, Pressable, Image, Text, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/stylePerfilUniversidade';
 import { styles as stylefeed } from '@styles/styleFeed';
-import { BorderColorContainer, Container, Name, NameBlue } from '@theme/style';
+import { BorderColorContainer, BorderTitle, BtnSeguir, Container, Name, NameBlue, TextBtnFeed, TitlePesq } from '@theme/style';
 import { useUniversityData } from '../hooks/useUniversityData';
 import { useUniversityNews } from '../hooks/useUniversityNews';
 import { useUniversityFollow } from '../hooks/useUniversityFollow';
@@ -14,6 +14,7 @@ import { RootStackParamList } from '../@types/rootstack';
 import { useAuthCheck } from 'src/context/authNavigation';
 import NewsCard from '@components/addNews/news';
 import { useNews } from '@hooks/saveHooks';
+import NewsCardSeach from '../components/addNewsSearch/newsSearch';
 
 type PerfilUniversidadeRouteProp = RouteProp<RootStackParamList, 'PerfilUniversidade'>;
 type PerfilUniversidadeNavigationProp = StackNavigationProp<RootStackParamList, 'PerfilUniversidade'>;
@@ -64,15 +65,15 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
                 <ScrollView>
                     <View style={styles.container2}>
                         <View style={styles.container3}>
-                            <NameBlue style={styles.name}>{universityData.name}</NameBlue>
+                            <TitlePesq style={styles.name}>{universityData.name}</TitlePesq>
                             <BorderColorContainer style={styles.description1}>
                                 <Name>{universityData.description}</Name>
                             </BorderColorContainer>
-                            <Pressable onPress={handleButtonPress} style={styles.followButton}>
-                                <Text style={styles.followButtonText}>
+                            <BtnSeguir onPress={handleButtonPress} style={styles.followButton}>
+                                <Name style={styles.followButtonText}>
                                     {isFollowing ? 'Deixar de seguir' : 'Seguir Universidade'}
-                                </Text>
-                            </Pressable>
+                                </Name>
+                            </BtnSeguir>
                         </View>
                         <View style={styles.image}>
                         <Image 
@@ -82,12 +83,14 @@ export function PerfilUniversidade({ route, navigation }: PerfilUniversidadeProp
                     </View>
                     </View>
                     <View style={stylefeed.container}>
-                        <Text style={stylefeed.title}>Notícias</Text>
-                                <NewsCard
+                        <BorderTitle style={styles.contTitle}>
+                            <TextBtnFeed style={styles.title}>Notícias Recentes</TextBtnFeed>
+                        </BorderTitle>
+                        <NewsCardSeach
                             news={news}
                             savedNewsIds={savedNewsIds}
                             handleSaveNews={handleSaveNews}
-                            handleRemoveNews={(link) => handleRemoveNews({ link })}
+                            handleRemoveNews={handleRemoveNews}
                         />
                     </View>
                 </ScrollView>

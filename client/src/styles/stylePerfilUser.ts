@@ -37,11 +37,16 @@ container: {
   },
   perfil:{
     marginTop:'3%',
-    padding:'15%',
-    borderWidth:responsiveWidth(0.5),
-    width:'10%',
     borderRadius:responsiveWidth(15),
-
+    width:'30%',
+    height:'17%',
+    justifyContent:'center',
+    alignItems:'center',
+},
+contain :{
+  resizeMode: 'contain',
+  width:'70%',
+  height:'70%',
 },
 containerNick:{
     margin:'3%',
@@ -83,6 +88,7 @@ title:{
     marginTop:'5%',
     marginLeft:'5%',
     fontFamily:'Teacher',
+    color :'#0571D3',
 },
 viewTitle:{
     flexDirection:'row',
@@ -122,6 +128,7 @@ icon:{
     height:responsiveHeight(2),
     marginTop:'50%',
 },
+
 icon1:{
     width:responsiveWidth(5),
     height:responsiveHeight(2),
@@ -134,7 +141,7 @@ containerData:{
   borderRadius:responsiveWidth(7),
   width:responsiveWidth(70),
   justifyContent:'center',
-  
+  marginBottom:'45%',
 },
 containerDataFeed:{
   margin:'3%',

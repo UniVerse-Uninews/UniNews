@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '@styles/stylePesquisa';
 import { Header } from '@components/addHeader/header';
-import { BackgroundInput, Container, NameBlue } from '@theme/style';
+import { BackgroundInput, BackgroundInputPesq, Container, NameBlue, TitlePesq } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import Drawer from './drawer';
 import NewsCard from '@components/addNews/news';
@@ -37,7 +37,7 @@ export function Pesquisar({ navigation }: { navigation: any }) {
       <>
         <Header />
         <Container style={styles.container1}>
-          <NameBlue style={styles.title1}>EXPLORAR</NameBlue>
+          <TitlePesq style={styles.title1}>EXPLORAR</TitlePesq>
           <View style={styles.container2}>
             <BackgroundInput style={styles.inputArea}>
               <TextInput
