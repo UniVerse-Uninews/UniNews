@@ -72,9 +72,9 @@ export function Feed({ navigation }: { navigation: any }) {
                 ) : (
                     <Container style={styles.container}>
                         <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                        <ActivityIndicator size="large" color="#0000ff" />
+                            <ActivityIndicator size="large" color="#0000ff" />
                         </Container>    
-                        </Container>
+                    </Container>
                 )}
             </ScrollContainer>
 
