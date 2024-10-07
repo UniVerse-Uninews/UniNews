@@ -31,6 +31,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer, onSearch }) => {
     const selectedUniversity = universities.find(university => university.key === universityKey);
     if (selectedUniversity) {
         onSearch(selectedUniversity.value);
+        
     }
   };
 
