@@ -96,11 +96,12 @@ export function Login({ navigation }: any) {
           <Name style={styles.campotext}>Usuário</Name>
           <BackgroundInput style={styles.input}>
             <TextInput
-              placeholder="  Usuário"
+              placeholder="Usuário"
               value={username}
               onChangeText={setUsername}
               placeholderTextColor={'#8F8F8F'}
               autoCapitalize='none'
+              style={styles.inputUsuario}
             />
           </BackgroundInput>
         </View>
