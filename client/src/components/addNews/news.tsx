@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { Container, Name, ContainerCabecalho, BorderColorButton } from '@theme/style';
 import { styles } from '@styles/styleFeed';
 import { NewsCardProps } from 'src/@types/interfaces';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NavigationProp } from 'src/@types/navigation-params';
 import { getUniversity } from '@services/api';
 import { useUniversityFollow } from '@hooks/useUniversityFollow';
@@ -17,38 +17,42 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
   const dir_unfollow = require('../../../assets/imagens/dangerous.png');
 
   const [universityNames, setUniversityNames] = useState<{ [key: string]: string }>({});
-  const universityId = news.length > 0 ? news[0].universityId : null;
+  const [universityId, setUniversityId] = useState<string | undefined>(undefined);
   const { isFollowing, handleFollowUniversity, handleUnfollowUniversity } = useUniversityFollow(universityId);
+
   const handleButtonPress = () => {
     if (isFollowing) {
       handleUnfollowUniversity();
-  } else {
+    } else {
       handleFollowUniversity();
-  }
-};
+    }
+  };
 
-  useEffect(() => {
-    const fetchAllUniversityNames = async () => {
-      const universityIds = news.map((item: any) => item.universityId).filter(Boolean);
-      const uniqueUniversityIds = [...new Set(universityIds)];
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchAllUniversityNames = async () => {
+        const universityIds = news.map((item: any) => item.universityId).filter(Boolean);
+        const uniqueUniversityIds = [...new Set(universityIds)];
 
-      const names = await Promise.all(
-        uniqueUniversityIds.map(async (id) => {
-          const university = await getUniversity(String(id));
-          return { id, name: university?.university?.name || 'Nome não disponível' };
-        })
-      );
+        const names = await Promise.all(
+          uniqueUniversityIds.map(async (id) => {
+            const university = await getUniversity(String(id));
+            return { id, name: university?.university?.name || 'Nome não disponível' };
+          })
+        );
 
-      const universityNamesMap = names.reduce((acc, { id, name }: any) => {
-        acc[id] = name;
-        return acc;
-      }, {} as { [key: string]: string });
+        const universityNamesMap = names.reduce((acc, { id, name }: any) => {
+          acc[id] = name;
+          return acc;
+        }, {} as { [key: string]: string });
 
-      setUniversityNames(universityNamesMap);
-    };
+        setUniversityNames(universityNamesMap);
+        setUniversityId(uniqueUniversityIds[0] ? String(uniqueUniversityIds[0]) : undefined); // Armazena o primeiro ID para o controle de seguir
+      };
 
-    fetchAllUniversityNames();
-  }, [news]);
+      fetchAllUniversityNames();
+    }, [news])
+  );
 
   return (
     <Container style={styles.container}>
@@ -63,6 +67,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
               )}
 
               <View style={styles.iconContainer}>
+                {/* Verificação se a notícia está salva */}
                 <Pressable
                   onPress={() =>
                     savedNewsIds.has(item.link)
@@ -78,9 +83,8 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
 
                 <View style={styles.iconContainerUni}>
                   {item.universityId && universityNames[item.universityId] ? (
-
                     <BorderColorButton
-                    style={styles.profileNameContainer}
+                      style={styles.profileNameContainer}
                       onPress={() => {
                         if (item.universityId) {
                           navigation.navigate('PerfilUniversidade', { universityId: item.universityId });
@@ -95,14 +99,14 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                     <Name numberOfLines={2} style={styles.textUni}>Universidade não disponível</Name>
                   )}
 
-              <Pressable style={styles.profileImageContainer} onPress={handleButtonPress}>
-                          <View style={styles.contImgMais}>
-                              <Image
-                                  source={isFollowing ? dir_unfollow : dir_follow} 
-                                  style={styles.profileImageMais}
-                              />
-                          </View>
-                      </Pressable>
+                  <Pressable style={styles.profileImageContainer} onPress={handleButtonPress}>
+                    <View style={styles.contImgMais}>
+                      <Image
+                        source={isFollowing ? dir_unfollow : dir_follow}
+                        style={styles.profileImageMais}
+                      />
+                    </View>
+                  </Pressable>
                 </View>
               </View>
 
