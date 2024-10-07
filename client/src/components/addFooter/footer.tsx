@@ -4,7 +4,7 @@ import {  useNavigation, useRoute } from '@react-navigation/native';
 import {  StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../@types/rootstack';
 import { styles } from './footerStyle';
-import { BorderColorBlue, ContainerCabecalho, FooterContainer, Line, LineFooter } from '@theme/style';
+import { ContainerCabecalho, LineFooter } from '@theme/style';
 import { useAuth } from 'src/context/authContext';
 import { useAuthCheck } from 'src/context/authNavigation';
 
@@ -19,7 +19,8 @@ const dirIconSaved = require('../../../assets/imagens/icon_salvos_vazio.png')
 const dirIconProfileFull = require('../../../assets/imagens/icon_perfil_cheio.png')
 const dirIconProfile = require('../../../assets/imagens/icon_perfil_vazio.png')
 const dirIconCrudUniversidade = require('../../../assets/imagens/icon_btn_edit_uni.png') 
-const dirIconCrudUsuario = require('../../../assets/imagens/icon_btn_edit_user.png') 
+const dirIconCrudUsuario = require('../../../assets/imagens/icon_btn_edit_user.png')
+const dirIconSobre = require('../../../assets/imagens/icon_sobre.png')  
 
 type FooterNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -68,6 +69,13 @@ export function Footer() {
                     onPress={() => navigation.navigate('Perfil')}
                 >
                     <Image source={ currentRoute==='Perfil'? dirIconProfileFull:dirIconProfile } style={styles.icon} />
+                </Pressable>
+
+                <Pressable 
+                    style={buttonStyle}
+                    onPress={() => navigation.navigate('Sobre')}
+                >
+                    <Image source = {dirIconSobre} style={styles.icon} />
                 </Pressable>
 
                 {isAdmin && (

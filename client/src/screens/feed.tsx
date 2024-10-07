@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Pressable, Text, View, Alert, ActivityIndicator } from 'react-native';
+import { Pressable, View, Alert, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, NameBlue, ScrollContainer, TextBtnFeed } from '@theme/style';
+import { Container, ScrollContainer, TextBtnFeed } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import NewsCard from '@components/addNews/news';
 import { useNews } from '../hooks/saveHooks';
@@ -73,8 +73,7 @@ export function Feed({ navigation }: { navigation: any }) {
                     <Container style={styles.container}>
                         <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                         <ActivityIndicator size="large" color="#0000ff" />
-                        </Container>
-                                    
+                        </Container>    
                         </Container>
                 )}
             </ScrollContainer>

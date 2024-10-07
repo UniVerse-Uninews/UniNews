@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Pressable, Image, Linking, Alert } from 'react-native';
 import { format } from 'date-fns';
-import { Container, Name, ImageCard, ContainerData, ContainerCabecalho, NameBlue, BorderColorBackground, BorderColorButton } from '@theme/style';
+import { Container, Name, ContainerCabecalho, BorderColorButton } from '@theme/style';
 import { styles } from '@styles/styleFeed';
 import { NewsCardProps } from 'src/@types/interfaces';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from 'src/@types/navigation-params';
 import { getUniversity } from '@services/api';
+import { useUniversityFollow } from '@hooks/useUniversityFollow';
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
   const navigation = useNavigation<NavigationProp>();
@@ -16,7 +17,15 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
   const dir_unfollow = require('../../../assets/imagens/dangerous.png');
 
   const [universityNames, setUniversityNames] = useState<{ [key: string]: string }>({});
-  const [isFollowing, setIsFollowing] = useState(false);
+  const universityId = news.length > 0 ? news[0].universityId : null;
+  const { isFollowing, handleFollowUniversity, handleUnfollowUniversity } = useUniversityFollow(universityId);
+  const handleButtonPress = () => {
+    if (isFollowing) {
+      handleUnfollowUniversity();
+  } else {
+      handleFollowUniversity();
+  }
+};
 
   useEffect(() => {
     const fetchAllUniversityNames = async () => {
@@ -86,16 +95,14 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                     <Name numberOfLines={2} style={styles.textUni}>Universidade não disponível</Name>
                   )}
 
-                  <Pressable style={styles.profileImageContainer} onPress={() => 
-                    isFollowing ? setIsFollowing(false) : setIsFollowing(true)
-                  }>
-                    <View style={styles.contImgMais}>
-                    <Image
-                      source={ isFollowing ? dir_unfollow : dir_follow}
-                      style={styles.profileImageMais}
-                    />
-                    </View>
-                  </Pressable>
+              <Pressable style={styles.profileImageContainer} onPress={handleButtonPress}>
+                          <View style={styles.contImgMais}>
+                              <Image
+                                  source={isFollowing ? dir_unfollow : dir_follow} 
+                                  style={styles.profileImageMais}
+                              />
+                          </View>
+                      </Pressable>
                 </View>
               </View>
 

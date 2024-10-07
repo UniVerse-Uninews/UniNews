@@ -49,7 +49,7 @@ export const useNews = (isFollowing: boolean) => {
 
             if (followedUniversities.length > 0) {
                 const newsPromises = followedUniversities.map((university: any) =>
-                    fetchNewsFromUniversity(university.url, university.image, university.id, university.miniature) // Passando miniature
+                    fetchNewsFromUniversity(university.url, university.image, university.id, university.miniature) 
                 );
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
@@ -80,7 +80,7 @@ export const useNews = (isFollowing: boolean) => {
 
             if (universities.length > 0) {
                 const newsPromises = universities.map((university: any) =>
-                    fetchNewsFromUniversity(university.url, university.image, university.id, university.miniature) // Passando miniature
+                    fetchNewsFromUniversity(university.url, university.image, university.id, university.miniature) 
                 );
                 const newsResults = await Promise.all(newsPromises);
                 const allNews = newsResults.flat();
@@ -121,7 +121,7 @@ export const useNews = (isFollowing: boolean) => {
                         title: he.decode(item.title || ''), 
                         link: item.link,
                         universityId,
-                        universityMiniature, // Incluindo miniature aqui
+                        universityMiniature,
                     };
                 });
             } else {
@@ -143,7 +143,7 @@ export const useNews = (isFollowing: boolean) => {
             });
 
             if (response.data && response.data.length > 0) {
-                return response.data.map((university: { url: string; image: string; id: string, miniature: string }) => university); // Incluindo miniature na estrutura
+                return response.data.map((university: { url: string; image: string; id: string, miniature: string }) => university); 
             } else {
                 return [];
             }
@@ -162,7 +162,7 @@ export const useNews = (isFollowing: boolean) => {
             const universities = response.data.universities;
 
             if (universities && universities.length > 0) {
-                return universities.map((university: { url: string; image: string; id: string, miniature: string }) => university); // Incluindo miniature na estrutura
+                return universities.map((university: { url: string; image: string; id: string, miniature: string }) => university); 
             } else {
                 if (page === 1) {
                     Alert.alert('Erro', 'Nenhuma universidade encontrada.');
