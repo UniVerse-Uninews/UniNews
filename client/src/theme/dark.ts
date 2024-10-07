@@ -1,7 +1,7 @@
-import { ContainerCabecalho } from './style';
+import { ContainerCabecalho, LineFooter } from './style';
 
 export default {
-  background: '#343434', 
+  background: '#262626', 
   text: 'white',
   primary: '#FFF',
   blue: '#4A92C7',
@@ -16,7 +16,7 @@ export default {
   card: '#414141',
   borderCard: '#4A92C7',
   backgroundFooter: '#343434', 
-  backgroundData: '#3E3E3E',
+  backgroundData: '#434343',
   backgroundAlter: '#FFFDF6',
   textAlter: 'black',
   drawer: '#414141',
@@ -24,4 +24,10 @@ export default {
   perfil:'#434343',
   backgroundCabecalho: '#434343',
   line: '#434343',	
+  lineFooter: '#4A92C7',
+  titlePesq: '#0571D3',
+  backgroundInputPesq: '#434343',
+  text3: '#0571D3',
+  borderTitle: '#4A94CC',
+  btnSeguir: '#363636',
 };

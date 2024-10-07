@@ -96,7 +96,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer, onSearch }) => {
               dropdownTextStyles={{ color: '#000' }}
             />
           ) : (
-            <Text>Selecione um país para ver os estados.</Text>
+            <Name style={styles.textDrawer}>Selecione um país para ver os estados.</Name>
           )}
 
           <Name style={styles.titulo}>Universidade</Name>
@@ -111,10 +111,12 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer, onSearch }) => {
             boxStyles={styles.inputArea}
             dropdownStyles={styles.inputDropdown}
             dropdownTextStyles={{ color: '#000' }}
+            onSelect={() => toggleDrawer()}
         />
           ) : (
-            <Text>Selecione um estado para ver as universidades.</Text>
+            <Name style={styles.textDrawer}>Selecione um estado para ver as universidades.</Name>
           )}
+
         </View>
       </ContainerDrawer>
     </Animated.View>

@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     },
     description1:{
         borderWidth:responsiveScreenWidth(0.6),
-        borderRadius:responsiveScreenWidth(6),
+        borderRadius:responsiveScreenWidth(3),
         width: responsiveScreenWidth(50),
         padding:responsiveFontSize(1),
         justifyContent: 'center',
@@ -67,7 +67,6 @@ export const styles = StyleSheet.create({
     followButton:
     {
         marginTop: responsiveScreenHeight(2),
-        backgroundColor: '#3c6294',
         padding: responsiveFontSize(1),
         borderRadius: responsiveScreenHeight(1.5),
         width: responsiveScreenWidth(50),
@@ -78,7 +77,20 @@ export const styles = StyleSheet.create({
 
     followButtonText:
     {
-        color: 'white',
         fontSize: responsiveFontSize(2)
-    }
+    },
+    contTitle:{
+        flexDirection:'row',
+        borderWidth:responsiveScreenWidth(0.4),
+        alignItems: 'center',
+        marginLeft: responsiveScreenWidth(5),
+        padding:responsiveFontSize(0.5),
+        borderRadius:responsiveScreenWidth(7),
+        width: '90%',
+    },
+    title :{
+        fontSize: responsiveFontSize(3),
+        fontFamily: 'Teacher',
+        marginLeft: responsiveScreenWidth(2),
+    },
 });

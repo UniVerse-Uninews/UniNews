@@ -37,12 +37,12 @@ export const styles = StyleSheet.create({
         marginLeft: '7%',
         marginTop: '5%',
         marginBottom: '1%',
-        color: '#4A92C7',
     },
     pesquisa:{
         width:responsiveScreenWidth(60),
         borderRadius: responsiveScreenWidth(5),
         height: responsiveScreenHeight(4),
+        paddingBottom: '1%',
     },
     inputArea: {
         borderWidth: responsiveFontSize(0.2),
@@ -53,7 +53,6 @@ export const styles = StyleSheet.create({
         borderColor: '#F2A20C',
         flexDirection: 'row',
         paddingBottom: '1%',
-        backgroundColor: '#F5F5F5',
         marginVertical: '3%',
       },
       containerimpesqui:{

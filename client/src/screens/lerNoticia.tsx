@@ -4,7 +4,7 @@ import { Header } from '@components/addHeader/header';
 import { Footer } from '../components/addFooter/footer';
 import { styles } from '../styles/styleFeed';
 import { useSavedNews } from '../hooks/useSavedNews';
-import NewsCard from '../components/addNews/news';
+import NewsCardSeach from '../components/addNewsSearch/newsSearch';
 import { useAuthCheck } from '../context/authNavigation';
 import { Container, NameBlue } from '@theme/style';
 
@@ -29,7 +29,7 @@ export function LerNoticia() {
                 <NameBlue style={styles.title1}>Notícias Salvas</NameBlue>
                 <ScrollView>
                     {savedNews.length > 0 ? (
-                        <NewsCard
+                        <NewsCardSeach
                             news={savedNews}
                             savedNewsIds={savedNewsIds}
                             handleSaveNews={handleSaveNews}

@@ -46,8 +46,12 @@ export const Textbox = styled.Text`
 export const Line = styled.View`
   border-color: ${(props) => props.theme.line};
 `;
+export const LineFooter = styled.View`
+  border-color: ${(props) => props.theme.lineFooter};
+`;
 
 export const BorderColorContainer = styled.View`
+  background-color: ${(props) => props.theme.backgroundInputPesq};
   border-color: ${(props) => props.theme.borderColorYellow};
 `;
 export const BorderColorTable = styled.View`
@@ -97,4 +101,20 @@ export const ImageCard = styled.Image`
 export const ContainerData = styled.View`
   background: ${(props) => props.theme.backgroundData};
   border-color: ${(props) => props.theme.blue};  
+`;
+export const TitlePesq = styled.Text`
+  color: ${(props) => props.theme.titlePesq};
+`;
+export const BackgroundInputPesq = styled.View`
+  background-color: ${(props) => props.theme.backgroundInputPesq};
+`;
+export const TextBtnFeed = styled.Text`
+  color: ${(props) => props.theme.text3};
+`;
+export const BorderTitle = styled.View`
+  border-color: ${(props) => props.theme.borderTitle};
+`;
+export const BtnSeguir = styled.Pressable`
+  background: ${(props) => props.theme.btnSeguir};
+
 `;

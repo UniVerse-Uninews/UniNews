@@ -23,7 +23,7 @@ drawer: {
     inputArea: {
       borderWidth: responsiveFontSize(0.2),
       borderRadius: responsiveScreenWidth(10),
-      height: responsiveScreenHeight(4.5),
+      height: responsiveScreenHeight(5),
       paddingLeft: '5%',
       width: responsiveScreenWidth(55),
       borderColor: '#F2A20C',
@@ -75,5 +75,10 @@ drawer: {
     width:responsiveScreenWidth(5),
     height:responsiveScreenHeight(2),
     marginTop:responsiveScreenHeight(2)
+  },
+  textDrawer:{
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'RubikNormal',
+    marginLeft: '5%',
   },
 });
