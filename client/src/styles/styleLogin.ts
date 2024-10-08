@@ -26,12 +26,13 @@ export const styles = StyleSheet.create({
   box: {
     borderWidth: responsiveScreenHeight(0.2),
     width: '80%',
-    height: 'auto',
+    height: responsiveScreenHeight(50),
     borderRadius: responsiveScreenHeight(2),
     borderColor: '#4A94CC',
     position: 'relative',
     alignItems: 'center',
     paddingTop: '5%',
+  
   },
   input: {
     height: responsiveScreenHeight(4.5),
@@ -80,6 +81,7 @@ inputSenha: {
     justifyContent: 'center',
     paddingHorizontal: '8%',
     marginHorizontal: '1%',
+    marginVertical: '4%',
   },
   textbutton: {
     color: '#fff',
@@ -113,7 +115,7 @@ inputSenha: {
   },
   
   boxbutton: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
   text: {

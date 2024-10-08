@@ -172,21 +172,7 @@ export function Login({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
-        <Name style={[styles.text, { paddingTop: 20 }]}>
-          <Text>Logar com</Text>
-        </Name>
-
-        <BorderColorButton activeOpacity={0.8} style={styles.button2}>
-          <Name style={styles.textbutton2}>Google</Name>
-        </BorderColorButton>
-
-        <View style={styles.text}>
-          <Name>Ou</Name>
-        </View>
-
-        <BorderColorButton activeOpacity={0.8} style={styles.button2}>
-          <Name style={styles.textbutton2}>Facebook</Name>
-        </BorderColorButton>
+       
       </BackgroundContainerInput>
 
       {/* Reset Password Modal */}

@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     },
     button1:{
         width: responsiveWidth(10),
-        marginLeft: responsiveWidth(7),
+        marginLeft: responsiveWidth(4.5),
     },
     line: {
         borderWidth: 1.3,
