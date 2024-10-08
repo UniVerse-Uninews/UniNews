@@ -14,9 +14,12 @@ export const useUniversityData = (universityId: string) => {
         const fetchUniversity = async () => {
             try {
                 const response = await axios.get(`${BASE_URL}/university/${universityId}`);
-                if (response.data && response.data.university) {
-                    setUniversityData(response.data.university);
-                    console.log(response.data.university);
+    
+                const university = response.data.university || response.data;
+                
+                if (university) {
+                    setUniversityData(university);
+                    console.log(university);
                 } else {
                     Alert.alert('Erro', 'Dados da universidade não encontrados.');
                     setUniversityData(null);

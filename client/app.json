@@ -16,7 +16,9 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.client"
+      "bundleIdentifier": "com.anonymous.client",
+      "icon": "./assets/imagens/tcc-logo-quadrado-sem-fundo.png",
+      "backgroundColor": "#343434"
     },
     "android": {
       "adaptiveIcon": {

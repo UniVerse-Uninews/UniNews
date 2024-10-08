@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView, Pressable, Image, Text, ActivityIndicator } from 'react-native';
+import { View, ScrollView, Image, Text, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/stylePerfilUniversidade';
 import { styles as stylefeed } from '@styles/styleFeed';
-import { BorderColorContainer, BorderTitle, BtnSeguir, Container, Name, NameBlue, TextBtnFeed, TitlePesq } from '@theme/style';
+import { BorderColorContainer, BorderTitle, BtnSeguir, Container, Name, TextBtnFeed, TitlePesq } from '@theme/style';
 import { useUniversityData } from '../hooks/useUniversityData';
 import { useUniversityNews } from '../hooks/useUniversityNews';
 import { useUniversityFollow } from '../hooks/useUniversityFollow';
@@ -12,7 +12,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../@types/rootstack';
 import { useAuthCheck } from 'src/context/authNavigation';
-import NewsCard from '@components/addNews/news';
 import { useNews } from '@hooks/saveHooks';
 import NewsCardSeach from '../components/addNewsSearch/newsSearch';
 

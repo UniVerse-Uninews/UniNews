@@ -44,6 +44,16 @@ export const styles = StyleSheet.create({
     width: '95%',
 
   },
+inputUsuario: {
+    height: '100%',
+    fontFamily: 'RubikNormal',
+    width: '85%',
+    marginTop: '1.5%',
+    borderColor: '#F2A20C',
+    color: '#000',
+    marginLeft: responsiveScreenHeight(1),
+},
+
 inputSenha: {
     height: '100%',
     fontFamily: 'RubikNormal',
