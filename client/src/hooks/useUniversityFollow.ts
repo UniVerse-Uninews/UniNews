@@ -50,14 +50,17 @@ export const useUniversityFollow = (universityId: string | undefined) => {
     };
 
     const checkIfFollowing = useCallback(async () => {
-        if (!user) return;
+        if (!user || !universityId) return;
         try {
             const response = await axios.get(`${BASE_URL}/user/${user.id}/university/${universityId}/follow-status`);
+            console.log('Resposta ao verificar seguimento:', response.data);
             setIsFollowing(response.data.isFollowing);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Erro ao verificar seguimento:', error);
+            console.log('Erro ao verificar seguimento:', error.response?.data);
         }
     }, [user, universityId]);
+    
 
     useEffect(() => {
         checkIfFollowing();

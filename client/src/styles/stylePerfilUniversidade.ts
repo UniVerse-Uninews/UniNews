@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
         borderWidth:responsiveScreenWidth(0.4),
         borderColor:'#3c6294',
         marginLeft: responsiveScreenWidth(4.5),
+        resizeMode:'stretch'
     },
     description1:{
         borderWidth:responsiveScreenWidth(0.6),

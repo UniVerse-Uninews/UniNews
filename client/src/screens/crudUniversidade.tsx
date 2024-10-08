@@ -113,7 +113,7 @@ export function CrudUniversidade() {
                 style={styles.input}
                 placeholder="Imagem"
                 placeholderTextColor={'#8F8F8F'}
-                value={university.image}
+                value={university.miniature}
                 onChangeText={(e) => setUniversity({ ...university, miniature: e })}
               />
               </BackgroundContainerInput>

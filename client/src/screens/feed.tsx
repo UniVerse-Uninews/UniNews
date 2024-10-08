@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Pressable, Text, View, Alert, ActivityIndicator } from 'react-native';
+import { Pressable, View, Alert, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
-import { Container, NameBlue, ScrollContainer, TextBtnFeed } from '@theme/style';
+import { Container, ScrollContainer, TextBtnFeed } from '@theme/style';
 import { Footer } from '../components/addFooter/footer';
 import NewsCard from '@components/addNews/news';
 import { useNews } from '../hooks/saveHooks';
+import { useSavedNews } from '../hooks/useSavedNews'; 
 
 export function Feed({ navigation }: { navigation: any }) {
     const [isFollowing, setIsFollowing] = useState(false);
-    const { news, loading, savedNewsIds, handleSaveNews, handleRemoveNews, handleLoadMore, fetchFollowedUniversities } = useNews(isFollowing);
+    const { news, loading, handleSaveNews, handleRemoveNews, handleLoadMore } = useNews(isFollowing);
+    
+    const { fetchSavedNews, savedNewsIds } = useSavedNews(); 
 
     useEffect(() => {
-        const checkFollowedUniversities = async () => {
-            const followedUniversities = await fetchFollowedUniversities();
-            if (followedUniversities.length === 0 && isFollowing) {
-                Alert.alert('Aviso', 'Você não segue nenhuma universidade. Redirecionando para "Todas".');
-                setIsFollowing(false); 
-            }
-        };
-
-        if (isFollowing) {
-            checkFollowedUniversities();
-        }
-    }, [isFollowing]);
+        fetchSavedNews();
+    }, [fetchSavedNews]);
 
     const toggleTab = (following: boolean) => {
         setIsFollowing(following);
@@ -47,12 +40,11 @@ export function Feed({ navigation }: { navigation: any }) {
                 </Pressable>
             </Container>
             
-            
             <Container style={styles.contLine}>
-                <View style={styles.line}/>
+                <View style={styles.line} />
             </Container>
+
             <ScrollContainer
-            
                 onScroll={({ nativeEvent }) => {
                     const isNearBottom =
                         nativeEvent.contentOffset.y + nativeEvent.layoutMeasurement.height >= nativeEvent.contentSize.height - 50;
@@ -67,15 +59,14 @@ export function Feed({ navigation }: { navigation: any }) {
                         news={news}
                         savedNewsIds={savedNewsIds}
                         handleSaveNews={handleSaveNews}
-                        handleRemoveNews={(link) => handleRemoveNews({ link })}
+                        handleRemoveNews={handleRemoveNews}
                     />
                 ) : (
                     <Container style={styles.container}>
                         <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                        <ActivityIndicator size="large" color="#0000ff" />
+                            <ActivityIndicator size="large" color="#0000ff" />
                         </Container>
-                                    
-                        </Container>
+                    </Container>
                 )}
             </ScrollContainer>
 
