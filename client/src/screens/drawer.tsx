@@ -64,6 +64,8 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer, onSearch }) => {
                 key: state.key,
                 value: String(state.value),
               }))}
+              searchPlaceholder='Pesquisar'
+              placeholder='Selecione um estado'
               save="value"
               boxStyles={styles.inputArea}
               dropdownStyles={styles.inputDropdown}
@@ -79,6 +81,8 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, toggleDrawer, onSearch }) => {
                 key: university.key,
                 value: university.value,
               }))}
+              searchPlaceholder='Pesquisar'
+              placeholder='Selecione uma universidade'
               save="value"
               boxStyles={styles.inputArea}
               dropdownStyles={styles.inputDropdown}
