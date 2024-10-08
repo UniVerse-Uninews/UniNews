@@ -17,17 +17,8 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
   const dir_unfollow = require('../../../assets/imagens/dangerous.png');
 
   const [universityNames, setUniversityNames] = useState<{ [key: string]: string }>({});
-  const [universityId, setUniversityId] = useState<string | undefined>(undefined);
-  const { isFollowing, handleFollowUniversity, handleUnfollowUniversity } = useUniversityFollow(universityId);
 
-  const handleButtonPress = () => {
-    if (isFollowing) {
-      handleUnfollowUniversity();
-    } else {
-      handleFollowUniversity();
-    }
-  };
-
+  // Fetch and set the university names for each news item
   useFocusEffect(
     React.useCallback(() => {
       const fetchAllUniversityNames = async () => {
@@ -47,7 +38,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
         }, {} as { [key: string]: string });
 
         setUniversityNames(universityNamesMap);
-        setUniversityId(uniqueUniversityIds[0] ? String(uniqueUniversityIds[0]) : undefined); // Armazena o primeiro ID para o controle de seguir
       };
 
       fetchAllUniversityNames();
@@ -56,72 +46,87 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
 
   return (
     <Container style={styles.container}>
-      {news.map((item: any) => (
-        <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
-          <View style={styles.viewCard}>
-            <ContainerCabecalho style={styles.card}>
-              {item.image ? (
-                <Image source={{ uri: item.image }} style={styles.imageCard} />
-              ) : (
-                <Name>Image not available</Name>
-              )}
+      {news.map((item: any) => {
+        const { isFollowing, handleFollowUniversity, handleUnfollowUniversity } = useUniversityFollow(item.universityId);
 
-              <View style={styles.iconContainer}>
-                {/* Verificação se a notícia está salva */}
-                <Pressable
-                  onPress={() =>
-                    savedNewsIds.has(item.link)
-                      ? handleRemoveNews(item.link)
-                      : handleSaveNews(item)
-                  }
-                >
-                  <Image
-                    source={savedNewsIds.has(item.link) ? dir_unsave : dir_save}
-                    style={styles.saveIcon}
-                  />
-                </Pressable>
+        // Handle follow/unfollow for a specific university
+        const toggleFollow = async () => {
+          if (isFollowing) {
+            await handleUnfollowUniversity();
+          } else {
+            await handleFollowUniversity();
+          }
+        };
 
-                <View style={styles.iconContainerUni}>
-                  {item.universityId && universityNames[item.universityId] ? (
-                    <BorderColorButton
-                      style={styles.profileNameContainer}
-                      onPress={() => {
-                        if (item.universityId) {
-                          navigation.navigate('PerfilUniversidade', { universityId: item.universityId });
-                        } else {
-                          Alert.alert('Erro', 'Informações da universidade não disponíveis.');
-                        }
-                      }}
-                    >
-                      <Name numberOfLines={2} style={styles.textUni}>{universityNames[item.universityId]}</Name>
-                    </BorderColorButton>
-                  ) : (
-                    <Name numberOfLines={2} style={styles.textUni}>Universidade não disponível</Name>
-                  )}
+        return (
+          <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
+            <View style={styles.viewCard}>
+              <ContainerCabecalho style={styles.card}>
+                {item.image ? (
+                  <Image source={{ uri: item.image }} style={styles.imageCard} />
+                ) : (
+                  <Name>Image not available</Name>
+                )}
 
-                  <Pressable style={styles.profileImageContainer} onPress={handleButtonPress}>
-                    <View style={styles.contImgMais}>
-                      <Image
-                        source={isFollowing ? dir_unfollow : dir_follow}
-                        style={styles.profileImageMais}
-                      />
-                    </View>
+                <View style={styles.iconContainer}>
+                  {/* Save/Unsave News */}
+                  <Pressable
+                    onPress={() =>
+                      savedNewsIds.has(item.link)
+                        ? handleRemoveNews(item.link)
+                        : handleSaveNews(item)
+                    }
+                  >
+                    <Image
+                      source={savedNewsIds.has(item.link) ? dir_unsave : dir_save}
+                      style={styles.saveIcon}
+                    />
                   </Pressable>
+
+                  <View style={styles.iconContainerUni}>
+                    {item.universityId && universityNames[item.universityId] ? (
+                      <BorderColorButton
+                        style={styles.profileNameContainer}
+                        onPress={() => {
+                          navigation.navigate('PerfilUniversidade', { universityId: item.universityId });
+                        }}
+                      >
+                        <Name numberOfLines={2} style={styles.textUni}>
+                          {universityNames[item.universityId]}
+                        </Name>
+                      </BorderColorButton>
+                    ) : (
+                      <Name numberOfLines={2} style={styles.textUni}>Universidade não disponível</Name>
+                    )}
+
+                    {/* Follow/Unfollow button for the university */}
+                    <Pressable
+                      style={styles.profileImageContainer}
+                      onPress={toggleFollow}
+                    >
+                      <View style={styles.contImgMais}>
+                        <Image
+                          source={isFollowing ? dir_unfollow : dir_follow}
+                          style={styles.profileImageMais}
+                        />
+                      </View>
+                    </Pressable>
+                  </View>
                 </View>
-              </View>
 
-              <Name style={styles.title}>{item.title}</Name>
+                <Name style={styles.title}>{item.title}</Name>
 
-              <View style={styles.data}>
-                <Name style={styles.text}>{item.description || ''}</Name>
-                <Name style={styles.text}>
-                  Publicado em: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
-                </Name>
-              </View>
-            </ContainerCabecalho>
-          </View>
-        </Pressable>
-      ))}
+                <View style={styles.data}>
+                  <Name style={styles.text}>{item.description || ''}</Name>
+                  <Name style={styles.text}>
+                    Publicado em: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
+                  </Name>
+                </View>
+              </ContainerCabecalho>
+            </View>
+          </Pressable>
+        );
+      })}
     </Container>
   );
 };

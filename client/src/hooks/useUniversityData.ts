@@ -20,12 +20,12 @@ export const useUniversityData = (universityId: string) => {
                 
                 const university = response.data.university;
 
-                // Check if the 'university' key contains the necessary fields
+        
                 if (university) {
                     console.log('University data:', university);
-                    console.log('University miniature:', university.miniature); // Logs the miniature URL
+                    console.log('University miniature:', university.miniature); 
 
-                    // Set the university data, including the miniature field
+                    
                     setUniversityData(university);
                 } else {
                     Alert.alert('Erro', 'Dados da universidade não encontrados.');
