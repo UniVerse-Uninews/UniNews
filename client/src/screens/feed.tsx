@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Pressable, View, ActivityIndicator } from "react-native";
 import { styles } from "@styles/styleFeed";
 import { Header } from "@components/addHeader/header";
@@ -14,9 +14,14 @@ export function Feed({ navigation }: { navigation: any }) {
   const { fetchSavedNews, savedNewsIds, handleSaveNews, handleRemoveNews } =
     useSavedNews();
 
-  useEffect(() => {
+  // Use useCallback to memoize fetchSavedNews
+  const memoizedFetchSavedNews = useCallback(() => {
     fetchSavedNews();
   }, [fetchSavedNews]);
+
+  useEffect(() => {
+    memoizedFetchSavedNews();
+  }, [memoizedFetchSavedNews]);
 
   const toggleTab = (following: boolean) => {
     setIsFollowing(following);

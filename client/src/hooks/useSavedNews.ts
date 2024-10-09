@@ -18,7 +18,6 @@ export function useSavedNews() {
       const response = await axios.get(`${BASE_URL}/saved-news`, {
         params: { userId: user.id },
       });
-      console.log("RESPONSE", response);
 
       const data = response.data.savedNews || [];
       const ids = new Set<string>(data.map((item: any) => item.news.link));
