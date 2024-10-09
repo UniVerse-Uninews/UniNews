@@ -1,42 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import { View, Pressable, Image, Linking } from 'react-native';
-import { format } from 'date-fns';
-import { Container, Name, ContainerCabecalho, BorderColorButton } from '@theme/style';
-import { styles } from '@styles/styleFeed';
-import { NewsCardProps } from 'src/@types/interfaces';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { NavigationProp } from 'src/@types/navigation-params';
-import { getUniversity } from '@services/api';
-import { useUniversityFollow } from '@hooks/useUniversityFollow';
+import React, { useEffect, useState } from "react";
+import { View, Pressable, Image, Linking } from "react-native";
+import { format } from "date-fns";
+import {
+  Container,
+  Name,
+  ContainerCabecalho,
+  BorderColorButton,
+} from "@theme/style";
+import { styles } from "@styles/styleFeed";
+import { NewsCardProps } from "src/@types/interfaces";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { NavigationProp } from "src/@types/navigation-params";
+import { getUniversity } from "@services/api";
+import { useUniversityFollow } from "@hooks/useUniversityFollow";
 
-const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews, handleRemoveNews }) => {
+const NewsCard: React.FC<NewsCardProps> = ({
+  news,
+  savedNewsIds,
+  handleSaveNews,
+  handleRemoveNews,
+}) => {
   const navigation = useNavigation<NavigationProp>();
-  const dir_save = require('../../../assets/imagens/bookmark_border.png');
-  const dir_unsave = require('../../../assets/imagens/bookmark.png');
-  const dir_follow = require('../../../assets/imagens/control_point.png');
-  const dir_unfollow = require('../../../assets/imagens/dangerous.png');
+  const dir_save = require("../../../assets/imagens/bookmark_border.png");
+  const dir_unsave = require("../../../assets/imagens/bookmark.png");
+  const dir_follow = require("../../../assets/imagens/control_point.png");
+  const dir_unfollow = require("../../../assets/imagens/dangerous.png");
 
-  const [universityNames, setUniversityNames] = useState<{ [key: string]: string }>({});
-  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>({});
+  const [universityNames, setUniversityNames] = useState<{
+    [key: string]: string;
+  }>({});
+  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   // Fetch and set the university names for each news item
   useFocusEffect(
     React.useCallback(() => {
       const fetchAllUniversityData = async () => {
-        const universityIds: any[] = news.map((item: any) => item.universityId).filter(Boolean);
+        const universityIds: any[] = news
+          .map((item: any) => item.universityId)
+          .filter(Boolean);
         const uniqueUniversityIds: any[] = [...new Set(universityIds)];
 
         const names = await Promise.all(
           uniqueUniversityIds.map(async (id: any) => {
             const university: any = await getUniversity(String(id));
-            return { id, name: university?.university?.name || 'Nome não disponível' };
+            return {
+              id,
+              name: university?.university?.name || "Nome não disponível",
+            };
           })
         );
 
-        const universityNamesMap: { [key: string]: any } = names.reduce((acc: any, { id, name }: any) => {
-          acc[id] = name;
-          return acc;
-        }, {});
+        const universityNamesMap: { [key: string]: any } = names.reduce(
+          (acc: any, { id, name }: any) => {
+            acc[id] = name;
+            return acc;
+          },
+          {}
+        );
 
         setUniversityNames(universityNamesMap);
 
@@ -55,7 +77,8 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
 
   const toggleFollow = async (universityId: string) => {
     const isCurrentlyFollowing = followStatus[universityId];
-    const { handleFollowUniversity, handleUnfollowUniversity } = useUniversityFollow(universityId);
+    const { handleFollowUniversity, handleUnfollowUniversity } =
+      useUniversityFollow(universityId);
 
     if (isCurrentlyFollowing) {
       await handleUnfollowUniversity();
@@ -83,9 +106,11 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                 <Pressable
                   onPress={() => {
                     if (item.link) {
-                      savedNewsIds.has(item.link) ? handleRemoveNews(item) : handleSaveNews(item);
+                      savedNewsIds.has(item.link)
+                        ? handleRemoveNews(item)
+                        : handleSaveNews(item);
                     } else {
-                      console.error('Invalid news link for removal:', item);
+                      console.error("Invalid news link for removal:", item);
                     }
                   }}
                 >
@@ -100,7 +125,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                     <BorderColorButton
                       style={styles.profileNameContainer}
                       onPress={() => {
-                        navigation.navigate('PerfilUniversidade', { universityId: item.universityId });
+                        navigation.navigate("PerfilUniversidade", {
+                          universityId: item.universityId,
+                        });
                       }}
                     >
                       <Name numberOfLines={2} style={styles.textUni}>
@@ -108,7 +135,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                       </Name>
                     </BorderColorButton>
                   ) : (
-                    <Name numberOfLines={2} style={styles.textUni}>Universidade não disponível</Name>
+                    <Name numberOfLines={2} style={styles.textUni}>
+                      Universidade não disponível
+                    </Name>
                   )}
 
                   {/* Follow/Unfollow button for the university */}
@@ -118,7 +147,11 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
                   >
                     <View style={styles.contImgMais}>
                       <Image
-                        source={followStatus[item.universityId] ? dir_unfollow : dir_follow}
+                        source={
+                          followStatus[item.universityId]
+                            ? dir_unfollow
+                            : dir_follow
+                        }
                         style={styles.profileImageMais}
                       />
                     </View>
@@ -129,9 +162,12 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, savedNewsIds, handleSaveNews,
               <Name style={styles.title}>{item.title}</Name>
 
               <View style={styles.data}>
-                <Name style={styles.text}>{item.description || ''}</Name>
+                <Name style={styles.text}>{item.description || ""}</Name>
                 <Name style={styles.text}>
-                  Publicado em: {item.published ? format(new Date(item.published), 'dd/MM/yyyy HH:mm') : 'N/A'}
+                  Publicado em:{" "}
+                  {item.published
+                    ? format(new Date(item.published), "dd/MM/yyyy HH:mm")
+                    : "N/A"}
                 </Name>
               </View>
             </ContainerCabecalho>
