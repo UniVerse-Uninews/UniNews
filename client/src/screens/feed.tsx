@@ -6,15 +6,14 @@ import { Container, ScrollContainer, TextBtnFeed } from "@theme/style";
 import { Footer } from "@components/addFooter/footer";
 import NewsCard from "@components/addNews/news";
 import { useNews } from "@hooks/saveHooks";
-import { useSavedNews } from "@hooks/useSavedNews";
+import { useSavedNews } from "@hooks/useSavedNews"; // Import the hook
 
 export function Feed({ navigation }: { navigation: any }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const { news, handleLoadMore } = useNews(isFollowing);
-  const { fetchSavedNews, savedNewsIds, handleSaveNews, handleRemoveNews } =
-    useSavedNews();
+  const { savedNews, fetchSavedNews } = useSavedNews(); // Get context values
+  const { handleSaveNews, handleRemoveNews } = useSavedNews(); // Define handlers
 
-  // Use useCallback to memoize fetchSavedNews
   const memoizedFetchSavedNews = useCallback(() => {
     fetchSavedNews();
   }, [fetchSavedNews]);
@@ -78,9 +77,9 @@ export function Feed({ navigation }: { navigation: any }) {
         {news.length > 0 ? (
           <NewsCard
             news={news}
-            savedNewsIds={savedNewsIds}
+            savedNewsIds={new Set(savedNews.map((item: any) => item.link))}
             handleSaveNews={handleSaveNews}
-            handleRemoveNews={handleRemoveNews}
+            handleRemoveNews={handleRemoveNews} // Now properly defined
           />
         ) : (
           <Container style={styles.container}>

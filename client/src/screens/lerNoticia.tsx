@@ -4,9 +4,9 @@ import { Header } from "@components/addHeader/header";
 import { Footer } from "../components/addFooter/footer";
 import { styles } from "../styles/styleFeed";
 import { useSavedNews } from "../hooks/useSavedNews";
-import NewsCardSeach from "../components/addNewsSearch/newsSearch";
 import { useAuthCheck } from "../context/authNavigation";
 import { Container, NameBlue } from "@theme/style";
+import NewsCardSearch from "../components/addNewsSearch/newsSearch";
 
 export function LerNoticia() {
   const { checkAuth } = useAuthCheck();
@@ -36,7 +36,7 @@ export function LerNoticia() {
       <Container style={styles.container}>
         <NameBlue style={styles.title1}>Notícias Salvas</NameBlue>
         <ScrollView>
-          <NewsCardSeach
+          <NewsCardSearch
             news={savedNews} // Usa savedNews do hook
             savedNewsIds={savedNewsIds}
             handleSaveNews={handleSaveNews}
