@@ -11,17 +11,17 @@ export function useSavedNews() {
 
     const fetchSavedNews = useCallback(async () => {
         if (!user) return;
-    
+
         try {
             const response = await axios.get(`${BASE_URL}/saved-news`, {
                 params: { userId: user.id }
             });
-            
+
             const data = response.data.savedNews || [];
             const ids = new Set<string>(data.map((item: any) => item.news.link));
             setSavedNewsIds(ids);
             setSavedNews(data.map((item: any) => item.news));
-    
+
         } catch (error) {
             console.error('Error fetching saved news:', error);
         }
@@ -30,7 +30,7 @@ export function useSavedNews() {
 
     const handleSaveNews = useCallback(async (news: any) => {
         if (!user) return;
-    
+
         try {
             const response = await axios.post(`${BASE_URL}/save-news`, {
                 userId: user.id,
@@ -47,7 +47,7 @@ export function useSavedNews() {
                     media: news.media,
                 },
             });
-    
+
             if (response.status === 200) {
                 setSavedNewsIds(prevIds => new Set(prevIds).add(news.link));
                 setSavedNews(prevNews => [...prevNews, news]);
@@ -58,13 +58,13 @@ export function useSavedNews() {
             console.error('Erro ao salvar notícia:', error);
         }
     }, [user]);
-    
+
 
     const handleRemoveNews = useCallback(async (news: any) => {
         if (!user) return;
-    
-       
-    
+
+
+
         try {
             const response = await axios.delete(`${BASE_URL}/remove-news`, {
                 data: {
@@ -73,7 +73,7 @@ export function useSavedNews() {
                 }
             });
             console.log('RESPONSE', response);
-    
+
             if (response.status === 200) {
                 setSavedNewsIds((prevIds) => {
                     const updatedIds = new Set(prevIds);
@@ -100,9 +100,9 @@ export function useSavedNews() {
             }
         }
     }, [user]);
-    
-    
-    
+
+
+
 
     return { savedNews, savedNewsIds, handleSaveNews, handleRemoveNews, fetchSavedNews };
 }

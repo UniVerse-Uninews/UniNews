@@ -10,7 +10,7 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint', 'import', 'prettier'],
   rules: {
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', 'double'],
     'no-undef': 'off',
     'no-unused-vars': 'warn',
     'no-redeclare': 'off',
