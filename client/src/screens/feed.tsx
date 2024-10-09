@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, View, Alert, ActivityIndicator } from 'react-native';
+import { Pressable, View, ActivityIndicator } from 'react-native';
 import { styles } from '@styles/styleFeed';
 import { Header } from '@components/addHeader/header';
 import { Container, ScrollContainer, TextBtnFeed } from '@theme/style';
@@ -10,9 +10,9 @@ import { useSavedNews } from '../hooks/useSavedNews';
 
 export function Feed({ navigation }: { navigation: any }) {
     const [isFollowing, setIsFollowing] = useState(false);
-    const { news, loading, handleSaveNews, handleRemoveNews, handleLoadMore } = useNews(isFollowing);
+    const { news, handleLoadMore } = useNews(isFollowing);
     
-    const { fetchSavedNews, savedNewsIds } = useSavedNews(); 
+    const { fetchSavedNews, savedNewsIds, handleSaveNews, handleRemoveNews } = useSavedNews();
 
     useEffect(() => {
         fetchSavedNews();
