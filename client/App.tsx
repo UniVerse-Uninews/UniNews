@@ -26,8 +26,8 @@ export default function App() {
   const theme = themes[deviceTheme as keyof typeof themes] || themes.light;
 
   return (
-    <AuthProvider>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <AuthProvider>
         <ThemeProvider theme={theme}>
           <FontLoader>
             <NavigationContainer>
@@ -88,7 +88,7 @@ export default function App() {
             </NavigationContainer>
           </FontLoader>
         </ThemeProvider>
-      </AuthContextProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </AuthContextProvider>
   );
 }

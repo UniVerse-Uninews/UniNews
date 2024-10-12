@@ -31,7 +31,7 @@ import { decodeToken } from "@hooks/decodeToken";
 import { GoogleButton } from "@components/googleButton/googleButton";
 import { useGoogleAuth } from "src/context/googleContest";
 
-export const Login = ({ navigation }: any) =>  {
+export const Login = ({ navigation }: any) => {
   const dirSetaVoltar = require("../../assets/imagens/Arrow.png");
 
   const eye = require("../../assets/imagens/eye.png");
@@ -51,8 +51,8 @@ export const Login = ({ navigation }: any) =>  {
   const http = REACT_APP_API_URL;
 
   const { handleGoogleLogin } = useGoogleAuth();
-  const handleSocialLogin = async () => {
-    await handleGoogleLogin();
+  const handleSocialLogin = () => {
+    handleGoogleLogin();
   };
 
   useEffect(() => {
@@ -295,4 +295,4 @@ export const Login = ({ navigation }: any) =>  {
       <StatusBar style="auto" />
     </Container>
   );
-}
+};
