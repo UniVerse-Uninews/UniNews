@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+import {
+  makeRedirectUri,
+  useAuthRequest,
+  exchangeCodeAsync,
+} from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthContextProps {
@@ -23,7 +27,7 @@ export const AuthContext = createContext<AuthContextProps>({
 
 interface AuthResponse {
   params: {
-    access_token: string;
+    code: string;
   };
   type: string;
 }
@@ -35,51 +39,75 @@ interface AuthContextProviderProps {
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const CLIENT_ID = process.env.EXPO_PUBLIC_CLIENT_ID || "";
+  const REDIRECT_URI = makeRedirectUri();
+  const SCOPE = "profile email";
+  const RESPONSE_TYPE = "code"; // Updated to use "code" for PKCE flow
+
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: process.env.EXPO_PUBLIC_CLIENT_ID || "",
-      redirectUri: makeRedirectUri(),
-      scopes: ["profile", "email"],
+      clientId: CLIENT_ID,
+      redirectUri: REDIRECT_URI,
+      scopes: [SCOPE],
+      responseType: RESPONSE_TYPE,
     },
     {
       authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     }
   );
 
-  const CLIENT_ID = process.env.EXPO_PUBLIC_CLIENT_ID || "";
-  const REDIRECT_URI = process.env.EXPO_PUBLIC_REDIRECT_URI || "";
-  const SCOPE = process.env.EXPO_PUBLIC_SCOPE || "profile email";
-  const RESPONSE_TYPE = process.env.EXPO_PUBLIC_RESPONSE_TYPE || "token";
-
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      // O promptAsync é chamado dentro do handleGoogleLogin
       const { type, params } = (await promptAsync()) as AuthResponse;
 
-      if (type === "success") {
-        const { data } = await axios.get<any>(
-          `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`
+      if (type === "success" && params.code) {
+        // Exchange the code for tokens
+        const tokenResponse = await exchangeCodeAsync(
+          {
+            code: params.code,
+            clientId: CLIENT_ID,
+            redirectUri: REDIRECT_URI,
+            extraParams: {
+              code_verifier: request?.codeVerifier || "",
+            },
+          },
+          {
+            tokenEndpoint: "https://oauth2.googleapis.com/token",
+          }
         );
 
-        if (data) {
-          const { data: googleData } = await axios.post("/google/session", {
-            user_token: params.access_token,
-          });
+        if (tokenResponse && tokenResponse.accessToken) {
+          const { data } = await axios.get<any>(
+            `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${tokenResponse.accessToken}`
+          );
 
-          const parsedData = {
-            token: googleData?.token,
-            user: googleData?.user,
-            refresh_token: googleData?.refresh_token,
-          };
+          if (data) {
+            const { data: googleData } = await axios.post("/google/session", {
+              user_token: tokenResponse.accessToken,
+            });
 
-          axios.defaults.headers.common.Authorization = `Bearer ${parsedData.token}`;
+            const parsedData = {
+              token: googleData?.token,
+              user: googleData?.user,
+              refresh_token: googleData?.refresh_token,
+            };
 
-          await AsyncStorage.setItem("@user", JSON.stringify(parsedData.user));
-          await AsyncStorage.setItem("@token", parsedData.token);
-          await AsyncStorage.setItem("@refresh_token", parsedData.refresh_token);
+            axios.defaults.headers.common.Authorization = `Bearer ${parsedData.token}`;
 
-          setUser(parsedData);
+            await AsyncStorage.setItem(
+              "@user",
+              JSON.stringify(parsedData.user)
+            );
+            await AsyncStorage.setItem("@token", parsedData.token);
+            await AsyncStorage.setItem(
+              "@refresh_token",
+              parsedData.refresh_token
+            );
+
+            setUser(parsedData);
+          }
         }
       }
     } catch (error) {
@@ -138,7 +166,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 
         await AsyncStorage.setItem("@token", data.token);
-        setUser((prevState:any) => prevState && { ...prevState, token: data.token });
+        setUser(
+          (prevState: any) => prevState && { ...prevState, token: data.token }
+        );
       }
     } catch (error) {
       console.error("Refresh Token Error: ", error);
@@ -152,7 +182,14 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ loading, user, signOut, handleGoogleLogin, loadUser, getRefreshToken }}
+      value={{
+        loading,
+        user,
+        signOut,
+        handleGoogleLogin,
+        loadUser,
+        getRefreshToken,
+      }}
     >
       {children}
     </AuthContext.Provider>
