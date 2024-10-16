@@ -1,3 +1,4 @@
+// src/app.tsx
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -18,6 +19,8 @@ import { AuthProvider } from "./src/context/authContext";
 import { RootStackParamList } from "./src/@types/rootstack";
 import { Sobre } from "./src/screens/sobre";
 import { AuthContextProvider } from "./src/context/googleContest";
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "./src/storage/tokenCache";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -25,8 +28,16 @@ export default function App() {
   const deviceTheme = useColorScheme();
   const theme = themes[deviceTheme as keyof typeof themes] || themes.light;
 
+  // Substitua pelo seu URL do Clerk
+
+  const PUBLIC_CLERK_PUBLISHABLE_KEY = process.env
+    .EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string;
+
   return (
-    <AuthContextProvider>
+    <ClerkProvider
+      publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}
+      tokenCache={tokenCache}
+    >
       <AuthProvider>
         <ThemeProvider theme={theme}>
           <FontLoader>
@@ -77,18 +88,16 @@ export default function App() {
                   component={Pesquisar}
                   options={{ headerShown: false }}
                 />
-                {
-                  <Stack.Screen
-                    name="Perfil"
-                    component={Perfil}
-                    options={{ headerShown: false }}
-                  />
-                }
+                <Stack.Screen
+                  name="Perfil"
+                  component={Perfil}
+                  options={{ headerShown: false }}
+                />
               </Stack.Navigator>
             </NavigationContainer>
           </FontLoader>
         </ThemeProvider>
       </AuthProvider>
-    </AuthContextProvider>
+    </ClerkProvider>
   );
 }

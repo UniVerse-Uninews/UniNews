@@ -2,7 +2,7 @@
   "expo": {
     "name": "UniNews",
     "slug": "client",
-    "scheme": "uninews",
+    "scheme": "client",
     "version": "6.0.0",
     "orientation": "portrait",
     "icon": "./assets/imagens/tcc-logo-quadrado-sem-fundo.png",
