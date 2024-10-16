@@ -43,7 +43,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const CLIENT_ID = process.env.EXPO_PUBLIC_CLIENT_ID || "";
   const REDIRECT_URI = makeRedirectUri();
   const SCOPE = "profile email";
-  const RESPONSE_TYPE = "code"; // Updated to use "code" for PKCE flow
+  const RESPONSE_TYPE = "code";
 
   const [request, response, promptAsync] = useAuthRequest(
     {
