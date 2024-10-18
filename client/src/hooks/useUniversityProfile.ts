@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
-import { useAuth } from '../context/authContext';
+import { useAuthApp } from '../context/authContext';
 import { Alert } from 'react-native';
 
 export const useUniversityProfile = (universityId: string) => {
     const [universityData, setUniversityData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [isFollowing, setIsFollowing] = useState(false);
-    const { user } = useAuth();
+    const { user } = useAuthApp();
     const BASE_URL = REACT_APP_API_URL;
 
     useEffect(() => {

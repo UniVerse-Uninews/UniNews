@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import { styles } from '../styles/styleCrudUniversidade';
-import { useUniversityCrud } from '../hooks/universityHooks';
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
+import { styles } from "../styles/styleCrudUniversidade";
+import { useUniversityCrud } from "../hooks/universityHooks";
 import {
   Container,
   ScrollContainer,
@@ -10,17 +10,17 @@ import {
   BackgroundInputText,
   BorderColorTable,
   BackgroundContainerInput,
-} from '../theme/style';
-import { Header } from '../components/addHeader/header';
-import { Table } from '../components/addTableUniversity/TableUniversity';
-import { StatusBar } from 'expo-status-bar';
-import { useAuth } from '../context/authContext';
-import { useAuthCheck } from '../context/authNavigation';
-import { Button } from '../components/addButton/Button';
+} from "../theme/style";
+import { Header } from "../components/addHeader/header";
+import { Table } from "../components/addTableUniversity/TableUniversity";
+import { StatusBar } from "expo-status-bar";
+import { useAuthApp } from "../context/authContext";
+import { useAuthCheck } from "../context/authNavigation";
+import { Button } from "../components/addButton/Button";
 
 export function CrudUniversidade() {
   const [isChecked, setChecked] = useState(false);
-  const { 
+  const {
     universities,
     university,
     setUniversity,
@@ -29,8 +29,8 @@ export function CrudUniversidade() {
     addUniversityHandler,
     deleteUniversityHandler,
   } = useUniversityCrud();
-    const { user } = useAuth();
-    const { checkAuth } = useAuthCheck();
+  const { user } = useAuthApp();
+  const { checkAuth } = useAuthCheck();
 
   useEffect(() => {
     checkAuth();
@@ -40,20 +40,19 @@ export function CrudUniversidade() {
     fetchUniversities();
   }, []);
 
-
   const handleRowClick = (university: any) => {
     setUniversity(university);
   };
 
   const clearFields = () => {
     setUniversity({
-      id: '',
-      name: '',
-      location: '',
-      url: '',
-      description: '',
-      image: '',
-      miniature: ''
+      id: "",
+      name: "",
+      location: "",
+      url: "",
+      description: "",
+      image: "",
+      miniature: "",
     });
   };
 
@@ -70,52 +69,62 @@ export function CrudUniversidade() {
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="Nome da Universidade"
-                  placeholderTextColor={'#8F8F8F'}
+                  placeholderTextColor={"#8F8F8F"}
                   value={university.name}
-                  onChangeText={(n) => setUniversity({ ...university, name: n })}
+                  onChangeText={(n) =>
+                    setUniversity({ ...university, name: n })
+                  }
                 />
                 <Name>Localização</Name>
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="Localização"
-                  placeholderTextColor={'#8F8F8F'}
+                  placeholderTextColor={"#8F8F8F"}
                   value={university.location}
-                  onChangeText={(e) => setUniversity({ ...university, location: e })}
+                  onChangeText={(e) =>
+                    setUniversity({ ...university, location: e })
+                  }
                 />
                 <Name>URL</Name>
                 <BackgroundInputText
                   style={styles.input}
                   placeholder="URL"
-                  placeholderTextColor={'#8F8F8F'}
+                  placeholderTextColor={"#8F8F8F"}
                   value={university.url}
                   onChangeText={(e) => setUniversity({ ...university, url: e })}
                 />
-                
+
                 <Name>Descrição</Name>
                 <BackgroundInputText
                   style={styles.inputdisc}
                   placeholder="Descrição"
-                  placeholderTextColor={'#8F8F8F'}
+                  placeholderTextColor={"#8F8F8F"}
                   value={university.description}
-                  onChangeText={(e) => setUniversity({ ...university, description: e })}
+                  onChangeText={(e) =>
+                    setUniversity({ ...university, description: e })
+                  }
                 />
                 <Name>Imagem</Name>
-              <BackgroundInputText
-                style={styles.input}
-                placeholder="Imagem"
-                placeholderTextColor={'#8F8F8F'}
-                value={university.image}
-                onChangeText={(e) => setUniversity({ ...university, image: e })}
-              />
+                <BackgroundInputText
+                  style={styles.input}
+                  placeholder="Imagem"
+                  placeholderTextColor={"#8F8F8F"}
+                  value={university.image}
+                  onChangeText={(e) =>
+                    setUniversity({ ...university, image: e })
+                  }
+                />
 
-          <Name>Miniatura</Name>
-              <BackgroundInputText
-                style={styles.input}
-                placeholder="Imagem"
-                placeholderTextColor={'#8F8F8F'}
-                value={university.miniature}
-                onChangeText={(e) => setUniversity({ ...university, miniature: e })}
-              />
+                <Name>Miniatura</Name>
+                <BackgroundInputText
+                  style={styles.input}
+                  placeholder="Imagem"
+                  placeholderTextColor={"#8F8F8F"}
+                  value={university.miniature}
+                  onChangeText={(e) =>
+                    setUniversity({ ...university, miniature: e })
+                  }
+                />
               </BackgroundContainerInput>
             </View>
             <View style={styles.containerButton}>
@@ -123,16 +132,15 @@ export function CrudUniversidade() {
               <Button etiqueta="Ver Todos" handlePress={fetchUniversities} />
               <Button
                 etiqueta="Alterar"
-                handlePress={() => updateUniversityHandler(university.id, university)}
+                handlePress={() =>
+                  updateUniversityHandler(university.id, university)
+                }
               />
               <Button
                 etiqueta="Apagar"
                 handlePress={() => deleteUniversityHandler(university.id)}
               />
-              <Button
-                etiqueta="Limpar Campos"
-                handlePress={clearFields}
-              />
+              <Button etiqueta="Limpar Campos" handlePress={clearFields} />
             </View>
           </View>
           <View style={styles.containerTable}>

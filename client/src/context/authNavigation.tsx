@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../@types/navigation-params'; 
-import { useAuth } from '../context/authContext';
+import { useAuthApp } from '../context/authContext';
 import { Alert } from 'react-native';
 
 export function useAuthCheck() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuthApp();
   const navigation = useNavigation<NavigationProp>();
 
   const checkAuth = () => {

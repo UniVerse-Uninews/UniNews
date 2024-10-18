@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import axios, { Axios, AxiosError } from "axios";
 import { Alert } from "react-native";
 import { REACT_APP_API_URL } from "@env";
-import { useAuth } from "../context/authContext";
+import { useAuthApp } from "../context/authContext";
 import he from "he";
 
 export const useNews = (isFollowing: boolean) => {
   const [news, setNews] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [savedNewsIds, setSavedNewsIds] = useState<Set<string>>(new Set());
-  const { user } = useAuth();
+  const { user } = useAuthApp();
   const [page, setPage] = useState(1);
   const [isEndReached, setIsEndReached] = useState(false);
   const limit = 6;

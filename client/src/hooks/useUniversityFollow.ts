@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Alert } from "react-native";
 import { REACT_APP_API_URL } from "@env";
-import { useAuth } from "../context/authContext";
+import { useAuthApp } from "../context/authContext";
 
 export const useUniversityFollow = (universityId: string | undefined) => {
   const [isFollowing, setIsFollowing] = useState(false);
-  const { user } = useAuth();
+  const { user } = useAuthApp();
   const BASE_URL = REACT_APP_API_URL;
 
   const handleFollowUniversity = async () => {

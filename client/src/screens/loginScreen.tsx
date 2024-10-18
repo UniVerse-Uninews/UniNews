@@ -23,6 +23,7 @@ import { SocialButton } from "@components/socialButton/socialButton";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { loginUser } from "@services/api";
+import { useAuthApp } from "src/context/authContext";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -38,6 +39,7 @@ export const Login = ({ navigation }: any) => {
   const googleOAuth = useOAuth({ strategy: "oauth_google" });
   const [showResetModal, setShowResetModal] = useState(false);
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
+  const { login } = useAuthApp();
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -58,7 +60,7 @@ export const Login = ({ navigation }: any) => {
 
       const userInfo = { token, role, id };
 
-      Login(userInfo);
+      login(userInfo);
 
       navigation.navigate("Feed");
     } catch (error) {

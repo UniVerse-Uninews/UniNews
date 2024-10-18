@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../context/authContext";
+import { useAuthApp } from "../context/authContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL!;
 
 export function useSavedNews() {
-  const { user } = useAuth();
+  const { user } = useAuthApp();
   const [savedNews, setSavedNews] = useState<any[]>([]);
   const [savedNewsIds, setSavedNewsIds] = useState<Set<string>>(
     new Set<string>()
