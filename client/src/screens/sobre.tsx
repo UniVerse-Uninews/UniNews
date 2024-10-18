@@ -45,7 +45,6 @@ export function Sobre() {
           </View>
 
           <NameBlueDark style={styles.sobre}>Quem Somos</NameBlueDark>
-          <NameBlue style={styles.titulo1}>UNIVERSE</NameBlue>
           <View style={styles.titulo}>
             <Image style={styles.Logo} source={dirLogo} />
 
