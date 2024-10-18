@@ -94,9 +94,9 @@ export function PerfilUniversidade({
               </BorderColorContainer>
               <BtnSeguir
                 onPress={handleButtonPress}
-                style={styles.followButton}
+                style={[styles.followButton, isFollowing ? styles.unfollowButton : styles.followButton]}
               >
-                <Name style={styles.followButtonText}>
+                <Name style={styles.followButtonText }>
                   {isFollowing ? "Deixar de seguir" : "Seguir Universidade"}
                 </Name>
               </BtnSeguir>
