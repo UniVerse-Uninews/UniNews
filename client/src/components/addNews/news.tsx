@@ -24,7 +24,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   const dir_save = require("../../../assets/imagens/bookmark_border.png");
   const dir_unsave = require("../../../assets/imagens/bookmark.png");
   const dir_unfollow = require("../../../assets/imagens/control_point.png");
-  const dir_follow = require("../../../assets/imagens/icon_seguindo.png");
+  const dir_follow = require("../../../assets/imagens/dangerous.png");
 
   const [universityNames, setUniversityNames] = useState<{
     [key: string]: string;
@@ -32,8 +32,10 @@ const NewsCard: React.FC<NewsCardProps> = ({
   const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const [localSavedNewsIds, setLocalSavedNewsIds] = useState<Set<string>>(
+    new Set(savedNewsIds)
+  );
 
-  // Fetch and set the university names for each news item
   useFocusEffect(
     React.useCallback(() => {
       const fetchAllUniversityData = async () => {
@@ -62,10 +64,9 @@ const NewsCard: React.FC<NewsCardProps> = ({
 
         setUniversityNames(universityNamesMap);
 
-        // Initialize follow statuses
         const statuses: { [key: string]: boolean } = {};
         uniqueUniversityIds.forEach((id) => {
-          const { isFollowing } = useUniversityFollow(id); // Call the hook here at the top level
+          const { isFollowing } = useUniversityFollow(id);
           statuses[id] = isFollowing;
         });
         setFollowStatus(statuses);
@@ -89,6 +90,20 @@ const NewsCard: React.FC<NewsCardProps> = ({
     }
   };
 
+  const toggleSaveNews = (item: any) => {
+    if (localSavedNewsIds.has(item.link)) {
+      handleRemoveNews(item);
+      setLocalSavedNewsIds((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(item.link);
+        return newSet;
+      });
+    } else {
+      handleSaveNews(item);
+      setLocalSavedNewsIds((prev) => new Set(prev).add(item.link));
+    }
+  };
+
   return (
     <Container style={styles.container}>
       {news.map((item: any) => (
@@ -102,20 +117,19 @@ const NewsCard: React.FC<NewsCardProps> = ({
               )}
 
               <View style={styles.iconContainer}>
-                {/* Save/Unsave News */}
                 <Pressable
                   onPress={() => {
                     if (item.link) {
-                      savedNewsIds.has(item.link)
-                        ? handleRemoveNews(item)
-                        : handleSaveNews(item);
+                      toggleSaveNews(item); // Chama a função de salvar/remover
                     } else {
                       console.error("Invalid news link for removal:", item);
                     }
                   }}
                 >
                   <Image
-                    source={savedNewsIds.has(item.link) ? dir_unsave : dir_save}
+                    source={
+                      localSavedNewsIds.has(item.link) ? dir_unsave : dir_save
+                    }
                     style={styles.saveIcon}
                   />
                 </Pressable>
