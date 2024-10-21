@@ -2,6 +2,16 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const formatCategoryInput = (categoryInput: string | string[]) => {
+  if (Array.isArray(categoryInput)) {
+    return categoryInput;
+  } else if (typeof categoryInput === "string" && categoryInput.trim() !== "") {
+    return [categoryInput];
+  } else {
+    return [];
+  }
+};
+
 export const saveNewsToDatabase = async (userId: string, newsData: any) => {
   const news = {
     link: newsData.link,
@@ -11,7 +21,7 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
     author: newsData.author,
     published: new Date(newsData.published),
     created: new Date(newsData.created),
-    category: newsData.category || [],
+    category: formatCategoryInput(newsData.category),
     enclosures: newsData.enclosures || [],
     media: newsData.media || {},
   };
