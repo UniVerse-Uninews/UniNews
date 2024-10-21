@@ -23,15 +23,12 @@ const NewsCard: React.FC<NewsCardProps> = ({
   const navigation = useNavigation<NavigationProp>();
   const dir_save = require("../../../assets/imagens/bookmark_border.png");
   const dir_unsave = require("../../../assets/imagens/bookmark.png");
-  const dir_unfollow = require("../../../assets/imagens/control_point.png");
-  const dir_follow = require("../../../assets/imagens/dangerous.png");
+  const dir_unfollow = require("../../../assets/imagens/dangerous.png");
+  const dir_follow = require("../../../assets/imagens/control_point.png");
 
   const [universityNames, setUniversityNames] = useState<{
     [key: string]: string;
   }>({});
-  const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>(
-    {}
-  );
   const [localSavedNewsIds, setLocalSavedNewsIds] = useState<Set<string>>(
     new Set(savedNewsIds)
   );
@@ -44,6 +41,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           .filter(Boolean);
         const uniqueUniversityIds: any[] = [...new Set(universityIds)];
 
+        // Fetch university names
         const names = await Promise.all(
           uniqueUniversityIds.map(async (id: any) => {
             const university: any = await getUniversity(String(id));
@@ -63,131 +61,123 @@ const NewsCard: React.FC<NewsCardProps> = ({
         );
 
         setUniversityNames(universityNamesMap);
-
-        const statuses: { [key: string]: boolean } = {};
-        uniqueUniversityIds.forEach((id) => {
-          const { isFollowing } = useUniversityFollow(id);
-          statuses[id] = isFollowing;
-        });
-        setFollowStatus(statuses);
       };
 
       fetchAllUniversityData();
     }, [news])
   );
 
-  const toggleFollow = async (universityId: string) => {
-    const isCurrentlyFollowing = followStatus[universityId];
-    const { handleFollowUniversity, handleUnfollowUniversity } =
-      useUniversityFollow(universityId);
-
-    if (isCurrentlyFollowing) {
-      await handleUnfollowUniversity();
-      setFollowStatus((prev) => ({ ...prev, [universityId]: false }));
-    } else {
-      await handleFollowUniversity();
-      setFollowStatus((prev) => ({ ...prev, [universityId]: true }));
-    }
-  };
-
-  const toggleSaveNews = (item: any) => {
-    if (localSavedNewsIds.has(item.link)) {
-      handleRemoveNews(item);
-      setLocalSavedNewsIds((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(item.link);
-        return newSet;
-      });
-    } else {
-      handleSaveNews(item);
-      setLocalSavedNewsIds((prev) => new Set(prev).add(item.link));
-    }
-  };
-
   return (
     <Container style={styles.container}>
-      {news.map((item: any) => (
-        <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
-          <View style={styles.viewCard}>
-            <ContainerCabecalho style={styles.card}>
-              {item.image ? (
-                <Image source={{ uri: item.image }} style={styles.imageCard} />
-              ) : (
-                <Name>Image not available</Name>
-              )}
+      {news.map((item: any) => {
+        const {
+          isFollowing,
+          handleFollowUniversity,
+          handleUnfollowUniversity,
+        } = useUniversityFollow(item.universityId);
 
-              <View style={styles.iconContainer}>
-                <Pressable
-                  onPress={() => {
-                    if (item.link) {
-                      toggleSaveNews(item); // Chama a função de salvar/remover
-                    } else {
-                      console.error("Invalid news link for removal:", item);
-                    }
-                  }}
-                >
+        const toggleFollow = async () => {
+          if (isFollowing) {
+            await handleUnfollowUniversity();
+          } else {
+            await handleFollowUniversity();
+          }
+        };
+
+        return (
+          <Pressable key={item.link} onPress={() => Linking.openURL(item.link)}>
+            <View style={styles.viewCard}>
+              <ContainerCabecalho style={styles.card}>
+                {item.image ? (
                   <Image
-                    source={
-                      localSavedNewsIds.has(item.link) ? dir_unsave : dir_save
-                    }
-                    style={styles.saveIcon}
+                    source={{ uri: item.image }}
+                    style={styles.imageCard}
                   />
-                </Pressable>
+                ) : (
+                  <Name>Image not available</Name>
+                )}
 
-                <View style={styles.iconContainerUni}>
-                  {item.universityId && universityNames[item.universityId] ? (
-                    <BorderColorButton
-                      style={styles.profileNameContainer}
-                      onPress={() => {
-                        navigation.navigate("PerfilUniversidade", {
-                          universityId: item.universityId,
-                        });
-                      }}
-                    >
-                      <Name numberOfLines={2} style={styles.textUni}>
-                        {universityNames[item.universityId]}
-                      </Name>
-                    </BorderColorButton>
-                  ) : (
-                    <Name numberOfLines={2} style={styles.textUni}>
-                      Universidade não disponível
-                    </Name>
-                  )}
-
-                  {/* Follow/Unfollow button for the university */}
+                <View style={styles.iconContainer}>
                   <Pressable
-                    style={styles.profileImageContainer}
-                    onPress={() => toggleFollow(item.universityId)}
-                  >
-                    <View style={styles.contImgMais}>
-                      <Image
-                        source={
-                          followStatus[item.universityId]
-                            ? dir_unfollow
-                            : dir_follow
+                    onPress={() => {
+                      if (item.link) {
+                        if (localSavedNewsIds.has(item.link)) {
+                          handleRemoveNews(item);
+                          setLocalSavedNewsIds((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(item.link);
+                            return newSet;
+                          });
+                        } else {
+                          handleSaveNews(item);
+                          setLocalSavedNewsIds((prev) =>
+                            new Set(prev).add(item.link)
+                          );
                         }
-                        style={styles.profileImageMais}
-                      />
-                    </View>
+                      } else {
+                        console.error("Invalid news link for removal:", item);
+                      }
+                    }}
+                  >
+                    <Image
+                      source={
+                        localSavedNewsIds.has(item.link) ? dir_unsave : dir_save
+                      }
+                      style={styles.saveIcon}
+                    />
                   </Pressable>
+
+                  <View style={styles.iconContainerUni}>
+                    {item.universityId && universityNames[item.universityId] ? (
+                      <BorderColorButton
+                        style={styles.profileNameContainer}
+                        onPress={() => {
+                          navigation.navigate("PerfilUniversidade", {
+                            universityId: item.universityId,
+                          });
+                        }}
+                      >
+                        <Name numberOfLines={2} style={styles.textUni}>
+                          {universityNames[item.universityId]}
+                        </Name>
+                      </BorderColorButton>
+                    ) : (
+                      <Name numberOfLines={2} style={styles.textUni}>
+                        Universidade não disponível
+                      </Name>
+                    )}
+
+                    {/* Follow/Unfollow button for the university */}
+                    <Pressable
+                      style={styles.profileImageContainer}
+                      onPress={toggleFollow}
+                    >
+                      <View style={styles.contImgMais}>
+                        <Image
+                          source={isFollowing ? dir_unfollow : dir_follow}
+                          style={styles.profileImageMais}
+                        />
+                      </View>
+                    </Pressable>
+                  </View>
                 </View>
-              </View>
 
-              <Name style={styles.title}>{item.title}</Name>
+                <Name style={styles.title}>{item.title}</Name>
 
-              <View style={styles.data}>
-                <Name style={styles.text}>{item.description || ""}</Name>
-                <Name style={styles.text}>
-                  Publicado em:{" "}
-                  {item.published
-                    ? format(new Date(item.published), "dd/MM/yyyy HH:mm")
-                    : "N/A"}
-                </Name>
-              </View>
-            </ContainerCabecalho>
-          </View>
-        </Pressable>
-      ))}
+                <View style={styles.data}>
+                  <Name style={styles.text}>{item.description || ""}</Name>
+                  <Name style={styles.text}>
+                    Publicado em:{" "}
+                    {item.published
+                      ? format(new Date(item.published), "dd/MM/yyyy HH:mm")
+                      : "N/A"}
+                  </Name>
+                </View>
+              </ContainerCabecalho>
+            </View>
+          </Pressable>
+        );
+      })}
     </Container>
   );
 };
