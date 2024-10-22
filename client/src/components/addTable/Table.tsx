@@ -3,7 +3,6 @@ import { DataTable } from 'react-native-paper';
 import { styles } from './tableStyle';
 import { View } from 'react-native';
 import { Name } from '../../theme/style';
-import { responsiveHeight } from 'react-native-responsive-dimensions';
 
 export function Table({
   users,

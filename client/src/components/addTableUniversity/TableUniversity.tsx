@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { DataTable } from 'react-native-paper'; 
-import { StatusBar } from 'expo-status-bar';
-import { styles } from './tableUniversityStyle'; // Import styles from tableUniversityStyle
-import { View } from 'react-native';
-import { Name } from '../../theme/style';
+import React, { useEffect, useState } from "react";
+import { DataTable } from "react-native-paper";
+import { StatusBar } from "expo-status-bar";
+import { styles } from "./tableUniversityStyle"; // Import styles from tableUniversityStyle
+import { View } from "react-native";
+import { Name } from "../../theme/style";
 
 export function Table({
   universities,
@@ -18,7 +18,7 @@ export function Table({
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
   const ViewStyleProps = {
-    backgroundColor: '#F3C63B',
+    backgroundColor: "#F3C63B",
   };
 
   const inicio = page * itemsPerPage;
@@ -75,6 +75,12 @@ export function Table({
             <DataTable.Cell textStyle={styles.cell}>
               <Name>{university.url}</Name>
             </DataTable.Cell>
+            <DataTable.Cell textStyle={styles.cell}>
+              <Name>{university.image}</Name>
+            </DataTable.Cell>
+            <DataTable.Cell textStyle={styles.cell}>
+              <Name>{university.miniature}</Name>
+            </DataTable.Cell>
           </DataTable.Row>
         ))}
 
@@ -87,7 +93,6 @@ export function Table({
           onItemsPerPageChange={setItemsPerPage}
           showFastPaginationControls
           style={ViewStyleProps}
-
         />
       </DataTable>
 
