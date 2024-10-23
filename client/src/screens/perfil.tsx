@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Alert, Modal, Image, Pressable } from 'react-native';
 import { Header } from '../components/addHeader/header';
-import { useAuth } from '../context/authContext';
+import {  useAuthApp } from '../context/authContext';
 import { useAuthCheck } from '../context/authNavigation';
 import { styles } from '../styles/stylePerfilUser';
 import { ContainerAlter, BorderColorBlue, Container, ContainerData, Name, NameBlue, NameAlter, BackgroundInput, BackgroundInputText } from '@theme/style';
@@ -10,6 +10,7 @@ import { User } from 'src/@types/interfaces';
 import { useCrud } from '../hooks/crudHooks';
 import axios from 'axios';
 import { REACT_APP_API_URL } from '@env';
+import { Footer } from "@components/addFooter/footer";
 
 export function Perfil ()  {
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,7 +30,7 @@ export function Perfil ()  {
     updateUserHandler,
     userFields
   } = useCrud();
-  const { user } = useAuth();
+  const { user } = useAuthApp();
   const { checkAuth, handleLogout, } = useAuthCheck();
 
   const http = REACT_APP_API_URL;
@@ -254,6 +255,7 @@ export function Perfil ()  {
         </View>
         
       </Modal>
+      <Footer/>
     </>
   );
 };

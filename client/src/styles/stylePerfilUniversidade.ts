@@ -73,7 +73,19 @@ export const styles = StyleSheet.create({
         width: responsiveScreenWidth(50),
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: responsiveScreenHeight(2)
+        marginBottom: responsiveScreenHeight(2),
+        backgroundColor:'#0571D3'
+    },
+    unfollowButton:{
+        marginTop: responsiveScreenHeight(2),
+        padding: responsiveFontSize(1),
+        borderRadius: responsiveScreenHeight(1.5),
+        width: responsiveScreenWidth(50),
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: responsiveScreenHeight(2),
+        backgroundColor:''
+
     },
 
     followButtonText:

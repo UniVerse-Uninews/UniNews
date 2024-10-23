@@ -78,10 +78,11 @@ export const styles = StyleSheet.create({
     },
 
     saveIcon: {
-        width: responsiveWidth(8),
-        height: responsiveHeight(3),
+        width: responsiveWidth(9),
+        height: responsiveHeight(4),
         alignItems: 'flex-start',
         resizeMode: 'contain',
+      
     },
 
     tabText: {
@@ -163,8 +164,8 @@ export const styles = StyleSheet.create({
     },
     profileImageMais: {
         resizeMode: 'contain',
-        width: '90%',
-        height: '90%',
+        width: responsiveWidth(10),
+        height: responsiveHeight(4),
     },
 
     textContainer: {

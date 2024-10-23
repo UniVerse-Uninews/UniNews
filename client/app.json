@@ -2,6 +2,7 @@
   "expo": {
     "name": "UniNews",
     "slug": "client",
+    "scheme": "client",
     "version": "6.0.0",
     "orientation": "portrait",
     "icon": "./assets/imagens/tcc-logo-quadrado-sem-fundo.png",
@@ -11,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#343434"
     },
-    "assetBundlePatterns": [
-      "assets/imagens/*"
-    ],
+    "assetBundlePatterns": ["assets/imagens/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.client",
@@ -31,10 +30,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "@react-native-google-signin/google-signin",
-      "expo-font"
-    ],
+    "plugins": ["@react-native-google-signin/google-signin", "expo-font"],
     "extra": {
       "eas": {
         "projectId": "0d3dde75-6c72-4c71-ad4d-432ed5e5533a"

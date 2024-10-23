@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         paddingTop: responsiveHeight(2),
     },
     button:{
-        width: responsiveWidth(20),
+        width: responsiveWidth(13),
         marginLeft: responsiveWidth(7),
     },
     icon:{

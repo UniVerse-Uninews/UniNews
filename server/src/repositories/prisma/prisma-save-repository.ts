@@ -1,25 +1,32 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const formatCategoryInput = (categoryInput: string | string[]) => {
+  if (Array.isArray(categoryInput)) {
+    return categoryInput;
+  } else if (typeof categoryInput === "string" && categoryInput.trim() !== "") {
+    return [categoryInput];
+  } else {
+    return [];
+  }
+};
+
 export const saveNewsToDatabase = async (userId: string, newsData: any) => {
-
-
   const news = {
-    link: newsData.link, 
+    link: newsData.link,
     title: newsData.title,
     description: newsData.description,
-    image: newsData.image || '', 
+    image: newsData.image || "",
     author: newsData.author,
     published: new Date(newsData.published),
     created: new Date(newsData.created),
-    category: newsData.category || [], 
+    category: formatCategoryInput(newsData.category),
     enclosures: newsData.enclosures || [],
     media: newsData.media || {},
   };
 
   try {
-    
     const existingSave = await prisma.savedNews.findFirst({
       where: {
         userId: userId,
@@ -28,8 +35,8 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
     });
 
     if (existingSave) {
-      console.log('Notícia já salva para este usuário.');
-      return; 
+      console.log("Notícia já salva para este usuário.");
+      return;
     }
 
     await prisma.news.upsert({
@@ -49,7 +56,7 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
     });
 
     await prisma.savedNews.upsert({
-      where: { userId_newsUrl: { userId, newsUrl: news.link } }, 
+      where: { userId_newsUrl: { userId, newsUrl: news.link } },
       update: {},
       create: {
         userId,
@@ -57,14 +64,15 @@ export const saveNewsToDatabase = async (userId: string, newsData: any) => {
       },
     });
   } catch (error) {
-    console.error('Error saving news:', error);
-    throw new Error('Error saving news');
+    console.error("Error saving news:", error);
+    throw new Error("Error saving news");
   }
 };
 
-
-
-export const followUniversity = async (userId: string, universityId: string) => {
+export const followUniversity = async (
+  userId: string,
+  universityId: string
+) => {
   return prisma.follow.create({
     data: {
       userId,
@@ -73,16 +81,15 @@ export const followUniversity = async (userId: string, universityId: string) => 
   });
 };
 
-
 export const getSavedNewsByUser = async (userId: string) => {
   try {
     return prisma.savedNews.findMany({
       where: { userId },
-      include: { news: true }, 
+      include: { news: true },
     });
   } catch (error) {
-    console.error('Error fetching saved news:', error);
-    throw new Error('Error fetching saved news.');
+    console.error("Error fetching saved news:", error);
+    throw new Error("Error fetching saved news.");
   }
 };
 
@@ -90,39 +97,39 @@ export async function findNewsByUrl(link: string) {
   try {
     const news = await prisma.news.findUnique({
       where: {
-        link: link
-      }
+        link: link,
+      },
     });
 
     if (news) {
-      console.log('Notícia encontrada:', news);
+      console.log("Notícia encontrada:", news);
       return news;
     } else {
-      console.log('Nenhuma notícia encontrada com essa URL.');
+      console.log("Nenhuma notícia encontrada com essa URL.");
       return null;
     }
   } catch (error) {
-    console.error('Erro ao buscar notícia:', error);
-    throw new Error('Erro ao buscar notícia.');
+    console.error("Erro ao buscar notícia:", error);
+    throw new Error("Erro ao buscar notícia.");
   }
 }
 
 export const getNewsByUrl = async (link: string) => {
-  console.log('Fetching news with URL:', link); 
+  console.log("Fetching news with URL:", link);
   if (!link) {
-      throw new Error('URL is required');
+    throw new Error("URL is required");
   }
 
   try {
-      const news = await prisma.news.findUnique({
-          where: {
-              link: link, 
-          },
-      });
-      return news;
+    const news = await prisma.news.findUnique({
+      where: {
+        link: link,
+      },
+    });
+    return news;
   } catch (error) {
-      console.error('Error fetching news by URL:', error);
-      throw error;
+    console.error("Error fetching news by URL:", error);
+    throw error;
   }
 };
 
@@ -130,39 +137,53 @@ export async function getSavedNewsByUserId(userId: string) {
   try {
     const savedNews = await prisma.savedNews.findMany({
       where: { userId },
-      include: { news: true } 
+      include: { news: true },
     });
-    console.log('Saved news:', savedNews);
-    return savedNews; 
+    console.log("Saved news:", savedNews);
+    return savedNews;
   } catch (error) {
-    console.error('Error fetching saved news from database:', error);
-    throw error; 
+    console.error("Error fetching saved news from database:", error);
+    throw error;
   }
 }
 
 export async function removeNewsFromDatabase(userId: string, newsUrl: string) {
   try {
-      console.log(`Removing news for userId: ${userId} and newsUrl: ${newsUrl}`);
+    console.log(`Removing news for userId: ${userId} and newsUrl: ${newsUrl}`);
+    const findNews = await findNewsByUrl(newsUrl);
 
-      const result = await prisma.savedNews.deleteMany({
-          where: {
-              userId: userId,
-              newsUrl: newsUrl,
-          },
-      });
+    if (!findNews) {
+      console.log("Nenhuma notícia encontrada para remover.");
+      return;
+    }
 
-      if (result.count > 0) {
-          console.log('Notícia removida com sucesso.');
-      } else {
-          console.log('Nenhuma notícia encontrada para remover.');
-      }
+    const result = await prisma.savedNews.delete({
+      where: {
+        userId_newsUrl: {
+          userId: userId,
+          newsUrl: findNews?.link,
+        },
+      },
+    });
+
+    console.log("Result:", result);
+
+    if (result) {
+      console.log("Notícia removida com sucesso.");
+      return result;
+    } else {
+      console.log("Nenhuma notícia encontrada para remover.");
+    }
   } catch (error) {
-      console.error('Erro ao remover notícia:', error);
-      throw new Error('Erro ao remover notícia');
+    console.error("Erro ao remover notícia:", error);
+    throw new Error("Erro ao remover notícia");
   }
 }
 
-export const unfollowUniversity = async (userId: string, universityId: string) => {
+export const unfollowUniversity = async (
+  userId: string,
+  universityId: string
+) => {
   return await prisma.follow.deleteMany({
     where: {
       userId,
@@ -175,27 +196,30 @@ export const getFollowedUniversitiesByUser = async (userId: string) => {
   try {
     const followedUniversities = await prisma.follow.findMany({
       where: {
-        userId: userId
+        userId: userId,
       },
       include: {
-        university: true  
-      }
+        university: true,
+      },
     });
 
-    return followedUniversities.map(follow => follow.university);
+    return followedUniversities.map((follow) => follow.university);
   } catch (error) {
-    throw new Error('Erro ao buscar universidades seguidas pelo usuário.');
+    throw new Error("Erro ao buscar universidades seguidas pelo usuário.");
   }
 };
 
-export async function isUserFollowingUniversity(userId: string, universityId: string): Promise<boolean> {
+export async function isUserFollowingUniversity(
+  userId: string,
+  universityId: string
+): Promise<boolean> {
   const follow = await prisma.follow.findUnique({
-      where: {
-          userId_universityId: {
-              userId,
-              universityId,
-          },
+    where: {
+      userId_universityId: {
+        userId,
+        universityId,
       },
+    },
   });
 
   return !!follow;

@@ -38,34 +38,19 @@ export const getFollowedUniversitiesHandler = async (request: FastifyRequest, re
 export async function saveNewsHandler(request: FastifyRequest, reply: FastifyReply) {
   const { userId, news } = request.body as { userId: string; news: any };
 
-  if (!userId || !news || !news.link) { 
-      return reply.status(400).send({ error: 'Missing required fields' });
+  if (!userId || !news || !news.link) {
+    return reply.status(400).send({ error: 'Campos obrigatórios estão faltando' });
   }
-
-  const universityUrl = '';
-
-  const newsData = {
-      link: news.link, 
-      title: news.title,
-      description: news.description,
-      image: news.image || '', 
-      author: news.author,
-      published: new Date(news.published),
-      created: new Date(news.created),
-      category: news.category,
-      enclosures: news.enclosures || [],
-      media: news.media || {},
-      universityId: universityUrl 
-  };
 
   try {
-      await saveNewsToDatabase(userId, newsData);
-      reply.status(200).send({ message: 'News saved successfully' });
+    await saveNewsToDatabase(userId, news);
+    return reply.status(200).send({ message: 'Notícia salva com sucesso' });
   } catch (error) {
-      console.error('Error saving news:', error);
-      reply.status(500).send({ error: 'Error saving news' });
+    console.error('Erro ao salvar notícia:', error);
+    return reply.status(500).send({ error: 'Erro ao salvar notícia' });
   }
 }
+
 
 
 
@@ -125,23 +110,28 @@ export async function getSavedNewsByUserIdHandler(req: FastifyRequest<{ Querystr
 export const removeNewsHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   const { userId, newsUrl } = request.body as { userId: string; newsUrl: string };
 
-
-  if (typeof newsUrl !== 'string') {
-      return reply.status(400).send({ error: 'newsUrl must be a string' });
-  }
-
-  if (!userId || !newsUrl) {
-      return reply.status(400).send({ error: 'Missing required fields' });
+  if (!userId || !newsUrl || typeof newsUrl !== 'string') {
+    return reply.status(400).send({ error: 'Campos obrigatórios estão faltando ou formato incorreto' });
   }
 
   try {
-      await removeNewsFromDatabase(userId, newsUrl);
-      return reply.status(200).send({ message: 'News removed successfully' });
+    const decodedNewsUrl = decodeURIComponent(newsUrl);
+    const result = await removeNewsFromDatabase(userId, decodedNewsUrl);
+    console.log('RESULT:', result);
+
+    if (result === undefined) {
+      return reply.status(404).send({ message: 'Nenhuma notícia encontrada para remover.' });
+    }
+
+    return reply.status(200).send({ message: 'Notícia removida com sucesso' });
   } catch (error) {
-      console.error('Error removing news:', error);
-      return reply.status(500).send({ error: 'Error removing news' });
+    console.error('Erro ao remover notícia:', error);
+    return reply.status(500).send({ error: 'Erro ao remover notícia' });
   }
-}
+};
+
+
+
 
 export const unfollowUniversityHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   const { userId, universityId } = request.body as { userId: string; universityId: string };
