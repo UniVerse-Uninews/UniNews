@@ -152,6 +152,7 @@ export const Login = ({ navigation }: any) => {
         </TouchableOpacity>
 
         <View style={styles.boxbutton}>
+          <View style={styles.contText}>
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.button}
@@ -166,7 +167,18 @@ export const Login = ({ navigation }: any) => {
           >
             <Text style={styles.textbutton}>Criar conta</Text>
           </TouchableOpacity>
+          </View>
+         
+           <SocialButton
+            onPress={handleSocialLogin}
+            title={"  Login"}
+            icon="logo-google"
+            isLoading={isLoadingGoogle}
+            style={styles.socialButton  }
+            
+          />
         </View>
+        
       </BackgroundContainerInput>
 
       <ResetPasswordModal
@@ -174,12 +186,7 @@ export const Login = ({ navigation }: any) => {
         onClose={() => setShowResetModal(false)}
       />
 
-      <SocialButton
-        onPress={handleSocialLogin}
-        title={"Login com Google"}
-        icon="logo-google"
-        isLoading={isLoadingGoogle}
-      />
+      
 
       <StatusBar style="auto" />
     </Container>

@@ -154,5 +154,22 @@ inputSenha: {
   senha:{
     color:'#4A94CC',
     padding:'5%'
-  }
+  },
+  socialButton: {
+    borderWidth: responsiveScreenHeight(0.1),
+    borderColor: '#4A94CC',
+    height: responsiveScreenHeight(5),
+    borderRadius: responsiveScreenHeight(2.5),
+    backgroundColor: '#4A94CC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: '8%',
+    marginHorizontal: '1%',
+    marginVertical: '4%',
+    flexDirection: 'row',
+  },
+  contText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
 });
