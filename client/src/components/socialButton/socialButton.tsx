@@ -36,11 +36,7 @@ export function SocialButton({
         <ActivityIndicator />
       ) : (
         <>
-<<<<<<< HEAD
           <Ionicons name={icon} size={24} color="#f5f5f5" />
-=======
-          <Ionicons name={icon} size={24} color="" />
->>>>>>> d99a12d9f110becd5c7ff4114b3c3c619fa07a20
           <Text style={styles.text}>{title}</Text>
         </>
       )}
