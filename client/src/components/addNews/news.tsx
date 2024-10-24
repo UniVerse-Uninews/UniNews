@@ -23,7 +23,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   const navigation = useNavigation<NavigationProp>();
   const dir_save = require("../../../assets/imagens/bookmark_border.png");
   const dir_unsave = require("../../../assets/imagens/bookmark.png");
-  const dir_unfollow = require("../../../assets/imagens/dangerous.png");
+  const dir_unfollow = require("../../../assets/imagens/icon_seguindo.png");
   const dir_follow = require("../../../assets/imagens/control_point.png");
 
   const [universityNames, setUniversityNames] = useState<{

@@ -21,7 +21,6 @@ import { useAuth, useOAuth } from "@clerk/clerk-expo";
 import { ResetPasswordModal } from "../components/addResetPassword/resetPasswordModal";
 import { SocialButton } from "@components/socialButton/socialButton";
 import * as WebBrowser from "expo-web-browser";
-import * as Linking from "expo-linking";
 import { loginUser } from "@services/api";
 import { useAuthApp } from "src/context/authContext";
 

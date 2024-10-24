@@ -1,7 +1,7 @@
 import { styles } from './styleheader';
 import React from 'react';
-import { View, StatusBar,  SafeAreaView , Pressable, Platform} from 'react-native';
-import { Container, NameBlue, Name, Line, ContainerCabecalho } from '../../theme/style';
+import { View, StatusBar,  SafeAreaView , Pressable} from 'react-native';
+import { NameBlue, Name, Line, ContainerCabecalho } from '../../theme/style';
 import ImageViewer from '../addImageViewer/ImageViewer';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

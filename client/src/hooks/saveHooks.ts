@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios, { Axios, AxiosError } from "axios";
+import axios from "axios";
 import { Alert } from "react-native";
 import { REACT_APP_API_URL } from "@env";
 import { useAuthApp } from "../context/authContext";
