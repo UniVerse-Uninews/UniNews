@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { responsiveFontSize } from "react-native-responsive-dimensions";
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,8 +12,9 @@ export const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
-    fontWeight: "bold",
+    color: "#f5f5f5",
+    fontSize: responsiveFontSize(2),
+    fontFamily: "RubikNormal",
   },
 
   icon: {
