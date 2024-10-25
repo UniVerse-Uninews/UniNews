@@ -6,6 +6,7 @@ import {
   Text,
   ActivityIndicator,
   Alert,
+  useColorScheme,
 } from "react-native";
 import { styles } from "@styles/stylePerfilUniversidade";
 import { styles as stylefeed } from "@styles/styleFeed";
@@ -87,7 +88,7 @@ export function PerfilUniversidade({
   if (!universityData) {
     return <Text>Erro ao carregar as informações da universidade.</Text>;
   }
-
+  
   return (
     <>
       <Header />
@@ -106,9 +107,9 @@ export function PerfilUniversidade({
                   isFollowing ? styles.unfollowButton : styles.followButton,
                 ]}
               >
-                <Name style={styles.followButtonText}>
+                <Text style={styles.followButtonText}>
                   {isFollowing ? "Deixar de seguir" : "Seguir Universidade"}
-                </Name>
+                </Text>
               </BtnSeguir>
             </View>
             <View style={styles.image}>
