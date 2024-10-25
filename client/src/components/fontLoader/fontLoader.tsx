@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export function FontLoader({ children }: { children: React.ReactNode }) {
   const [fontsLoaded] = useFonts({

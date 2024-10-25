@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Pressable, Image, Linking } from "react-native";
 import { format } from "date-fns";
 import { Container, Name, ContainerCabecalho } from "@theme/style";
