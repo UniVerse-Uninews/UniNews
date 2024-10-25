@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, ScrollView, Image, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  ScrollView,
+  Image,
+  Text,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
 import { styles } from "@styles/stylePerfilUniversidade";
 import { styles as stylefeed } from "@styles/styleFeed";
 import {
@@ -46,24 +53,32 @@ export function PerfilUniversidade({
     useUniversityData(universityId);
   const { news, loading: newsLoading } = useUniversityNews(universityId);
   const {
-    isFollowing,
+    followedUniversities,
     handleFollowUniversity,
     handleUnfollowUniversity,
-    checkIfFollowing,
-  } = useUniversityFollow(universityId);
-  const { savedNewsIds, handleSaveNews, handleRemoveNews } =
-    useNews(isFollowing);
+  } = useUniversityFollow();
+  const { savedNewsIds, handleSaveNews, handleRemoveNews } = useNews(
+    followedUniversities.includes(universityId)
+  );
   const { checkAuth } = useAuthCheck();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  useEffect(() => {
-    if (universityData) {
-      checkIfFollowing();
+  const isFollowing = followedUniversities.includes(universityId);
+
+  const handleButtonPress = async () => {
+    try {
+      if (isFollowing) {
+        await handleUnfollowUniversity(universityId);
+      } else {
+        await handleFollowUniversity(universityId);
+      }
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível atualizar o estado de seguimento.");
     }
-  }, [universityData, checkIfFollowing]);
+  };
 
   if (universityLoading || newsLoading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
@@ -72,14 +87,6 @@ export function PerfilUniversidade({
   if (!universityData) {
     return <Text>Erro ao carregar as informações da universidade.</Text>;
   }
-
-  const handleButtonPress = () => {
-    if (isFollowing) {
-      handleUnfollowUniversity();
-    } else {
-      handleFollowUniversity();
-    }
-  };
 
   return (
     <>
@@ -94,9 +101,12 @@ export function PerfilUniversidade({
               </BorderColorContainer>
               <BtnSeguir
                 onPress={handleButtonPress}
-                style={[styles.followButton, isFollowing ? styles.unfollowButton : styles.followButton]}
+                style={[
+                  styles.followButton,
+                  isFollowing ? styles.unfollowButton : styles.followButton,
+                ]}
               >
-                <Name style={styles.followButtonText }>
+                <Name style={styles.followButtonText}>
                   {isFollowing ? "Deixar de seguir" : "Seguir Universidade"}
                 </Name>
               </BtnSeguir>
