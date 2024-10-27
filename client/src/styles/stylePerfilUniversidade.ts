@@ -84,12 +84,12 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: responsiveScreenHeight(2),
-        backgroundColor:''
+        backgroundColor:'#636363'
 
     },
-
     followButtonText:
     {
+        color:'#FFFFFF',
         fontSize: responsiveFontSize(2)
     },
     contTitle:{
