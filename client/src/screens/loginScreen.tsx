@@ -168,14 +168,14 @@ export const Login = ({ navigation }: any) => {
           </TouchableOpacity>
           </View>
          
-           <SocialButton
+           {/* <SocialButton
             onPress={handleSocialLogin}
             title={"  Login"}
             icon="logo-google"
             isLoading={isLoadingGoogle}
             style={styles.socialButton  }
             
-          />
+          /> */}
         </View>
         
       </BackgroundContainerInput>
